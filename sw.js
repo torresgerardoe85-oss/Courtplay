@@ -1,4 +1,4 @@
-const CACHE='courtplay-v3';
+const CACHE='courtplay-v4';
 const ASSETS=['./','./index.html','./manifest.json','./courtplay.css','./courtplay-state.js','./courtplay-render.js','./courtplay-editor.js','./courtplay-export.js'];
 self.addEventListener('install',event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()))});
