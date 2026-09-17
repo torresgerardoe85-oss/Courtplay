@@ -5,12 +5,12 @@ const playBtn=document.getElementById('playBtn'),pngBtn=document.getElementById(
 const prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),addBtn=document.getElementById('addBtn'),duplicateBtn=document.getElementById('duplicateBtn'),deleteBtn=document.getElementById('deleteBtn');
 const selectBtn=document.getElementById('selectBtn'),deleteObjectBtn=document.getElementById('deleteObjectBtn'),giveBallBtn=document.getElementById('giveBallBtn');
 const addPointBtn=document.getElementById('addPointBtn'),removePointBtn=document.getElementById('removePointBtn'),reverseLineBtn=document.getElementById('reverseLineBtn'),deleteLineBtn=document.getElementById('deleteLineBtn');
-const W=1000,H=650,PLAYER_R=29;
+const W=1000,H=860,PLAYER_R=29;
 let tool='select',current=0,selectedLine=-1,selectedPlayer=null,drag=null,draft=null,playing=false,pendingToken=null,assignBall=false;
 
 function starterPhase(){return{players:[
-  {key:'o1',label:'1',team:'offense',x:500,y:560},{key:'o2',label:'2',team:'offense',x:220,y:465},{key:'o3',label:'3',team:'offense',x:780,y:465},{key:'o4',label:'4',team:'offense',x:325,y:285},{key:'o5',label:'5',team:'offense',x:675,y:285}
-],ball:{x:534,y:560,owner:'o1'},lines:[],caption:'',seconds:2.4}}
+  {key:'o1',label:'1',team:'offense',x:500,y:755},{key:'o2',label:'2',team:'offense',x:220,y:620},{key:'o3',label:'3',team:'offense',x:780,y:620},{key:'o4',label:'4',team:'offense',x:325,y:330},{key:'o5',label:'5',team:'offense',x:675,y:330}
+],ball:{x:534,y:755,owner:'o1'},lines:[],caption:'',seconds:2.4}}
 let data={version:2,name:'Mi primera jugada',frames:[starterPhase()]};
 const frame=()=>data.frames[current],copy=v=>JSON.parse(JSON.stringify(v)),clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 function setStatus(t){statusEl.textContent=t}
@@ -25,7 +25,7 @@ function migrate(raw){
       const cx=Number.isFinite(l.cx)?l.cx:(l.x1+l.x2)/2,cy=Number.isFinite(l.cy)?l.cy:(l.y1+l.y2)/2;
       return{type:l.type==='move'?'move':l.type||'move',points:[{x:l.x1,y:l.y1},{x:cx,y:cy},{x:l.x2,y:l.y2}]};
     });
-    if(!f.ball)f.ball={x:535,y:560,owner:null};
+    if(!f.ball)f.ball={x:535,y:755,owner:null};
   });
   return raw;
 }
