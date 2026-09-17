@@ -29,7 +29,23 @@ const canvas=document.getElementById('court'),ctx=canvas.getContext('2d'),status
 const W=1000,H=650,playerR=30;let tool='select',current=0,drag=null,lineDraft=null,playing=false;
 function starterFrame(){return{players:[{id:1,x:500,y:565},{id:2,x:210,y:470},{id:3,x:790,y:470},{id:4,x:315,y:285},{id:5,x:685,y:285}],ball:{x:535,y:565},lines:[],caption:'Frame 1: coloca a los jugadores y escribe aquí la explicación.',seconds:2.4}}
 let data={name:'Mi primera jugada',frames:[starterFrame()]};const deepCopy=v=>JSON.parse(JSON.stringify(v)),frame=()=>data.frames[current],setStatus=t=>statusEl.textContent=t;
-function drawCourt(c=ctx){c.fillStyle='#c99052';c.fillRect(0,0,W,H);for(let i=0;i<14;i++){c.fillStyle=i%2?'rgba(255,255,255,.035)':'rgba(0,0,0,.02)';c.fillRect(i*(W/14),0,W/14,H)}c.strokeStyle='rgba(255,255,255,.96)';c.lineWidth=5;c.strokeRect(30,30,W-60,H-60);c.beginPath();c.moveTo(420,70);c.lineTo(580,70);c.stroke();c.beginPath();c.arc(500,105,15,0,Math.PI*2);c.stroke();c.strokeRect(360,30,280,235);c.beginPath();c.arc(500,265,90,0,Math.PI);c.stroke();c.beginPath();c.arc(500,265,90,Math.PI,Math.PI*2);c.setLineDash([12,12]);c.stroke();c.setLineDash([]);c.beginPath();c.arc(500,105,58,0,Math.PI);c.stroke();c.beginPath();c.moveTo(110,30);c.lineTo(110,170);c.moveTo(890,30);c.lineTo(890,170);c.stroke();c.beginPath();c.arc(500,105,390,.17*Math.PI,.83*Math.PI);c.stroke()}
+function drawCourt(c=ctx){
+  c.fillStyle='#c98f4d';c.fillRect(0,0,W,H);
+  for(let i=0;i<16;i++){c.fillStyle=i%2?'rgba(255,255,255,.035)':'rgba(82,45,18,.035)';c.fillRect(i*(W/16),0,W/16,H)}
+  const left=30,right=W-30,top=30,bottom=H-30,cx=500,hoopY=112,laneLeft=365,laneRight=635,ftY=270,threeR=388,cornerL=128,cornerR=872;
+  c.strokeStyle='rgba(255,255,255,.98)';c.fillStyle='rgba(255,255,255,.98)';c.lineWidth=5;c.lineCap='round';c.lineJoin='round';c.setLineDash([]);
+  c.strokeRect(left,top,right-left,bottom-top);
+  c.beginPath();c.moveTo(425,72);c.lineTo(575,72);c.stroke();
+  c.beginPath();c.arc(cx,hoopY,15,0,Math.PI*2);c.stroke();
+  c.strokeRect(laneLeft,top,laneRight-laneLeft,ftY-top);
+  c.beginPath();c.arc(cx,ftY,88,0,Math.PI);c.stroke();
+  c.save();c.setLineDash([13,12]);c.beginPath();c.arc(cx,ftY,88,Math.PI,Math.PI*2);c.stroke();c.restore();
+  c.beginPath();c.arc(cx,hoopY,62,0,Math.PI);c.stroke();
+  const dx=cornerR-cx,dy=Math.sqrt(Math.max(0,threeR*threeR-dx*dx)),joinY=hoopY+dy,rightA=Math.atan2(joinY-hoopY,cornerR-cx),leftA=Math.atan2(joinY-hoopY,cornerL-cx);
+  c.beginPath();c.moveTo(cornerL,top);c.lineTo(cornerL,joinY);c.moveTo(cornerR,top);c.lineTo(cornerR,joinY);c.stroke();
+  c.beginPath();c.arc(cx,hoopY,threeR,rightA,leftA);c.stroke();
+  [148,190,232].forEach(y=>{c.beginPath();c.moveTo(laneLeft-18,y);c.lineTo(laneLeft,y);c.moveTo(laneRight,y);c.lineTo(laneRight+18,y);c.stroke()});
+}
 function arrowHead(c,x1,y1,x2,y2,size=18){const a=Math.atan2(y2-y1,x2-x1);c.beginPath();c.moveTo(x2,y2);c.lineTo(x2-size*Math.cos(a-.45),y2-size*Math.sin(a-.45));c.moveTo(x2,y2);c.lineTo(x2-size*Math.cos(a+.45),y2-size*Math.sin(a+.45));c.stroke()}
 function drawAnnotation(c,l){c.save();c.lineWidth=6;c.lineCap='round';c.lineJoin='round';c.strokeStyle='#111827';if(l.type==='pass')c.setLineDash([16,12]);if(l.type==='screen'){c.beginPath();c.moveTo(l.x1,l.y1);c.lineTo(l.x2,l.y2);c.stroke();const a=Math.atan2(l.y2-l.y1,l.x2-l.x1)+Math.PI/2,s=18;c.beginPath();c.moveTo(l.x2-s*Math.cos(a),l.y2-s*Math.sin(a));c.lineTo(l.x2+s*Math.cos(a),l.y2+s*Math.sin(a));c.stroke();c.restore();return}c.beginPath();c.moveTo(l.x1,l.y1);c.lineTo(l.x2,l.y2);c.stroke();arrowHead(c,l.x1,l.y1,l.x2,l.y2);c.restore()}
 function drawScene(f=frame(),c=ctx){drawCourt(c);f.lines.forEach(l=>drawAnnotation(c,l));f.players.forEach(p=>{c.beginPath();c.fillStyle='#0b3b7a';c.strokeStyle='white';c.lineWidth=4;c.arc(p.x,p.y,playerR,0,Math.PI*2);c.fill();c.stroke();c.fillStyle='white';c.font='700 26px system-ui';c.textAlign='center';c.textBaseline='middle';c.fillText(p.id,p.x,p.y+1)});c.beginPath();c.fillStyle='#f97316';c.strokeStyle='#111';c.lineWidth=3;c.arc(f.ball.x,f.ball.y,16,0,Math.PI*2);c.fill();c.stroke();if(lineDraft){c.save();c.globalAlpha=.65;drawAnnotation(c,{...lineDraft,type:tool});c.restore()}}
