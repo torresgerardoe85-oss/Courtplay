@@ -1,0 +1,34 @@
+function drawAction(c,l,alpha=1){const pts=pathPoints(l);c.save();c.globalAlpha=alpha;c.strokeStyle=l.type==='shot'?'#df6813':'#172033';c.fillStyle=c.strokeStyle;c.lineWidth=6;c.lineCap='round';c.lineJoin='round';c.setLineDash([]);
+  if(l.type==='pass')c.setLineDash([16,11]);
+  if(l.type==='dribble'){drawDribble(c,pts);c.restore();return;}
+  strokeSmooth(c,pts);
+  const end=catmullPoint(pts,1),tan=tangent(pts,1),ang=Math.atan2(tan.y,tan.x),perp=ang+Math.PI/2;
+  if(l.type==='screen'){
+    const cap=23;c.beginPath();c.moveTo(end.x-cap*Math.cos(perp),end.y-cap*Math.sin(perp));c.lineTo(end.x+cap*Math.cos(perp),end.y+cap*Math.sin(perp));c.stroke();
+  }else if(l.type==='handoff'){
+    arrow(c,pts,16);[.88,.94].forEach(t=>{const p=catmullPoint(pts,t),tg=tangent(pts,t),a=Math.atan2(tg.y,tg.x)+Math.PI/2,cap=11;c.beginPath();c.moveTo(p.x-cap*Math.cos(a),p.y-cap*Math.sin(a));c.lineTo(p.x+cap*Math.cos(a),p.y+cap*Math.sin(a));c.stroke();});
+  }else if(l.type==='shot'){
+    arrow(c,pts,18);c.beginPath();c.arc(end.x,end.y,10,0,Math.PI*2);c.stroke();
+  }else arrow(c,pts,18);
+  c.restore();
+}
+function drawHandles(c,l){const pts=pathPoints(l);c.save();c.strokeStyle='rgba(8,45,114,.45)';c.lineWidth=2;c.setLineDash([6,7]);c.beginPath();pts.forEach((p,i)=>{if(i===0)c.moveTo(p.x,p.y);else c.lineTo(p.x,p.y)});c.stroke();c.setLineDash([]);pts.forEach((p,i)=>{c.beginPath();c.fillStyle=(i===0||i===pts.length-1)?'#fff':'#f47a20';c.strokeStyle='#082d72';c.lineWidth=3;c.arc(p.x,p.y,(i===0||i===pts.length-1)?10:12,0,Math.PI*2);c.fill();c.stroke();});c.restore()}
+function drawPlayer(c,p,scale=1){const r=PLAYER_R*scale;c.beginPath();c.fillStyle=p.team==='defense'?'#d92c2c':'#fff';c.strokeStyle=p.team==='defense'?'#fff':'#0c1827';c.lineWidth=4*scale;c.arc(p.x,p.y,r,0,Math.PI*2);c.fill();c.stroke();c.fillStyle=p.team==='defense'?'#fff':'#0c1827';c.font=`900 ${24*scale}px system-ui`;c.textAlign='center';c.textBaseline='middle';c.fillText(p.team==='defense'?'x'+p.label:p.label,p.x,p.y+1)}
+function drawBall(c,b){c.beginPath();c.fillStyle='#f47a20';c.strokeStyle='#7c2d12';c.lineWidth=2.5;c.arc(b.x,b.y,14,0,Math.PI*2);c.fill();c.stroke();c.beginPath();c.moveTo(b.x-13,b.y);c.lineTo(b.x+13,b.y);c.stroke();c.beginPath();c.arc(b.x,b.y,8,-Math.PI/2,Math.PI/2);c.stroke()}
+function drawScene(f=frame(),c=ctx,opts={}){drawCourt(c);(f.lines||[]).forEach((l,i)=>drawAction(c,l));if(!opts.hideHandles&&tool==='select'&&selectedLine>=0&&f.lines[selectedLine])drawHandles(c,f.lines[selectedLine]);(f.players||[]).forEach(p=>drawPlayer(c,p));drawBall(c,f.ball);if(draft)drawAction(c,{type:tool,points:draft.points},.65)}
+function render(){data.name=playNameEl.value.trim()||'Jugada sin nombre';ctx.clearRect(0,0,W,H);drawScene();captionEl.value=frame().caption||'';secondsEl.value=frame().seconds||2.4;renderPhases();updateInspector();updateNav();}
+function renderPhases(){phaseList.innerHTML='';data.frames.forEach((f,i)=>{const card=document.createElement('button');card.className='phaseCard'+(i===current?' active':'');card.type='button';const mini=document.createElement('canvas');mini.width=220;mini.height=142;mini.className='phaseCanvas';const meta=document.createElement('div');meta.className='phaseMeta';meta.innerHTML=`<strong>Fase ${i+1}</strong><small>${(f.caption||'Sin explicación').slice(0,22)}</small>`;card.append(mini,meta);card.addEventListener('click',()=>{commit();current=i;selectedLine=-1;selectedPlayer=null;render()});phaseList.appendChild(card);drawMini(mini,f);});}
+function drawMini(mini,f){const c=mini.getContext('2d'),sx=mini.width/W,sy=mini.height/H;c.clearRect(0,0,mini.width,mini.height);drawCourt(c,mini.width,mini.height);c.save();c.scale(sx,sy);(f.lines||[]).forEach(l=>drawAction(c,l));(f.players||[]).forEach(p=>drawPlayer(c,p,.7));drawBall(c,f.ball);c.restore();}
+function updateNav(){prevBtn.disabled=current===0;nextBtn.disabled=current===data.frames.length-1;deleteBtn.disabled=data.frames.length===1;}
+function updateInspector(){const has=selectedLine>=0&&frame().lines[selectedLine];inspector.classList.toggle('hidden',!has);inspectorEmpty.style.display=has?'none':'block';if(has)lineTypeEl.value=frame().lines[selectedLine].type||'move';}
+function commit(){if(!data.frames[current])return;frame().caption=captionEl.value;frame().seconds=clamp(parseFloat(secondsEl.value)||2.4,.5,8);data.name=playNameEl.value.trim()||'Jugada sin nombre';}
+captionEl.addEventListener('input',()=>{frame().caption=captionEl.value;renderPhases()});secondsEl.addEventListener('input',()=>frame().seconds=clamp(parseFloat(secondsEl.value)||2.4,.5,8));playNameEl.addEventListener('input',()=>data.name=playNameEl.value);
+
+function setTool(next){tool=next;pendingToken=null;assignBall=false;selectedPlayer=null;document.querySelectorAll('.tool').forEach(b=>b.classList.toggle('active',b.dataset.tool===next));document.getElementById('selectBtn').classList.toggle('active',next==='select');render();}
+document.querySelectorAll('.tool').forEach(b=>b.addEventListener('click',()=>setTool(b.dataset.tool)));selectBtn.addEventListener('click',()=>setTool('select'));
+
+function buildTokenGrids(){const off=document.getElementById('offenseGrid'),def=document.getElementById('defenseGrid');off.innerHTML='';def.innerHTML='';['1','2','3','4','5','6','C'].forEach(label=>{const b=document.createElement('button');b.type='button';b.className='tokenBtn';b.textContent=label;b.addEventListener('click',()=>chooseToken('offense',label,b));off.appendChild(b)});['1','2','3','4','5','6'].forEach(label=>{const b=document.createElement('button');b.type='button';b.className='tokenBtn def';b.textContent='x'+label;b.addEventListener('click',()=>chooseToken('defense',label,b));def.appendChild(b)});}
+function chooseToken(team,label,button){document.querySelectorAll('.tokenBtn').forEach(x=>x.classList.remove('active'));button.classList.add('active');pendingToken={team,label};assignBall=false;tool='token';selectedLine=-1;setStatus(`Toca la cancha para colocar ${team==='defense'?'x':''}${label}.`);render();}
+buildTokenGrids();
+giveBallBtn.addEventListener('click',()=>{tool='ballAssign';assignBall=true;pendingToken=null;selectedLine=-1;document.querySelectorAll('.tokenBtn').forEach(x=>x.classList.remove('active'));setStatus('Toca un jugador para darle el balón.');render();});
+
