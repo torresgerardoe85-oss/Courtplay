@@ -2,36 +2,37 @@ function point(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.l
 function hitPlayer(p){for(let i=frame().players.length-1;i>=0;i--){const pl=frame().players[i];if(Math.hypot(pl.x-p.x,pl.y-p.y)<=PLAYER_R+10)return pl}return null}
 function distSeg(px,py,a,b){const vx=b.x-a.x,vy=b.y-a.y,wx=px-a.x,wy=py-a.y,d=vx*vx+vy*vy||1,t=clamp((wx*vx+wy*vy)/d,0,1),x=a.x+t*vx,y=a.y+t*vy;return Math.hypot(px-x,py-y)}
 function hitLine(p){for(let i=frame().lines.length-1;i>=0;i--){const pts=pathPoints(frame().lines[i]);let prev=catmullPoint(pts,0);for(let s=1;s<=50;s++){const cur=catmullPoint(pts,s/50);if(distSeg(p.x,p.y,prev,cur)<18)return i;prev=cur}}return-1}
-function hitHandle(p,l){const pts=pathPoints(l);for(let i=0;i<pts.length;i++)if(Math.hypot(p.x-pts[i].x,p.y-pts[i].y)<=22)return i;return-1}
+function hitHandle(p,l){const pts=pathPoints(l);for(let i=0;i<pts.length;i++){if(i===0&&l.sourceKey)continue;if(Math.hypot(p.x-pts[i].x,p.y-pts[i].y)<=26)return i;}return-1}
 function hitBall(p){return Math.hypot(frame().ball.x-p.x,frame().ball.y-p.y)<=25}
 function syncBallOwner(){if(!frame().ball.owner)return;const owner=frame().players.find(p=>p.key===frame().ball.owner);if(owner){frame().ball.x=owner.x+34;frame().ball.y=owner.y+4}else frame().ball.owner=null}
+function syncActionSources(key=null){(frame().lines||[]).forEach(l=>{if(!l.sourceKey||(key&&l.sourceKey!==key))return;const src=frame().players.find(p=>p.key===l.sourceKey);if(src&&pathPoints(l)[0]){l.points[0].x=src.x;l.points[0].y=src.y;}})}
+function createActionFromSelectedPlayer(type){const pl=frame().players.find(p=>p.key===selectedPlayer);if(!pl){setStatus('Primero selecciona un jugador.');return;}const dirX=pl.x<W/2?1:-1;let end={x:clamp(pl.x+dirX*115,45,W-45),y:clamp(pl.y-105,45,H-45)};if(type==='screen')end={x:clamp(pl.x+dirX*80,45,W-45),y:clamp(pl.y-80,45,H-45)};if(type==='handoff')end={x:clamp(pl.x+dirX*95,45,W-45),y:pl.y};if(type==='shot')end={x:500,y:112};const action={type,sourceKey:pl.key,points:[{x:pl.x,y:pl.y},end]};frame().lines.push(action);selectedLine=frame().lines.length-1;tool='select';document.querySelectorAll('.tool').forEach(b=>b.classList.remove('active'));setStatus(`${actionName(type)} creado desde jugador ${pl.label}. Arrastra la punta verde hasta donde quieras.`);render();}
 canvas.addEventListener('pointerdown',e=>{e.preventDefault();canvas.setPointerCapture?.(e.pointerId);const p=point(e);
-  if(tool==='token'&&pendingToken){const key=(pendingToken.team==='defense'?'d':'o')+pendingToken.label.toLowerCase();let pl=frame().players.find(x=>x.key===key);if(pl){pl.x=p.x;pl.y=p.y}else frame().players.push({key,label:pendingToken.label,team:pendingToken.team,x:p.x,y:p.y});pendingToken=null;document.querySelectorAll('.tokenBtn').forEach(x=>x.classList.remove('active'));setTool('select');return;}
-  if(tool==='ballAssign'){const pl=hitPlayer(p);if(pl){frame().ball.owner=pl.key;syncBallOwner();setStatus(`Balón asignado a ${pl.team==='defense'?'x':''}${pl.label}.`);setTool('select')}return;}
+  if(tool==='token'&&pendingToken){const key=(pendingToken.team==='defense'?'d':'o')+pendingToken.label.toLowerCase();let pl=frame().players.find(x=>x.key===key);if(pl){pl.x=p.x;pl.y=p.y}else{pl={key,label:pendingToken.label,team:pendingToken.team,x:p.x,y:p.y};frame().players.push(pl);}pendingToken=null;selectedPlayer=key;document.querySelectorAll('.tokenBtn').forEach(x=>x.classList.remove('active'));setTool('select');return;}
+  if(tool==='ballAssign'){const pl=hitPlayer(p);if(pl){frame().ball.owner=pl.key;selectedPlayer=pl.key;syncBallOwner();setStatus(`Balón asignado a ${pl.team==='defense'?'x':''}${pl.label}.`);setTool('select')}return;}
   if(tool==='select'){
     if(selectedLine>=0&&frame().lines[selectedLine]){const hi=hitHandle(p,frame().lines[selectedLine]);if(hi>=0){drag={type:'handle',line:selectedLine,point:hi};return;}}
     const pl=hitPlayer(p);if(pl){selectedLine=-1;selectedPlayer=pl.key;drag={type:'player',key:pl.key,dx:p.x-pl.x,dy:p.y-pl.y};render();return;}
     if(hitBall(p)){selectedLine=-1;selectedPlayer=null;drag={type:'ball',dx:p.x-frame().ball.x,dy:p.y-frame().ball.y};frame().ball.owner=null;return;}
-    const li=hitLine(p);selectedLine=li;selectedPlayer=null;render();return;
+    const li=hitLine(p);selectedLine=li;selectedPlayer=li>=0?(frame().lines[li].sourceKey||null):null;render();return;
   }
-  if(['move','dribble','pass','screen','handoff','shot'].includes(tool)){draft={points:[{x:p.x,y:p.y},{x:p.x,y:p.y}]};}
 });
 canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefault();const p=point(e);
   if(draft){draft.points[draft.points.length-1]={x:clamp(p.x,20,W-20),y:clamp(p.y,20,H-20)};}
-  else if(drag?.type==='handle'){const pt=frame().lines[drag.line].points[drag.point];pt.x=clamp(p.x,20,W-20);pt.y=clamp(p.y,20,H-20);}
-  else if(drag?.type==='player'){const pl=frame().players.find(x=>x.key===drag.key);if(pl){pl.x=clamp(p.x-drag.dx,30,W-30);pl.y=clamp(p.y-drag.dy,30,H-30);syncBallOwner();}}
+  else if(drag?.type==='handle'){const l=frame().lines[drag.line],pt=l.points[drag.point];let x=clamp(p.x,20,W-20),y=clamp(p.y,20,H-20);if(drag.point===l.points.length-1){const target=hitPlayer(p);if(target&&target.key!==l.sourceKey){x=target.x;y=target.y;}}pt.x=x;pt.y=y;}
+  else if(drag?.type==='player'){const pl=frame().players.find(x=>x.key===drag.key);if(pl){pl.x=clamp(p.x-drag.dx,30,W-30);pl.y=clamp(p.y-drag.dy,30,H-30);syncBallOwner();syncActionSources(pl.key);}}
   else if(drag?.type==='ball'){frame().ball.x=clamp(p.x-drag.dx,16,W-16);frame().ball.y=clamp(p.y-drag.dy,16,H-16);}
   ctx.clearRect(0,0,W,H);drawScene();
 });
-function finishPointer(){if(draft){const a=draft.points[0],b=draft.points[draft.points.length-1];if(Math.hypot(a.x-b.x,a.y-b.y)>22){frame().lines.push({type:tool,points:[a,{x:(a.x+b.x)/2,y:(a.y+b.y)/2},b]});selectedLine=frame().lines.length-1;tool='select';document.querySelectorAll('.tool').forEach(b=>b.classList.remove('active'));}draft=null;}drag=null;render();}
+function finishPointer(){draft=null;drag=null;render();}
 canvas.addEventListener('pointerup',finishPointer);canvas.addEventListener('pointercancel',finishPointer);
 
 lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){frame().lines[selectedLine].type=lineTypeEl.value;render();}});
 addPointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const pts=pathPoints(frame().lines[selectedLine]);let best=0,bestLen=-1;for(let i=0;i<pts.length-1;i++){const d=Math.hypot(pts[i+1].x-pts[i].x,pts[i+1].y-pts[i].y);if(d>bestLen){best=i;bestLen=d}}pts.splice(best+1,0,{x:(pts[best].x+pts[best+1].x)/2,y:(pts[best].y+pts[best+1].y)/2});render();});
 removePointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const pts=pathPoints(frame().lines[selectedLine]);if(pts.length<=2){setStatus('Una trayectoria necesita al menos inicio y final.');return}pts.splice(Math.max(1,pts.length-2),1);render();});
-reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines[selectedLine].points.reverse();render();}});
+reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){const l=frame().lines[selectedLine];l.points.reverse();l.sourceKey=null;selectedPlayer=null;setStatus('Trayectoria invertida. Ya no está anclada a un jugador.');render();}});
 deleteLineBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1;render();}});
-deleteObjectBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1}else if(selectedPlayer){const i=frame().players.findIndex(x=>x.key===selectedPlayer);if(i>=0){if(frame().ball.owner===selectedPlayer)frame().ball.owner=null;frame().players.splice(i,1)}selectedPlayer=null}render();});
+deleteObjectBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1}else if(selectedPlayer){const key=selectedPlayer,i=frame().players.findIndex(x=>x.key===key);if(i>=0){if(frame().ball.owner===key)frame().ball.owner=null;frame().players.splice(i,1);frame().lines=frame().lines.filter(l=>l.sourceKey!==key);}selectedPlayer=null}render();});
 
 addBtn.addEventListener('click',()=>{commit();const f=copy(frame());f.caption='';data.frames.splice(current+1,0,f);current++;selectedLine=-1;selectedPlayer=null;render();});
 duplicateBtn.addEventListener('click',()=>{commit();const f=copy(frame());data.frames.splice(current+1,0,f);current++;selectedLine=-1;render();});
