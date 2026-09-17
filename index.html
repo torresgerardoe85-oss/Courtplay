@@ -1,71 +1,548 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#0b1220">
-<title>CourtPlay — Basketball Play Designer</title>
-<link rel="manifest" href="manifest.json">
-<style>
-:root{--bg:#0b1220;--panel:#111a2b;--panel2:#17243a;--text:#f8fafc;--muted:#9fb0c7;--accent:#ff7a18;--line:#2a3a55}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body{padding:10px}button,input,textarea{font:inherit}.app{max-width:1180px;margin:auto}.topbar{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:10px}.brand{display:flex;align-items:center;gap:10px}.logo{width:40px;height:40px;border-radius:12px;background:var(--accent);display:grid;place-items:center;font-weight:900;color:#111}.title{font-weight:800;font-size:20px}.sub{font-size:12px;color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}button{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;padding:9px 12px;font-weight:700}button.primary{background:var(--accent);border-color:var(--accent);color:#111}button.danger{background:#35151a;border-color:#6b1d29}button:disabled{opacity:.45}.workspace{display:grid;grid-template-columns:1fr 290px;gap:10px}.courtCard,.side{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}.canvasWrap{position:relative;background:#111}canvas{display:block;width:100%;height:auto;touch-action:none}.side{padding:12px}.group{margin-bottom:14px}.group h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 8px}.toolgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tool.active{outline:2px solid var(--accent);background:#242f43}.field{width:100%;border:1px solid var(--line);background:#0c1423;color:var(--text);border-radius:10px;padding:9px}textarea{min-height:100px;resize:vertical}.frames{padding:10px;border-top:1px solid var(--line);display:flex;gap:8px;overflow:auto}.frame{min-width:92px;text-align:left;padding:9px;background:#0e1727}.frame.active{outline:2px solid var(--accent)}.frame small{display:block;color:var(--muted);margin-top:4px;font-weight:500}.status{padding:8px 10px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 8px;color:var(--muted);font-size:12px}.hint,.videoNote{font-size:12px;color:var(--muted);line-height:1.45}.videoNote{margin-top:7px}@media(max-width:900px){body{padding:6px}.workspace{grid-template-columns:1fr}.side{order:2}.actions{max-width:54%}.title{font-size:18px}}@media(orientation:landscape) and (max-height:850px){.workspace{grid-template-columns:minmax(0,1fr) 265px}.side{max-height:calc(100vh - 86px);overflow:auto}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>CourtPlay — Basketball Play Designer</title>
+  <link rel="manifest" href="manifest.json" />
+  <style>
+    :root{
+      --bg:#0b1220; --panel:#111a2b; --panel2:#17243a; --text:#f8fafc; --muted:#9fb0c7;
+      --accent:#ff7a18; --line:#2a3a55; --danger:#ef4444; --ok:#22c55e;
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    body{padding:10px}
+    button,input,textarea{font:inherit}
+    .app{max-width:1180px;margin:0 auto}
+    .topbar{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{width:40px;height:40px;border-radius:12px;background:var(--accent);display:grid;place-items:center;font-weight:900;color:#111}
+    .title{font-weight:800;font-size:20px}.sub{font-size:12px;color:var(--muted)}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    button{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;padding:9px 12px;font-weight:700}
+    button.primary{background:var(--accent);border-color:var(--accent);color:#111}
+    button.danger{background:#35151a;border-color:#6b1d29}
+    button:disabled{opacity:.45}
+    .workspace{display:grid;grid-template-columns:1fr 290px;gap:10px}
+    .courtCard,.side{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+    .canvasWrap{position:relative;background:#111}
+    canvas{display:block;width:100%;height:auto;touch-action:none}
+    .side{padding:12px}
+    .group{margin-bottom:14px}
+    .group h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 8px}
+    .toolgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .tool.active{outline:2px solid var(--accent);background:#242f43}
+    .field{width:100%;border:1px solid var(--line);background:#0c1423;color:var(--text);border-radius:10px;padding:9px}
+    textarea{min-height:100px;resize:vertical}
+    .frames{padding:10px;border-top:1px solid var(--line);display:flex;gap:8px;overflow:auto}
+    .frame{min-width:92px;text-align:left;padding:9px;background:#0e1727}
+    .frame.active{outline:2px solid var(--accent)}
+    .frame small{display:block;color:var(--muted);margin-top:4px;font-weight:500}
+    .status{padding:8px 10px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+    .row{display:flex;gap:8px;align-items:center}
+    .row > *{flex:1}
+    .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 8px;color:var(--muted);font-size:12px}
+    .hint{font-size:12px;color:var(--muted);line-height:1.45}
+    .videoNote{font-size:12px;color:var(--muted);line-height:1.4;margin-top:7px}
+    @media (max-width: 900px){
+      body{padding:6px}.workspace{grid-template-columns:1fr}.side{order:2}.topbar{align-items:flex-start}
+      .actions{max-width:54%}.title{font-size:18px}
+    }
+    @media (orientation:landscape) and (max-height: 850px){
+      .workspace{grid-template-columns:minmax(0,1fr) 265px}.side{max-height:calc(100vh - 86px);overflow:auto}
+    }
+  </style>
 </head>
 <body>
 <div class="app">
-<div class="topbar"><div class="brand"><div class="logo">CP</div><div><div class="title">CourtPlay</div><div class="sub">Basketball Play Designer</div></div></div><div class="actions"><button id="saveBtn">Guardar</button><button id="pngBtn">PNG</button><button id="videoBtn">Video</button><button class="primary" id="playBtn">▶ Reproducir</button></div></div>
-<div class="workspace">
-<div class="courtCard"><div class="canvasWrap"><canvas id="court" width="1000" height="650"></canvas></div><div class="frames" id="frames"></div><div class="status" id="status">Listo.</div></div>
-<aside class="side">
-<div class="group"><h3>Jugada</h3><input class="field" id="playName" value="Mi primera jugada"></div>
-<div class="group"><h3>Herramientas</h3><div class="toolgrid"><button class="tool active" data-tool="select">Mover</button><button class="tool" data-tool="move">→ Corte</button><button class="tool" data-tool="pass">⇢ Pase</button><button class="tool" data-tool="screen">⊥ Screen</button></div><div class="hint" style="margin-top:8px">Mover: arrastra jugadores o balón. Corte/Pase/Screen: arrastra sobre la cancha para dibujar.</div></div>
-<div class="group"><h3>Frame actual</h3><div class="row"><button id="prevBtn">←</button><button id="duplicateBtn">Duplicar</button><button id="nextBtn">→</button></div><div class="row" style="margin-top:8px"><button id="addBtn">+ Nuevo</button><button class="danger" id="deleteBtn">Eliminar</button></div></div>
-<div class="group"><h3>Explicación del frame</h3><textarea class="field" id="caption" placeholder="Ej.: 1 avanza por banda mientras 5 llega al Drag Screen."></textarea></div>
-<div class="group"><h3>Duración</h3><div class="row"><input class="field" id="seconds" type="number" min="0.8" max="8" step="0.2" value="2.4"><span class="pill">segundos</span></div></div>
-<div class="group"><h3>Edición</h3><div class="row"><button id="undoLineBtn">Deshacer línea</button><button id="clearLinesBtn">Borrar líneas</button></div></div>
-<div class="group"><h3>Exportación</h3><div class="hint">PNG incluye nombre de jugada, cancha y explicación. Video crea una animación con la explicación cambiando por frame.</div><div class="videoNote">El formato de video depende de lo que soporte Safari/iPad.</div></div>
-</aside></div></div>
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">CP</div>
+      <div><div class="title">CourtPlay</div><div class="sub">Basketball Play Designer — prototype</div></div>
+    </div>
+    <div class="actions">
+      <button id="saveBtn">Guardar</button>
+      <button id="pngBtn">PNG</button>
+      <button id="videoBtn">Video</button>
+      <button class="primary" id="playBtn">▶ Reproducir</button>
+    </div>
+  </div>
+
+  <div class="workspace">
+    <div class="courtCard">
+      <div class="canvasWrap"><canvas id="court" width="1000" height="650"></canvas></div>
+      <div class="frames" id="frames"></div>
+      <div class="status" id="status">Listo.</div>
+    </div>
+
+    <aside class="side">
+      <div class="group">
+        <h3>Jugada</h3>
+        <input class="field" id="playName" value="Mi primera jugada" />
+      </div>
+
+      <div class="group">
+        <h3>Herramientas</h3>
+        <div class="toolgrid">
+          <button class="tool active" data-tool="select">Mover</button>
+          <button class="tool" data-tool="move">→ Corte</button>
+          <button class="tool" data-tool="pass">⇢ Pase</button>
+          <button class="tool" data-tool="dribble">〽 Drible</button>
+          <button class="tool" data-tool="screen">⊥ Screen</button>
+        </div>
+        <div class="hint" style="margin-top:8px">Mover: arrastra jugadores o balón. Toca una línea para editarla y usa sus puntos de control. Corte/Pase/Drible/Screen: arrastra para crear.</div>
+      </div>
+
+      <div class="group">
+        <h3>Frame actual</h3>
+        <div class="row">
+          <button id="prevBtn">←</button>
+          <button id="duplicateBtn">Duplicar</button>
+          <button id="nextBtn">→</button>
+        </div>
+        <div class="row" style="margin-top:8px">
+          <button id="addBtn">+ Nuevo</button>
+          <button class="danger" id="deleteBtn">Eliminar</button>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Explicación del frame</h3>
+        <textarea class="field" id="caption" placeholder="Ej.: 1 avanza por banda mientras 5 llega al Drag Screen."></textarea>
+      </div>
+
+      <div class="group">
+        <h3>Duración</h3>
+        <div class="row">
+          <input class="field" id="seconds" type="number" min="0.8" max="8" step="0.2" value="2.4" />
+          <span class="pill">segundos</span>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Edición</h3>
+        <div class="row">
+          <button id="undoLineBtn">Deshacer línea</button>
+          <button id="clearLinesBtn">Borrar líneas</button>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Exportación</h3>
+        <div class="hint">PNG incluye nombre de jugada, cancha y explicación. El botón Video crea una animación con la explicación cambiando automáticamente por frame.</div>
+        <div class="videoNote">El formato de video depende de lo que soporte Safari/iPad. Si el navegador permite MP4, se exporta MP4; si no, usa el formato de video disponible.</div>
+      </div>
+    </aside>
+  </div>
+</div>
+
 <script>
-const canvas=document.getElementById('court'),ctx=canvas.getContext('2d'),statusEl=document.getElementById('status'),captionEl=document.getElementById('caption'),playNameEl=document.getElementById('playName'),secondsEl=document.getElementById('seconds'),framesEl=document.getElementById('frames');
-const W=1000,H=650,playerR=30;let tool='select',current=0,drag=null,lineDraft=null,playing=false;
-function starterFrame(){return{players:[{id:1,x:500,y:565},{id:2,x:210,y:470},{id:3,x:790,y:470},{id:4,x:315,y:285},{id:5,x:685,y:285}],ball:{x:535,y:565},lines:[],caption:'Frame 1: coloca a los jugadores y escribe aquí la explicación.',seconds:2.4}}
-let data={name:'Mi primera jugada',frames:[starterFrame()]};const deepCopy=v=>JSON.parse(JSON.stringify(v)),frame=()=>data.frames[current],setStatus=t=>statusEl.textContent=t;
-function drawCourt(c=ctx){
-  c.fillStyle='#c98f4d';c.fillRect(0,0,W,H);
-  for(let i=0;i<16;i++){c.fillStyle=i%2?'rgba(255,255,255,.035)':'rgba(82,45,18,.035)';c.fillRect(i*(W/16),0,W/16,H)}
-  const left=30,right=W-30,top=30,bottom=H-30,cx=500,hoopY=112,laneLeft=365,laneRight=635,ftY=270,threeR=388,cornerL=128,cornerR=872;
-  c.strokeStyle='rgba(255,255,255,.98)';c.fillStyle='rgba(255,255,255,.98)';c.lineWidth=5;c.lineCap='round';c.lineJoin='round';c.setLineDash([]);
-  c.strokeRect(left,top,right-left,bottom-top);
-  c.beginPath();c.moveTo(425,72);c.lineTo(575,72);c.stroke();
-  c.beginPath();c.arc(cx,hoopY,15,0,Math.PI*2);c.stroke();
-  c.strokeRect(laneLeft,top,laneRight-laneLeft,ftY-top);
-  c.beginPath();c.arc(cx,ftY,88,0,Math.PI);c.stroke();
-  c.save();c.setLineDash([13,12]);c.beginPath();c.arc(cx,ftY,88,Math.PI,Math.PI*2);c.stroke();c.restore();
-  c.beginPath();c.arc(cx,hoopY,62,0,Math.PI);c.stroke();
-  const dx=cornerR-cx,dy=Math.sqrt(Math.max(0,threeR*threeR-dx*dx)),joinY=hoopY+dy,rightA=Math.atan2(joinY-hoopY,cornerR-cx),leftA=Math.atan2(joinY-hoopY,cornerL-cx);
-  c.beginPath();c.moveTo(cornerL,top);c.lineTo(cornerL,joinY);c.moveTo(cornerR,top);c.lineTo(cornerR,joinY);c.stroke();
-  c.beginPath();c.arc(cx,hoopY,threeR,rightA,leftA);c.stroke();
-  [148,190,232].forEach(y=>{c.beginPath();c.moveTo(laneLeft-18,y);c.lineTo(laneLeft,y);c.moveTo(laneRight,y);c.lineTo(laneRight+18,y);c.stroke()});
+const canvas = document.getElementById('court');
+const ctx = canvas.getContext('2d');
+const statusEl = document.getElementById('status');
+const captionEl = document.getElementById('caption');
+const playNameEl = document.getElementById('playName');
+const secondsEl = document.getElementById('seconds');
+const framesEl = document.getElementById('frames');
+
+const W=1000,H=650;
+const playerR=30;
+let tool='select', current=0, drag=null, lineDraft=null, playing=false, selectedLine=-1;
+
+function starterFrame(){
+  return {
+    players:[
+      {id:1,x:500,y:565},{id:2,x:210,y:470},{id:3,x:790,y:470},{id:4,x:315,y:285},{id:5,x:685,y:285}
+    ],
+    ball:{x:535,y:565},
+    lines:[],
+    caption:'Frame 1: coloca a los jugadores y escribe aquí la explicación.',
+    seconds:2.4
+  };
 }
-function arrowHead(c,x1,y1,x2,y2,size=18){const a=Math.atan2(y2-y1,x2-x1);c.beginPath();c.moveTo(x2,y2);c.lineTo(x2-size*Math.cos(a-.45),y2-size*Math.sin(a-.45));c.moveTo(x2,y2);c.lineTo(x2-size*Math.cos(a+.45),y2-size*Math.sin(a+.45));c.stroke()}
-function drawAnnotation(c,l){c.save();c.lineWidth=6;c.lineCap='round';c.lineJoin='round';c.strokeStyle='#111827';if(l.type==='pass')c.setLineDash([16,12]);if(l.type==='screen'){c.beginPath();c.moveTo(l.x1,l.y1);c.lineTo(l.x2,l.y2);c.stroke();const a=Math.atan2(l.y2-l.y1,l.x2-l.x1)+Math.PI/2,s=18;c.beginPath();c.moveTo(l.x2-s*Math.cos(a),l.y2-s*Math.sin(a));c.lineTo(l.x2+s*Math.cos(a),l.y2+s*Math.sin(a));c.stroke();c.restore();return}c.beginPath();c.moveTo(l.x1,l.y1);c.lineTo(l.x2,l.y2);c.stroke();arrowHead(c,l.x1,l.y1,l.x2,l.y2);c.restore()}
-function drawScene(f=frame(),c=ctx){drawCourt(c);f.lines.forEach(l=>drawAnnotation(c,l));f.players.forEach(p=>{c.beginPath();c.fillStyle='#0b3b7a';c.strokeStyle='white';c.lineWidth=4;c.arc(p.x,p.y,playerR,0,Math.PI*2);c.fill();c.stroke();c.fillStyle='white';c.font='700 26px system-ui';c.textAlign='center';c.textBaseline='middle';c.fillText(p.id,p.x,p.y+1)});c.beginPath();c.fillStyle='#f97316';c.strokeStyle='#111';c.lineWidth=3;c.arc(f.ball.x,f.ball.y,16,0,Math.PI*2);c.fill();c.stroke();if(lineDraft){c.save();c.globalAlpha=.65;drawAnnotation(c,{...lineDraft,type:tool});c.restore()}}
-function render(){data.name=playNameEl.value;ctx.clearRect(0,0,W,H);drawScene();captionEl.value=frame().caption||'';secondsEl.value=frame().seconds||2.4;renderFrames();prevBtn.disabled=current===0;nextBtn.disabled=current===data.frames.length-1;deleteBtn.disabled=data.frames.length===1}
-function renderFrames(){framesEl.innerHTML='';data.frames.forEach((f,i)=>{const b=document.createElement('button');b.className='frame'+(i===current?' active':'');b.innerHTML=`Frame ${i+1}<small>${(f.caption||'Sin explicación').slice(0,28)}</small>`;b.onclick=()=>{commitFields();current=i;render()};framesEl.appendChild(b)})}
-function commitFields(){if(!data.frames[current])return;frame().caption=captionEl.value;frame().seconds=Math.max(.8,Math.min(8,parseFloat(secondsEl.value)||2.4));data.name=playNameEl.value.trim()||'Jugada sin nombre'}
-captionEl.oninput=()=>{frame().caption=captionEl.value;renderFrames()};secondsEl.oninput=()=>frame().seconds=parseFloat(secondsEl.value)||2.4;playNameEl.oninput=()=>data.name=playNameEl.value;
-document.querySelectorAll('.tool').forEach(b=>b.onclick=()=>{tool=b.dataset.tool;document.querySelectorAll('.tool').forEach(x=>x.classList.toggle('active',x===b))});
-function point(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*(W/r.width),y:(e.clientY-r.top)*(H/r.height)}}function hitPlayer(p){return frame().players.find(pl=>Math.hypot(pl.x-p.x,pl.y-p.y)<=playerR+10)}function hitBall(p){return Math.hypot(frame().ball.x-p.x,frame().ball.y-p.y)<=28}
-canvas.onpointerdown=e=>{e.preventDefault();canvas.setPointerCapture?.(e.pointerId);const p=point(e);if(tool==='select'){const pl=hitPlayer(p);if(pl)drag={type:'player',id:pl.id,dx:p.x-pl.x,dy:p.y-pl.y};else if(hitBall(p))drag={type:'ball',dx:p.x-frame().ball.x,dy:p.y-frame().ball.y}}else lineDraft={x1:p.x,y1:p.y,x2:p.x,y2:p.y}};
-canvas.onpointermove=e=>{if(!drag&&!lineDraft)return;e.preventDefault();const p=point(e);if(drag){if(drag.type==='player'){const pl=frame().players.find(x=>x.id===drag.id);pl.x=Math.max(35,Math.min(W-35,p.x-drag.dx));pl.y=Math.max(35,Math.min(H-35,p.y-drag.dy))}else{frame().ball.x=Math.max(20,Math.min(W-20,p.x-drag.dx));frame().ball.y=Math.max(20,Math.min(H-20,p.y-drag.dy))}}else{lineDraft.x2=p.x;lineDraft.y2=p.y}ctx.clearRect(0,0,W,H);drawScene()};
-function end(){if(lineDraft&&Math.hypot(lineDraft.x2-lineDraft.x1,lineDraft.y2-lineDraft.y1)>20)frame().lines.push({...lineDraft,type:tool});lineDraft=null;drag=null;render()}canvas.onpointerup=end;canvas.onpointercancel=end;
-addBtn.onclick=()=>{commitFields();const f=starterFrame();f.caption=`Frame ${data.frames.length+1}: `;data.frames.push(f);current=data.frames.length-1;render()};duplicateBtn.onclick=()=>{commitFields();const f=deepCopy(frame());f.caption=`Frame ${current+2}: `;data.frames.splice(current+1,0,f);current++;render()};deleteBtn.onclick=()=>{if(data.frames.length>1){data.frames.splice(current,1);current=Math.max(0,current-1);render()}};prevBtn.onclick=()=>{commitFields();if(current>0)current--;render()};nextBtn.onclick=()=>{commitFields();if(current<data.frames.length-1)current++;render()};undoLineBtn.onclick=()=>{frame().lines.pop();render()};clearLinesBtn.onclick=()=>{frame().lines=[];render()};
-saveBtn.onclick=()=>{commitFields();localStorage.setItem('courtplay_v1',JSON.stringify(data));setStatus('Guardado en este dispositivo.')};const saved=localStorage.getItem('courtplay_v1');if(saved)try{data=JSON.parse(saved);current=0;playNameEl.value=data.name||'Mi jugada'}catch(e){}
-function wrapText(c,text,x,y,maxWidth,lineHeight,maxLines=3){const words=text.split(/\s+/);let line='',lines=[];for(const word of words){const test=line?line+' '+word:word;if(c.measureText(test).width>maxWidth&&line){lines.push(line);line=word}else line=test}if(line)lines.push(line);lines.slice(0,maxLines).forEach((ln,i)=>c.fillText(ln,x,y+i*lineHeight))}
-function composeFrame(f,title,idx,total,out){const c=out.getContext('2d');c.fillStyle='#0b1220';c.fillRect(0,0,out.width,out.height);c.fillStyle='white';c.font='700 40px system-ui';c.textAlign='left';c.fillText(title,55,55);c.fillStyle='#9fb0c7';c.font='600 24px system-ui';c.textAlign='right';c.fillText(`Frame ${idx+1} / ${total}`,out.width-55,55);c.save();c.translate(70,100);c.scale(1.14,1.14);drawCourt(c);f.lines.forEach(l=>drawAnnotation(c,l));f.players.forEach(p=>{c.beginPath();c.fillStyle='#0b3b7a';c.strokeStyle='white';c.lineWidth=4;c.arc(p.x,p.y,playerR,0,Math.PI*2);c.fill();c.stroke();c.fillStyle='white';c.font='700 26px system-ui';c.textAlign='center';c.fillText(p.id,p.x,p.y+8)});c.beginPath();c.fillStyle='#f97316';c.strokeStyle='#111';c.lineWidth=3;c.arc(f.ball.x,f.ball.y,16,0,Math.PI*2);c.fill();c.stroke();c.restore();c.fillStyle='#111a2b';c.fillRect(55,865,out.width-110,190);c.fillStyle='#ff7a18';c.font='800 24px system-ui';c.textAlign='left';c.fillText(`FRAME ${idx+1}`,85,910);c.fillStyle='white';c.font='500 28px system-ui';wrapText(c,f.caption||'Sin explicación',85,960,out.width-170,38,3)}
-pngBtn.onclick=()=>{commitFields();const out=document.createElement('canvas');out.width=1280;out.height=1100;composeFrame(frame(),data.name,current,data.frames.length,out);const a=document.createElement('a');a.download=(data.name||'jugada').replace(/[^\w\-]+/g,'_')+`_frame_${current+1}.png`;a.href=out.toDataURL('image/png');a.click();setStatus('PNG creado.')};
-async function playSequence(){if(playing)return;commitFields();playing=true;playBtn.textContent='■ Detener';const original=current;for(let i=0;i<data.frames.length&&playing;i++){current=i;render();await new Promise(r=>setTimeout(r,(frame().seconds||2.4)*1000))}playing=false;current=original;render();playBtn.textContent='▶ Reproducir'}playBtn.onclick=()=>{if(playing){playing=false;playBtn.textContent='▶ Reproducir'}else playSequence()};
-videoBtn.onclick=async()=>{commitFields();if(!window.MediaRecorder){setStatus('Este navegador no permite crear video directamente.');return}const out=document.createElement('canvas');out.width=1280;out.height=1100;if(!out.captureStream){setStatus('Safari de este dispositivo no permite grabar el canvas directamente.');return}const preferred=['video/mp4;codecs=avc1.42E01E','video/mp4','video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'];const mime=preferred.find(x=>MediaRecorder.isTypeSupported?.(x))||'',stream=out.captureStream(30);let rec;try{rec=new MediaRecorder(stream,mime?{mimeType:mime,videoBitsPerSecond:5000000}:undefined)}catch(e){setStatus('No pude iniciar el exportador de video.');return}const chunks=[];rec.ondataavailable=e=>{if(e.data?.size)chunks.push(e.data)};rec.onstop=()=>{const type=rec.mimeType||mime||'video/webm',ext=type.includes('mp4')?'mp4':'webm',blob=new Blob(chunks,{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.download=(data.name||'jugada').replace(/[^\w\-]+/g,'_')+'.'+ext;a.href=url;a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);setStatus(`Video creado (${ext.toUpperCase()}).`)};rec.start(250);setStatus('Creando video…');for(let i=0;i<data.frames.length;i++){const dur=(data.frames[i].seconds||2.4)*1000,start=performance.now();while(performance.now()-start<dur){composeFrame(data.frames[i],data.name,i,data.frames.length,out);await new Promise(requestAnimationFrame)}}rec.stop()};
-if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));render();
+let data={name:'Mi primera jugada',frames:[starterFrame()]};
+
+function deepCopy(v){return JSON.parse(JSON.stringify(v))}
+function frame(){return data.frames[current]}
+function setStatus(t){statusEl.textContent=t}
+
+function drawCourt(target=ctx, width=W, height=H){
+  const sx=width/W, sy=height/H;
+  target.save();
+  target.scale(sx,sy);
+
+  // Court surface
+  target.fillStyle='#c98f4d';
+  target.fillRect(0,0,W,H);
+  for(let i=0;i<16;i++){
+    target.fillStyle=i%2?'rgba(255,255,255,.035)':'rgba(82,45,18,.035)';
+    target.fillRect(i*(W/16),0,W/16,H);
+  }
+
+  const left=30, right=W-30, top=30, bottom=H-30;
+  const cx=500;
+  const hoopY=112;
+  const line='rgba(255,255,255,.98)';
+
+  target.strokeStyle=line;
+  target.fillStyle=line;
+  target.lineWidth=5;
+  target.lineCap='round';
+  target.lineJoin='round';
+  target.setLineDash([]);
+
+  // Complete half-court boundary and half-court line
+  target.strokeRect(left,top,right-left,bottom-top);
+  target.beginPath();
+  target.moveTo(left,bottom);
+  target.lineTo(right,bottom);
+  target.stroke();
+
+  // Backboard + rim
+  target.beginPath();
+  target.moveTo(425,72);
+  target.lineTo(575,72);
+  target.stroke();
+  target.beginPath();
+  target.arc(cx,hoopY,15,0,Math.PI*2);
+  target.stroke();
+
+  // Lane / paint
+  const laneLeft=365, laneRight=635, ftY=270;
+  target.strokeRect(laneLeft,top,laneRight-laneLeft,ftY-top);
+
+  // Free-throw circle: solid outside lane, dashed inside lane
+  target.beginPath();
+  target.arc(cx,ftY,88,0,Math.PI);
+  target.stroke();
+  target.save();
+  target.setLineDash([13,12]);
+  target.beginPath();
+  target.arc(cx,ftY,88,Math.PI,Math.PI*2);
+  target.stroke();
+  target.restore();
+
+  // Restricted area semicircle
+  target.beginPath();
+  target.arc(cx,hoopY,62,0,Math.PI);
+  target.stroke();
+
+  // Three-point line: straight corner lines connected exactly to arc
+  const threeR=388;
+  const cornerXLeft=128, cornerXRight=872;
+  const dx=cornerXRight-cx;
+  const dy=Math.sqrt(Math.max(0,threeR*threeR-dx*dx));
+  const joinY=hoopY+dy;
+  const rightAngle=Math.atan2(joinY-hoopY,cornerXRight-cx);
+  const leftAngle=Math.atan2(joinY-hoopY,cornerXLeft-cx);
+
+  target.beginPath();
+  target.moveTo(cornerXLeft,top);
+  target.lineTo(cornerXLeft,joinY);
+  target.moveTo(cornerXRight,top);
+  target.lineTo(cornerXRight,joinY);
+  target.stroke();
+
+  target.beginPath();
+  target.arc(cx,hoopY,threeR,rightAngle,leftAngle);
+  target.stroke();
+
+  // Small lane marks for a finished coaching-court look
+  const marksY=[148,190,232];
+  marksY.forEach(y=>{
+    target.beginPath();
+    target.moveTo(laneLeft-18,y); target.lineTo(laneLeft,y);
+    target.moveTo(laneRight,y); target.lineTo(laneRight+18,y);
+    target.stroke();
+  });
+
+  target.restore();
+}
+
+function arrowHead(c,x1,y1,x2,y2,size=16){
+  const a=Math.atan2(y2-y1,x2-x1);
+  c.beginPath();
+  c.moveTo(x2,y2);
+  c.lineTo(x2-size*Math.cos(a-.45),y2-size*Math.sin(a-.45));
+  c.moveTo(x2,y2);
+  c.lineTo(x2-size*Math.cos(a+.45),y2-size*Math.sin(a+.45));
+  c.stroke();
+}
+function qPoint(l,t){
+  const u=1-t;
+  return {x:u*u*l.x1+2*u*t*l.cx+t*t*l.x2,y:u*u*l.y1+2*u*t*l.cy+t*t*l.y2};
+}
+function qTangent(l,t){
+  return {x:2*(1-t)*(l.cx-l.x1)+2*t*(l.x2-l.cx),y:2*(1-t)*(l.cy-l.y1)+2*t*(l.y2-l.cy)};
+}
+function normalizeLine(l){
+  if(Number.isFinite(l.cx)&&Number.isFinite(l.cy)) return l;
+  l.cx=(l.x1+l.x2)/2; l.cy=(l.y1+l.y2)/2; return l;
+}
+function drawDribble(c,l,scale=1){
+  const samples=30, amp=8*scale, waves=9;
+  let prev=null;
+  c.beginPath();
+  for(let i=0;i<=samples;i++){
+    const t=i/samples, p=qPoint(l,t), tan=qTangent(l,t), len=Math.hypot(tan.x,tan.y)||1;
+    const nx=-tan.y/len, ny=tan.x/len;
+    const off=Math.sin(t*Math.PI*2*waves)*amp;
+    const x=p.x+nx*off, y=p.y+ny*off;
+    if(!prev)c.moveTo(x,y);else c.lineTo(x,y); prev={x,y};
+  }
+  c.stroke();
+  const a=qPoint(l,.93), b=qPoint(l,1); arrowHead(c,a.x,a.y,b.x,b.y,17*scale);
+}
+function drawAnnotation(c,raw,scale=1){
+  const l=normalizeLine(raw);
+  c.save();
+  c.lineWidth=6*scale;c.lineCap='round';c.lineJoin='round';c.strokeStyle='#111827';c.setLineDash([]);
+  if(l.type==='pass')c.setLineDash([16*scale,12*scale]);
+  if(l.type==='dribble'){drawDribble(c,l,scale);c.restore();return;}
+  c.beginPath();c.moveTo(l.x1,l.y1);c.quadraticCurveTo(l.cx,l.cy,l.x2,l.y2);c.stroke();
+  const near=qPoint(l,.92);
+  if(l.type==='screen'){
+    const tan=qTangent(l,1), a=Math.atan2(tan.y,tan.x)+Math.PI/2, cap=21*scale;
+    c.beginPath();c.moveTo(l.x2-cap*Math.cos(a),l.y2-cap*Math.sin(a));c.lineTo(l.x2+cap*Math.cos(a),l.y2+cap*Math.sin(a));c.stroke();
+  }else arrowHead(c,near.x,near.y,l.x2,l.y2,18*scale);
+  c.restore();
+}
+function drawLineHandles(c,l){
+  normalizeLine(l);
+  c.save();
+  c.setLineDash([7,7]);c.strokeStyle='rgba(255,255,255,.75)';c.lineWidth=2;
+  c.beginPath();c.moveTo(l.x1,l.y1);c.lineTo(l.cx,l.cy);c.lineTo(l.x2,l.y2);c.stroke();c.setLineDash([]);
+  [{x:l.x1,y:l.y1,kind:'start'},{x:l.cx,y:l.cy,kind:'control'},{x:l.x2,y:l.y2,kind:'end'}].forEach(h=>{
+    c.beginPath();c.fillStyle=h.kind==='control'?'#ff7a18':'#ffffff';c.strokeStyle='#0b1220';c.lineWidth=3;c.arc(h.x,h.y,h.kind==='control'?12:10,0,Math.PI*2);c.fill();c.stroke();
+  });
+  c.restore();
+}
+function drawScene(f=frame(), target=ctx){
+  drawCourt(target);
+  f.lines.forEach((l,i)=>drawAnnotation(target,l));
+  if(tool==='select' && selectedLine>=0 && f.lines[selectedLine]) drawLineHandles(target,f.lines[selectedLine]);
+  // players
+  f.players.forEach(p=>{
+    target.beginPath();target.fillStyle='#0b3b7a';target.strokeStyle='white';target.lineWidth=4;
+    target.arc(p.x,p.y,playerR,0,Math.PI*2);target.fill();target.stroke();
+    target.fillStyle='white';target.font='700 26px system-ui';target.textAlign='center';target.textBaseline='middle';
+    target.fillText(p.id,p.x,p.y+1);
+  });
+  // ball
+  target.beginPath();target.fillStyle='#f97316';target.strokeStyle='#111';target.lineWidth=3;target.arc(f.ball.x,f.ball.y,16,0,Math.PI*2);target.fill();target.stroke();
+  target.beginPath();target.moveTo(f.ball.x-15,f.ball.y);target.lineTo(f.ball.x+15,f.ball.y);target.stroke();
+  target.beginPath();target.arc(f.ball.x,f.ball.y,9,-Math.PI/2,Math.PI/2);target.stroke();
+  if(lineDraft) {
+    target.save();target.globalAlpha=.65;
+    drawAnnotation(target,{...lineDraft,type:tool});
+    target.restore();
+  }
+}
+function render(){
+  data.name=playNameEl.value;
+  ctx.clearRect(0,0,W,H); drawScene();
+  captionEl.value=frame().caption || '';
+  secondsEl.value=frame().seconds || 2.4;
+  renderFrames();
+  document.getElementById('prevBtn').disabled=current===0;
+  document.getElementById('nextBtn').disabled=current===data.frames.length-1;
+  document.getElementById('deleteBtn').disabled=data.frames.length===1;
+}
+function renderFrames(){
+  framesEl.innerHTML='';
+  data.frames.forEach((f,i)=>{
+    const b=document.createElement('button');b.className='frame'+(i===current?' active':'');
+    b.innerHTML=`Frame ${i+1}<small>${(f.caption||'Sin explicación').slice(0,28)}</small>`;
+    b.onclick=()=>{commitFields();current=i;selectedLine=-1;render()};framesEl.appendChild(b);
+  });
+}
+function commitFields(){
+  if(!data.frames[current])return;
+  frame().caption=captionEl.value;
+  frame().seconds=Math.max(.8,Math.min(8,parseFloat(secondsEl.value)||2.4));
+  data.name=playNameEl.value.trim()||'Jugada sin nombre';
+}
+captionEl.addEventListener('input',()=>{frame().caption=captionEl.value;renderFrames()});
+secondsEl.addEventListener('input',()=>{frame().seconds=parseFloat(secondsEl.value)||2.4});
+playNameEl.addEventListener('input',()=>data.name=playNameEl.value);
+
+document.querySelectorAll('.tool').forEach(b=>b.onclick=()=>{
+  tool=b.dataset.tool;if(tool!=='select')selectedLine=-1;document.querySelectorAll('.tool').forEach(x=>x.classList.toggle('active',x===b));render();
+});
+
+function point(evt){
+  const r=canvas.getBoundingClientRect(), t=evt.touches?evt.touches[0]:evt;
+  return {x:(t.clientX-r.left)*(W/r.width),y:(t.clientY-r.top)*(H/r.height)};
+}
+function hitPlayer(p){
+  return frame().players.find(pl=>Math.hypot(pl.x-p.x,pl.y-p.y)<=playerR+10);
+}
+function hitBall(p){return Math.hypot(frame().ball.x-p.x,frame().ball.y-p.y)<=28}
+function hitHandle(p,l){
+  normalizeLine(l);
+  const hs=[['start',l.x1,l.y1],['control',l.cx,l.cy],['end',l.x2,l.y2]];
+  for(const [kind,x,y] of hs) if(Math.hypot(p.x-x,p.y-y)<=22) return kind;
+  return null;
+}
+function distPointSeg(px,py,x1,y1,x2,y2){
+  const vx=x2-x1,vy=y2-y1,wx=px-x1,wy=py-y1,den=vx*vx+vy*vy||1;
+  const t=Math.max(0,Math.min(1,(wx*vx+wy*vy)/den)),x=x1+t*vx,y=y1+t*vy;
+  return Math.hypot(px-x,py-y);
+}
+function hitLine(p){
+  for(let i=frame().lines.length-1;i>=0;i--){
+    const l=normalizeLine(frame().lines[i]);let prev=qPoint(l,0);
+    for(let s=1;s<=28;s++){
+      const cur=qPoint(l,s/28);
+      if(distPointSeg(p.x,p.y,prev.x,prev.y,cur.x,cur.y)<=18)return i;
+      prev=cur;
+    }
+  }
+  return -1;
+}
+function start(evt){
+  evt.preventDefault();const p=point(evt);
+  if(tool==='select'){
+    if(selectedLine>=0 && frame().lines[selectedLine]){
+      const kind=hitHandle(p,frame().lines[selectedLine]);
+      if(kind){drag={type:'lineHandle',index:selectedLine,kind};return;}
+    }
+    const pl=hitPlayer(p); if(pl){selectedLine=-1;drag={type:'player',id:pl.id,dx:p.x-pl.x,dy:p.y-pl.y};return;}
+    if(hitBall(p)){selectedLine=-1;drag={type:'ball',dx:p.x-frame().ball.x,dy:p.y-frame().ball.y};return;}
+    const idx=hitLine(p);selectedLine=idx;
+    if(idx>=0){render();return;}
+    selectedLine=-1;render();
+  } else lineDraft={x1:p.x,y1:p.y,cx:p.x,cy:p.y,x2:p.x,y2:p.y};
+}
+function move(evt){
+  if(!drag&&!lineDraft)return;evt.preventDefault();const p=point(evt);
+  if(drag){
+    if(drag.type==='player'){let pl=frame().players.find(x=>x.id===drag.id);pl.x=Math.max(35,Math.min(W-35,p.x-drag.dx));pl.y=Math.max(35,Math.min(H-35,p.y-drag.dy));}
+    else if(drag.type==='ball'){frame().ball.x=Math.max(20,Math.min(W-20,p.x-drag.dx));frame().ball.y=Math.max(20,Math.min(H-20,p.y-drag.dy));}
+    else if(drag.type==='lineHandle'){
+      const l=frame().lines[drag.index]; if(!l)return;
+      if(drag.kind==='start'){l.x1=p.x;l.y1=p.y;}
+      else if(drag.kind==='control'){l.cx=p.x;l.cy=p.y;}
+      else {l.x2=p.x;l.y2=p.y;}
+    }
+  }else{
+    lineDraft.x2=p.x;lineDraft.y2=p.y;
+    lineDraft.cx=(lineDraft.x1+p.x)/2;lineDraft.cy=(lineDraft.y1+p.y)/2;
+  }
+  ctx.clearRect(0,0,W,H);drawScene();
+}
+function end(evt){
+  if(lineDraft){
+    if(Math.hypot(lineDraft.x2-lineDraft.x1,lineDraft.y2-lineDraft.y1)>20){
+      frame().lines.push({...lineDraft,type:tool});selectedLine=frame().lines.length-1;
+    }
+    lineDraft=null;
+  }
+  drag=null;render();
+}
+canvas.addEventListener('pointerdown',start);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);
+
+document.getElementById('addBtn').onclick=()=>{commitFields();let f=starterFrame();f.caption=`Frame ${data.frames.length+1}: `;data.frames.push(f);current=data.frames.length-1;selectedLine=-1;render()};
+document.getElementById('duplicateBtn').onclick=()=>{commitFields();let f=deepCopy(frame());f.caption=`Frame ${current+2}: `;data.frames.splice(current+1,0,f);current++;selectedLine=-1;render()};
+document.getElementById('deleteBtn').onclick=()=>{if(data.frames.length>1){data.frames.splice(current,1);current=Math.max(0,current-1);selectedLine=-1;render()}};
+document.getElementById('prevBtn').onclick=()=>{commitFields();if(current>0)current--;selectedLine=-1;render()};
+document.getElementById('nextBtn').onclick=()=>{commitFields();if(current<data.frames.length-1)current++;selectedLine=-1;render()};
+document.getElementById('undoLineBtn').onclick=()=>{frame().lines.pop();selectedLine=-1;render()};
+document.getElementById('clearLinesBtn').onclick=()=>{frame().lines=[];selectedLine=-1;render()};
+
+function save(){
+  commitFields();localStorage.setItem('courtplay_v1',JSON.stringify(data));setStatus('Guardado en este dispositivo.');
+}
+document.getElementById('saveBtn').onclick=save;
+const saved=localStorage.getItem('courtplay_v1');
+if(saved){try{data=JSON.parse(saved);current=0;playNameEl.value=data.name||'Mi jugada'}catch(e){}}
+
+function roundRect(c,x,y,w,h,r){
+  c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();
+}
+function composeFrame(f, title, idx, total, out){
+  const c=out.getContext('2d');
+  c.fillStyle='#0b1220';c.fillRect(0,0,out.width,out.height);
+  c.fillStyle='white';c.font='700 40px system-ui';c.textAlign='left';c.textBaseline='middle';
+  c.fillText(title,55,55);
+  c.fillStyle='#9fb0c7';c.font='600 24px system-ui';c.textAlign='right';c.fillText(`Frame ${idx+1} / ${total}`,out.width-55,55);
+  c.save();c.translate(70,100);c.scale(1.14,1.14);
+  drawCourt(c); f.lines.forEach(l=>drawAnnotation(c,l));
+  f.players.forEach(p=>{c.beginPath();c.fillStyle='#0b3b7a';c.strokeStyle='white';c.lineWidth=4;c.arc(p.x,p.y,playerR,0,Math.PI*2);c.fill();c.stroke();c.fillStyle='white';c.font='700 26px system-ui';c.textAlign='center';c.textBaseline='middle';c.fillText(p.id,p.x,p.y+1)});
+  c.beginPath();c.fillStyle='#f97316';c.strokeStyle='#111';c.lineWidth=3;c.arc(f.ball.x,f.ball.y,16,0,Math.PI*2);c.fill();c.stroke();
+  c.restore();
+  c.fillStyle='#111a2b';roundRect(c,55,865,out.width-110,190,24);c.fill();
+  c.fillStyle='#ff7a18';c.font='800 24px system-ui';c.textAlign='left';c.fillText(`FRAME ${idx+1}`,85,910);
+  c.fillStyle='white';c.font='500 28px system-ui';
+  wrapText(c,f.caption||'Sin explicación',85,960,out.width-170,38,3);
+}
+function wrapText(c,text,x,y,maxWidth,lineHeight,maxLines=3){
+  const words=text.split(/\s+/);let line='',lines=[];
+  for(const word of words){
+    const test=line?line+' '+word:word;
+    if(c.measureText(test).width>maxWidth && line){lines.push(line);line=word}else line=test;
+  }
+  if(line)lines.push(line);
+  lines=lines.slice(0,maxLines);
+  lines.forEach((ln,i)=>c.fillText(ln,x,y+i*lineHeight));
+}
+
+document.getElementById('pngBtn').onclick=()=>{
+  commitFields();const out=document.createElement('canvas');out.width=1280;out.height=1100;
+  composeFrame(frame(),data.name,current,data.frames.length,out);
+  const a=document.createElement('a');a.download=(data.name||'jugada').replace(/[^\w\-]+/g,'_')+`_frame_${current+1}.png`;a.href=out.toDataURL('image/png');a.click();
+  setStatus('PNG creado. En iPad puedes usar Compartir/Guardar imagen.');
+};
+
+async function playSequence(){
+  if(playing)return;commitFields();playing=true;document.getElementById('playBtn').textContent='■ Detener';
+  const original=current;
+  for(let i=0;i<data.frames.length&&playing;i++){
+    current=i;render();await new Promise(r=>setTimeout(r,(frame().seconds||2.4)*1000));
+  }
+  playing=false;current=original;render();document.getElementById('playBtn').textContent='▶ Reproducir';
+}
+document.getElementById('playBtn').onclick=()=>{if(playing){playing=false;document.getElementById('playBtn').textContent='▶ Reproducir'}else playSequence()};
+
+async function exportVideo(){
+  commitFields();
+  if(!window.MediaRecorder){setStatus('Este navegador no permite crear video directamente.');return}
+  const out=document.createElement('canvas');out.width=1280;out.height=1100;
+  if(!out.captureStream){setStatus('Safari de este dispositivo no permite grabar el canvas directamente.');return}
+  const preferred=[
+    'video/mp4;codecs=avc1.42E01E',
+    'video/mp4',
+    'video/webm;codecs=vp9',
+    'video/webm;codecs=vp8',
+    'video/webm'
+  ];
+  let mime=preferred.find(x=>MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(x)) || '';
+  let stream=out.captureStream(30), rec;
+  try{rec=new MediaRecorder(stream,mime?{mimeType:mime,videoBitsPerSecond:5000000}:undefined)}catch(e){setStatus('No pude iniciar el exportador de video en este navegador.');return}
+  let chunks=[];rec.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
+  rec.onstop=()=>{
+    const type=rec.mimeType||mime||'video/webm';const ext=type.includes('mp4')?'mp4':'webm';
+    const blob=new Blob(chunks,{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');
+    a.download=(data.name||'jugada').replace(/[^\w\-]+/g,'_')+'.'+ext;a.href=url;a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),5000);setStatus(`Video creado (${ext.toUpperCase()}). La explicación cambia con cada frame.`);
+  };
+  rec.start(250);
+  setStatus('Creando video…');
+  for(let i=0;i<data.frames.length;i++){
+    const dur=(data.frames[i].seconds||2.4)*1000, start=performance.now();
+    while(performance.now()-start<dur){
+      composeFrame(data.frames[i],data.name,i,data.frames.length,out);
+      await new Promise(requestAnimationFrame);
+    }
+  }
+  rec.stop();
+}
+document.getElementById('videoBtn').onclick=exportVideo;
+
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
+render();
 </script>
 </body>
 </html>
