@@ -1,6 +1,6 @@
 const canvas=document.getElementById('court'),ctx=canvas.getContext('2d');
 const phaseList=document.getElementById('phaseList'),captionEl=document.getElementById('caption'),secondsEl=document.getElementById('seconds'),playNameEl=document.getElementById('playName'),statusEl=document.getElementById('status');
-const inspector=document.getElementById('inspector'),inspectorEmpty=document.getElementById('inspectorEmpty'),lineTypeEl=document.getElementById('lineType');
+const inspector=document.getElementById('inspector'),inspectorEmpty=document.getElementById('inspectorEmpty'),lineTypeEl=document.getElementById('lineType'),selectionSummary=document.getElementById('selectionSummary');
 const playBtn=document.getElementById('playBtn'),pngBtn=document.getElementById('pngBtn'),videoBtn=document.getElementById('videoBtn'),saveBtn=document.getElementById('saveBtn');
 const prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),addBtn=document.getElementById('addBtn'),duplicateBtn=document.getElementById('duplicateBtn'),deleteBtn=document.getElementById('deleteBtn');
 const selectBtn=document.getElementById('selectBtn'),deleteObjectBtn=document.getElementById('deleteObjectBtn'),giveBallBtn=document.getElementById('giveBallBtn');
@@ -23,7 +23,7 @@ function migrate(raw){
     f.lines=(f.lines||[]).map(l=>{
       if(Array.isArray(l.points))return l;
       const cx=Number.isFinite(l.cx)?l.cx:(l.x1+l.x2)/2,cy=Number.isFinite(l.cy)?l.cy:(l.y1+l.y2)/2;
-      return{type:l.type==='move'?'move':l.type||'move',points:[{x:l.x1,y:l.y1},{x:cx,y:cy},{x:l.x2,y:l.y2}]};
+      return{type:l.type==='move'?'move':l.type||'move',sourceKey:l.sourceKey||null,points:[{x:l.x1,y:l.y1},{x:cx,y:cy},{x:l.x2,y:l.y2}]};
     });
     if(!f.ball)f.ball={x:535,y:755,owner:null};
   });
