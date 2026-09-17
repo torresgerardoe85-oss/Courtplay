@@ -1,6 +1,10 @@
 const canvas=document.getElementById('court'),ctx=canvas.getContext('2d');
 const phaseList=document.getElementById('phaseList'),captionEl=document.getElementById('caption'),secondsEl=document.getElementById('seconds'),playNameEl=document.getElementById('playName'),statusEl=document.getElementById('status');
 const inspector=document.getElementById('inspector'),inspectorEmpty=document.getElementById('inspectorEmpty'),lineTypeEl=document.getElementById('lineType');
+const playBtn=document.getElementById('playBtn'),pngBtn=document.getElementById('pngBtn'),videoBtn=document.getElementById('videoBtn'),saveBtn=document.getElementById('saveBtn');
+const prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),addBtn=document.getElementById('addBtn'),duplicateBtn=document.getElementById('duplicateBtn'),deleteBtn=document.getElementById('deleteBtn');
+const selectBtn=document.getElementById('selectBtn'),deleteObjectBtn=document.getElementById('deleteObjectBtn'),giveBallBtn=document.getElementById('giveBallBtn');
+const addPointBtn=document.getElementById('addPointBtn'),removePointBtn=document.getElementById('removePointBtn'),reverseLineBtn=document.getElementById('reverseLineBtn'),deleteLineBtn=document.getElementById('deleteLineBtn');
 const W=1000,H=650,PLAYER_R=29;
 let tool='select',current=0,selectedLine=-1,selectedPlayer=null,drag=null,draft=null,playing=false,pendingToken=null,assignBall=false;
 
