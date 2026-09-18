@@ -169,3 +169,24 @@ canvas#court{width:100%;height:auto;max-width:100%}
   .stage{padding:6px}
   .editorFooter{margin-top:7px}
 }
+
+.sequenceSection{padding-bottom:14px}
+.sequenceHelp{font-size:11px;line-height:1.35;color:#64748b;margin:-2px 0 9px}
+.sequenceButtons{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.sequenceButtons button{min-height:40px;border-radius:10px;border:1px solid #cbd5e1;background:#fff;color:#173b67;font-weight:800;font-size:12px}
+.sequenceButtons #optionActionBtn{grid-column:1/-1}
+.sequenceButtons #optionActionBtn.active{background:#f3e8ff;border-color:#c4b5fd;color:#6d28d9}
+.sequenceSub{margin-top:11px}
+.actionColorPalette{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
+.actionColor{width:28px;height:28px;border-radius:50%;border:3px solid white;box-shadow:0 0 0 1px #cbd5e1;padding:0}
+.actionColor.active{box-shadow:0 0 0 3px #0b56bd}
+.actionTimelineList{display:flex;flex-direction:column;gap:7px}
+.actionRow{display:grid;grid-template-columns:24px 15px minmax(0,1fr);align-items:center;gap:6px;border:1px solid #dbe4ee;border-radius:10px;padding:6px;background:#fff}
+.actionRow.active{border-color:#0b56bd;background:#f7fbff}
+.actionRow.option{border-style:dashed;background:#faf5ff}
+.actionCheck{width:18px;height:18px}
+.actionDot{width:12px;height:12px;border-radius:50%}
+.actionLabel{border:0;background:transparent;text-align:left;padding:0;min-width:0;color:#172033}
+.actionLabel strong{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.actionLabel small{display:block;color:#7c3aed;font-size:10px;min-height:12px}
+@media(max-width:640px){.sequenceButtons{grid-template-columns:1fr 1fr}.actionColor{width:32px;height:32px}}
