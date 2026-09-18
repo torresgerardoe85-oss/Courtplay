@@ -12,47 +12,81 @@ function composeAnimation(scene,title,idx,total,out,activeAction,progress){
 }
 pngBtn.addEventListener('click',()=>{commit();const out=document.createElement('canvas');out.width=1280;out.height=1080;compose(frame(),data.name,current,data.frames.length,out);const a=document.createElement('a');a.download=(data.name||'jugada').replace(/[^\w-]+/g,'_')+`_fase_${current+1}.png`;a.href=out.toDataURL('image/png');a.click();setStatus('PNG creado.');});
 function playerByKey(scene,key){return(scene.players||[]).find(p=>p.key===key)||null}
+function syncSceneBall(scene){
+  if(!scene.ball)return scene;
+  if(scene.ball.owner){
+    const owner=playerByKey(scene,scene.ball.owner);
+    if(owner){scene.ball.x=owner.x+34;scene.ball.y=owner.y+4;}
+  }
+  return scene;
+}
+function actionForCurrentState(raw,scene){
+  const l=copy(raw),pts=pathPoints(l),src=playerByKey(scene,l.sourceKey);
+  if(src&&pts.length){
+    const dx=src.x-pts[0].x,dy=src.y-pts[0].y;
+    l.points=pts.map(p=>({x:p.x+dx,y:p.y+dy}));
+  }
+  if(['pass','handoff'].includes(l.type)&&l.targetKey){
+    const tgt=playerByKey(scene,l.targetKey);
+    if(tgt&&l.points.length){
+      const end=l.points[l.points.length-1];end.x=tgt.x;end.y=tgt.y;
+      if(!l.manualCurve&&l.points.length>=3){
+        l.points[1].x=(l.points[0].x+end.x)/2;l.points[1].y=(l.points[0].y+end.y)/2;
+      }
+    }
+  }
+  return l;
+}
 function applyCompletedAction(scene,l){
   if(!l)return scene;
   const pts=pathPoints(l),end=catmullPoint(pts,1),src=playerByKey(scene,l.sourceKey);
   if(src&&['move','dribble','screen','handoff'].includes(l.type)){src.x=end.x;src.y=end.y;}
-  if(l.type==='dribble'&&src){scene.ball.owner=src.key;scene.ball.x=src.x+34;scene.ball.y=src.y+4;}
-  if(['pass','handoff'].includes(l.type)&&l.targetKey){
+  if(l.type==='dribble'&&src){scene.ball.owner=src.key;}
+  if(['pass','handoff'].includes(l.type)){
     const tgt=playerByKey(scene,l.targetKey);
-    if(tgt){scene.ball.owner=tgt.key;scene.ball.x=tgt.x+34;scene.ball.y=tgt.y+4;}
+    if(tgt)scene.ball.owner=tgt.key;
+    else{scene.ball.owner=null;scene.ball.x=end.x;scene.ball.y=end.y;}
   }
-  return scene;
+  return syncSceneBall(scene);
 }
 function sceneDuringAction(base,l,t){
   const scene=copy(base),pts=pathPoints(l),src=playerByKey(scene,l.sourceKey),p=catmullPoint(pts,clamp(t,0,1));
   if(src&&['move','dribble','screen','handoff'].includes(l.type)){src.x=p.x;src.y=p.y;}
-  if(l.type==='dribble'&&src){scene.ball.owner=src.key;scene.ball.x=src.x+34;scene.ball.y=src.y+4;}
-  if(l.type==='pass'){
-    if(t<.82&&l.sourceKey)scene.ball.owner=l.sourceKey;
-    else if(l.targetKey)scene.ball.owner=l.targetKey;
-  }
-  if(l.type==='handoff'){
-    if(t<.62&&l.sourceKey)scene.ball.owner=l.sourceKey;
-    else if(l.targetKey)scene.ball.owner=l.targetKey;
-  }
+  if(l.type==='dribble'&&src){
+    scene.ball.owner=src.key;syncSceneBall(scene);
+  }else if(l.type==='pass'){
+    scene.ball.owner=null;scene.ball.x=p.x;scene.ball.y=p.y;
+    if(t>=.995&&l.targetKey){scene.ball.owner=l.targetKey;syncSceneBall(scene);}
+  }else if(l.type==='handoff'){
+    if(t<.68&&src){scene.ball.owner=src.key;syncSceneBall(scene);}
+    else if(l.targetKey){scene.ball.owner=l.targetKey;syncSceneBall(scene);}
+  }else syncSceneBall(scene);
   return scene;
 }
-async function playOnePhase(phase,phaseIndex,target,exportMode){
+function mergePhaseStart(phase,runningState){
+  const base=copy(phase);
+  if(runningState){
+    base.players=copy(runningState.players||[]);
+    base.ball=copy(runningState.ball||base.ball);
+  }
+  return syncSceneBall(base);
+}
+async function playOnePhase(phase,phaseIndex,runningState,target,exportMode){
   const actions=(phase.lines||[]),total=Math.max(900,(phase.seconds||2.4)*1000);
+  let base=mergePhaseStart(phase,runningState);
   if(!actions.length){
     const start=performance.now();
     while(performance.now()-start<total&&(exportMode||playing)){
-      const scene=copy(phase);
+      const scene=copy(base);
       if(exportMode)target(scene,phaseIndex,null,0);
       else{ctx.clearRect(0,0,W,H);drawAnimationScene(scene,ctx,null,0);}
       await new Promise(requestAnimationFrame);
     }
-    return;
+    return base;
   }
-  let base=copy(phase);
   const per=Math.max(700,total/actions.length);
   for(let ai=0;ai<actions.length&&(exportMode||playing);ai++){
-    const action=actions[ai],start=performance.now();
+    const action=actionForCurrentState(actions[ai],base),start=performance.now();
     while(performance.now()-start<per&&(exportMode||playing)){
       const t=clamp((performance.now()-start)/per,0,1),scene=sceneDuringAction(base,action,t);
       if(exportMode)target(scene,phaseIndex,action,t);
@@ -61,12 +95,16 @@ async function playOnePhase(phase,phaseIndex,target,exportMode){
     }
     base=applyCompletedAction(base,action);
   }
+  return base;
 }
 async function animateCanvas(target,exportMode=false){
   if(playing&&!exportMode)return;
   const original=current;
+  let runningState=null;
   if(!exportMode){playing=true;playBtn.textContent='■ Detener';setStatus('Reproduciendo animación…');}
-  for(let i=0;i<data.frames.length&&(exportMode||playing);i++)await playOnePhase(data.frames[i],i,target,exportMode);
+  for(let i=0;i<data.frames.length&&(exportMode||playing);i++){
+    runningState=await playOnePhase(data.frames[i],i,runningState,target,exportMode);
+  }
   if(!exportMode){playing=false;current=original;playBtn.textContent='▶ Animación';setStatus('Animación terminada.');render();}
 }
 playBtn.addEventListener('click',()=>{if(playing){playing=false;playBtn.textContent='▶ Animación'}else{commit();animateCanvas(null,false)}});
