@@ -31,7 +31,7 @@ function defaultActionEnd(start,type){
 }
 function makeAction(type,start,sourceKey=null){
   const end=defaultActionEnd(start,type),mid={x:(start.x+end.x)/2,y:(start.y+end.y)/2};
-  return{type,sourceKey,targetKey:null,sourceDetached:false,manualCurve:false,points:[{x:start.x,y:start.y},mid,end]};
+  return{type,sourceKey,targetKey:null,sourceDetached:false,manualCurve:false,isOption:false,simultaneousGroup:null,color:'#172033',points:[{x:start.x,y:start.y},mid,end]};
 }
 function createActionFromSelectedPlayer(type){
   const pl=frame().players.find(p=>p.key===selectedPlayer);
