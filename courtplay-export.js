@@ -99,6 +99,7 @@ async function playOnePhase(phase,phaseIndex,runningState,target,exportMode){
 }
 async function animateCanvas(target,exportMode=false){
   if(playing&&!exportMode)return;
+  CourtPlayEngine.reflow(data.frames,0);
   const original=current;
   let runningState=null;
   if(!exportMode){playing=true;playBtn.textContent='■ Detener';setStatus('Reproduciendo animación…');}
@@ -112,3 +113,12 @@ videoBtn.addEventListener('click',async()=>{commit();if(!window.MediaRecorder){s
 
 if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 render();
+
+
+/* CourtPlay engine animation bindings */
+actionForCurrentState=function(raw,scene){
+  return CourtPlayEngine.prepareAction(raw,scene,{mutate:false,infer:true});
+};
+applyCompletedAction=function(scene,l){
+  return CourtPlayEngine.applyAction(scene,l,{mutate:true});
+};
