@@ -138,7 +138,42 @@ reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){const l=frame()
 deleteLineBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1;render();}});
 deleteObjectBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1}else if(selectedPlayer){const key=selectedPlayer,i=frame().players.findIndex(x=>x.key===key);if(i>=0){if(frame().ball.owner===key)frame().ball.owner=null;frame().players.splice(i,1);frame().lines=frame().lines.filter(l=>l.sourceKey!==key);}selectedPlayer=null}render();});
 
-addBtn.addEventListener('click',()=>{commit();const f=copy(frame());f.caption='';data.frames.splice(current+1,0,f);current++;selectedLine=-1;selectedPlayer=null;render();});
+function resolvePhaseEndState(phase){
+  const out=copy(phase);
+  out.players=copy(phase.players||[]);
+  out.ball=copy(phase.ball||{x:535,y:755,owner:null});
+  const byKey=key=>out.players.find(p=>p.key===key)||null;
+  (phase.lines||[]).forEach(raw=>{
+    const l=copy(raw),pts=pathPoints(l),end=pts[pts.length-1],src=byKey(l.sourceKey);
+    if(src&&['move','dribble','screen','handoff'].includes(l.type)){
+      src.x=end.x;src.y=end.y;
+    }
+    if(l.type==='dribble'&&src){
+      out.ball.owner=src.key;out.ball.x=src.x+34;out.ball.y=src.y+4;
+    }else if(['pass','handoff'].includes(l.type)){
+      const tgt=byKey(l.targetKey);
+      if(tgt){out.ball.owner=tgt.key;out.ball.x=tgt.x+34;out.ball.y=tgt.y+4;}
+      else{out.ball.owner=null;out.ball.x=end.x;out.ball.y=end.y;}
+    }
+  });
+  if(out.ball.owner){
+    const owner=byKey(out.ball.owner);
+    if(owner){out.ball.x=owner.x+34;out.ball.y=owner.y+4;}
+  }
+  return out;
+}
+function makeNextPhaseFromCurrent(){
+  const end=resolvePhaseEndState(frame());
+  return{
+    players:copy(end.players),
+    ball:copy(end.ball),
+    lines:[],
+    caption:'',
+    seconds:frame().seconds||2.4,
+    inheritsFromPrevious:true
+  };
+}
+addBtn.addEventListener('click',()=>{commit();const f=makeNextPhaseFromCurrent();data.frames.splice(current+1,0,f);current++;selectedLine=-1;selectedPlayer=null;setStatus('Nueva fase creada desde el resultado final de la fase anterior.');render();});
 duplicateBtn.addEventListener('click',()=>{commit();const f=copy(frame());data.frames.splice(current+1,0,f);current++;selectedLine=-1;render();});
 prevBtn.addEventListener('click',()=>{commit();if(current>0)current--;selectedLine=-1;render();});nextBtn.addEventListener('click',()=>{commit();if(current<data.frames.length-1)current++;selectedLine=-1;render();});
 deleteBtn.addEventListener('click',()=>{if(data.frames.length<=1)return;data.frames.splice(current,1);current=Math.min(current,data.frames.length-1);selectedLine=-1;render();});
