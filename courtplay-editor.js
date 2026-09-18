@@ -31,7 +31,7 @@ function defaultActionEnd(start,type){
 }
 function makeAction(type,start,sourceKey=null){
   const end=defaultActionEnd(start,type),mid={x:(start.x+end.x)/2,y:(start.y+end.y)/2};
-  return{type,sourceKey,targetKey:null,manualCurve:false,points:[{x:start.x,y:start.y},mid,end]};
+  return{type,sourceKey,targetKey:null,sourceDetached:false,manualCurve:false,points:[{x:start.x,y:start.y},mid,end]};
 }
 function createActionFromSelectedPlayer(type){
   const pl=frame().players.find(p=>p.key===selectedPlayer);
@@ -97,7 +97,7 @@ canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefau
       else drag.targetKey=null;
     }
     pt.x=x;pt.y=y;
-    if(isStart){l.sourceKey=null;selectedPlayer=null;recenterCurve(l);}
+    if(isStart){l.sourceKey=null;l.sourceDetached=true;selectedPlayer=null;recenterCurve(l);}
     else if(isCurve){l.manualCurve=true;}
     else if(isEnd){recenterCurve(l);}
   }
@@ -134,7 +134,7 @@ lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){
 }});
 addPointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const pts=pathPoints(frame().lines[selectedLine]);let best=0,bestLen=-1;for(let i=0;i<pts.length-1;i++){const d=Math.hypot(pts[i+1].x-pts[i].x,pts[i+1].y-pts[i].y);if(d>bestLen){best=i;bestLen=d}}pts.splice(best+1,0,{x:(pts[best].x+pts[best+1].x)/2,y:(pts[best].y+pts[best+1].y)/2});frame().lines[selectedLine].manualCurve=true;reflowPhasesAfter(current);render();});
 removePointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const pts=pathPoints(frame().lines[selectedLine]);if(pts.length<=2){setStatus('Una trayectoria necesita al menos inicio y final.');return}pts.splice(Math.max(1,pts.length-2),1);reflowPhasesAfter(current);render();});
-reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){const l=frame().lines[selectedLine];l.points.reverse();l.sourceKey=null;l.targetKey=null;selectedPlayer=null;setStatus('Trayectoria invertida. Ya no está anclada a un jugador.');reflowPhasesAfter(current);render();}});
+reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){const l=frame().lines[selectedLine];l.points.reverse();l.sourceKey=null;l.targetKey=null;l.sourceDetached=true;selectedPlayer=null;setStatus('Trayectoria invertida. Ya no está anclada a un jugador.');reflowPhasesAfter(current);render();}});
 deleteLineBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1;reflowPhasesAfter(current);render();}});
 deleteObjectBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1}else if(selectedPlayer){const key=selectedPlayer,i=frame().players.findIndex(x=>x.key===key);if(i>=0){if(frame().ball.owner===key)frame().ball.owner=null;frame().players.splice(i,1);frame().lines=frame().lines.filter(l=>l.sourceKey!==key);}selectedPlayer=null}reflowPhasesAfter(current);render();});
 
@@ -258,3 +258,32 @@ deleteBtn.addEventListener('click',()=>{if(data.frames.length<=1)return;data.fra
 
 
 if(data.frames.length>1){reflowPhasesAfter(0); /* state-only chain repair; phase patterns stay local */}
+
+
+/* CourtPlay canonical sequence engine bindings */
+resolvePhaseEndState=function(phase){
+  return CourtPlayEngine.resolvePhase(phase,{mutateActions:true});
+};
+applyActionToResolvedState=function(state,l){
+  return CourtPlayEngine.applyAction(state,l,{mutate:true});
+};
+alignPhaseActionsToStart=function(phase){
+  return CourtPlayEngine.resolvePhase(phase,{mutateActions:true});
+};
+reflowPhasesAfter=function(index){
+  return CourtPlayEngine.reflow(data.frames,index);
+};
+makeNextPhaseFromCurrent=function(){
+  return CourtPlayEngine.nextPhaseFrom(frame());
+};
+applyBallTransfer=function(l){
+  if(!l||!['pass','handoff'].includes(l.type))return;
+  const target=l.targetKey&&frame().players.find(p=>p.key===l.targetKey);
+  if(target){
+    selectedPlayer=target.key;
+    setStatus(`${actionName(l.type)}: receptor ${target.team==='defense'?'x':''}${target.label}. La posesión cambiará al ejecutar la acción.`);
+  }else{
+    setStatus(`${actionName(l.type)} sin receptor. Lleva la punta verde cerca del jugador que recibe.`);
+  }
+};
+CourtPlayEngine.reflow(data.frames,0);
