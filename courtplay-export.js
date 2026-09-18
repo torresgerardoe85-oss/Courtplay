@@ -213,6 +213,8 @@ function sceneDuringActions(base,rawActions,t){
       if(t<.68&&src){scene.ball.owner=src.key;syncSceneBall(scene);}
       else if(l.targetKey){scene.ball.owner=l.targetKey;syncSceneBall(scene);}
       ballHandled=true;
+    }else if(l.type==='shot'&&!ballHandled){
+      scene.ball.owner=null;scene.ball.x=p.x;scene.ball.y=p.y;ballHandled=true;
     }
   }
   if(!ballHandled)syncSceneBall(scene);
@@ -253,6 +255,10 @@ async function playOnePhase(phase,phaseIndex,runningState,target,exportMode){
       if(!a.isOption)base=applyCompletedAction(base,a);
     }
     syncSceneBall(base);
+    if(prepared.some(a=>a.type==='shot'&&!a.isOption)){
+      base.terminalShot=true;
+      break;
+    }
   }
   return base;
 }
@@ -261,7 +267,10 @@ async function animateCanvas(target,exportMode=false){
   CourtPlayEngine.reflow(data.frames,0);
   const original=current;let runningState=null;
   if(!exportMode){playing=true;playBtn.textContent='■ Detener';setStatus('Reproduciendo animación…');}
-  for(let i=0;i<data.frames.length&&(exportMode||playing);i++)runningState=await playOnePhase(data.frames[i],i,runningState,target,exportMode);
+  for(let i=0;i<data.frames.length&&(exportMode||playing);i++){
+    runningState=await playOnePhase(data.frames[i],i,runningState,target,exportMode);
+    if(runningState&&runningState.terminalShot)break;
+  }
   if(!exportMode){playing=false;current=original;playBtn.textContent='▶ Animación';setStatus('Animación terminada.');render();}
 }
 playBtn.addEventListener('click',()=>{if(playing){playing=false;playBtn.textContent='▶ Animación'}else{commit();animateCanvas(null,false)}});
