@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  const palette=['#172033','#2563eb','#f2d21c','#ef4444','#2f855a','#7c3aed'];
+  const palette=['#172033','#2563eb','#38bdf8','#16a34a','#166534','#facc15','#f97316','#ef4444','#ec4899','#7c3aed','#6b7280'];
   const selected=new Set();
   let lastPhase=-1;
 
