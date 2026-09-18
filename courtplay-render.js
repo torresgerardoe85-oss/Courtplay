@@ -15,7 +15,7 @@ function drawAction(c,l,alpha=1){const pts=pathPoints(l);c.save();c.globalAlpha=
     c.fillText('H',hp.x,hp.y+1);
     c.restore();
   }else if(l.type==='shot'){
-    arrow(c,pts,18);c.beginPath();c.arc(end.x,end.y,10,0,Math.PI*2);c.stroke();
+    c.beginPath();c.arc(end.x,end.y,13,0,Math.PI*2);c.stroke();
   }else arrow(c,pts,18);
   c.restore();
 }
@@ -95,8 +95,8 @@ function drawActionProgress(c,l,t){
   if(l.type==='pass')c.setLineDash([16,11]);
   const pp=partialPathPoints(pts,tt);
   c.beginPath();pp.forEach((p,i)=>i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));c.stroke();
-  if(tt>.12)arrow(c,pp,18);
-  if(l.type==='shot'&&tt>.92){const end=catmullPoint(pts,1);c.beginPath();c.arc(end.x,end.y,10,0,Math.PI*2);c.stroke();}
+  if(l.type!=='shot'&&tt>.12)arrow(c,pp,18);
+  if(l.type==='shot'&&tt>.92){const end=catmullPoint(pts,1);c.beginPath();c.arc(end.x,end.y,13,0,Math.PI*2);c.stroke();}
   c.restore();
 }
 function drawAnimationScene(scene,c=ctx,activeAction=null,progress=0){
