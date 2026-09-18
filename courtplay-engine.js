@@ -16,6 +16,9 @@
     if(typeof action.targetKey==='undefined')action.targetKey=null;
     if(typeof action.sourceKey==='undefined')action.sourceKey=null;
     if(typeof action.manualCurve!=='boolean')action.manualCurve=true;
+    if(typeof action.isOption!=='boolean')action.isOption=false;
+    if(typeof action.simultaneousGroup==='undefined')action.simultaneousGroup=null;
+    if(typeof action.color!=='string'||!action.color)action.color='#172033';
     return action;
   }
   function player(state,key){return key&&(state.players||[]).find(p=>p.key===key)||null}
@@ -101,7 +104,7 @@
     for(const raw of phase.lines||[]){
       normalizeAction(raw);
       const prepared=prepareAction(raw,state,{mutate:true,infer:true});
-      applyAction(state,prepared,{mutate:true});
+      if(!prepared.isOption)applyAction(state,prepared,{mutate:true});
     }
     return phase;
   }
@@ -110,7 +113,7 @@
     syncBall(state);
     for(const raw of phase.lines||[]){
       const action=prepareAction(raw,state,{mutate:mutateActions,infer:true});
-      applyAction(state,action,{mutate:true});
+      if(!action.isOption)applyAction(state,action,{mutate:true});
     }
     return state;
   }
