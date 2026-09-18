@@ -1,0 +1,655 @@
+{
+  "version": 2,
+  "name": "4-Out 1-In — Pistol → Zoom → PnR",
+  "description": "Flow continuo: entrada Pistol, Zoom con pin-down + handoff y re-screen inmediato de 5 para PnR con opciones al roll y al corner.",
+  "frames": [
+    {
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 735
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 845,
+          "y": 195
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 155,
+          "y": 195
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 250,
+          "y": 420
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 365,
+          "y": 205
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 739,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 500,
+              "y": 735
+            },
+            {
+              "x": 600,
+              "y": 600
+            },
+            {
+              "x": 700,
+              "y": 470
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 700,
+              "y": 470
+            },
+            {
+              "x": 772,
+              "y": 332
+            },
+            {
+              "x": 845,
+              "y": 195
+            }
+          ]
+        }
+      ],
+      "caption": "PISTOL ENTRY: 1 empuja el balón hacia el lado derecho y baja el pase a 2 en la esquina. 3 mantiene la esquina débil, 4 el ala izquierda y 5 permanece interior.",
+      "seconds": 1.8
+    },
+    {
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 700,
+          "y": 470
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 845,
+          "y": 195
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 155,
+          "y": 195
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 250,
+          "y": 420
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 365,
+          "y": 205
+        }
+      ],
+      "ball": {
+        "x": 879,
+        "y": 199,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_pistol",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 700,
+              "y": 470
+            },
+            {
+              "x": 760,
+              "y": 390
+            },
+            {
+              "x": 790,
+              "y": 320
+            }
+          ]
+        },
+        {
+          "type": "handoff",
+          "sourceKey": "o2",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_pistol",
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 845,
+              "y": 195
+            },
+            {
+              "x": 820,
+              "y": 255
+            },
+            {
+              "x": 790,
+              "y": 320
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 790,
+              "y": 320
+            },
+            {
+              "x": 825,
+              "y": 255
+            },
+            {
+              "x": 850,
+              "y": 195
+            }
+          ]
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 790,
+              "y": 320
+            },
+            {
+              "x": 650,
+              "y": 240
+            },
+            {
+              "x": 510,
+              "y": 155
+            }
+          ]
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 790,
+              "y": 320
+            },
+            {
+              "x": 690,
+              "y": 405
+            },
+            {
+              "x": 560,
+              "y": 485
+            }
+          ]
+        }
+      ],
+      "caption": "PISTOL: 1 sigue su pase y 2 entrega Handoff. OPCIÓN A: 1 puede girar la esquina y atacar el aro. Si no hay ventaja, 1 mantiene el drible y conecta inmediatamente con Zoom.",
+      "seconds": 2.5
+    },
+    {
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 560,
+          "y": 485
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 850,
+          "y": 195
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 155,
+          "y": 195
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 250,
+          "y": 420
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 365,
+          "y": 205
+        }
+      ],
+      "ball": {
+        "x": 594,
+        "y": 489,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_zoom",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 365,
+              "y": 205
+            },
+            {
+              "x": 330,
+              "y": 255
+            },
+            {
+              "x": 300,
+              "y": 305
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_zoom",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 155,
+              "y": 195
+            },
+            {
+              "x": 245,
+              "y": 285
+            },
+            {
+              "x": 360,
+              "y": 400
+            }
+          ]
+        },
+        {
+          "type": "handoff",
+          "sourceKey": "o1",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 560,
+              "y": 485
+            },
+            {
+              "x": 455,
+              "y": 445
+            },
+            {
+              "x": 360,
+              "y": 400
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 360,
+              "y": 400
+            },
+            {
+              "x": 545,
+              "y": 455
+            },
+            {
+              "x": 720,
+              "y": 500
+            }
+          ]
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 360,
+              "y": 400
+            },
+            {
+              "x": 430,
+              "y": 275
+            },
+            {
+              "x": 500,
+              "y": 155
+            }
+          ]
+        }
+      ],
+      "caption": "ZOOM: 5 coloca pin-down para 3 mientras 3 sube desde la esquina. 1 entrega el Handoff y limpia al slot derecho. OPCIÓN B: 3 puede doblar la esquina y atacar inmediatamente.",
+      "seconds": 2.7
+    },
+    {
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 720,
+          "y": 500
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 850,
+          "y": 195
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 360,
+          "y": 400
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 250,
+          "y": 420
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 300,
+          "y": 305
+        }
+      ],
+      "ball": {
+        "x": 394,
+        "y": 404,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 300,
+              "y": 305
+            },
+            {
+              "x": 360,
+              "y": 350
+            },
+            {
+              "x": 430,
+              "y": 390
+            }
+          ]
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_pnr",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 360,
+              "y": 400
+            },
+            {
+              "x": 465,
+              "y": 395
+            },
+            {
+              "x": 560,
+              "y": 385
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_pnr",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 430,
+              "y": 390
+            },
+            {
+              "x": 465,
+              "y": 280
+            },
+            {
+              "x": 500,
+              "y": 170
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o3",
+          "targetKey": "o5",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 560,
+              "y": 385
+            },
+            {
+              "x": 530,
+              "y": 275
+            },
+            {
+              "x": 500,
+              "y": 170
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o3",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#7c3aed",
+          "points": [
+            {
+              "x": 560,
+              "y": 385
+            },
+            {
+              "x": 705,
+              "y": 285
+            },
+            {
+              "x": 850,
+              "y": 195
+            }
+          ]
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 560,
+              "y": 385
+            },
+            {
+              "x": 530,
+              "y": 275
+            },
+            {
+              "x": 505,
+              "y": 175
+            }
+          ]
+        },
+        {
+          "type": "shot",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 505,
+              "y": 175
+            },
+            {
+              "x": 502,
+              "y": 145
+            },
+            {
+              "x": 500,
+              "y": 112
+            }
+          ]
+        }
+      ],
+      "caption": "PnR: 5 re-screenea inmediatamente para 3. 3 ataca al medio y 5 rolea. OPCIÓN C1: pocket/roll a 5. OPCIÓN C2: skip a 2 en la esquina. Si ninguna aparece, 3 termina en el aro.",
+      "seconds": 3.4
+    }
+  ]
+}
