@@ -252,7 +252,7 @@ function makeNextPhaseFromCurrent(){
   };
 }
 addBtn.addEventListener('click',()=>{commit();const f=makeNextPhaseFromCurrent();f.lines=[];data.frames.splice(current+1,0,f);current++;selectedLine=-1;selectedPlayer=null;setStatus('Nueva fase creada desde el resultado final de la fase anterior.');reflowPhasesAfter(current);render();});
-duplicateBtn.addEventListener('click',()=>{commit();const f=copy(frame());data.frames.splice(current+1,0,f);current++;selectedLine=-1;render();});
+duplicateBtn.addEventListener('click',()=>{commit();const f=CourtPlayEngine.duplicatePhaseForContinuation(frame());data.frames.splice(current+1,0,f);current++;selectedLine=-1;selectedPlayer=null;CourtPlayEngine.reflow(data.frames,current);setStatus('Fase duplicada desde el estado final real de la anterior.');render();});
 prevBtn.addEventListener('click',()=>{commit();reflowPhasesAfter(0);if(current>0)current--;selectedLine=-1;selectedPlayer=null;render();});nextBtn.addEventListener('click',()=>{commit();reflowPhasesAfter(0);if(current<data.frames.length-1)current++;selectedLine=-1;selectedPlayer=null;render();});
 deleteBtn.addEventListener('click',()=>{if(data.frames.length<=1)return;data.frames.splice(current,1);current=Math.min(current,data.frames.length-1);selectedLine=-1;reflowPhasesAfter(Math.max(0,current-1));render();});
 
