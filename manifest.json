@@ -3,8 +3,8 @@
   "short_name": "CourtPlay",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0b1220",
-  "theme_color": "#0b1220",
-  "orientation": "landscape",
+  "background_color": "#eef3f9",
+  "theme_color": "#082d72",
+  "orientation": "any",
   "icons": []
 }
