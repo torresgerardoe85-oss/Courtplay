@@ -255,6 +255,26 @@ addBtn.addEventListener('click',()=>{commit();const f=makeNextPhaseFromCurrent()
 duplicateBtn.addEventListener('click',()=>{commit();const f=CourtPlayEngine.duplicatePhaseForContinuation(frame());data.frames.splice(current+1,0,f);current++;selectedLine=-1;selectedPlayer=null;CourtPlayEngine.reflow(data.frames,current);setStatus('Fase duplicada desde el estado final real de la anterior.');render();});
 prevBtn.addEventListener('click',()=>{commit();reflowPhasesAfter(0);if(current>0)current--;selectedLine=-1;selectedPlayer=null;render();});nextBtn.addEventListener('click',()=>{commit();reflowPhasesAfter(0);if(current<data.frames.length-1)current++;selectedLine=-1;selectedPlayer=null;render();});
 deleteBtn.addEventListener('click',()=>{if(data.frames.length<=1)return;data.frames.splice(current,1);current=Math.min(current,data.frames.length-1);selectedLine=-1;reflowPhasesAfter(Math.max(0,current-1));render();});
+document.getElementById('clearPhaseBtn')?.addEventListener('click',()=>{
+  if(!confirm('¿Limpiar esta fase? Se borrarán sus movimientos y explicación.'))return;
+  frame().lines=[];
+  frame().caption='';
+  selectedLine=-1;selectedPlayer=null;tool='select';
+  reflowPhasesAfter(current);
+  setStatus('Fase limpia. Las demás fases se conservaron y fueron recalculadas.');
+  render();
+});
+document.getElementById('newPlayBtn')?.addEventListener('click',()=>{
+  if(!confirm('¿Crear una jugada nueva? Los cambios no guardados de la jugada actual se perderán.'))return;
+  data={version:2,name:'Nueva jugada',frames:[starterPhase()]};
+  current=0;selectedLine=-1;selectedPlayer=null;drag=null;draft=null;pendingToken=null;assignBall=false;tool='select';
+  playNameEl.value='Nueva jugada';
+  try{localStorage.removeItem('courtplay_v2');}catch(err){}
+  document.querySelectorAll('.tool,.tokenBtn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('selectBtn')?.classList.add('active');
+  setStatus('Nueva jugada lista. Tu Biblioteca no fue modificada.');
+  render();
+});
 
 
 if(data.frames.length>1){reflowPhasesAfter(0); /* state-only chain repair; phase patterns stay local */}
