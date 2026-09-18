@@ -63,7 +63,12 @@ function save(){
     showToast('No se pudo guardar la jugada.','error',4000);
   }
 }
-saveBtn.addEventListener('click',save);
+window.CourtPlaySaveToDevice=save;
+saveBtn.addEventListener('click',()=>{
+  if(window.CourtPlayLibrary&&typeof window.CourtPlayLibrary.openSaveMenu==='function'){
+    window.CourtPlayLibrary.openSaveMenu();
+  }else save();
+});
 
 function wrapText(c,text,x,y,maxW,lineH,maxLines=3){
   const words=(text||'').split(/\s+/);let line='',lines=[];
