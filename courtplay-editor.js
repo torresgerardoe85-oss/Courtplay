@@ -1,5 +1,15 @@
 function point(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*(W/r.width),y:(e.clientY-r.top)*(H/r.height)}}
 function hitPlayer(p){for(let i=frame().players.length-1;i>=0;i--){const pl=frame().players[i];if(Math.hypot(pl.x-p.x,pl.y-p.y)<=PLAYER_R+10)return pl}return null}
+function hitReceiver(p,sourceKey=null){
+  let best=null,bestD=Infinity;
+  for(let i=frame().players.length-1;i>=0;i--){
+    const pl=frame().players[i];
+    if(sourceKey&&pl.key===sourceKey)continue;
+    const d=Math.hypot(pl.x-p.x,pl.y-p.y);
+    if(d<64&&d<bestD){best=pl;bestD=d;}
+  }
+  return best;
+}
 function distSeg(px,py,a,b){const vx=b.x-a.x,vy=b.y-a.y,wx=px-a.x,wy=py-a.y,d=vx*vx+vy*vy||1,t=clamp((wx*vx+wy*vy)/d,0,1),x=a.x+t*vx,y=a.y+t*vy;return Math.hypot(px-x,py-y)}
 function hitLine(p){for(let i=frame().lines.length-1;i>=0;i--){const pts=pathPoints(frame().lines[i]);let prev=catmullPoint(pts,0);for(let s=1;s<=50;s++){const cur=catmullPoint(pts,s/50);if(distSeg(p.x,p.y,prev,cur)<18)return i;prev=cur}}return-1}
 function hitHandle(p,l){const pts=pathPoints(l);for(let i=0;i<pts.length;i++){if(Math.hypot(p.x-pts[i].x,p.y-pts[i].y)<=26)return i;}return-1}
@@ -48,9 +58,9 @@ function applyBallTransfer(l){
   const target=l.targetKey&&frame().players.find(p=>p.key===l.targetKey);
   if(target){
     frame().ball.owner=target.key;
-    syncBallOwner();
+    frame().ball.x=target.x+34;frame().ball.y=target.y+4;
     selectedPlayer=target.key;
-    setStatus(`${actionName(l.type)}: ${target.team==='defense'?'x':''}${target.label} recibe el balón.`);
+    setStatus(`${actionName(l.type)} completado: ${target.team==='defense'?'x':''}${target.label} recibe el balón.`);
   }else{
     frame().ball.owner=null;
     frame().ball.x=end.x;frame().ball.y=end.y;
@@ -59,8 +69,8 @@ function applyBallTransfer(l){
 }
 function updateTransferTarget(l,p){
   if(!l||!['pass','handoff'].includes(l.type))return null;
-  const target=hitPlayer(p);
-  if(target&&target.key!==l.sourceKey){l.targetKey=target.key;return target;}
+  const target=hitReceiver(p,l.sourceKey);
+  if(target){l.targetKey=target.key;return target;}
   l.targetKey=null;return null;
 }
 canvas.addEventListener('pointerdown',e=>{e.preventDefault();canvas.setPointerCapture?.(e.pointerId);const p=point(e);
@@ -80,7 +90,9 @@ canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefau
     let x=clamp(p.x,20,W-20),y=clamp(p.y,20,H-20);
     const isStart=drag.point===0,isEnd=drag.point===l.points.length-1,isCurve=drag.point>0&&!isEnd;
     if(isEnd){
-      const target=updateTransferTarget(l,p)||hitPlayer(p);
+      let target=null;
+      if(['pass','handoff'].includes(l.type)) target=updateTransferTarget(l,p);
+      else target=hitReceiver(p,l.sourceKey)||hitPlayer(p);
       if(target&&target.key!==l.sourceKey){x=target.x;y=target.y;drag.targetKey=target.key;}
       else drag.targetKey=null;
     }
@@ -93,17 +105,26 @@ canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefau
   else if(drag?.type==='ball'){frame().ball.x=clamp(p.x-drag.dx,16,W-16);frame().ball.y=clamp(p.y-drag.dy,16,H-16);}
   ctx.clearRect(0,0,W,H);drawScene();
 });
-function finishPointer(){
+function finishPointer(e){
   if(drag?.type==='handle'){
     const l=frame().lines[drag.line];
     if(l&&drag.point===l.points.length-1&&['pass','handoff'].includes(l.type)){
+      if(e){
+        const release=point(e),target=updateTransferTarget(l,release);
+        if(target){
+          const end=l.points[l.points.length-1];
+          end.x=target.x;end.y=target.y;drag.targetKey=target.key;
+          recenterCurve(l);
+        }
+      }
       if(drag.targetKey)l.targetKey=drag.targetKey;
       applyBallTransfer(l);
     }
   }
   draft=null;drag=null;render();
 }
-canvas.addEventListener('pointerup',finishPointer);canvas.addEventListener('pointercancel',finishPointer);
+canvas.addEventListener('pointerup',finishPointer);
+canvas.addEventListener('pointercancel',()=>finishPointer(null));
 
 lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){
   const l=frame().lines[selectedLine];l.type=lineTypeEl.value;
