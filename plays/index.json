@@ -5,6 +5,11 @@
       "slug": "4out-1in-pistol-split-flow",
       "name": "4-Out 1-In — Pistol Split Flow",
       "description": "Entrada 4-Out 1-In con corte al aro, pin-down simultáneo, reversa y PnR con opciones al roll y al corner 3."
+    },
+    {
+      "slug": "4out-1in-pistol-zoom-pnr",
+      "name": "4-Out 1-In — Pistol → Zoom → PnR",
+      "description": "Flow continuo: entrada Pistol, Zoom con pin-down + handoff y re-screen inmediato de 5 para PnR con opciones al roll y al corner."
     }
   ]
 }
