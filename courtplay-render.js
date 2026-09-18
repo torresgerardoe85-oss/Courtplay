@@ -7,10 +7,13 @@ function drawAction(c,l,alpha=1){const pts=pathPoints(l);c.save();c.globalAlpha=
     const cap=23;c.beginPath();c.moveTo(end.x-cap*Math.cos(perp),end.y-cap*Math.sin(perp));c.lineTo(end.x+cap*Math.cos(perp),end.y+cap*Math.sin(perp));c.stroke();
   }else if(l.type==='handoff'){
     arrow(c,pts,16);
-    const hp=catmullPoint(pts,.78);
-    c.save();c.textAlign='center';c.textBaseline='middle';c.font='900 30px system-ui';
-    c.lineWidth=6;c.strokeStyle='white';c.strokeText('H',hp.x,hp.y);
-    c.fillStyle='#172033';c.fillText('H',hp.x,hp.y);c.restore();
+    const hp=catmullPoint(pts,.68);
+    c.save();
+    c.fillStyle='rgba(255,255,255,.96)';c.strokeStyle='#172033';c.lineWidth=4;
+    c.beginPath();c.arc(hp.x,hp.y,22,0,Math.PI*2);c.fill();c.stroke();
+    c.fillStyle='#172033';c.textAlign='center';c.textBaseline='middle';c.font='900 30px system-ui';
+    c.fillText('H',hp.x,hp.y+1);
+    c.restore();
   }else if(l.type==='shot'){
     arrow(c,pts,18);c.beginPath();c.arc(end.x,end.y,10,0,Math.PI*2);c.stroke();
   }else arrow(c,pts,18);
