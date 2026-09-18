@@ -205,16 +205,38 @@ function alignPhaseActionsToStart(phase){
   });
   return running;
 }
+function lineSignature(l){
+  const pts=(l.points||[]).map(p=>[Math.round(p.x),Math.round(p.y)]);
+  return JSON.stringify([l.type||'',l.sourceKey||'',l.targetKey||'',pts]);
+}
+function cleanLegacyCopiedLines(index){
+  if(index<=0||index>=data.frames.length)return;
+  const phase=data.frames[index],prev=data.frames[index-1];
+  if(phase.phaseOwnershipVersion>=14)return;
+  const prevSet=new Set((prev.lines||[]).map(lineSignature));
+  if(prevSet.size&&(phase.lines||[]).length){
+    phase.lines=(phase.lines||[]).filter(l=>!prevSet.has(lineSignature(l)));
+  }
+  phase.phaseOwnershipVersion=14;
+}
 function reflowPhasesAfter(index){
-  if(index<0||index>=data.frames.length)return;
-  let running=resolvePhaseEndState(data.frames[index]);
-  for(let i=index+1;i<data.frames.length;i++){
+  if(data.frames.length<2)return;
+  const start=Math.max(0,index);
+  let running=resolvePhaseEndState(data.frames[start]);
+  for(let i=start+1;i<data.frames.length;i++){
     const phase=data.frames[i];
+    cleanLegacyCopiedLines(i);
     phase.players=copy(running.players||[]);
     phase.ball=copy(running.ball||{x:535,y:755,owner:null});
     phase.inheritsFromPrevious=true;
+    phase.phaseOwnershipVersion=14;
+    // Only this phase's own actions remain here. Previous phase patterns never carry over.
     running=alignPhaseActionsToStart(phase);
   }
+}
+function refreshPhaseStart(index){
+  if(index<=0||index>=data.frames.length)return;
+  reflowPhasesAfter(0);
 }
 
 function makeNextPhaseFromCurrent(){
@@ -225,13 +247,14 @@ function makeNextPhaseFromCurrent(){
     lines:[],
     caption:'',
     seconds:frame().seconds||2.4,
-    inheritsFromPrevious:true
+    inheritsFromPrevious:true,
+    phaseOwnershipVersion:14
   };
 }
-addBtn.addEventListener('click',()=>{commit();const f=makeNextPhaseFromCurrent();data.frames.splice(current+1,0,f);current++;selectedLine=-1;selectedPlayer=null;setStatus('Nueva fase creada desde el resultado final de la fase anterior.');reflowPhasesAfter(current);render();});
+addBtn.addEventListener('click',()=>{commit();const f=makeNextPhaseFromCurrent();f.lines=[];data.frames.splice(current+1,0,f);current++;selectedLine=-1;selectedPlayer=null;setStatus('Nueva fase creada desde el resultado final de la fase anterior.');reflowPhasesAfter(current);render();});
 duplicateBtn.addEventListener('click',()=>{commit();const f=copy(frame());data.frames.splice(current+1,0,f);current++;selectedLine=-1;render();});
-prevBtn.addEventListener('click',()=>{commit();if(current>0)current--;selectedLine=-1;render();});nextBtn.addEventListener('click',()=>{commit();if(current<data.frames.length-1)current++;selectedLine=-1;render();});
+prevBtn.addEventListener('click',()=>{commit();reflowPhasesAfter(0);if(current>0)current--;selectedLine=-1;selectedPlayer=null;render();});nextBtn.addEventListener('click',()=>{commit();reflowPhasesAfter(0);if(current<data.frames.length-1)current++;selectedLine=-1;selectedPlayer=null;render();});
 deleteBtn.addEventListener('click',()=>{if(data.frames.length<=1)return;data.frames.splice(current,1);current=Math.min(current,data.frames.length-1);selectedLine=-1;reflowPhasesAfter(Math.max(0,current-1));render();});
 
 
-if(data.frames.length>1){reflowPhasesAfter(0); /* repair existing phase chain */}
+if(data.frames.length>1){reflowPhasesAfter(0); /* state-only chain repair; phase patterns stay local */}
