@@ -201,3 +201,8 @@ canvas#court{width:100%;height:auto;max-width:100%}
 @media(max-width:640px){.topbar .right{grid-template-columns:repeat(4,minmax(0,1fr))}.topbar .right .topbtn{font-size:12px;padding:0 5px}}
 @media(max-width:380px){.topbar .right{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:641px) and (max-width:820px){.topbar .right .topbtn:not(.solid){display:flex!important}}
+
+/* v17 expanded action palette */
+.actionColorPalette{gap:8px}
+.actionColor{width:31px;height:31px}
+@media(max-width:640px){.actionColor{width:36px;height:36px}}
