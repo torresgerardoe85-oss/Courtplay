@@ -3,6 +3,8 @@
   const clone=v=>JSON.parse(JSON.stringify(v));
   const transferTypes=new Set(['pass','handoff']);
   const movingTypes=new Set(['move','dribble','screen','handoff']);
+  const COURT_BOUNDS={minX:30,maxX:970,minY:30,maxY:830};
+  const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 
   function points(action){
     if(!Array.isArray(action.points)||action.points.length<2){
@@ -46,6 +48,27 @@
     pts[1].x=(pts[0].x+pts[2].x)/2;
     pts[1].y=(pts[0].y+pts[2].y)/2;
   }
+  function fitActionToCourt(action){
+    const pts=points(action);
+    if(transferTypes.has(action.type)||action.type==='shot'||pts.length<2)return action;
+    const anchor=pts[0];
+    let scale=1;
+    for(let i=1;i<pts.length;i++){
+      const dx=pts[i].x-anchor.x,dy=pts[i].y-anchor.y;
+      if(dx>0)scale=Math.min(scale,(COURT_BOUNDS.maxX-anchor.x)/dx);
+      else if(dx<0)scale=Math.min(scale,(COURT_BOUNDS.minX-anchor.x)/dx);
+      if(dy>0)scale=Math.min(scale,(COURT_BOUNDS.maxY-anchor.y)/dy);
+      else if(dy<0)scale=Math.min(scale,(COURT_BOUNDS.minY-anchor.y)/dy);
+    }
+    scale=clamp(Number.isFinite(scale)?scale:1,0,1);
+    if(scale<.999){
+      for(let i=1;i<pts.length;i++){
+        pts[i].x=anchor.x+(pts[i].x-anchor.x)*scale;
+        pts[i].y=anchor.y+(pts[i].y-anchor.y)*scale;
+      }
+    }
+    return action;
+  }
   function prepareAction(raw,state,{mutate=false,infer=true}={}){
     const action=mutate?raw:clone(raw);
     normalizeAction(action);
@@ -79,6 +102,7 @@
       end.x=500;end.y=112;
     }
     recenterStraight(action);
+    fitActionToCourt(action);
     return action;
   }
   function applyAction(input,raw,{mutate=false}={}){
@@ -165,12 +189,27 @@
       lines:[],
       caption:'',
       seconds:phase.seconds||2.4,
-      inheritsFromPrevious:true
+      inheritsFromPrevious:true,
+      phaseOwnershipVersion:20
     };
+  }
+  function duplicatePhaseForContinuation(phase){
+    const end=resolvePhase(phase,{mutateActions:false});
+    const next={
+      players:clone(end.players||[]),
+      ball:clone(end.ball||{x:535,y:755,owner:null}),
+      lines:clone(phase.lines||[]),
+      caption:phase.caption||'',
+      seconds:phase.seconds||2.4,
+      inheritsFromPrevious:true,
+      phaseOwnershipVersion:20
+    };
+    resolvePhase(next,{mutateActions:true});
+    return next;
   }
 
   global.CourtPlayEngine={
-    clone,points,normalizeAction,nearestPlayer,syncBall,recenterStraight,
-    prepareAction,applyAction,bindLegacyPhase,resolvePhase,reflow,nextPhaseFrom
+    clone,points,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,
+    prepareAction,applyAction,bindLegacyPhase,resolvePhase,reflow,nextPhaseFrom,duplicatePhaseForContinuation
   };
 })(typeof window!=='undefined'?window:globalThis);
