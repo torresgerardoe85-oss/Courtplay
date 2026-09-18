@@ -1,0 +1,535 @@
+{
+  "version": 2,
+  "name": "4-Out 1-In — Pistol Split Flow",
+  "description": "Entrada 4-Out 1-In con corte al aro, pin-down simultáneo, reversa y PnR con opciones al roll y al corner 3.",
+  "frames": [
+    {
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 735
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 850,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 205
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 250,
+          "y": 420
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 645,
+          "y": 205
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 739,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 500,
+              "y": 735
+            },
+            {
+              "x": 375,
+              "y": 578
+            },
+            {
+              "x": 250,
+              "y": 420
+            }
+          ]
+        }
+      ],
+      "caption": "1 pasa a 4 en el ala izquierda. 3 mantiene la esquina contraria y 2/5 preparan la acción del lado débil.",
+      "seconds": 1.7
+    },
+    {
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 735
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 850,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 205
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 250,
+          "y": 420
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 645,
+          "y": 205
+        }
+      ],
+      "ball": {
+        "x": 284,
+        "y": 424,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": "g_split",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 500,
+              "y": 735
+            },
+            {
+              "x": 500,
+              "y": 450
+            },
+            {
+              "x": 500,
+              "y": 165
+            }
+          ]
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": "g_split",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 645,
+              "y": 205
+            },
+            {
+              "x": 682,
+              "y": 242
+            },
+            {
+              "x": 720,
+              "y": 280
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": "g_split",
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 850,
+              "y": 205
+            },
+            {
+              "x": 805,
+              "y": 302
+            },
+            {
+              "x": 760,
+              "y": 400
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o4",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 250,
+              "y": 420
+            },
+            {
+              "x": 375,
+              "y": 292
+            },
+            {
+              "x": 500,
+              "y": 165
+            }
+          ]
+        }
+      ],
+      "caption": "Misma vez: 1 corta fuerte al aro, 5 pone pin-down para 2 y 2 sube al ala. OPCIÓN A: 4 puede pasar a 1 en el corte; al terminar la opción, el balón regresa a 4.",
+      "seconds": 2.4
+    },
+    {
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 165
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 760,
+          "y": 400
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 205
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 250,
+          "y": 420
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 720,
+          "y": 280
+        }
+      ],
+      "ball": {
+        "x": 284,
+        "y": 424,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": "g_clear",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 500,
+              "y": 165
+            },
+            {
+              "x": 675,
+              "y": 185
+            },
+            {
+              "x": 850,
+              "y": 205
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o4",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": "g_clear",
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 250,
+              "y": 420
+            },
+            {
+              "x": 505,
+              "y": 410
+            },
+            {
+              "x": 760,
+              "y": 400
+            }
+          ]
+        }
+      ],
+      "caption": "Si el corte no está, 1 limpia hacia la esquina derecha mientras 4 revierte el balón a 2.",
+      "seconds": 1.8
+    },
+    {
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 205
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 760,
+          "y": 400
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 205
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 250,
+          "y": 420
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 720,
+          "y": 280
+        }
+      ],
+      "ball": {
+        "x": 794,
+        "y": 404,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 720,
+              "y": 280
+            },
+            {
+              "x": 705,
+              "y": 335
+            },
+            {
+              "x": 690,
+              "y": 390
+            }
+          ]
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": "g_pnr",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 760,
+              "y": 400
+            },
+            {
+              "x": 650,
+              "y": 402
+            },
+            {
+              "x": 545,
+              "y": 405
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": "g_pnr",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 690,
+              "y": 390
+            },
+            {
+              "x": 603,
+              "y": 280
+            },
+            {
+              "x": 515,
+              "y": 170
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o2",
+          "targetKey": "o5",
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 545,
+              "y": 405
+            },
+            {
+              "x": 530,
+              "y": 287
+            },
+            {
+              "x": 515,
+              "y": 170
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o2",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#7c3aed",
+          "points": [
+            {
+              "x": 545,
+              "y": 405
+            },
+            {
+              "x": 697,
+              "y": 305
+            },
+            {
+              "x": 850,
+              "y": 205
+            }
+          ]
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 545,
+              "y": 405
+            },
+            {
+              "x": 530,
+              "y": 288
+            },
+            {
+              "x": 515,
+              "y": 170
+            }
+          ]
+        },
+        {
+          "type": "shot",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 515,
+              "y": 170
+            },
+            {
+              "x": 507,
+              "y": 141
+            },
+            {
+              "x": 500,
+              "y": 112
+            }
+          ]
+        }
+      ],
+      "caption": "5 juega ball screen para 2. 2 ataca al medio y 5 rolea. OPCIÓN B1: pase al roll de 5. OPCIÓN B2: pase a 1 en la esquina para triple. Si ninguna aparece, 2 termina atacando el aro.",
+      "seconds": 3.6
+    }
+  ]
+}
