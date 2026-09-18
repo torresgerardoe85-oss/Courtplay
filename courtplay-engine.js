@@ -74,6 +74,10 @@
         end.x=tgt.x;end.y=tgt.y;
       }
     }
+    if(action.type==='shot'){
+      const end=pts[pts.length-1];
+      end.x=500;end.y=112;
+    }
     recenterStraight(action);
     return action;
   }
@@ -95,6 +99,10 @@
         state.ball.owner=null;
         state.ball.x=end.x;state.ball.y=end.y;
       }
+    }else if(action.type==='shot'){
+      state.ball.owner=null;
+      state.ball.x=end.x;state.ball.y=end.y;
+      if(!action.isOption)state.terminalShot=true;
     }
     return syncBall(state);
   }
@@ -105,6 +113,7 @@
       normalizeAction(raw);
       const prepared=prepareAction(raw,state,{mutate:true,infer:true});
       if(!prepared.isOption)applyAction(state,prepared,{mutate:true});
+      if(state.terminalShot)break;
     }
     return phase;
   }
@@ -114,12 +123,13 @@
     for(const raw of phase.lines||[]){
       const action=prepareAction(raw,state,{mutate:mutateActions,infer:true});
       if(!action.isOption)applyAction(state,action,{mutate:true});
+      if(state.terminalShot)break;
     }
     return state;
   }
   function inferInitialPossession(phase){
     if(!phase||!phase.ball)return;
-    const first=(phase.lines||[]).find(l=>['pass','handoff','dribble'].includes(l.type)&&l.sourceKey);
+    const first=(phase.lines||[]).find(l=>['pass','handoff','dribble','shot'].includes(l.type)&&l.sourceKey);
     if(first){
       const src=(phase.players||[]).find(p=>p.key===first.sourceKey);
       if(src){
