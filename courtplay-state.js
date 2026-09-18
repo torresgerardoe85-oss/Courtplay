@@ -21,9 +21,9 @@ function migrate(raw){
   raw.frames.forEach(f=>{
     f.players=(f.players||[]).map((p,i)=>({key:p.key||`o${p.id||i+1}`,label:String(p.label||p.id||i+1),team:p.team||'offense',x:p.x,y:p.y}));
     f.lines=(f.lines||[]).map(l=>{
-      if(Array.isArray(l.points))return l;
+      if(Array.isArray(l.points)){if(typeof l.manualCurve!=='boolean')l.manualCurve=true;return l;}
       const cx=Number.isFinite(l.cx)?l.cx:(l.x1+l.x2)/2,cy=Number.isFinite(l.cy)?l.cy:(l.y1+l.y2)/2;
-      return{type:l.type==='move'?'move':l.type||'move',sourceKey:l.sourceKey||null,points:[{x:l.x1,y:l.y1},{x:cx,y:cy},{x:l.x2,y:l.y2}]};
+      return{type:l.type==='move'?'move':l.type||'move',sourceKey:l.sourceKey||null,manualCurve:true,points:[{x:l.x1,y:l.y1},{x:cx,y:cy},{x:l.x2,y:l.y2}]};
     });
     if(!f.ball)f.ball={x:535,y:755,owner:null};
   });
