@@ -37,7 +37,7 @@ function createActionFromSelectedPlayer(type){
   const pl=frame().players.find(p=>p.key===selectedPlayer);
   if(!pl){setStatus('Primero selecciona un jugador.');return;}
   const action=makeAction(type,{x:pl.x,y:pl.y},pl.key);
-  frame().lines.push(action);selectedLine=frame().lines.length-1;tool='select';
+  frame().lines.push(action);selectedLine=frame().lines.length-1;tool='select';reflowPhasesAfter(current);
   document.querySelectorAll('.tool').forEach(b=>b.classList.remove('active'));
   setStatus(`${actionName(type)} creado desde jugador ${pl.label}. Verde = final. Naranja = curva. Azul = inicio.`);
   render();
@@ -47,7 +47,7 @@ function createActionFromSelectedAction(type){
   if(!prev)return;
   const pts=pathPoints(prev),last=pts[pts.length-1],source=prev.targetKey||prev.sourceKey||selectedPlayer||null;
   const action=makeAction(type,{x:last.x,y:last.y},source);
-  frame().lines.push(action);selectedLine=frame().lines.length-1;selectedPlayer=source;tool='select';
+  frame().lines.push(action);selectedLine=frame().lines.length-1;selectedPlayer=source;tool='select';reflowPhasesAfter(current);
   document.querySelectorAll('.tool').forEach(b=>b.classList.remove('active'));
   setStatus(`${actionName(type)} comienza donde terminó la acción anterior.`);
   render();
@@ -121,7 +121,7 @@ function finishPointer(e){
       applyBallTransfer(l);
     }
   }
-  draft=null;drag=null;render();
+  draft=null;drag=null;reflowPhasesAfter(current);render();
 }
 canvas.addEventListener('pointerup',finishPointer);
 canvas.addEventListener('pointercancel',()=>finishPointer(null));
@@ -130,13 +130,13 @@ lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){
   const l=frame().lines[selectedLine];l.type=lineTypeEl.value;
   if(!['pass','handoff'].includes(l.type))l.targetKey=null;
   else applyBallTransfer(l);
-  render();
+  reflowPhasesAfter(current);render();
 }});
-addPointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const pts=pathPoints(frame().lines[selectedLine]);let best=0,bestLen=-1;for(let i=0;i<pts.length-1;i++){const d=Math.hypot(pts[i+1].x-pts[i].x,pts[i+1].y-pts[i].y);if(d>bestLen){best=i;bestLen=d}}pts.splice(best+1,0,{x:(pts[best].x+pts[best+1].x)/2,y:(pts[best].y+pts[best+1].y)/2});frame().lines[selectedLine].manualCurve=true;render();});
-removePointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const pts=pathPoints(frame().lines[selectedLine]);if(pts.length<=2){setStatus('Una trayectoria necesita al menos inicio y final.');return}pts.splice(Math.max(1,pts.length-2),1);render();});
-reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){const l=frame().lines[selectedLine];l.points.reverse();l.sourceKey=null;l.targetKey=null;selectedPlayer=null;setStatus('Trayectoria invertida. Ya no está anclada a un jugador.');render();}});
-deleteLineBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1;render();}});
-deleteObjectBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1}else if(selectedPlayer){const key=selectedPlayer,i=frame().players.findIndex(x=>x.key===key);if(i>=0){if(frame().ball.owner===key)frame().ball.owner=null;frame().players.splice(i,1);frame().lines=frame().lines.filter(l=>l.sourceKey!==key);}selectedPlayer=null}render();});
+addPointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const pts=pathPoints(frame().lines[selectedLine]);let best=0,bestLen=-1;for(let i=0;i<pts.length-1;i++){const d=Math.hypot(pts[i+1].x-pts[i].x,pts[i+1].y-pts[i].y);if(d>bestLen){best=i;bestLen=d}}pts.splice(best+1,0,{x:(pts[best].x+pts[best+1].x)/2,y:(pts[best].y+pts[best+1].y)/2});frame().lines[selectedLine].manualCurve=true;reflowPhasesAfter(current);render();});
+removePointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const pts=pathPoints(frame().lines[selectedLine]);if(pts.length<=2){setStatus('Una trayectoria necesita al menos inicio y final.');return}pts.splice(Math.max(1,pts.length-2),1);reflowPhasesAfter(current);render();});
+reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){const l=frame().lines[selectedLine];l.points.reverse();l.sourceKey=null;l.targetKey=null;selectedPlayer=null;setStatus('Trayectoria invertida. Ya no está anclada a un jugador.');reflowPhasesAfter(current);render();}});
+deleteLineBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1;reflowPhasesAfter(current);render();}});
+deleteObjectBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1}else if(selectedPlayer){const key=selectedPlayer,i=frame().players.findIndex(x=>x.key===key);if(i>=0){if(frame().ball.owner===key)frame().ball.owner=null;frame().players.splice(i,1);frame().lines=frame().lines.filter(l=>l.sourceKey!==key);}selectedPlayer=null}reflowPhasesAfter(current);render();});
 
 function resolvePhaseEndState(phase){
   const out=copy(phase);
@@ -162,6 +162,61 @@ function resolvePhaseEndState(phase){
   }
   return out;
 }
+function applyActionToResolvedState(state,l){
+  const pts=pathPoints(l),end=pts[pts.length-1];
+  const src=(state.players||[]).find(p=>p.key===l.sourceKey)||null;
+  if(src&&['move','dribble','screen','handoff'].includes(l.type)){src.x=end.x;src.y=end.y;}
+  if(l.type==='dribble'&&src){
+    state.ball.owner=src.key;state.ball.x=src.x+34;state.ball.y=src.y+4;
+  }else if(['pass','handoff'].includes(l.type)){
+    const tgt=(state.players||[]).find(p=>p.key===l.targetKey)||null;
+    if(tgt){state.ball.owner=tgt.key;state.ball.x=tgt.x+34;state.ball.y=tgt.y+4;}
+    else{state.ball.owner=null;state.ball.x=end.x;state.ball.y=end.y;}
+  }
+  if(state.ball.owner){
+    const owner=(state.players||[]).find(p=>p.key===state.ball.owner)||null;
+    if(owner){state.ball.x=owner.x+34;state.ball.y=owner.y+4;}
+  }
+  return state;
+}
+function alignPhaseActionsToStart(phase){
+  let running={players:copy(phase.players||[]),ball:copy(phase.ball||{x:535,y:755,owner:null})};
+  (phase.lines||[]).forEach(l=>{
+    const pts=pathPoints(l);
+    const src=l.sourceKey&&(running.players||[]).find(p=>p.key===l.sourceKey);
+    if(src&&pts.length){
+      const dx=src.x-pts[0].x,dy=src.y-pts[0].y;
+      if(Math.abs(dx)>.01||Math.abs(dy)>.01){
+        l.points=pts.map(p=>({x:p.x+dx,y:p.y+dy}));
+      }
+    }
+    if(['pass','handoff'].includes(l.type)&&l.targetKey){
+      const tgt=(running.players||[]).find(p=>p.key===l.targetKey);
+      if(tgt&&l.points.length){
+        const end=l.points[l.points.length-1];
+        end.x=tgt.x;end.y=tgt.y;
+      }
+    }
+    if(!l.manualCurve&&l.points.length>=3){
+      const a=l.points[0],b=l.points[l.points.length-1];
+      l.points[1].x=(a.x+b.x)/2;l.points[1].y=(a.y+b.y)/2;
+    }
+    running=applyActionToResolvedState(running,l);
+  });
+  return running;
+}
+function reflowPhasesAfter(index){
+  if(index<0||index>=data.frames.length)return;
+  let running=resolvePhaseEndState(data.frames[index]);
+  for(let i=index+1;i<data.frames.length;i++){
+    const phase=data.frames[i];
+    phase.players=copy(running.players||[]);
+    phase.ball=copy(running.ball||{x:535,y:755,owner:null});
+    phase.inheritsFromPrevious=true;
+    running=alignPhaseActionsToStart(phase);
+  }
+}
+
 function makeNextPhaseFromCurrent(){
   const end=resolvePhaseEndState(frame());
   return{
@@ -173,8 +228,10 @@ function makeNextPhaseFromCurrent(){
     inheritsFromPrevious:true
   };
 }
-addBtn.addEventListener('click',()=>{commit();const f=makeNextPhaseFromCurrent();data.frames.splice(current+1,0,f);current++;selectedLine=-1;selectedPlayer=null;setStatus('Nueva fase creada desde el resultado final de la fase anterior.');render();});
+addBtn.addEventListener('click',()=>{commit();const f=makeNextPhaseFromCurrent();data.frames.splice(current+1,0,f);current++;selectedLine=-1;selectedPlayer=null;setStatus('Nueva fase creada desde el resultado final de la fase anterior.');reflowPhasesAfter(current);render();});
 duplicateBtn.addEventListener('click',()=>{commit();const f=copy(frame());data.frames.splice(current+1,0,f);current++;selectedLine=-1;render();});
 prevBtn.addEventListener('click',()=>{commit();if(current>0)current--;selectedLine=-1;render();});nextBtn.addEventListener('click',()=>{commit();if(current<data.frames.length-1)current++;selectedLine=-1;render();});
-deleteBtn.addEventListener('click',()=>{if(data.frames.length<=1)return;data.frames.splice(current,1);current=Math.min(current,data.frames.length-1);selectedLine=-1;render();});
+deleteBtn.addEventListener('click',()=>{if(data.frames.length<=1)return;data.frames.splice(current,1);current=Math.min(current,data.frames.length-1);selectedLine=-1;reflowPhasesAfter(Math.max(0,current-1));render();});
 
+
+if(data.frames.length>1){reflowPhasesAfter(0); /* repair existing phase chain */}
