@@ -83,6 +83,22 @@ function makePhaseCanvas(f,idx){
   const out=document.createElement('canvas');out.width=1280;out.height=1180;
   compose(f,data.name,idx,data.frames.length,out);return out;
 }
+function makeAllPhasesCanvas(){
+  const width=1280,headerH=110,sectionH=900,totalH=headerH+Math.max(1,data.frames.length)*sectionH;
+  const out=document.createElement('canvas');out.width=width;out.height=totalH;
+  const c=out.getContext('2d');
+  c.fillStyle='#061c45';c.fillRect(0,0,width,totalH);
+  c.fillStyle='#fff';c.font='800 42px system-ui';c.textAlign='left';c.fillText(data.name||'CourtPlay',54,66);
+  data.frames.forEach((f,i)=>{
+    const y=headerH+i*sectionH;
+    c.fillStyle='#f47a20';c.font='900 24px system-ui';c.textAlign='left';c.fillText(`FASE ${i+1}`,54,y+38);
+    c.save();c.translate(140,y+58);c.scale(1,0.78);drawScene(f,c,{hideHandles:true});c.restore();
+    c.fillStyle='rgba(255,255,255,.08)';c.fillRect(54,y+760,width-108,110);
+    c.fillStyle='#fff';c.font='500 23px system-ui';c.textAlign='left';
+    wrapText(c,f.caption||'Sin explicación',76,y+798,width-152,31,2);
+  });
+  return out;
+}
 function bytesFromDataURL(dataURL){
   const b64=dataURL.split(',')[1],bin=atob(b64),out=new Uint8Array(bin.length);
   for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out;
@@ -120,23 +136,34 @@ function buildPdf(jpegs){
   parts.push(enc.encode(xref));return new Blob(parts,{type:'application/pdf'});
 }
 function composeAnimation(scene,title,idx,total,out,activeAction,progress){
-  const c=out.getContext('2d');c.fillStyle='#061c45';c.fillRect(0,0,out.width,out.height);
-  c.fillStyle='#fff';c.font='800 38px system-ui';c.textAlign='left';c.fillText(title,52,58);
-  c.fillStyle='#b9cae1';c.font='600 22px system-ui';c.textAlign='right';c.fillText(`Fase ${idx+1} / ${total}`,out.width-52,58);
-  c.save();c.translate(70,100);c.scale(1.14,1.14);drawAnimationStep(scene,Array.isArray(activeAction)?activeAction:(activeAction?[activeAction]:[]),progress,c);c.restore();
-  c.fillStyle='#fff';c.globalAlpha=.07;c.fillRect(55,865,out.width-110,180);c.globalAlpha=1;
-  c.fillStyle='#f47a20';c.font='800 22px system-ui';c.textAlign='left';c.fillText(`FASE ${idx+1}`,80,905);
-  c.fillStyle='#fff';c.font='500 27px system-ui';wrapText(c,(data.frames[idx]&&data.frames[idx].caption)||'Sin explicación',80,950,out.width-160,36,3);
+  const c=out.getContext('2d');
+  c.fillStyle='#061c45';c.fillRect(0,0,out.width,out.height);
+
+  // Header outside the court
+  c.fillStyle='#fff';c.font='800 34px system-ui';c.textAlign='left';c.fillText(title,44,48);
+  c.fillStyle='#b9cae1';c.font='700 21px system-ui';c.textAlign='right';c.fillText(`Fase ${idx+1} / ${total}`,out.width-44,48);
+
+  // Court: 1000x860, unscaled, fully separated from explanation
+  c.save();c.translate(140,70);
+  drawAnimationStep(scene,Array.isArray(activeAction)?activeAction:(activeAction?[activeAction]:[]),progress,c);
+  c.restore();
+
+  // Explanation band OUTSIDE the court
+  const boxY=955,boxH=185;
+  c.fillStyle='rgba(255,255,255,.09)';c.fillRect(44,boxY,out.width-88,boxH);
+  c.fillStyle='#f47a20';c.font='900 22px system-ui';c.textAlign='left';c.fillText(`FASE ${idx+1}`,70,boxY+38);
+  c.fillStyle='#fff';c.font='500 26px system-ui';
+  wrapText(c,(data.frames[idx]&&data.frames[idx].caption)||'Sin explicación',70,boxY+82,out.width-140,36,3);
 }
 
 pngBtn.addEventListener('click',async()=>{
   try{
-    commit();CourtPlayEngine.reflow(data.frames,0);showToast('Preparando imagen…','working',0);
-    const out=makePhaseCanvas(frame(),current),blob=dataURLToBlob(out.toDataURL('image/png'));
-    const name=safeFileName(data.name)+`_fase_${current+1}.png`;
-    if(!(await shareFileIfPossible(blob,name,'CourtPlay — Fase '+(current+1))))showReadyFile(blob,name,'PNG');
-    else showToast('Imagen lista para guardar o compartir.','ok');
-  }catch(e){showToast('No se pudo crear la imagen.','error',4000)}
+    commit();CourtPlayEngine.reflow(data.frames,0);showToast('Preparando PNG con todas las fases…','working',0);
+    const out=makeAllPhasesCanvas(),blob=dataURLToBlob(out.toDataURL('image/png'));
+    const name=safeFileName(data.name)+'_todas_las_fases.png';
+    if(!(await shareFileIfPossible(blob,name,'CourtPlay — Todas las fases')))showReadyFile(blob,name,'PNG');
+    else showToast('PNG con todas las fases listo para guardar o compartir.','ok');
+  }catch(e){showToast('No se pudo crear el PNG.','error',4000)}
 });
 
 pdfBtn?.addEventListener('click',async()=>{
@@ -242,7 +269,7 @@ videoBtn.addEventListener('click',async()=>{
   try{
     commit();CourtPlayEngine.reflow(data.frames,0);
     if(!window.MediaRecorder){showToast('Este navegador no permite crear video aquí.','error',5000);return}
-    const out=document.createElement('canvas');out.width=1280;out.height=1080;
+    const out=document.createElement('canvas');out.width=1280;out.height=1160;
     if(!out.captureStream){showToast('Este dispositivo no permite grabar la animación desde Safari/Chrome.','error',5000);return}
     const types=['video/mp4;codecs=avc1.42E01E','video/mp4','video/webm;codecs=vp9','video/webm'];
     const mime=types.find(x=>MediaRecorder.isTypeSupported?.(x))||'';
