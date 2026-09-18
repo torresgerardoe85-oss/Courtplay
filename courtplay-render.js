@@ -104,4 +104,5 @@ function drawAnimationScene(scene,c=ctx,activeAction=null,progress=0){
   if(activeAction)drawActionProgress(c,activeAction,progress);
   const owner=scene.ball&&scene.ball.owner;
   (scene.players||[]).forEach(p=>drawAnimationPlayer(c,p,p.key===owner));
+  if(scene.ball)drawBall(c,scene.ball);
 }
