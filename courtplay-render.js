@@ -1,4 +1,4 @@
-function drawAction(c,l,alpha=1){const pts=pathPoints(l);c.save();c.globalAlpha=alpha;c.strokeStyle=l.type==='shot'?'#df6813':'#172033';c.fillStyle=c.strokeStyle;c.lineWidth=6;c.lineCap='round';c.lineJoin='round';c.setLineDash([]);
+function drawAction(c,l,alpha=1){const pts=pathPoints(l);c.save();c.globalAlpha=alpha;const actionColor=l.color||(l.type==='shot'?'#df6813':'#172033');c.strokeStyle=actionColor;c.fillStyle=actionColor;c.lineWidth=6;c.lineCap='round';c.lineJoin='round';c.setLineDash([]);
   if(l.type==='pass')c.setLineDash([16,11]);
   if(l.type==='dribble'){drawDribble(c,pts);c.restore();return;}
   strokeSmooth(c,pts);
@@ -9,9 +9,9 @@ function drawAction(c,l,alpha=1){const pts=pathPoints(l);c.save();c.globalAlpha=
     arrow(c,pts,16);
     const hp=catmullPoint(pts,.68);
     c.save();
-    c.fillStyle='rgba(255,255,255,.96)';c.strokeStyle='#172033';c.lineWidth=4;
+    c.fillStyle='rgba(255,255,255,.96)';c.strokeStyle=actionColor;c.lineWidth=4;
     c.beginPath();c.arc(hp.x,hp.y,22,0,Math.PI*2);c.fill();c.stroke();
-    c.fillStyle='#172033';c.textAlign='center';c.textBaseline='middle';c.font='900 30px system-ui';
+    c.fillStyle=actionColor;c.textAlign='center';c.textBaseline='middle';c.font='900 30px system-ui';
     c.fillText('H',hp.x,hp.y+1);
     c.restore();
   }else if(l.type==='shot'){
@@ -63,7 +63,7 @@ function partialPathPoints(pts,t){
 function drawActionProgress(c,l,t){
   const pts=pathPoints(l),tt=clamp(t,0,1);
   if(tt<=0)return;
-  c.save();c.strokeStyle=l.type==='shot'?'#df6813':'#172033';c.fillStyle=c.strokeStyle;c.lineWidth=6;c.lineCap='round';c.lineJoin='round';c.setLineDash([]);
+  c.save();const actionColor=l.color||(l.type==='shot'?'#df6813':'#172033');c.strokeStyle=actionColor;c.fillStyle=actionColor;c.lineWidth=6;c.lineCap='round';c.lineJoin='round';c.setLineDash([]);
   if(l.type==='screen'){
     if(tt>.58){
       const end=catmullPoint(pts,1),tan=tangent(pts,1),a=Math.atan2(tan.y,tan.x)+Math.PI/2,cap=27;
@@ -74,9 +74,9 @@ function drawActionProgress(c,l,t){
   if(l.type==='handoff'){
     if(tt>.35){
       const hp=catmullPoint(pts,.72);
-      c.fillStyle='rgba(255,255,255,.96)';c.strokeStyle='#172033';c.lineWidth=4;
+      c.fillStyle='rgba(255,255,255,.96)';c.strokeStyle=actionColor;c.lineWidth=4;
       c.beginPath();c.arc(hp.x,hp.y,24,0,Math.PI*2);c.fill();c.stroke();
-      c.fillStyle='#172033';c.textAlign='center';c.textBaseline='middle';c.font='900 32px system-ui';c.fillText('H',hp.x,hp.y+1);
+      c.fillStyle=actionColor;c.textAlign='center';c.textBaseline='middle';c.font='900 32px system-ui';c.fillText('H',hp.x,hp.y+1);
     }
     c.restore();return;
   }
