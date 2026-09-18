@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#071a3d" />
 <title>CourtPlay — Play Builder</title>
 <link rel="manifest" href="manifest.json" />
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />\n<link rel="stylesheet" href="courtplay.css?v=7" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />\n<link rel="stylesheet" href="courtplay.css?v=8" />
 </head>
 
 <body>
@@ -91,7 +91,7 @@
             <button id="deleteLineBtn" class="danger">Eliminar</button>
           </div>
         </div>
-        <div id="inspectorEmpty" class="hint">Selecciona una acción. Arrastra la punta verde para el destino y el punto naranja para darle curva.</div>
+        <div id="inspectorEmpty" class="hint">Azul = inicio. Verde = final. Naranja = curva. La acción permanece recta hasta que muevas el punto naranja.</div>
       </div>
 
       <div class="section">
@@ -100,12 +100,12 @@
           <span><i class="lineSample"></i>Corte</span><span><i class="lineSample pass"></i>Pase</span>
           <span><i class="lineSample dribble"></i>Drible</span><span>⊣ Screen</span>
         </div>
-        <p class="hint">Toca una acción con ↖. La punta verde mueve el destino; el punto naranja dobla la trayectoria. “+ Punto” añade más cambios de dirección.</p>
+        <p class="hint">Azul mueve el inicio; verde mueve el final; naranja crea la curva. Para encadenar acciones, selecciona la acción anterior y toca el siguiente movimiento.</p>
       </div>
     </aside>
   </main>
 </div>
 
-<script src="courtplay-state.js?v=7"></script>\n<script src="courtplay-render.js?v=7"></script>\n<script src="courtplay-editor.js?v=7"></script>\n<script src="courtplay-export.js?v=7"></script>
+<script src="courtplay-state.js?v=8"></script>\n<script src="courtplay-render.js?v=8"></script>\n<script src="courtplay-editor.js?v=8"></script>\n<script src="courtplay-export.js?v=8"></script>
 </body>
 </html>
