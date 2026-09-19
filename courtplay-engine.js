@@ -135,6 +135,10 @@
     }else if(transferTypes.has(action.type)){
       const tgt=player(state,action.targetKey);
       if(tgt){
+        if(action.type==='handoff'&&src){
+          const sep=handoffGiverEnd(src,tgt,pts);
+          src.x=sep.x;src.y=sep.y;
+        }
         state.ball.owner=tgt.key;
       }else{
         state.ball.owner=null;
