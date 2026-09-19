@@ -12,8 +12,18 @@
     }
     return action.points;
   }
+  function captureLocalGeometry(action){
+    const pts=points(action),start=pts[0];
+    action.localPoints=pts.map(p=>({x:p.x-start.x,y:p.y-start.y}));
+    return action;
+  }
+  function invalidateLocalGeometry(action){
+    if(action)delete action.localPoints;
+    return action;
+  }
   function normalizeAction(action){
     points(action);
+    if(!Array.isArray(action.localPoints)||action.localPoints.length!==action.points.length)captureLocalGeometry(action);
     if(typeof action.sourceDetached!=='boolean')action.sourceDetached=false;
     if(typeof action.targetKey==='undefined')action.targetKey=null;
     if(typeof action.sourceKey==='undefined')action.sourceKey=null;
@@ -50,7 +60,17 @@
   }
   function fitActionToCourt(action){
     const pts=points(action);
-    if(transferTypes.has(action.type)||action.type==='shot'||pts.length<2)return action;
+    if(!movingTypes.has(action.type)||pts.length<2)return action;
+    if(action.type==='handoff'){
+      for(let i=1;i<pts.length-1;i++){
+        pts[i].x=clamp(pts[i].x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX);
+        pts[i].y=clamp(pts[i].y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY);
+      }
+      const end=pts[pts.length-1];
+      end.x=clamp(end.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX);
+      end.y=clamp(end.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY);
+      return action;
+    }
     const anchor=pts[0];
     let scale=1;
     for(let i=1;i<pts.length;i++){
@@ -72,7 +92,7 @@
   function prepareAction(raw,state,{mutate=false,infer=true}={}){
     const action=mutate?raw:clone(raw);
     normalizeAction(action);
-    const pts=points(action);
+    let pts=points(action);
     let src=player(state,action.sourceKey);
 
     if(!src&&infer&&!action.sourceDetached){
@@ -80,9 +100,16 @@
       if(src)action.sourceKey=src.key;
     }
     if(src&&!action.sourceDetached){
-      const dx=src.x-pts[0].x,dy=src.y-pts[0].y;
-      if(Math.abs(dx)>.01||Math.abs(dy)>.01){
-        for(const p of pts){p.x+=dx;p.y+=dy;}
+      const local=Array.isArray(action.localPoints)?action.localPoints:null;
+      if(local&&local.length===pts.length){
+        action.points=local.map(p=>({x:src.x+p.x,y:src.y+p.y}));
+        pts=action.points;
+      }else{
+        const dx=src.x-pts[0].x,dy=src.y-pts[0].y;
+        if(Math.abs(dx)>.01||Math.abs(dy)>.01){
+          for(const p of pts){p.x+=dx;p.y+=dy;}
+        }
+        captureLocalGeometry(action);
       }
     }
 
@@ -209,7 +236,7 @@
   }
 
   global.CourtPlayEngine={
-    clone,points,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,
+    clone,points,captureLocalGeometry,invalidateLocalGeometry,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,
     prepareAction,applyAction,bindLegacyPhase,resolvePhase,reflow,nextPhaseFrom,duplicatePhaseForContinuation
   };
 })(typeof window!=='undefined'?window:globalThis);
