@@ -60,32 +60,9 @@
   }
   function fitActionToCourt(action){
     const pts=points(action);
-    if(!movingTypes.has(action.type)||pts.length<2)return action;
-    if(action.type==='handoff'){
-      for(let i=1;i<pts.length-1;i++){
-        pts[i].x=clamp(pts[i].x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX);
-        pts[i].y=clamp(pts[i].y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY);
-      }
-      const end=pts[pts.length-1];
-      end.x=clamp(end.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX);
-      end.y=clamp(end.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY);
-      return action;
-    }
-    const anchor=pts[0];
-    let scale=1;
-    for(let i=1;i<pts.length;i++){
-      const dx=pts[i].x-anchor.x,dy=pts[i].y-anchor.y;
-      if(dx>0)scale=Math.min(scale,(COURT_BOUNDS.maxX-anchor.x)/dx);
-      else if(dx<0)scale=Math.min(scale,(COURT_BOUNDS.minX-anchor.x)/dx);
-      if(dy>0)scale=Math.min(scale,(COURT_BOUNDS.maxY-anchor.y)/dy);
-      else if(dy<0)scale=Math.min(scale,(COURT_BOUNDS.minY-anchor.y)/dy);
-    }
-    scale=clamp(Number.isFinite(scale)?scale:1,0,1);
-    if(scale<.999){
-      for(let i=1;i<pts.length;i++){
-        pts[i].x=anchor.x+(pts[i].x-anchor.x)*scale;
-        pts[i].y=anchor.y+(pts[i].y-anchor.y)*scale;
-      }
+    for(const p of pts){
+      p.x=clamp(p.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX);
+      p.y=clamp(p.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY);
     }
     return action;
   }
@@ -100,17 +77,11 @@
       if(src)action.sourceKey=src.key;
     }
     if(src&&!action.sourceDetached){
-      const local=Array.isArray(action.localPoints)?action.localPoints:null;
-      if(local&&local.length===pts.length){
-        action.points=local.map(p=>({x:src.x+p.x,y:src.y+p.y}));
-        pts=action.points;
-      }else{
-        const dx=src.x-pts[0].x,dy=src.y-pts[0].y;
-        if(Math.abs(dx)>.01||Math.abs(dy)>.01){
-          for(const p of pts){p.x+=dx;p.y+=dy;}
-        }
-        captureLocalGeometry(action);
-      }
+      // CourtPlay actions are anchored to court locations, not repeated movement vectors.
+      // Reflow may correct the start to the player's real inherited position, but it must
+      // never translate the destination/control points the user drew.
+      pts[0].x=src.x;
+      pts[0].y=src.y;
     }
 
     if(transferTypes.has(action.type)){
@@ -130,6 +101,7 @@
     }
     recenterStraight(action);
     fitActionToCourt(action);
+    captureLocalGeometry(action);
     return action;
   }
   function applyAction(input,raw,{mutate=false}={}){
