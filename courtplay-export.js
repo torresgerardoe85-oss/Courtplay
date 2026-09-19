@@ -206,6 +206,11 @@ function sceneDuringActions(base,rawActions,t){
     const pts=pathPoints(l),src=playerByKey(scene,l.sourceKey),p=catmullPoint(pts,clamp(t,0,1));
     if(src&&['move','dribble','screen','handoff'].includes(l.type)){src.x=clamp(p.x,30,W-30);src.y=clamp(p.y,30,H-30);}
   }
+  if(t>=.72){
+    for(const l of actions){
+      if(l.type==='handoff')CourtPlayEngine.ensureHandoffSeparation(scene,l,76);
+    }
+  }
   for(const l of actions){
     const pts=pathPoints(l),src=playerByKey(scene,l.sourceKey),p=catmullPoint(pts,clamp(t,0,1));
     if(l.type==='dribble'&&src&&!ballHandled){
@@ -258,9 +263,14 @@ async function playOnePhase(phase,phaseIndex,runningState,target,exportMode){
       await new Promise(requestAnimationFrame);
     }
     // Optional actions are demonstrations only. They return to the pre-option state.
+    const completedHandoffs=[];
     for(const a of prepared){
-      if(!a.isOption)base=applyCompletedAction(base,a);
+      if(!a.isOption){
+        base=applyCompletedAction(base,a);
+        if(a.type==='handoff')completedHandoffs.push(a);
+      }
     }
+    for(const a of completedHandoffs)CourtPlayEngine.ensureHandoffSeparation(base,a,76);
     syncSceneBall(base);
     if(prepared.some(a=>a.type==='shot'&&!a.isOption)){
       base.terminalShot=true;
