@@ -164,21 +164,19 @@
   function reflow(frames,fromIndex=0){
     if(!Array.isArray(frames)||!frames.length)return null;
     const start=Math.max(0,Math.min(fromIndex,frames.length-1));
-
-    // Bind legacy actions against the positions that were stored with each phase
-    // before overwriting any downstream phase start state.
-    for(let i=start;i<frames.length;i++)bindLegacyPhase(frames[i]);
     if(start===0)inferInitialPossession(frames[0]);
 
-    let running=resolvePhase(frames[start],{mutateActions:true});
-    for(let i=start+1;i<frames.length;i++){
+    // PHASE SNAPSHOT MODEL (v26):
+    // Every phase owns its saved starting players + ball.
+    // A previous phase may seed a NEW phase once, but reflow must never overwrite
+    // an existing phase's saved start state after the user has edited it.
+    let endState=null;
+    for(let i=start;i<frames.length;i++){
       const phase=frames[i];
-      phase.players=clone(running.players||[]);
-      phase.ball=clone(running.ball||{x:535,y:755,owner:null});
-      phase.inheritsFromPrevious=true;
-      running=resolvePhase(phase,{mutateActions:true});
+      phase.phaseStartVersion=26;
+      endState=resolvePhase(phase,{mutateActions:true});
     }
-    return running;
+    return endState;
   }
   function nextPhaseFrom(phase){
     const end=resolvePhase(phase,{mutateActions:true});
@@ -189,7 +187,8 @@
       caption:'',
       seconds:phase.seconds||2.4,
       inheritsFromPrevious:true,
-      phaseOwnershipVersion:20
+      phaseStartVersion:26,
+      phaseOwnershipVersion:26
     };
   }
   function duplicatePhaseForContinuation(phase){
@@ -201,7 +200,7 @@
       caption:phase.caption||'',
       seconds:phase.seconds||2.4,
       inheritsFromPrevious:true,
-      phaseOwnershipVersion:20
+      phaseOwnershipVersion:26
     };
     resolvePhase(next,{mutateActions:true});
     return next;
