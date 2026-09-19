@@ -84,13 +84,36 @@
     device.innerHTML='<strong>En este dispositivo</strong><small>Guarda la jugada actual para continuar después.</small>';
     const library=document.createElement('button');library.type='button';library.className='saveChoice primary';
     library.innerHTML='<strong>En Mi Biblioteca</strong><small>La añade a tu lista de jugadas dentro de CourtPlay.</small>';
+    const exportPlay=document.createElement('button');exportPlay.type='button';exportPlay.className='saveChoice';
+    exportPlay.innerHTML='<strong>Exportar jugada (.json)</strong><small>Descarga los datos exactos de esta jugada para compartirlos, respaldarlos o diagnosticar errores.</small>';
     const cancel=document.createElement('button');cancel.type='button';cancel.className='saveCancel';cancel.textContent='Cancelar';
 
     device.addEventListener('click',()=>{wrap.remove();window.CourtPlaySaveToDevice?.();});
     library.addEventListener('click',()=>{const id=saveCurrentToMyLibrary();if(id)wrap.remove();});
+    exportPlay.addEventListener('click',async()=>{
+      try{
+        commit();
+        const payload=clone(data);
+        payload.exportedAt=new Date().toISOString();
+        payload.courtPlayExportVersion=1;
+        const text=JSON.stringify(payload,null,2);
+        const blob=new Blob([text],{type:'application/json'});
+        const clean=(payload.name||'CourtPlay').trim().replace(/[^a-zA-Z0-9_-]+/g,'_').replace(/^_+|_+$/g,'')||'CourtPlay';
+        const filename=clean+'.courtplay.json';
+        wrap.remove();
+        if(typeof shareFileIfPossible==='function'&&await shareFileIfPossible(blob,filename,'CourtPlay — '+(payload.name||'Jugada'))){
+          notify('Archivo de jugada listo para compartir.');
+        }else if(typeof showReadyFile==='function'){
+          showReadyFile(blob,filename,'Jugada CourtPlay');
+        }else{
+          const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
+          notify('Archivo de jugada exportado.');
+        }
+      }catch(e){notify('No pude exportar la jugada.','error');}
+    });
     cancel.addEventListener('click',()=>wrap.remove());
     wrap.addEventListener('click',e=>{if(e.target===wrap)wrap.remove();});
-    panel.append(title,desc,device,library,cancel);wrap.append(panel);document.body.append(wrap);
+    panel.append(title,desc,device,library,exportPlay,cancel);wrap.append(panel);document.body.append(wrap);
   }
 
   function ensurePanel(){
