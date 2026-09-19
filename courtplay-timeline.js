@@ -28,6 +28,7 @@
     const list=document.getElementById('actionTimelineList');
     if(!list)return;
     list.innerHTML='';
+    if(!(frame().lines||[]).length)selected.clear();
     (frame().lines||[]).forEach((l,i)=>{
       CourtPlayEngine.normalizeAction(l);
       const row=document.createElement('div');
@@ -36,11 +37,20 @@
       check.type='checkbox';check.className='actionCheck';check.checked=selected.has(i);
       check.addEventListener('click',e=>e.stopPropagation());
       check.addEventListener('change',()=>{check.checked?selected.add(i):selected.delete(i);});
+      const order=document.createElement('span');order.className='actionOrder';order.textContent=String(i+1);
       const dot=document.createElement('span');dot.className='actionDot';dot.style.background=l.color||'#172033';
       const label=document.createElement('button');label.type='button';label.className='actionLabel';
       label.innerHTML=`<strong>${actionTitle(l)}</strong><small>${l.isOption?'Opción':''}${l.simultaneousGroup?(l.isOption?' · ':'')+'Misma vez':''}</small>`;
       label.addEventListener('click',()=>{selectedLine=i;selectedPlayer=l.sourceKey||null;render();});
-      row.append(check,dot,label);list.appendChild(row);
+      const reorder=document.createElement('div');reorder.className='actionReorder';
+      const up=document.createElement('button');up.type='button';up.className='actionMoveBtn';up.textContent='↑';up.title='Mover antes';up.setAttribute('aria-label','Mover acción antes');
+      const down=document.createElement('button');down.type='button';down.className='actionMoveBtn';down.textContent='↓';down.title='Mover después';down.setAttribute('aria-label','Mover acción después');
+      const blocks=sequenceBlocks(),bi=blocks.findIndex(b=>b.includes(i));
+      up.disabled=bi<=0;down.disabled=bi<0||bi>=blocks.length-1;
+      up.addEventListener('click',e=>{e.stopPropagation();moveActionBlock(i,-1);});
+      down.addEventListener('click',e=>{e.stopPropagation();moveActionBlock(i,1);});
+      reorder.append(up,down);
+      row.append(check,order,dot,label,reorder);list.appendChild(row);
     });
     syncControls();
   }
@@ -48,6 +58,36 @@
     if(selected.size)return [...selected].filter(i=>frame().lines[i]).sort((a,b)=>a-b);
     return selectedLine>=0?[selectedLine]:[];
   }
+  function sequenceBlocks(){
+    const lines=frame().lines||[],blocks=[],seen=new Set();
+    for(let i=0;i<lines.length;i++){
+      const gid=lines[i].simultaneousGroup;
+      if(gid){
+        if(seen.has(gid))continue;
+        seen.add(gid);
+        const idx=[];for(let j=0;j<lines.length;j++)if(lines[j].simultaneousGroup===gid)idx.push(j);
+        blocks.push(idx);
+      }else blocks.push([i]);
+    }
+    return blocks;
+  }
+  function moveActionBlock(index,delta){
+    const lines=frame().lines||[];
+    if(!lines[index])return;
+    const activeAction=lines[index],selectedActions=[...selected].map(i=>lines[i]).filter(Boolean);
+    const blocks=sequenceBlocks(),bi=blocks.findIndex(b=>b.includes(index)),ni=bi+delta;
+    if(bi<0||ni<0||ni>=blocks.length)return;
+    const order=blocks.map(b=>b.map(i=>lines[i]));
+    [order[bi],order[ni]]=[order[ni],order[bi]];
+    frame().lines=order.flat();
+    selectedLine=frame().lines.indexOf(activeAction);
+    selected.clear();
+    selectedActions.forEach(a=>{const i=frame().lines.indexOf(a);if(i>=0)selected.add(i);});
+    reflowPhasesAfter(current);
+    render();
+    setStatus(delta<0?'Acción movida hacia arriba en la secuencia.':'Acción movida hacia abajo en la secuencia.');
+  }
+
   function groupSameTime(){
     const ids=selectedIndexes();
     if(ids.length<2){setStatus('Selecciona al menos dos acciones para ejecutarlas a la misma vez.');return;}
@@ -77,6 +117,7 @@
   document.getElementById('sameTimeBtn')?.addEventListener('click',groupSameTime);
   document.getElementById('ungroupBtn')?.addEventListener('click',ungroup);
   document.getElementById('optionActionBtn')?.addEventListener('click',toggleOption);
+  document.addEventListener('courtplay:phase-cleared',()=>{selected.clear();lastPhase=current;});
   const pal=document.getElementById('actionColorPalette');
   palette.forEach(color=>{
     const b=document.createElement('button');b.type='button';b.className='actionColor';b.dataset.color=color;b.style.background=color;b.setAttribute('aria-label','Color de acción');
