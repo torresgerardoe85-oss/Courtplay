@@ -67,8 +67,9 @@
     return action;
   }
   function handoffGiverEnd(src,tgt,pts){
-    const gap=68;
-    let from=src||((pts&&pts.length)?pts[0]:null);
+    const gap=82;
+    const authoredStart=(pts&&pts.length)?pts[0]:null;
+    const from=authoredStart||src||null;
     let dx=from?from.x-tgt.x:0,dy=from?from.y-tgt.y:0;
     let len=Math.hypot(dx,dy);
     if(len<1){
@@ -78,6 +79,16 @@
       x:clamp(tgt.x+(dx/len)*gap,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
       y:clamp(tgt.y+(dy/len)*gap,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
     };
+  }
+  function ensureHandoffSeparation(state,action,minGap=76){
+    if(!state||!action||action.type!=='handoff')return state;
+    const src=player(state,action.sourceKey),tgt=player(state,action.targetKey);
+    if(!src||!tgt)return state;
+    const d=Math.hypot(src.x-tgt.x,src.y-tgt.y);
+    if(d>=minGap)return state;
+    const sep=handoffGiverEnd(null,tgt,points(action));
+    src.x=sep.x;src.y=sep.y;
+    return state;
   }
   function prepareAction(raw,state,{mutate=false,infer=true}={}){
     const action=mutate?raw:clone(raw);
@@ -136,8 +147,9 @@
       const tgt=player(state,action.targetKey);
       if(tgt){
         if(action.type==='handoff'&&src){
-          const sep=handoffGiverEnd(src,tgt,pts);
+          const sep=handoffGiverEnd(null,tgt,pts);
           src.x=sep.x;src.y=sep.y;
+          ensureHandoffSeparation(state,action);
         }
         state.ball.owner=tgt.key;
       }else{
@@ -230,7 +242,7 @@
   }
 
   global.CourtPlayEngine={
-    clone,points,captureLocalGeometry,invalidateLocalGeometry,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,handoffGiverEnd,
+    clone,points,captureLocalGeometry,invalidateLocalGeometry,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,handoffGiverEnd,ensureHandoffSeparation,
     prepareAction,applyAction,bindLegacyPhase,resolvePhase,reflow,nextPhaseFrom,duplicatePhaseForContinuation
   };
 })(typeof window!=='undefined'?window:globalThis);
