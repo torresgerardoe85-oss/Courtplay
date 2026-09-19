@@ -102,8 +102,8 @@ canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefau
     else if(isCurve){l.manualCurve=true;}
     else if(isEnd){recenterCurve(l);}
   }
-  else if(drag?.type==='player'){const pl=frame().players.find(x=>x.key===drag.key);if(pl){pl.x=clamp(p.x-drag.dx,30,W-30);pl.y=clamp(p.y-drag.dy,30,H-30);syncBallOwner();syncActionSources(pl.key);}}
-  else if(drag?.type==='ball'){frame().ball.x=clamp(p.x-drag.dx,16,W-16);frame().ball.y=clamp(p.y-drag.dy,16,H-16);}
+  else if(drag?.type==='player'){const pl=frame().players.find(x=>x.key===drag.key);if(pl){pl.x=clamp(p.x-drag.dx,30,W-30);pl.y=clamp(p.y-drag.dy,30,H-30);frame().phaseStartVersion=26;frame().manualStart=true;syncBallOwner();syncActionSources(pl.key);}}
+  else if(drag?.type==='ball'){frame().ball.x=clamp(p.x-drag.dx,16,W-16);frame().ball.y=clamp(p.y-drag.dy,16,H-16);frame().phaseStartVersion=26;frame().manualStart=true;}
   ctx.clearRect(0,0,W,H);drawScene();
 });
 function finishPointer(e){
@@ -221,19 +221,7 @@ function cleanLegacyCopiedLines(index){
   phase.phaseOwnershipVersion=14;
 }
 function reflowPhasesAfter(index){
-  if(data.frames.length<2)return;
-  const start=Math.max(0,index);
-  let running=resolvePhaseEndState(data.frames[start]);
-  for(let i=start+1;i<data.frames.length;i++){
-    const phase=data.frames[i];
-    cleanLegacyCopiedLines(i);
-    phase.players=copy(running.players||[]);
-    phase.ball=copy(running.ball||{x:535,y:755,owner:null});
-    phase.inheritsFromPrevious=true;
-    phase.phaseOwnershipVersion=14;
-    // Only this phase's own actions remain here. Previous phase patterns never carry over.
-    running=alignPhaseActionsToStart(phase);
-  }
+  return CourtPlayEngine.reflow(data.frames,index);
 }
 function refreshPhaseStart(index){
   if(index<=0||index>=data.frames.length)return;
@@ -261,28 +249,16 @@ document.getElementById('clearPhaseBtn')?.addEventListener('click',()=>{
   const seconds=frame().seconds||2.4;
   const currentPlayers=copy(frame().players||[]);
   const currentBall=copy(frame().ball||{x:535,y:755,owner:null});
-  let clean;
-  if(current===0){
-    clean={
-      players:currentPlayers,
-      ball:currentBall,
-      lines:[],
-      caption:'',
-      seconds,
-      phaseOwnershipVersion:25
-    };
-  }else{
-    const prevEnd=CourtPlayEngine.resolvePhase(data.frames[current-1],{mutateActions:false});
-    clean={
-      players:copy(prevEnd.players||[]),
-      ball:copy(prevEnd.ball||{x:535,y:755,owner:null}),
-      lines:[],
-      caption:'',
-      seconds,
-      inheritsFromPrevious:true,
-      phaseOwnershipVersion:25
-    };
-  }
+  const clean={
+    players:currentPlayers,
+    ball:currentBall,
+    lines:[],
+    caption:'',
+    seconds,
+    inheritsFromPrevious:current>0,
+    phaseStartVersion:26,
+    phaseOwnershipVersion:26
+  };
   data.frames[current]=clean;
   selectedLine=-1;selectedPlayer=null;tool='select';drag=null;draft=null;pendingToken=null;assignBall=false;
   if(current<data.frames.length-1)CourtPlayEngine.reflow(data.frames,current);
@@ -303,7 +279,7 @@ document.getElementById('newPlayBtn')?.addEventListener('click',()=>{
 });
 
 
-if(data.frames.length>1){reflowPhasesAfter(0); /* state-only chain repair; phase patterns stay local */}
+if(data.frames.length>1){reflowPhasesAfter(0); /* snapshot-safe action alignment; phase starts stay local */}
 
 
 /* CourtPlay canonical sequence engine bindings */
