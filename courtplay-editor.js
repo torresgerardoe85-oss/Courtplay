@@ -20,7 +20,7 @@ function recenterCurve(l){
   const a=l.points[0],b=l.points[l.points.length-1],m=l.points[1];
   m.x=(a.x+b.x)/2;m.y=(a.y+b.y)/2;
 }
-function syncActionSources(key=null){(frame().lines||[]).forEach(l=>{if(!l.sourceKey||(key&&l.sourceKey!==key))return;const src=frame().players.find(p=>p.key===l.sourceKey);if(src&&pathPoints(l)[0]){l.points[0].x=src.x;l.points[0].y=src.y;recenterCurve(l);}})}
+function syncActionSources(key=null){(frame().lines||[]).forEach(l=>{if(!l.sourceKey||(key&&l.sourceKey!==key))return;const src=frame().players.find(p=>p.key===l.sourceKey),pts=pathPoints(l);if(src&&pts[0]){const dx=src.x-pts[0].x,dy=src.y-pts[0].y;if(Math.abs(dx)>.01||Math.abs(dy)>.01){pts.forEach(p=>{p.x+=dx;p.y+=dy});CourtPlayEngine.invalidateLocalGeometry(l);CourtPlayEngine.captureLocalGeometry(l)}recenterCurve(l);}})}
 function defaultActionEnd(start,type){
   const dirX=start.x<W/2?1:-1;
   let end={x:clamp(start.x+dirX*115,45,W-45),y:clamp(start.y-105,45,H-45)};
@@ -70,8 +70,8 @@ function applyBallTransfer(l){
 function updateTransferTarget(l,p){
   if(!l||!['pass','handoff'].includes(l.type))return null;
   const target=hitReceiver(p,l.sourceKey);
-  if(target){l.targetKey=target.key;return target;}
-  l.targetKey=null;return null;
+  if(target){l.targetKey=target.key;CourtPlayEngine.invalidateLocalGeometry(l);return target;}
+  l.targetKey=null;CourtPlayEngine.invalidateLocalGeometry(l);return null;
 }
 canvas.addEventListener('pointerdown',e=>{e.preventDefault();canvas.setPointerCapture?.(e.pointerId);const p=point(e);
   if(tool==='token'&&pendingToken){const key=(pendingToken.team==='defense'?'d':'o')+pendingToken.label.toLowerCase();let pl=frame().players.find(x=>x.key===key);if(pl){pl.x=p.x;pl.y=p.y}else{pl={key,label:pendingToken.label,team:pendingToken.team,x:p.x,y:p.y};frame().players.push(pl);}pendingToken=null;selectedPlayer=key;document.querySelectorAll('.tokenBtn').forEach(x=>x.classList.remove('active'));setTool('select');return;}
@@ -97,6 +97,7 @@ canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefau
       else drag.targetKey=null;
     }
     pt.x=x;pt.y=y;
+    CourtPlayEngine.invalidateLocalGeometry(l);
     if(isStart){l.sourceKey=null;l.sourceDetached=true;selectedPlayer=null;recenterCurve(l);}
     else if(isCurve){l.manualCurve=true;}
     else if(isEnd){recenterCurve(l);}
@@ -132,9 +133,9 @@ lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){
   else applyBallTransfer(l);
   reflowPhasesAfter(current);render();
 }});
-addPointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const pts=pathPoints(frame().lines[selectedLine]);let best=0,bestLen=-1;for(let i=0;i<pts.length-1;i++){const d=Math.hypot(pts[i+1].x-pts[i].x,pts[i+1].y-pts[i].y);if(d>bestLen){best=i;bestLen=d}}pts.splice(best+1,0,{x:(pts[best].x+pts[best+1].x)/2,y:(pts[best].y+pts[best+1].y)/2});frame().lines[selectedLine].manualCurve=true;reflowPhasesAfter(current);render();});
-removePointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const pts=pathPoints(frame().lines[selectedLine]);if(pts.length<=2){setStatus('Una trayectoria necesita al menos inicio y final.');return}pts.splice(Math.max(1,pts.length-2),1);reflowPhasesAfter(current);render();});
-reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){const l=frame().lines[selectedLine];l.points.reverse();l.sourceKey=null;l.targetKey=null;l.sourceDetached=true;selectedPlayer=null;setStatus('Trayectoria invertida. Ya no está anclada a un jugador.');reflowPhasesAfter(current);render();}});
+addPointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const l=frame().lines[selectedLine],pts=pathPoints(l);let best=0,bestLen=-1;for(let i=0;i<pts.length-1;i++){const d=Math.hypot(pts[i+1].x-pts[i].x,pts[i+1].y-pts[i].y);if(d>bestLen){best=i;bestLen=d}}pts.splice(best+1,0,{x:(pts[best].x+pts[best+1].x)/2,y:(pts[best].y+pts[best+1].y)/2});l.manualCurve=true;CourtPlayEngine.invalidateLocalGeometry(l);reflowPhasesAfter(current);render();});
+removePointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const l=frame().lines[selectedLine],pts=pathPoints(l);if(pts.length<=2){setStatus('Una trayectoria necesita al menos inicio y final.');return}pts.splice(Math.max(1,pts.length-2),1);CourtPlayEngine.invalidateLocalGeometry(l);reflowPhasesAfter(current);render();});
+reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){const l=frame().lines[selectedLine];l.points.reverse();l.sourceKey=null;l.targetKey=null;l.sourceDetached=true;CourtPlayEngine.invalidateLocalGeometry(l);selectedPlayer=null;setStatus('Trayectoria invertida. Ya no está anclada a un jugador.');reflowPhasesAfter(current);render();}});
 deleteLineBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1;reflowPhasesAfter(current);render();}});
 deleteObjectBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1}else if(selectedPlayer){const key=selectedPlayer,i=frame().players.findIndex(x=>x.key===key);if(i>=0){if(frame().ball.owner===key)frame().ball.owner=null;frame().players.splice(i,1);frame().lines=frame().lines.filter(l=>l.sourceKey!==key);}selectedPlayer=null}reflowPhasesAfter(current);render();});
 
