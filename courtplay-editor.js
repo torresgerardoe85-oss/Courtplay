@@ -20,7 +20,7 @@ function recenterCurve(l){
   const a=l.points[0],b=l.points[l.points.length-1],m=l.points[1];
   m.x=(a.x+b.x)/2;m.y=(a.y+b.y)/2;
 }
-function syncActionSources(key=null){(frame().lines||[]).forEach(l=>{if(!l.sourceKey||(key&&l.sourceKey!==key))return;const src=frame().players.find(p=>p.key===l.sourceKey),pts=pathPoints(l);if(src&&pts[0]){const dx=src.x-pts[0].x,dy=src.y-pts[0].y;if(Math.abs(dx)>.01||Math.abs(dy)>.01){pts.forEach(p=>{p.x+=dx;p.y+=dy});CourtPlayEngine.invalidateLocalGeometry(l);CourtPlayEngine.captureLocalGeometry(l)}recenterCurve(l);}})}
+function syncActionSources(key=null){(frame().lines||[]).forEach(l=>{if(!l.sourceKey||(key&&l.sourceKey!==key))return;const src=frame().players.find(p=>p.key===l.sourceKey),pts=pathPoints(l);if(src&&pts[0]){pts[0].x=src.x;pts[0].y=src.y;CourtPlayEngine.invalidateLocalGeometry(l);recenterCurve(l);CourtPlayEngine.captureLocalGeometry(l);}})}
 function defaultActionEnd(start,type){
   const dirX=start.x<W/2?1:-1;
   let end={x:clamp(start.x+dirX*115,45,W-45),y:clamp(start.y-105,45,H-45)};
