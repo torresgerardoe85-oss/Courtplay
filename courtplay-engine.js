@@ -200,6 +200,7 @@
       caption:phase.caption||'',
       seconds:phase.seconds||2.4,
       inheritsFromPrevious:true,
+      phaseStartVersion:26,
       phaseOwnershipVersion:26
     };
     resolvePhase(next,{mutateActions:true});
