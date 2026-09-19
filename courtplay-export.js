@@ -233,7 +233,9 @@ function drawAnimationStep(scene,actions,t,c=ctx){
   if(scene.ball)drawBall(c,scene.ball);
 }
 async function playOnePhase(phase,phaseIndex,runningState,target,exportMode){
-  let base=runningState?copy(runningState):{players:copy(phase.players||[]),ball:copy(phase.ball||{x:535,y:755,owner:null})};
+  // Every phase starts from its own saved snapshot. runningState is intentionally
+  // ignored for positioning; it is kept only for backwards-compatible call shape.
+  let base={players:copy(phase.players||[]),ball:copy(phase.ball||{x:535,y:755,owner:null})};
   syncSceneBall(base);
   const steps=phaseSteps(phase),total=Math.max(900,(phase.seconds||2.4)*1000);
   if(!steps.length){
@@ -270,11 +272,11 @@ async function playOnePhase(phase,phaseIndex,runningState,target,exportMode){
 async function animateCanvas(target,exportMode=false){
   if(playing&&!exportMode)return;
   CourtPlayEngine.reflow(data.frames,0);
-  const original=current;let runningState=null;
-  if(!exportMode){playing=true;playBtn.textContent='■ Detener';setStatus('Reproduciendo animación…');}
+  const original=current;let phaseEnd=null;
+  if(!exportMode){playing=true;playBtn.textContent='■ Detener';setStatus('Reproduciendo animación por fases…');}
   for(let i=0;i<data.frames.length&&(exportMode||playing);i++){
-    runningState=await playOnePhase(data.frames[i],i,runningState,target,exportMode);
-    if(runningState&&runningState.terminalShot)break;
+    phaseEnd=await playOnePhase(data.frames[i],i,null,target,exportMode);
+    if(phaseEnd&&phaseEnd.terminalShot)break;
   }
   if(!exportMode){playing=false;current=original;playBtn.textContent='▶ Animación';setStatus('Animación terminada.');render();}
 }
