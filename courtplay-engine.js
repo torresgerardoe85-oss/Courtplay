@@ -177,12 +177,16 @@
   function resolvePhase(phase,{mutateActions=true}={}){
     const state={players:clone(phase.players||[]),ball:clone(phase.ball||{x:535,y:755,owner:null})};
     syncBall(state);
+    const applied=[];
     for(const raw of phase.lines||[]){
       const action=prepareAction(raw,state,{mutate:mutateActions,infer:true});
-      if(!action.isOption)applyAction(state,action,{mutate:true});
+      if(!action.isOption){applyAction(state,action,{mutate:true});applied.push(action);}
       if(state.terminalShot)break;
     }
-    return state;
+    for(const action of applied){
+      if(action.type==='handoff')ensureHandoffSeparation(state,action);
+    }
+    return syncBall(state);
   }
   function inferInitialPossession(phase){
     if(!phase||!phase.ball||phase.ball.owner)return;
