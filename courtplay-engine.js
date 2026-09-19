@@ -151,7 +151,7 @@
     return state;
   }
   function inferInitialPossession(phase){
-    if(!phase||!phase.ball)return;
+    if(!phase||!phase.ball||phase.ball.owner)return;
     const first=(phase.lines||[]).find(l=>['pass','handoff','dribble','shot'].includes(l.type)&&l.sourceKey);
     if(first){
       const src=(phase.players||[]).find(p=>p.key===first.sourceKey);
