@@ -66,6 +66,19 @@
     }
     return action;
   }
+  function handoffGiverEnd(src,tgt,pts){
+    const gap=68;
+    let from=src||((pts&&pts.length)?pts[0]:null);
+    let dx=from?from.x-tgt.x:0,dy=from?from.y-tgt.y:0;
+    let len=Math.hypot(dx,dy);
+    if(len<1){
+      dx=tgt.x<W/2?-1:1;dy=0;len=1;
+    }
+    return{
+      x:clamp(tgt.x+(dx/len)*gap,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+      y:clamp(tgt.y+(dy/len)*gap,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+    };
+  }
   function prepareAction(raw,state,{mutate=false,infer=true}={}){
     const action=mutate?raw:clone(raw);
     normalizeAction(action);
@@ -92,7 +105,12 @@
       }
       if(tgt){
         const end=pts[pts.length-1];
-        end.x=tgt.x;end.y=tgt.y;
+        if(action.type==='handoff'){
+          const giverEnd=handoffGiverEnd(src,tgt,pts);
+          end.x=giverEnd.x;end.y=giverEnd.y;
+        }else{
+          end.x=tgt.x;end.y=tgt.y;
+        }
       }
     }
     if(action.type==='shot'){
@@ -208,7 +226,7 @@
   }
 
   global.CourtPlayEngine={
-    clone,points,captureLocalGeometry,invalidateLocalGeometry,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,
+    clone,points,captureLocalGeometry,invalidateLocalGeometry,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,handoffGiverEnd,
     prepareAction,applyAction,bindLegacyPhase,resolvePhase,reflow,nextPhaseFrom,duplicatePhaseForContinuation
   };
 })(typeof window!=='undefined'?window:globalThis);
