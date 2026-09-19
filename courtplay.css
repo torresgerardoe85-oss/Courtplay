@@ -181,14 +181,18 @@ canvas#court{width:100%;height:auto;max-width:100%}
 .actionColor{width:28px;height:28px;border-radius:50%;border:3px solid white;box-shadow:0 0 0 1px #cbd5e1;padding:0}
 .actionColor.active{box-shadow:0 0 0 3px #0b56bd}
 .actionTimelineList{display:flex;flex-direction:column;gap:7px}
-.actionRow{display:grid;grid-template-columns:24px 15px minmax(0,1fr);align-items:center;gap:6px;border:1px solid #dbe4ee;border-radius:10px;padding:6px;background:#fff}
+.actionRow{display:grid;grid-template-columns:24px 24px 15px minmax(0,1fr) auto;align-items:center;gap:6px;border:1px solid #dbe4ee;border-radius:10px;padding:6px;background:#fff}
 .actionRow.active{border-color:#0b56bd;background:#f7fbff}
 .actionRow.option{border-style:dashed;background:#faf5ff}
 .actionCheck{width:18px;height:18px}
+.actionOrder{display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:#eef2f7;color:#475569;font-size:11px;font-weight:900}
 .actionDot{width:12px;height:12px;border-radius:50%}
 .actionLabel{border:0;background:transparent;text-align:left;padding:0;min-width:0;color:#172033}
 .actionLabel strong{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .actionLabel small{display:block;color:#7c3aed;font-size:10px;min-height:12px}
+.actionReorder{display:flex;gap:4px}
+.actionMoveBtn{width:36px;height:36px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#173b67;font-weight:900;font-size:17px;padding:0}
+.actionMoveBtn:disabled{opacity:.3}
 @media(max-width:640px){.sequenceButtons{grid-template-columns:1fr 1fr}.actionColor{width:32px;height:32px}}
 
 .courtplayToast{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translate(-50%,18px);z-index:9999;max-width:min(92vw,520px);padding:12px 18px;border-radius:14px;background:#10233f;color:white;font-weight:800;font-size:14px;opacity:0;pointer-events:none;transition:.2s ease;box-shadow:0 8px 28px rgba(0,0,0,.28)}
@@ -239,3 +243,5 @@ canvas#court{width:100%;height:auto;max-width:100%}
 .libraryRowActions button{min-width:72px}
 .libraryRowActions button.danger{background:#fff;color:#b91c1c;border:1px solid #fecaca}
 @media(max-width:520px){.libraryTopActions{grid-template-columns:1fr}.libraryRow{grid-template-columns:1fr}.libraryRowActions{justify-content:flex-start}}
+
+@media(max-width:640px){.actionRow{grid-template-columns:22px 22px 12px minmax(0,1fr) auto;gap:5px}.actionMoveBtn{width:40px;height:40px}.actionReorder{gap:3px}.actionOrder{width:22px;height:22px}}
