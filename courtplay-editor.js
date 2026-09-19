@@ -73,6 +73,12 @@ function updateTransferTarget(l,p){
   if(target){l.targetKey=target.key;CourtPlayEngine.invalidateLocalGeometry(l);return target;}
   l.targetKey=null;CourtPlayEngine.invalidateLocalGeometry(l);return null;
 }
+function transferVisualEnd(l,target){
+  if(!l||!target)return null;
+  if(l.type!=='handoff')return{x:target.x,y:target.y};
+  const src=l.sourceKey&&frame().players.find(p=>p.key===l.sourceKey);
+  return CourtPlayEngine.handoffGiverEnd(src,target,pathPoints(l));
+}
 canvas.addEventListener('pointerdown',e=>{e.preventDefault();canvas.setPointerCapture?.(e.pointerId);const p=point(e);
   if(tool==='token'&&pendingToken){const key=(pendingToken.team==='defense'?'d':'o')+pendingToken.label.toLowerCase();let pl=frame().players.find(x=>x.key===key);if(pl){pl.x=p.x;pl.y=p.y}else{pl={key,label:pendingToken.label,team:pendingToken.team,x:p.x,y:p.y};frame().players.push(pl);}pendingToken=null;selectedPlayer=key;document.querySelectorAll('.tokenBtn').forEach(x=>x.classList.remove('active'));setTool('select');return;}
   if(tool==='ballAssign'){const pl=hitPlayer(p);if(pl){frame().ball.owner=pl.key;selectedPlayer=pl.key;syncBallOwner();setStatus(`Balón asignado a ${pl.team==='defense'?'x':''}${pl.label}.`);setTool('select')}return;}
@@ -93,8 +99,10 @@ canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefau
       let target=null;
       if(['pass','handoff'].includes(l.type)) target=updateTransferTarget(l,p);
       else target=hitReceiver(p,l.sourceKey)||hitPlayer(p);
-      if(target&&target.key!==l.sourceKey){x=target.x;y=target.y;drag.targetKey=target.key;}
-      else drag.targetKey=null;
+      if(target&&target.key!==l.sourceKey){
+        const snap=transferVisualEnd(l,target);
+        x=snap.x;y=snap.y;drag.targetKey=target.key;
+      }else drag.targetKey=null;
     }
     pt.x=x;pt.y=y;
     CourtPlayEngine.invalidateLocalGeometry(l);
@@ -113,8 +121,9 @@ function finishPointer(e){
       if(e){
         const release=point(e),target=updateTransferTarget(l,release);
         if(target){
-          const end=l.points[l.points.length-1];
-          end.x=target.x;end.y=target.y;drag.targetKey=target.key;
+          const end=l.points[l.points.length-1],snap=transferVisualEnd(l,target);
+          end.x=snap.x;end.y=snap.y;drag.targetKey=target.key;
+          CourtPlayEngine.invalidateLocalGeometry(l);
           recenterCurve(l);
         }
       }
