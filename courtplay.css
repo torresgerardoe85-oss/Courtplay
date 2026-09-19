@@ -190,8 +190,14 @@ canvas#court{width:100%;height:auto;max-width:100%}
 .actionLabel{border:0;background:transparent;text-align:left;padding:0;min-width:0;color:#172033}
 .actionLabel strong{display:block;font-size:12px;white-space:normal;overflow:visible;text-overflow:clip;line-height:1.25}
 .actionLabel small{display:block;color:#7c3aed;font-size:10px;min-height:12px}
-.actionReorder{grid-column:1/-1;display:flex;gap:5px;justify-content:flex-end;padding-top:2px;border-top:1px solid #eef2f7;margin-top:2px}
-.actionMoveBtn{min-width:42px;height:34px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#173b67;font-weight:900;font-size:17px;padding:0 10px}
+.actionReorder{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:5px;border-top:1px solid #eef2f7;margin-top:2px}
+.actionStateTools,.actionMoveTools{display:flex;align-items:center;gap:5px}
+.actionStateBtn,.actionMoveBtn{height:34px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#475569;font-weight:900;padding:0;display:flex;align-items:center;justify-content:center}
+.actionStateBtn{width:38px;font-size:20px}
+.actionStateBtn svg{width:24px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.actionStateBtn.sameTimeIcon.active{background:#eef5ff;border-color:#93b9ea;color:#0b56bd}
+.actionStateBtn.optionIcon.active{background:#f3e8ff;border-color:#c4b5fd;color:#7c3aed}
+.actionMoveBtn{min-width:42px;font-size:17px;padding:0 10px;color:#173b67}
 .actionMoveBtn:disabled{opacity:.3}
 @media(max-width:640px){.sequenceButtons{grid-template-columns:1fr 1fr}.actionColor{width:32px;height:32px}}
 
@@ -244,4 +250,4 @@ canvas#court{width:100%;height:auto;max-width:100%}
 .libraryRowActions button.danger{background:#fff;color:#b91c1c;border:1px solid #fecaca}
 @media(max-width:520px){.libraryTopActions{grid-template-columns:1fr}.libraryRow{grid-template-columns:1fr}.libraryRowActions{justify-content:flex-start}}
 
-@media(max-width:640px){.actionRow{grid-template-columns:22px 22px 12px minmax(0,1fr);gap:5px}.actionMoveBtn{min-width:46px;height:38px}.actionReorder{gap:5px}.actionOrder{width:22px;height:22px}.actionLabel strong{font-size:13px}}
+@media(max-width:640px){.actionRow{grid-template-columns:22px 22px 12px minmax(0,1fr);gap:5px}.actionStateBtn,.actionMoveBtn{height:38px}.actionStateBtn{width:42px}.actionMoveBtn{min-width:46px}.actionReorder{gap:6px}.actionStateTools,.actionMoveTools{gap:4px}.actionOrder{width:22px;height:22px}.actionLabel strong{font-size:13px}}
