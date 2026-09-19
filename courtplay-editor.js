@@ -259,10 +259,18 @@ deleteBtn.addEventListener('click',()=>{if(data.frames.length<=1)return;data.fra
 document.getElementById('clearPhaseBtn')?.addEventListener('click',()=>{
   if(!confirm('¿Limpiar esta fase? Se borrará toda su secuencia: movimientos, pases, tiros, screens, opciones y grupos “Misma vez”.'))return;
   const seconds=frame().seconds||2.4;
+  const currentPlayers=copy(frame().players||[]);
+  const currentBall=copy(frame().ball||{x:535,y:755,owner:null});
   let clean;
   if(current===0){
-    clean=starterPhase();
-    clean.seconds=seconds;
+    clean={
+      players:currentPlayers,
+      ball:currentBall,
+      lines:[],
+      caption:'',
+      seconds,
+      phaseOwnershipVersion:25
+    };
   }else{
     const prevEnd=CourtPlayEngine.resolvePhase(data.frames[current-1],{mutateActions:false});
     clean={
