@@ -204,7 +204,7 @@ function sceneDuringActions(base,rawActions,t){
   let ballHandled=false;
   for(const l of actions){
     const pts=pathPoints(l),src=playerByKey(scene,l.sourceKey),p=catmullPoint(pts,clamp(t,0,1));
-    if(src&&['move','dribble','screen','handoff'].includes(l.type)){src.x=p.x;src.y=p.y;}
+    if(src&&['move','dribble','screen','handoff'].includes(l.type)){src.x=clamp(p.x,30,W-30);src.y=clamp(p.y,30,H-30);}
   }
   for(const l of actions){
     const pts=pathPoints(l),src=playerByKey(scene,l.sourceKey),p=catmullPoint(pts,clamp(t,0,1));
