@@ -257,12 +257,29 @@ duplicateBtn.addEventListener('click',()=>{commit();const f=CourtPlayEngine.dupl
 prevBtn.addEventListener('click',()=>{commit();reflowPhasesAfter(0);if(current>0)current--;selectedLine=-1;selectedPlayer=null;render();});nextBtn.addEventListener('click',()=>{commit();reflowPhasesAfter(0);if(current<data.frames.length-1)current++;selectedLine=-1;selectedPlayer=null;render();});
 deleteBtn.addEventListener('click',()=>{if(data.frames.length<=1)return;data.frames.splice(current,1);current=Math.min(current,data.frames.length-1);selectedLine=-1;reflowPhasesAfter(Math.max(0,current-1));render();});
 document.getElementById('clearPhaseBtn')?.addEventListener('click',()=>{
-  if(!confirm('¿Limpiar esta fase? Se borrarán sus movimientos y explicación.'))return;
-  frame().lines=[];
-  frame().caption='';
-  selectedLine=-1;selectedPlayer=null;tool='select';
-  reflowPhasesAfter(current);
-  setStatus('Fase limpia. Las demás fases se conservaron y fueron recalculadas.');
+  if(!confirm('¿Limpiar esta fase? Se borrará toda su secuencia: movimientos, pases, tiros, screens, opciones y grupos “Misma vez”.'))return;
+  const seconds=frame().seconds||2.4;
+  let clean;
+  if(current===0){
+    clean=starterPhase();
+    clean.seconds=seconds;
+  }else{
+    const prevEnd=CourtPlayEngine.resolvePhase(data.frames[current-1],{mutateActions:false});
+    clean={
+      players:copy(prevEnd.players||[]),
+      ball:copy(prevEnd.ball||{x:535,y:755,owner:null}),
+      lines:[],
+      caption:'',
+      seconds,
+      inheritsFromPrevious:true,
+      phaseOwnershipVersion:25
+    };
+  }
+  data.frames[current]=clean;
+  selectedLine=-1;selectedPlayer=null;tool='select';drag=null;draft=null;pendingToken=null;assignBall=false;
+  if(current<data.frames.length-1)CourtPlayEngine.reflow(data.frames,current);
+  setStatus('Fase completamente limpia. Toda la secuencia de esta fase fue eliminada.');
+  document.dispatchEvent(new CustomEvent('courtplay:phase-cleared'));
   render();
 });
 document.getElementById('newPlayBtn')?.addEventListener('click',()=>{
