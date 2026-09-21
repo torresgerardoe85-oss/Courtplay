@@ -18,6 +18,9 @@
     client.auth.onAuthStateChange((_event,next)=>{
       session=next;
       document.dispatchEvent(new CustomEvent('courtplay:cloud-auth-changed'));
+      if(session&&navigator.onLine!==false){
+        setTimeout(()=>flushOutbox({reason:'auth-change'}).catch(()=>{}),0);
+      }
     });
     return client;
   }
@@ -48,7 +51,7 @@
 
   async function signUp(email,password){
     await ensureReady();
-    const redirectTo='https://torresgerardoe85-oss.github.io/Courtplay/v2.html?v=33';
+    const redirectTo='https://torresgerardoe85-oss.github.io/Courtplay/v2.html?v=34';
     const {data,error}=await client.auth.signUp({
       email,
       password,
@@ -298,8 +301,13 @@
     const box=document.createElement('div');box.className='cloudAuthBox';
     if(isSignedIn()){
       const info=document.createElement('div');info.className='cloudAuthInfo';
-      const strong=document.createElement('strong');strong.textContent='☁ Mi Biblioteca está sincronizada';
-      const small=document.createElement('small');small.textContent=user().email||'Cuenta CourtPlay';
+      const strong=document.createElement('strong');
+      const pending=pendingCount(),offline=navigator.onLine===false;
+      if(offline)strong.textContent='☁ Sin conexión · guardando en este dispositivo';
+      else if(pending)strong.textContent='☁ '+pending+' cambio'+(pending===1?'':'s')+' pendiente'+(pending===1?'':'s')+' de sincronizar';
+      else strong.textContent='☁ Mi Biblioteca está sincronizada';
+      const small=document.createElement('small');
+      small.textContent=(user().email||'Cuenta CourtPlay')+(offline?' · Se sincronizará al volver el internet':'');
       info.append(strong,small);
       const logout=document.createElement('button');logout.type='button';logout.className='cloudAuthSecondary';logout.textContent='Cerrar sesión';
       logout.addEventListener('click',async()=>{
