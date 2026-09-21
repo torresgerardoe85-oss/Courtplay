@@ -1,18 +1,18 @@
-const CACHE='courtplay-v39';
+const CACHE='courtplay-v40';
 const ASSETS=[
   './',
   './index.html',
   './v2.html',
   './manifest.json',
-  './courtplay.css?v=39',
-  './courtplay-engine.js?v=39',
-  './courtplay-state.js?v=39',
-  './courtplay-render.js?v=39',
-  './courtplay-editor.js?v=39',
-  './courtplay-timeline.js?v=39',
-  './courtplay-cloud.js?v=39',
-  './courtplay-library.js?v=39',
-  './courtplay-export.js?v=39',
+  './courtplay.css?v=40',
+  './courtplay-engine.js?v=40',
+  './courtplay-state.js?v=40',
+  './courtplay-render.js?v=40',
+  './courtplay-editor.js?v=40',
+  './courtplay-timeline.js?v=40',
+  './courtplay-cloud.js?v=40',
+  './courtplay-library.js?v=40',
+  './courtplay-export.js?v=40',
   './plays/index.json'
 ];
 
