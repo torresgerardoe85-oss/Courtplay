@@ -1,12 +1,8 @@
 function drawAction(c,l,alpha=1){const pts=pathPoints(l);c.save();c.globalAlpha=alpha;const actionColor=l.color||(l.type==='shot'?'#df6813':'#172033');c.strokeStyle=actionColor;c.fillStyle=actionColor;c.lineWidth=6;c.lineCap='round';c.lineJoin='round';c.setLineDash([]);
   if(l.type==='pass')c.setLineDash([16,11]);
   if(l.type==='dribble'){drawDribble(c,pts);c.restore();return;}
-  strokeSmooth(c,pts);
-  const end=catmullPoint(pts,1),tan=tangent(pts,1),ang=Math.atan2(tan.y,tan.x),perp=ang+Math.PI/2;
-  if(l.type==='screen'){
-    const cap=23;c.beginPath();c.moveTo(end.x-cap*Math.cos(perp),end.y-cap*Math.sin(perp));c.lineTo(end.x+cap*Math.cos(perp),end.y+cap*Math.sin(perp));c.stroke();
-  }else if(l.type==='handoff'){
-    arrow(c,pts,16);
+  if(l.type==='handoff'){
+    drawDribble(c,pts);
     const hp=catmullPoint(pts,.68);
     c.save();
     c.fillStyle='rgba(255,255,255,.96)';c.strokeStyle=actionColor;c.lineWidth=4;
@@ -14,6 +10,12 @@ function drawAction(c,l,alpha=1){const pts=pathPoints(l);c.save();c.globalAlpha=
     c.fillStyle=actionColor;c.textAlign='center';c.textBaseline='middle';c.font='900 30px system-ui';
     c.fillText('H',hp.x,hp.y+1);
     c.restore();
+    c.restore();return;
+  }
+  strokeSmooth(c,pts);
+  const end=catmullPoint(pts,1),tan=tangent(pts,1),ang=Math.atan2(tan.y,tan.x),perp=ang+Math.PI/2;
+  if(l.type==='screen'){
+    const cap=23;c.beginPath();c.moveTo(end.x-cap*Math.cos(perp),end.y-cap*Math.sin(perp));c.lineTo(end.x+cap*Math.cos(perp),end.y+cap*Math.sin(perp));c.stroke();
   }else if(l.type==='shot'){
     c.beginPath();c.arc(end.x,end.y,13,0,Math.PI*2);c.stroke();
   }else arrow(c,pts,18);
