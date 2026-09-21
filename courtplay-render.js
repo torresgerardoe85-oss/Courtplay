@@ -73,16 +73,7 @@ function drawActionProgress(c,l,t){
     }
     c.restore();return;
   }
-  if(l.type==='handoff'){
-    if(tt>.35){
-      const hp=catmullPoint(pts,.72);
-      c.fillStyle='rgba(255,255,255,.96)';c.strokeStyle=actionColor;c.lineWidth=4;
-      c.beginPath();c.arc(hp.x,hp.y,24,0,Math.PI*2);c.fill();c.stroke();
-      c.fillStyle=actionColor;c.textAlign='center';c.textBaseline='middle';c.font='900 32px system-ui';c.fillText('H',hp.x,hp.y+1);
-    }
-    c.restore();return;
-  }
-  if(l.type==='dribble'){
+  if(l.type==='dribble'||l.type==='handoff'){
     const steps=Math.max(10,Math.ceil(45*tt)),amp=8,waves=Math.max(7,pts.length*4);
     c.beginPath();
     for(let i=0;i<=steps;i++){
@@ -92,6 +83,14 @@ function drawActionProgress(c,l,t){
     }
     c.stroke();
     if(tt>.08){const a=catmullPoint(pts,Math.max(0,tt-.05)),b=catmullPoint(pts,tt);arrow(c,[a,b],17);}
+    if(l.type==='handoff'&&tt>.35){
+      const hp=catmullPoint(pts,.72);
+      c.save();
+      c.fillStyle='rgba(255,255,255,.96)';c.strokeStyle=actionColor;c.lineWidth=4;
+      c.beginPath();c.arc(hp.x,hp.y,24,0,Math.PI*2);c.fill();c.stroke();
+      c.fillStyle=actionColor;c.textAlign='center';c.textBaseline='middle';c.font='900 32px system-ui';c.fillText('H',hp.x,hp.y+1);
+      c.restore();
+    }
     c.restore();return;
   }
   if(l.type==='pass')c.setLineDash([16,11]);
