@@ -5,8 +5,9 @@
   const SUPABASE_KEY='sb_publishable_DtWZpI45a_PwqGCLKHMUYA_1gCHxwij';
   const TABLE='courtplay_plays';
   const LOCAL_KEY='courtplay_my_library_v1';
+  const OUTBOX_KEY='courtplay_cloud_outbox_v1';
 
-  let client=null,session=null,ready=false;
+  let client=null,session=null,ready=false,flushing=false;
 
   function init(){
     if(client)return client;
@@ -41,6 +42,7 @@
     if(error)throw error;
     session=data.session||null;
     await syncLocalToCloud();
+    await flushOutbox({reason:'signin'});
     return data;
   }
 
@@ -71,6 +73,45 @@
       return Array.isArray(parsed)?parsed:[];
     }catch(e){return[]}
   }
+  function writeLocal(items){
+    try{localStorage.setItem(LOCAL_KEY,JSON.stringify((items||[]).slice(0,100)));}catch(e){}
+  }
+  function readOutbox(){
+    try{
+      const raw=JSON.parse(localStorage.getItem(OUTBOX_KEY)||'{}');
+      return{
+        upserts:Array.isArray(raw.upserts)?raw.upserts:[],
+        deletes:Array.isArray(raw.deletes)?raw.deletes:[]
+      };
+    }catch(e){return{upserts:[],deletes:[]}}
+  }
+  function writeOutbox(box){
+    try{
+      localStorage.setItem(OUTBOX_KEY,JSON.stringify({
+        upserts:[...new Set(box.upserts||[])],
+        deletes:[...new Set(box.deletes||[])]
+      }));
+    }catch(e){}
+    document.dispatchEvent(new CustomEvent('courtplay:cloud-queue-changed'));
+  }
+  function queueUpsert(libraryId){
+    if(!libraryId)return;
+    const box=readOutbox();
+    box.deletes=box.deletes.filter(id=>id!==libraryId);
+    if(!box.upserts.includes(libraryId))box.upserts.push(libraryId);
+    writeOutbox(box);
+  }
+  function queueDelete(libraryId){
+    if(!libraryId)return;
+    const box=readOutbox();
+    box.upserts=box.upserts.filter(id=>id!==libraryId);
+    if(!box.deletes.includes(libraryId))box.deletes.push(libraryId);
+    writeOutbox(box);
+  }
+  function pendingCount(){
+    const box=readOutbox();
+    return box.upserts.length+box.deletes.length;
+  }
 
   async function listPlays(){
     await ensureReady();
@@ -86,16 +127,16 @@
     await ensureReady();
     const u=user();
     if(!u)throw new Error('AUTH_REQUIRED');
-    const now=new Date().toISOString();
     const libraryId=play.libraryId||('lib_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7));
+    const stamp=play.savedAt||new Date().toISOString();
     play.libraryId=libraryId;
-    play.savedAt=now;
+    play.savedAt=stamp;
     const row={
       user_id:u.id,
       library_id:libraryId,
       name:play.name||'Jugada sin nombre',
       play:JSON.parse(JSON.stringify(play)),
-      updated_at:now
+      updated_at:stamp
     };
     const {error}=await client.from(TABLE).upsert(row,{onConflict:'user_id,library_id'});
     if(error)throw error;
@@ -111,14 +152,16 @@
 
   async function syncLocalToCloud(){
     await ensureReady();
-    if(!isSignedIn())return {uploaded:0};
-    const local=readLocal();
+    if(!isSignedIn()||navigator.onLine===false)return {uploaded:0,pulled:0};
+    let local=readLocal();
     const remote=await listPlays();
-    const byId=new Map(remote.map(x=>[x.library_id,x]));
-    let uploaded=0;
+    const byRemote=new Map(remote.map(x=>[x.library_id,x]));
+    const byLocal=new Map(local.map(x=>[x.id,x]));
+    let uploaded=0,pulled=0;
+
     for(const item of local){
       if(!item||!item.id||!item.play)continue;
-      const r=byId.get(item.id);
+      const r=byRemote.get(item.id);
       const localTime=Date.parse(item.updatedAt||item.play.savedAt||0)||0;
       const remoteTime=r?(Date.parse(r.updated_at||0)||0):0;
       if(!r||localTime>remoteTime){
@@ -127,9 +170,117 @@
         if(item.name)p.name=item.name;
         await savePlay(p);
         uploaded++;
+      }else if(r&&remoteTime>localTime){
+        item.name=r.name||item.name;
+        item.updatedAt=r.updated_at;
+        item.play=JSON.parse(JSON.stringify(r.play));
+        item.play.libraryId=item.id;
+        pulled++;
       }
     }
-    return {uploaded};
+
+    for(const r of remote){
+      if(byLocal.has(r.library_id))continue;
+      local.unshift({
+        id:r.library_id,
+        name:r.name||'Jugada',
+        updatedAt:r.updated_at,
+        play:JSON.parse(JSON.stringify(r.play))
+      });
+      pulled++;
+    }
+    writeLocal(local);
+    return {uploaded,pulled};
+  }
+
+  async function flushOutbox({reason='auto'}={}){
+    if(flushing)return {busy:true,pending:pendingCount()};
+    await ensureReady();
+    if(!isSignedIn()||navigator.onLine===false)return {offline:true,pending:pendingCount()};
+    flushing=true;
+    document.dispatchEvent(new CustomEvent('courtplay:cloud-sync-start',{detail:{reason}}));
+    let uploaded=0,deleted=0,pulled=0,error=null;
+    try{
+      let box=readOutbox();
+      const local=readLocal();
+
+      for(const id of [...box.deletes]){
+        try{
+          await deletePlay(id);
+          box.deletes=box.deletes.filter(x=>x!==id);
+          writeOutbox(box);
+          deleted++;
+        }catch(e){error=e;break;}
+      }
+
+      if(!error){
+        const remote=await listPlays();
+        const byRemote=new Map(remote.map(x=>[x.library_id,x]));
+        for(const id of [...box.upserts]){
+          const item=local.find(x=>x.id===id);
+          if(!item||!item.play){
+            box.upserts=box.upserts.filter(x=>x!==id);
+            writeOutbox(box);
+            continue;
+          }
+          const r=byRemote.get(id);
+          const localTime=Date.parse(item.updatedAt||item.play.savedAt||0)||0;
+          const remoteTime=r?(Date.parse(r.updated_at||0)||0):0;
+          if(r&&remoteTime>localTime){
+            const items=readLocal(),at=items.findIndex(x=>x.id===id);
+            if(at>=0){
+              items[at]={
+                id,
+                name:r.name||items[at].name,
+                updatedAt:r.updated_at,
+                play:JSON.parse(JSON.stringify(r.play))
+              };
+              items[at].play.libraryId=id;
+              writeLocal(items);
+              pulled++;
+            }
+          }else{
+            const p=JSON.parse(JSON.stringify(item.play));
+            p.libraryId=id;
+            p.savedAt=item.updatedAt||p.savedAt||new Date().toISOString();
+            if(item.name)p.name=item.name;
+            await savePlay(p);
+            uploaded++;
+          }
+          box=readOutbox();
+          box.upserts=box.upserts.filter(x=>x!==id);
+          writeOutbox(box);
+        }
+      }
+
+      if(!error){
+        const merged=await syncLocalToCloud();
+        uploaded+=merged.uploaded||0;
+        pulled+=merged.pulled||0;
+      }
+      return {uploaded,deleted,pulled,pending:pendingCount(),error};
+    }catch(e){
+      error=e;
+      return {uploaded,deleted,pulled,pending:pendingCount(),error:e};
+    }finally{
+      flushing=false;
+      document.dispatchEvent(new CustomEvent('courtplay:cloud-sync-end',{detail:{uploaded,deleted,pulled,pending:pendingCount(),error}}));
+    }
+  }
+
+  function installAutoSync(){
+    window.addEventListener('online',()=>flushOutbox({reason:'online'}).catch(()=>{}));
+    document.addEventListener('visibilitychange',()=>{
+      if(document.visibilityState==='visible'&&navigator.onLine!==false)flushOutbox({reason:'resume'}).catch(()=>{});
+    });
+    window.addEventListener('pageshow',()=>{
+      if(navigator.onLine!==false)flushOutbox({reason:'pageshow'}).catch(()=>{});
+    });
+    setInterval(()=>{
+      if(document.visibilityState==='visible'&&navigator.onLine!==false&&pendingCount()>0){
+        flushOutbox({reason:'interval'}).catch(()=>{});
+      }
+    },30000);
   }
 
   function friendlyError(error){
@@ -188,7 +339,12 @@
   }
 
   window.CourtPlayCloud={
-    ensureReady,user,isSignedIn,signIn,signUp,signOut,listPlays,savePlay,deletePlay,syncLocalToCloud,renderAuth,friendlyError
+    ensureReady,user,isSignedIn,signIn,signUp,signOut,listPlays,savePlay,deletePlay,syncLocalToCloud,
+    queueUpsert,queueDelete,pendingCount,flushOutbox,renderAuth,friendlyError
   };
-  ensureReady().then(()=>document.dispatchEvent(new CustomEvent('courtplay:cloud-ready'))).catch(()=>{});
+  installAutoSync();
+  ensureReady().then(async()=>{
+    document.dispatchEvent(new CustomEvent('courtplay:cloud-ready'));
+    if(isSignedIn()&&navigator.onLine!==false)await flushOutbox({reason:'startup'});
+  }).catch(()=>{});
 })();
