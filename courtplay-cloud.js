@@ -46,7 +46,12 @@
 
   async function signUp(email,password){
     await ensureReady();
-    const {data,error}=await client.auth.signUp({email,password});
+    const redirectTo='https://torresgerardoe85-oss.github.io/Courtplay/v2.html?v=33';
+    const {data,error}=await client.auth.signUp({
+      email,
+      password,
+      options:{emailRedirectTo:redirectTo}
+    });
     if(error)throw error;
     session=data.session||null;
     if(session)await syncLocalToCloud();
@@ -166,7 +171,7 @@
         try{
           const result=mode==='login'?await signIn(em,pw):await signUp(em,pw);
           if(mode==='signup'&&!result.session){
-            status.textContent='Cuenta creada. Revisa tu correo para confirmar la cuenta y luego inicia sesión.';
+            status.textContent='Cuenta creada. Revisa tu correo para confirmar. Después vuelve a CourtPlay e inicia sesión.';
           }else{
             status.textContent='Biblioteca sincronizada.';
             if(onChanged)onChanged();
