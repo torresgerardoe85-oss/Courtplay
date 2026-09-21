@@ -7,7 +7,22 @@
   const LOCAL_KEY='courtplay_my_library_v1';
   const OUTBOX_KEY='courtplay_cloud_outbox_v1';
 
-  let client=null,session=null,ready=false,flushing=false;
+  let client=null,session=null,ready=false,flushing=false,sdkPromise=null;
+
+  function ensureSdk(){
+    if(window.supabase&&typeof window.supabase.createClient==='function')return Promise.resolve(true);
+    if(navigator.onLine===false)return Promise.resolve(false);
+    if(sdkPromise)return sdkPromise;
+    sdkPromise=new Promise(resolve=>{
+      const script=document.createElement('script');
+      script.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0?courtplay-retry='+Date.now();
+      script.async=true;
+      script.onload=()=>resolve(!!(window.supabase&&typeof window.supabase.createClient==='function'));
+      script.onerror=()=>resolve(false);
+      document.head.appendChild(script);
+    }).finally(()=>{sdkPromise=null;});
+    return sdkPromise;
+  }
 
   function init(){
     if(client)return client;
@@ -26,6 +41,10 @@
   }
 
   async function ensureReady(){
+    if(!(window.supabase&&typeof window.supabase.createClient==='function')){
+      const loaded=await ensureSdk();
+      if(!loaded)return false;
+    }
     const c=init();
     if(!c)return false;
     if(!ready){
