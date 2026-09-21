@@ -70,7 +70,7 @@
 
   async function signUp(email,password){
     await ensureReady();
-    const redirectTo='https://torresgerardoe85-oss.github.io/Courtplay/v2.html?v=35';
+    const redirectTo='https://torresgerardoe85-oss.github.io/Courtplay/v2.html?v=39';
     const {data,error}=await client.auth.signUp({
       email,
       password,
