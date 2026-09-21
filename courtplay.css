@@ -251,3 +251,21 @@ canvas#court{width:100%;height:auto;max-width:100%}
 @media(max-width:520px){.libraryTopActions{grid-template-columns:1fr}.libraryRow{grid-template-columns:1fr}.libraryRowActions{justify-content:flex-start}}
 
 @media(max-width:640px){.actionRow{grid-template-columns:22px 22px 12px minmax(0,1fr);gap:5px}.actionStateBtn,.actionMoveBtn{height:38px}.actionStateBtn{width:42px}.actionMoveBtn{min-width:46px}.actionReorder{gap:6px}.actionStateTools,.actionMoveTools{gap:4px}.actionOrder{width:22px;height:22px}.actionLabel strong{font-size:13px}}
+
+
+/* v32 CourtPlay Cloud library */
+.cloudAuthHost{margin:12px 0}
+.cloudAuthBox{display:grid;gap:9px;padding:12px;border:1px solid #cfe0f5;border-radius:14px;background:#f7fbff}
+.cloudAuthBox>strong{font-size:15px;color:#173b67}
+.cloudAuthBox>small{color:#64748b;line-height:1.35}
+.cloudAuthBox input{width:100%;min-height:44px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;padding:10px 12px;color:#172033}
+.cloudAuthButtons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cloudAuthPrimary,.cloudAuthSecondary{min-height:42px;border-radius:10px;font-weight:900}
+.cloudAuthPrimary{border:1px solid #0b56bd;background:#0b56bd;color:#fff}
+.cloudAuthSecondary{border:1px solid #b9d1f4;background:#fff;color:#0b56bd}
+.cloudAuthInfo{min-width:0}
+.cloudAuthInfo strong,.cloudAuthInfo small{display:block}
+.cloudAuthInfo strong{color:#0b56bd}
+.cloudAuthInfo small{margin-top:3px;color:#64748b;overflow-wrap:anywhere}
+.cloudAuthStatus{min-height:18px;font-size:12px;color:#475569}
+@media(max-width:520px){.cloudAuthButtons{grid-template-columns:1fr}}
