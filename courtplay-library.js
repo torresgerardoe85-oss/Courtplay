@@ -41,12 +41,25 @@
       const at=items.findIndex(x=>x.id===item.id);
       if(at>=0)items.splice(at,1);
       items.unshift(item);writeLocal(items);
-      if(window.CourtPlayCloud?.isSignedIn()){
-        window.CourtPlayCloud.savePlay(item.play)
-          .then(()=>notify('Jugada guardada y sincronizada en Mi Biblioteca ☁.'))
-          .catch(err=>notify('Guardada en este dispositivo, pero no pude sincronizarla: '+window.CourtPlayCloud.friendlyError(err),'error'));
+      if(window.CourtPlayCloud){
+        window.CourtPlayCloud.queueUpsert(item.id);
+        if(window.CourtPlayCloud.isSignedIn()){
+          if(navigator.onLine===false){
+            notify('Jugada guardada en este dispositivo. Quedó pendiente y se sincronizará automáticamente cuando vuelva el internet.');
+          }else{
+            window.CourtPlayCloud.flushOutbox({reason:'save'}).then(result=>{
+              if(result&&result.error){
+                notify('Jugada guardada localmente. La sincronización se reintentará automáticamente.','error');
+              }else{
+                notify('Jugada guardada y sincronizada en Mi Biblioteca ☁.');
+              }
+            }).catch(()=>notify('Jugada guardada localmente. La sincronización se reintentará automáticamente.','error'));
+          }
+        }else{
+          notify('Jugada guardada en este dispositivo. Inicia sesión para sincronizarla.');
+        }
       }else{
-        notify('Jugada guardada en este dispositivo. Inicia sesión en Mi Biblioteca para sincronizarla.');
+        notify('Jugada guardada en este dispositivo.');
       }
       return item.id;
     }catch(e){
@@ -199,7 +212,16 @@
       CourtPlayEngine.reflow(data.frames,0);
       current=0;selectedLine=-1;selectedPlayer=null;
       playNameEl.value=data.name||item.name||'Jugada';
-      render();setStatus('Jugada abierta desde Mi Biblioteca Cloud.');
+      const cached={
+        id:data.libraryId,
+        name:data.name||item.name||'Jugada',
+        updatedAt:item.updated_at||data.savedAt||new Date().toISOString(),
+        play:clone(data)
+      };
+      const locals=readLocal(),at=locals.findIndex(x=>x.id===cached.id);
+      if(at>=0)locals.splice(at,1);
+      locals.unshift(cached);writeLocal(locals);
+      render();setStatus('Jugada abierta desde Mi Biblioteca Cloud y disponible como respaldo local.');
       closeAny('courtplayLibraryPanel');
       return true;
     }catch(e){
@@ -211,11 +233,19 @@
     if(!item||!item.library_id)return;
     if(!confirm('¿Eliminar "'+(item.name||'esta jugada')+'" de Mi Biblioteca en todos tus dispositivos?'))return;
     try{
-      await window.CourtPlayCloud.deletePlay(item.library_id);
       const locals=readLocal().filter(x=>x.id!==item.library_id);writeLocal(locals);
+      window.CourtPlayCloud.queueDelete(item.library_id);
+      if(navigator.onLine===false){
+        notify('Eliminación guardada. Se aplicará en la nube cuando vuelva el internet.');
+      }else{
+        const result=await window.CourtPlayCloud.flushOutbox({reason:'delete'});
+        if(result&&result.error)notify('Eliminación pendiente. CourtPlay la reintentará automáticamente.','error');
+        else notify('Jugada eliminada de Mi Biblioteca Cloud.');
+      }
       renderLibraryContents();
     }catch(e){
-      notify(window.CourtPlayCloud.friendlyError(e),'error');
+      notify('Eliminación pendiente. CourtPlay la reintentará automáticamente.','error');
+      renderLibraryContents();
     }
   }
 
@@ -310,6 +340,14 @@
 
   document.addEventListener('courtplay:cloud-ready',()=>{if(document.getElementById('courtplayLibraryPanel'))renderLibraryContents();});
   document.addEventListener('courtplay:cloud-auth-changed',()=>{if(document.getElementById('courtplayLibraryPanel'))renderLibraryContents();});
+  document.addEventListener('courtplay:cloud-queue-changed',()=>{if(document.getElementById('courtplayLibraryPanel'))renderLibraryContents();});
+  document.addEventListener('courtplay:cloud-sync-end',e=>{
+    if(document.getElementById('courtplayLibraryPanel'))renderLibraryContents();
+    const d=e.detail||{};
+    if(!d.error&&d.pending===0&&(d.uploaded||d.deleted||d.pulled)){
+      setStatus('Mi Biblioteca Cloud está sincronizada.');
+    }
+  });
 
   button?.addEventListener('click',openLibrary);
   const slug=new URLSearchParams(location.search).get('play');
