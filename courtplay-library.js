@@ -26,10 +26,10 @@
     else setStatus(message);
   }
 
-  function saveCurrentToMyLibrary(){
+  function saveCurrentToMyLibrary({asNew=false}={}){
     try{
       commit();CourtPlayEngine.reflow(data.frames,0);
-      if(!data.libraryId)data.libraryId=makeId();
+      if(asNew||!data.libraryId)data.libraryId=makeId();
       data.savedAt=new Date().toISOString();
       const item={
         id:data.libraryId,
@@ -93,6 +93,41 @@
     renderLibraryContents();
   }
 
+  function openLibrarySaveChoices({onDone=null}={}){
+    closeAny('courtplayLibrarySaveChoice');
+    if(!data.libraryId){
+      const id=saveCurrentToMyLibrary({asNew:true});
+      if(id&&onDone)onDone(id);
+      return;
+    }
+    const wrap=document.createElement('div');wrap.id='courtplayLibrarySaveChoice';wrap.className='saveOverlay';
+    const panel=document.createElement('div');panel.className='savePanel';
+    const title=document.createElement('strong');title.textContent='Guardar en Mi Biblioteca';
+    const desc=document.createElement('p');desc.textContent='Esta jugada ya existe en tu biblioteca. ¿Qué quieres hacer?';
+
+    const overwrite=document.createElement('button');overwrite.type='button';overwrite.className='saveChoice primary';
+    overwrite.innerHTML='<strong>Guardar encima</strong><small>Actualiza esta misma jugada en todos tus dispositivos.</small>';
+
+    const saveAs=document.createElement('button');saveAs.type='button';saveAs.className='saveChoice';
+    saveAs.innerHTML='<strong>Guardar como nueva</strong><small>Crea una copia independiente y conserva la versión original.</small>';
+
+    const cancel=document.createElement('button');cancel.type='button';cancel.className='saveCancel';cancel.textContent='Cancelar';
+
+    overwrite.addEventListener('click',()=>{
+      const id=saveCurrentToMyLibrary({asNew:false});
+      if(id){wrap.remove();if(onDone)onDone(id);}
+    });
+    saveAs.addEventListener('click',()=>{
+      const id=saveCurrentToMyLibrary({asNew:true});
+      if(id){wrap.remove();if(onDone)onDone(id);}
+    });
+    cancel.addEventListener('click',()=>wrap.remove());
+    wrap.addEventListener('click',e=>{if(e.target===wrap)wrap.remove();});
+
+    panel.append(title,desc,overwrite,saveAs,cancel);
+    wrap.append(panel);document.body.append(wrap);
+  }
+
   function openSaveMenu(){
     closeAny('courtplaySaveMenu');
     const wrap=document.createElement('div');wrap.id='courtplaySaveMenu';wrap.className='saveOverlay';
@@ -102,13 +137,18 @@
     const device=document.createElement('button');device.type='button';device.className='saveChoice';
     device.innerHTML='<strong>En este dispositivo</strong><small>Guarda la jugada actual para continuar después.</small>';
     const library=document.createElement('button');library.type='button';library.className='saveChoice primary';
-    library.innerHTML='<strong>En Mi Biblioteca</strong><small>La añade a tu lista de jugadas dentro de CourtPlay.</small>';
+    library.innerHTML=data.libraryId
+      ?'<strong>En Mi Biblioteca</strong><small>Elige si quieres actualizar esta jugada o guardarla como una nueva.</small>'
+      :'<strong>En Mi Biblioteca</strong><small>La añade como una jugada nueva dentro de CourtPlay.</small>';
     const exportPlay=document.createElement('button');exportPlay.type='button';exportPlay.className='saveChoice';
     exportPlay.innerHTML='<strong>Exportar jugada (.json)</strong><small>Descarga los datos exactos de esta jugada para compartirlos, respaldarlos o diagnosticar errores.</small>';
     const cancel=document.createElement('button');cancel.type='button';cancel.className='saveCancel';cancel.textContent='Cancelar';
 
     device.addEventListener('click',()=>{wrap.remove();window.CourtPlaySaveToDevice?.();});
-    library.addEventListener('click',()=>{const id=saveCurrentToMyLibrary();if(id)wrap.remove();});
+    library.addEventListener('click',()=>{
+      wrap.remove();
+      openLibrarySaveChoices();
+    });
     exportPlay.addEventListener('click',async()=>{
       try{
         commit();
@@ -152,7 +192,7 @@
 
     const actions=document.createElement('div');actions.className='libraryTopActions';
     const saveNow=document.createElement('button');saveNow.type='button';saveNow.textContent='＋ Guardar jugada actual';
-    saveNow.addEventListener('click',()=>{if(saveCurrentToMyLibrary())renderLibraryContents();});
+    saveNow.addEventListener('click',()=>openLibrarySaveChoices({onDone:()=>renderLibraryContents()}));
     const ask=document.createElement('button');ask.type='button';ask.textContent='Cómo pedirme una jugada';
     ask.addEventListener('click',toggleAskHelp);
     actions.append(saveNow,ask);
@@ -352,5 +392,5 @@
   button?.addEventListener('click',openLibrary);
   const slug=new URLSearchParams(location.search).get('play');
   if(slug)loadPlay(slug,{closePanel:false});
-  window.CourtPlayLibrary={loadPlay,openLibrary,openSaveMenu,saveCurrentToMyLibrary,loadLocalPlay};
+  window.CourtPlayLibrary={loadPlay,openLibrary,openSaveMenu,openLibrarySaveChoices,saveCurrentToMyLibrary,loadLocalPlay};
 })();
