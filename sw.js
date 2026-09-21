@@ -1,5 +1,5 @@
-const CACHE='courtplay-v34';
-const ASSETS=['./','./index.html','./manifest.json','./courtplay.css?v=34','./courtplay-engine.js?v=34','./courtplay-state.js?v=34','./courtplay-render.js?v=34','./courtplay-editor.js?v=34','./courtplay-timeline.js?v=34','./courtplay-cloud.js?v=34','./courtplay-library.js?v=34','./courtplay-export.js?v=34','./plays/index.json'];
+const CACHE='courtplay-v35';
+const ASSETS=['./','./index.html','./manifest.json','./courtplay.css?v=35','./courtplay-engine.js?v=35','./courtplay-state.js?v=35','./courtplay-render.js?v=35','./courtplay-editor.js?v=35','./courtplay-timeline.js?v=35','./courtplay-cloud.js?v=35','./courtplay-library.js?v=35','./courtplay-export.js?v=35','./plays/index.json'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{
