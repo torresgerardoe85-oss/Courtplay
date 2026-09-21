@@ -183,7 +183,11 @@ pdfBtn?.addEventListener('click',async()=>{
 
 function playerByKey(scene,key){return(scene.players||[]).find(p=>p.key===key)||null}
 function syncSceneBall(scene){return CourtPlayEngine.syncBall(scene)}
-function actionForCurrentState(raw,scene){return CourtPlayEngine.prepareAction(raw,scene,{mutate:false,infer:true})}
+function actionForCurrentState(raw,scene){
+  const action=CourtPlayEngine.clone(raw);
+  CourtPlayEngine.normalizeAction(action);
+  return action;
+}
 function applyCompletedAction(scene,l){return CourtPlayEngine.applyAction(scene,l,{mutate:true})}
 
 function phaseSteps(phase){
@@ -323,7 +327,9 @@ render();
 
 /* CourtPlay engine animation bindings */
 actionForCurrentState=function(raw,scene){
-  return CourtPlayEngine.prepareAction(raw,scene,{mutate:false,infer:true});
+  const action=CourtPlayEngine.clone(raw);
+  CourtPlayEngine.normalizeAction(action);
+  return action;
 };
 applyCompletedAction=function(scene,l){
   return CourtPlayEngine.applyAction(scene,l,{mutate:true});
