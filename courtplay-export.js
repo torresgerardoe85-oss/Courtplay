@@ -290,7 +290,8 @@ async function animateCanvas(target,exportMode=false){
   if(!exportMode){playing=true;playBtn.textContent='■ Detener';setStatus('Reproduciendo animación por fases…');}
   for(let i=0;i<data.frames.length&&(exportMode||playing);i++){
     phaseEnd=await playOnePhase(data.frames[i],i,null,target,exportMode);
-    if(phaseEnd&&phaseEnd.terminalShot)break;
+    // A non-option shot ends the CURRENT phase, not the entire play.
+    // Later phases own their own saved starting snapshot and must still animate.
   }
   if(!exportMode){playing=false;current=original;playBtn.textContent='▶ Animación';setStatus('Animación terminada.');render();}
 }
