@@ -11,7 +11,7 @@
 <link rel="icon" href="courtplay-icon-192-v43.png" type="image/png" />
 <title>CourtPlay — Play Builder</title>
 <link rel="manifest" href="manifest-v43.json" />
-<link rel="stylesheet" href="courtplay.css?v=45" />
+<link rel="stylesheet" href="courtplay.css?v=46" />
 </head>
 
 <body>
@@ -48,6 +48,16 @@
 
     <section class="stage">
       <div class="courtWrap"><canvas id="court" width="1000" height="860"></canvas></div>
+      <div class="playbackBar" id="playbackBar" aria-label="Controles de animación">
+        <button type="button" class="playbackBtn primary" id="playbackPlayBtn" aria-label="Reproducir o pausar">▶</button>
+        <button type="button" class="playbackBtn" id="seekBackBtn" aria-label="Retroceder un segundo">−1 s</button>
+        <input id="playbackSeek" class="playbackSeek" type="range" min="0" max="1" step="0.05" value="0" aria-label="Posición de la animación" />
+        <button type="button" class="playbackBtn" id="seekForwardBtn" aria-label="Adelantar un segundo">+1 s</button>
+        <div class="playbackReadout">
+          <strong id="playbackTime">0:00.0 / 0:00.0</strong>
+          <span id="playbackPhase">Fase 1 / 1</span>
+        </div>
+      </div>
       <div class="editorFooter">
         <div class="captionBox">
           <label for="caption">Explicación de la fase</label>
@@ -124,13 +134,13 @@
   </main>
 </div>
 
-<script src="courtplay-engine.js?v=45"></script>
-<script src="courtplay-state.js?v=45"></script>
-<script src="courtplay-render.js?v=45"></script>
-<script src="courtplay-editor.js?v=45"></script>
-<script src="courtplay-timeline.js?v=45"></script>
-<script src="courtplay-cloud.js?v=45"></script>
-<script src="courtplay-library.js?v=45"></script>
-<script src="courtplay-export.js?v=45"></script>
+<script src="courtplay-engine.js?v=46"></script>
+<script src="courtplay-state.js?v=46"></script>
+<script src="courtplay-render.js?v=46"></script>
+<script src="courtplay-editor.js?v=46"></script>
+<script src="courtplay-timeline.js?v=46"></script>
+<script src="courtplay-cloud.js?v=46"></script>
+<script src="courtplay-library.js?v=46"></script>
+<script src="courtplay-export.js?v=46"></script>
 </body>
 </html>
