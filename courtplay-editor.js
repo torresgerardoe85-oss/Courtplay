@@ -77,7 +77,8 @@ function transferVisualEnd(l,target){
   if(!l||!target)return null;
   if(l.type!=='handoff')return{x:target.x,y:target.y};
   const src=l.sourceKey&&frame().players.find(p=>p.key===l.sourceKey);
-  return CourtPlayEngine.handoffGiverEnd(src,target,pathPoints(l));
+  const exit=CourtPlayEngine.inferHandoffExit?CourtPlayEngine.inferHandoffExit(frame(),l):null;
+  return CourtPlayEngine.handoffGiverEnd(src,target,pathPoints(l),exit);
 }
 canvas.addEventListener('pointerdown',e=>{e.preventDefault();canvas.setPointerCapture?.(e.pointerId);const p=point(e);
   if(tool==='token'&&pendingToken){const key=(pendingToken.team==='defense'?'d':'o')+pendingToken.label.toLowerCase();let pl=frame().players.find(x=>x.key===key);if(pl){pl.x=p.x;pl.y=p.y}else{pl={key,label:pendingToken.label,team:pendingToken.team,x:p.x,y:p.y};frame().players.push(pl);}pendingToken=null;selectedPlayer=key;document.querySelectorAll('.tokenBtn').forEach(x=>x.classList.remove('active'));setTool('select');return;}
