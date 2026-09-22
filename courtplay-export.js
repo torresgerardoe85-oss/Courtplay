@@ -322,7 +322,12 @@ videoBtn.addEventListener('click',async()=>{
     setTimeout(()=>{if(rec.state!=='inactive')rec.stop()},200);
   }catch(e){showToast('No se pudo crear el video.','error',5000)}
 });
-if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+if('serviceWorker'in navigator)window.addEventListener('load',async()=>{
+  try{
+    const reg=await navigator.serviceWorker.register('./sw.js?v=45');
+    await reg.update();
+  }catch(e){}
+});
 render();
 
 
