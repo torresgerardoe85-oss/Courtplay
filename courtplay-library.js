@@ -110,7 +110,7 @@
         updatedAt:data.savedAt,
         play:clone(data)
       };
-      const items=readLocal().filter(matchesCategory);
+      const items=readLocal();
       const at=items.findIndex(x=>x.id===item.id);
       if(at>=0)items.splice(at,1);
       items.unshift(item);writeLocal(items);
@@ -352,9 +352,11 @@
 
   function localRows(container){
     container.append(sectionTitle(window.CourtPlayCloud?.isSignedIn()?'Respaldo local':'Mi Biblioteca local',window.CourtPlayCloud?.isSignedIn()?'Copia disponible en este navegador/dispositivo.':'Guardada solo en este navegador/dispositivo hasta que inicies sesión.'));
-    const items=readLocal();
+    const items=readLocal().filter(matchesCategory);
     if(!items.length){
-      const p=document.createElement('p');p.className='libraryMessage';p.textContent='Aún no has guardado jugadas en Mi Biblioteca.';container.append(p);return;
+      const p=document.createElement('p');p.className='libraryMessage';
+      p.textContent=activeCategory==='all'?'Aún no has guardado jugadas en Mi Biblioteca.':'No hay jugadas de '+categoryLabel(activeCategory)+' en esta sección.';
+      container.append(p);return;
     }
     items.forEach(item=>{
       const row=document.createElement('div');row.className='libraryRow';
@@ -503,6 +505,7 @@
         const strong=document.createElement('strong');strong.textContent=item.name||item.slug;
         const small=document.createElement('small');small.textContent=item.description||'Creada para CourtPlay';
         info.append(strong,small);
+        appendCategoryBadges(info,item);
         const actions=document.createElement('div');actions.className='libraryRowActions';
         const open=document.createElement('button');open.type='button';open.textContent='Abrir';
         open.addEventListener('click',()=>loadPlay(item.slug));
@@ -566,5 +569,5 @@
   button?.addEventListener('click',openLibrary);
   const slug=new URLSearchParams(location.search).get('play');
   if(slug)loadPlay(slug,{closePanel:false});
-  window.CourtPlayLibrary={loadPlay,openLibrary,openSaveMenu,openLibrarySaveChoices,saveCurrentToMyLibrary,loadLocalPlay};
+  window.CourtPlayLibrary={loadPlay,openLibrary,openSaveMenu,openLibrarySaveChoices,saveCurrentToMyLibrary,loadLocalPlay,categories:CATEGORY_DEFS,categoryLabel};
 })();
