@@ -13,7 +13,7 @@ function drawAction(c,l,alpha=1){const pts=pathPoints(l);c.save();c.globalAlpha=
     c.restore();return;
   }
   strokeSmooth(c,pts);
-  const end=catmullPoint(pts,1),tan=tangent(pts,1),ang=Math.atan2(tan.y,tan.x),perp=ang+Math.PI/2;
+  const end=catmullPoint(pts,1),tan=tangent(pts,1),ang=Math.atan2(tan.y,tan.x),perp=Number.isFinite(l.screenAngle)?(l.screenAngle*Math.PI/180):(ang+Math.PI/2);
   if(l.type==='screen'){
     const cap=23;c.beginPath();c.moveTo(end.x-cap*Math.cos(perp),end.y-cap*Math.sin(perp));c.lineTo(end.x+cap*Math.cos(perp),end.y+cap*Math.sin(perp));c.stroke();
   }else if(l.type==='shot'){
@@ -68,7 +68,7 @@ function drawActionProgress(c,l,t){
   c.save();const actionColor=l.color||(l.type==='shot'?'#df6813':'#172033');c.strokeStyle=actionColor;c.fillStyle=actionColor;c.lineWidth=6;c.lineCap='round';c.lineJoin='round';c.setLineDash([]);
   if(l.type==='screen'){
     if(tt>.58){
-      const end=catmullPoint(pts,1),tan=tangent(pts,1),a=Math.atan2(tan.y,tan.x)+Math.PI/2,cap=27;
+      const end=catmullPoint(pts,1),tan=tangent(pts,1),a=Number.isFinite(l.screenAngle)?(l.screenAngle*Math.PI/180):(Math.atan2(tan.y,tan.x)+Math.PI/2),cap=27;
       c.beginPath();c.moveTo(end.x-cap*Math.cos(a),end.y-cap*Math.sin(a));c.lineTo(end.x+cap*Math.cos(a),end.y+cap*Math.sin(a));c.stroke();
     }
     c.restore();return;
