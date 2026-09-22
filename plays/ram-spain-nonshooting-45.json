@@ -1,0 +1,786 @@
+{
+  "version": 2,
+  "name": "RAM SPAIN 45 — Non-Shooting 4/5",
+  "description": "Adaptación profesional de Ram to Spain SPNR para una rotación donde 4 y 5 no son tiradores: 4 libera con RAM y ocupa la ayuda, 5 pone el ball screen y rola, 2 ejecuta el back screen Spain y sale al perímetro. Si no hay ventaja, conecta automáticamente a second-side PnR.",
+  "status": "Adaptation",
+  "system": "RAM SPAIN 45",
+  "categories": [
+    "pnr",
+    "spain",
+    "ram",
+    "flow",
+    "quick"
+  ],
+  "source": {
+    "title": "FC Barcelona — Copa ACB 2022",
+    "coach": "Sarunas Jasikevicius",
+    "sourcePlay": "05 PNR SETS - Ram to Spain SPNR",
+    "adaptation": "CourtPlay adaptation for two non-shooting bigs"
+  },
+  "teachingReads": [
+    "RIM",
+    "ROLL 5",
+    "POP 2",
+    "SKIP 3",
+    "DUMP 4",
+    "SECOND SIDE"
+  ],
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 700
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 160,
+          "y": 350
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 390,
+          "y": 330
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 650,
+          "y": 225
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 704,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_ram_release",
+          "color": "#f97316",
+          "screenAngleLocked": true,
+          "screenAngle": 15,
+          "points": [
+            {
+              "x": 390,
+              "y": 330
+            },
+            {
+              "x": 465,
+              "y": 320
+            },
+            {
+              "x": 545,
+              "y": 315
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_ram_release",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 650,
+              "y": 225
+            },
+            {
+              "x": 625,
+              "y": 330
+            },
+            {
+              "x": 595,
+              "y": 430
+            },
+            {
+              "x": 555,
+              "y": 540
+            }
+          ]
+        }
+      ],
+      "caption": "RAM RELEASE — 4 bloquea al defensor de 5 para que 5 pueda salir limpio hacia el ball screen. 1 mantiene el balón arriba; 2 queda preparado para el back screen Spain y 3 conserva el corner. No hay pop de los grandes.",
+      "seconds": 1.8
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 700
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 160,
+          "y": 350
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 545,
+          "y": 315
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 555,
+          "y": 540
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 704,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_use_pnr",
+          "color": "#f97316",
+          "screenAngleLocked": true,
+          "screenAngle": 35,
+          "points": [
+            {
+              "x": 555,
+              "y": 540
+            },
+            {
+              "x": 548,
+              "y": 555
+            },
+            {
+              "x": 540,
+              "y": 570
+            }
+          ]
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_use_pnr",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 500,
+              "y": 700
+            },
+            {
+              "x": 555,
+              "y": 615
+            },
+            {
+              "x": 605,
+              "y": 545
+            },
+            {
+              "x": 645,
+              "y": 475
+            }
+          ]
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#6b7280",
+          "screenAngleLocked": true,
+          "screenAngle": 0,
+          "points": [
+            {
+              "x": 545,
+              "y": 315
+            },
+            {
+              "x": 430,
+              "y": 245
+            },
+            {
+              "x": 300,
+              "y": 165
+            }
+          ]
+        }
+      ],
+      "caption": "TURN THE CORNER — 5 establece el ball screen antes de que 1 lo use. 1 ataca hacia la derecha. Después del uso, 4 sale del medio y baja al dunker débil para ocupar/pinear la ayuda; 4 no abre para tiro.",
+      "seconds": 2.4
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 645,
+          "y": 475
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 160,
+          "y": 350
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 300,
+          "y": 165
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 540,
+          "y": 570
+        }
+      ],
+      "ball": {
+        "x": 679,
+        "y": 479,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_spain_window",
+          "color": "#7c3aed",
+          "screenAngleLocked": true,
+          "screenAngle": 0,
+          "points": [
+            {
+              "x": 160,
+              "y": 350
+            },
+            {
+              "x": 315,
+              "y": 375
+            },
+            {
+              "x": 495,
+              "y": 395
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_spain_window",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 540,
+              "y": 570
+            },
+            {
+              "x": 530,
+              "y": 420
+            },
+            {
+              "x": 515,
+              "y": 285
+            },
+            {
+              "x": 500,
+              "y": 155
+            }
+          ]
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_spain_window",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 645,
+              "y": 475
+            },
+            {
+              "x": 665,
+              "y": 440
+            },
+            {
+              "x": 680,
+              "y": 400
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 495,
+              "y": 395
+            },
+            {
+              "x": 390,
+              "y": 390
+            },
+            {
+              "x": 280,
+              "y": 370
+            }
+          ]
+        }
+      ],
+      "caption": "SPAIN WINDOW — mientras 1 gira la esquina, 2 pone el back screen sobre el defensor de 5 y 5 rola duro al aro. Después del contacto, 2 sale al perímetro. 4 permanece en dunker contrario y 3 fija el lado fuerte desde el corner.",
+      "seconds": 2.6
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 680,
+          "y": 400
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 280,
+          "y": 370
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 300,
+          "y": 165
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 155
+        }
+      ],
+      "ball": {
+        "x": 714,
+        "y": 404,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 680,
+              "y": 400
+            },
+            {
+              "x": 615,
+              "y": 300
+            },
+            {
+              "x": 545,
+              "y": 205
+            },
+            {
+              "x": 505,
+              "y": 155
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o5",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 680,
+              "y": 400
+            },
+            {
+              "x": 590,
+              "y": 280
+            },
+            {
+              "x": 500,
+              "y": 155
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#7c3aed",
+          "points": [
+            {
+              "x": 680,
+              "y": 400
+            },
+            {
+              "x": 480,
+              "y": 385
+            },
+            {
+              "x": 280,
+              "y": 370
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 680,
+              "y": 400
+            },
+            {
+              "x": 770,
+              "y": 300
+            },
+            {
+              "x": 850,
+              "y": 190
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#facc15",
+          "points": [
+            {
+              "x": 680,
+              "y": 400
+            },
+            {
+              "x": 505,
+              "y": 270
+            },
+            {
+              "x": 300,
+              "y": 165
+            }
+          ]
+        }
+      ],
+      "caption": "READS — 1) finish si abre la pintura; 2) 5 en el roll; 3) 2 saliendo del Spain; 4) skip a 3; 5) dump-off a 4 si X4 abandona el dunker para parar el roll. Las opciones se muestran sin cambiar el estado de la jugada.",
+      "seconds": 3
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 680,
+          "y": 400
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 280,
+          "y": 370
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 300,
+          "y": 165
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 155
+        }
+      ],
+      "ball": {
+        "x": 714,
+        "y": 404,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 680,
+              "y": 400
+            },
+            {
+              "x": 480,
+              "y": 385
+            },
+            {
+              "x": 280,
+              "y": 370
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_second_spacing",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 680,
+              "y": 400
+            },
+            {
+              "x": 730,
+              "y": 370
+            },
+            {
+              "x": 780,
+              "y": 330
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_second_spacing",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 300,
+              "y": 165
+            },
+            {
+              "x": 500,
+              "y": 135
+            },
+            {
+              "x": 700,
+              "y": 165
+            }
+          ]
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "screenAngleLocked": true,
+          "screenAngle": 60,
+          "points": [
+            {
+              "x": 500,
+              "y": 155
+            },
+            {
+              "x": 430,
+              "y": 245
+            },
+            {
+              "x": 365,
+              "y": 330
+            }
+          ]
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_second_pnr",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 280,
+              "y": 370
+            },
+            {
+              "x": 365,
+              "y": 345
+            },
+            {
+              "x": 445,
+              "y": 300
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_second_pnr",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 365,
+              "y": 330
+            },
+            {
+              "x": 430,
+              "y": 245
+            },
+            {
+              "x": 500,
+              "y": 155
+            }
+          ]
+        }
+      ],
+      "caption": "SECOND SIDE — si Spain queda neutral, 1 revierte a 2 y limpia. 4 hace baseline exchange al dunker opuesto. 5 sube, se planta y después 2 usa el side PnR; 5 vuelve a rolar. La ofensiva continúa sin pedir tiro exterior a 4 ni 5.",
+      "seconds": 3.4
+    }
+  ]
+}
