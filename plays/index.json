@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "plays": [
     {
       "slug": "41-flow-core",
@@ -48,6 +48,16 @@
         "dho",
         "pnr",
         "shooting"
+      ]
+    },
+    {
+      "slug": "double-screen-spanish-virtus",
+      "name": "Double Screen Spanish — Virtus",
+      "description": "VIRTUS OFFENSE pág. 17: double screen y continuación de pases 1→5→2→4, reconstruido desde los dos diagramas originales.",
+      "categories": [
+        "pnr",
+        "spain",
+        "quick"
       ]
     }
   ]
