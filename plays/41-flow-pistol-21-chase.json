@@ -1,0 +1,1143 @@
+{
+  "version": 2,
+  "name": "41 FLOW — Pistol 21 Chase",
+  "description": "Pistol de early offense integrada a 41 FLOW: Advance → Chase/Get → 4 Trail Side PnR → Second Side con 5 → regreso a Flow.",
+  "status": "Research",
+  "system": "41 FLOW",
+  "family": "Pistol 21",
+  "coreEntry": "Chase/Get",
+  "teachingReads": [
+    "ADVANCE",
+    "GET",
+    "KEEP",
+    "TURN CORNER",
+    "ROLL",
+    "SECOND SIDE"
+  ],
+  "researchBasis": [
+    "Pistol es una acción temprana de tres jugadores en el lateral basada en DHO o PnR.",
+    "21 Chase/Get: advance pass, chase para handback y big/trailer entrando a la siguiente pantalla.",
+    "El DHO se enseña como pantalla: cuerpo estable y ángulo que dificulte pasar por debajo."
+  ],
+  "frames": [
+    {
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 735
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 760,
+          "y": 745
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 240,
+          "y": 745
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 610,
+          "y": 805
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 525,
+          "y": 805
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 739,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_arrival",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 500,
+              "y": 735
+            },
+            {
+              "x": 560,
+              "y": 625
+            },
+            {
+              "x": 620,
+              "y": 520
+            }
+          ],
+          "timingWeight": 1
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_arrival",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 760,
+              "y": 745
+            },
+            {
+              "x": 805,
+              "y": 520
+            },
+            {
+              "x": 820,
+              "y": 300
+            }
+          ],
+          "timingWeight": 1.15
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_arrival",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 240,
+              "y": 745
+            },
+            {
+              "x": 180,
+              "y": 465
+            },
+            {
+              "x": 150,
+              "y": 185
+            }
+          ],
+          "timingWeight": 1.2
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_arrival",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 525,
+              "y": 805
+            },
+            {
+              "x": 510,
+              "y": 470
+            },
+            {
+              "x": 500,
+              "y": 165
+            }
+          ],
+          "timingWeight": 1.25
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_arrival",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 610,
+              "y": 805
+            },
+            {
+              "x": 635,
+              "y": 660
+            },
+            {
+              "x": 650,
+              "y": 520
+            }
+          ],
+          "timingWeight": 1
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 620,
+              "y": 520
+            },
+            {
+              "x": 720,
+              "y": 410
+            },
+            {
+              "x": 820,
+              "y": 300
+            }
+          ],
+          "timingWeight": 0.52
+        }
+      ],
+      "caption": "PISTOL ARRIVAL — 1 empuja por el lado; 2 corre al wing y recibe ADVANCE. 3 mantiene la esquina débil, 5 rim run y 4 llega de trail. No paramos para llamar Pistol: el pase adelantado la activa.",
+      "seconds": 3.2
+    },
+    {
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 620,
+          "y": 520
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 820,
+          "y": 300
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 185
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 650,
+          "y": 520
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 165
+        }
+      ],
+      "ball": {
+        "x": 854,
+        "y": 304,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_chase",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 620,
+              "y": 520
+            },
+            {
+              "x": 680,
+              "y": 425
+            },
+            {
+              "x": 735,
+              "y": 360
+            }
+          ],
+          "timingWeight": 1
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_chase",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 650,
+              "y": 520
+            },
+            {
+              "x": 650,
+              "y": 465
+            },
+            {
+              "x": 650,
+              "y": 410
+            }
+          ],
+          "timingWeight": 0.85
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_chase",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 500,
+              "y": 165
+            },
+            {
+              "x": 465,
+              "y": 175
+            },
+            {
+              "x": 430,
+              "y": 185
+            }
+          ],
+          "timingWeight": 0.55
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#7c3aed",
+          "points": [
+            {
+              "x": 820,
+              "y": 300
+            },
+            {
+              "x": 835,
+              "y": 240
+            },
+            {
+              "x": 845,
+              "y": 180
+            }
+          ],
+          "timingWeight": 0.45
+        },
+        {
+          "type": "handoff",
+          "sourceKey": "o2",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 820,
+              "y": 300
+            },
+            {
+              "x": 785,
+              "y": 325
+            },
+            {
+              "x": 735,
+              "y": 360
+            }
+          ],
+          "timingWeight": 0.72
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 804,
+              "y": 310
+            },
+            {
+              "x": 840,
+              "y": 245
+            },
+            {
+              "x": 875,
+              "y": 185
+            }
+          ],
+          "timingWeight": 0.62
+        }
+      ],
+      "caption": "CHASE / GET — 1 sigue su pase. Mientras llega, 4 entra como trailer a la zona de pantalla. 2 entrega GET a 1 hombro con hombro y limpia a la esquina. KEEP: si niegan el handback o saltan demasiado arriba, 2 puede quedarse con el balón y atacar baseline.",
+      "seconds": 3.4
+    },
+    {
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 735,
+          "y": 360
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 875,
+          "y": 185
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 185
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 650,
+          "y": 410
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 430,
+          "y": 185
+        }
+      ],
+      "ball": {
+        "x": 769,
+        "y": 364,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 650,
+              "y": 410
+            },
+            {
+              "x": 642,
+              "y": 390
+            },
+            {
+              "x": 635,
+              "y": 365
+            }
+          ],
+          "timingWeight": 0.62,
+          "screenAngle": 55
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_pistol_pnr",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 735,
+              "y": 360
+            },
+            {
+              "x": 640,
+              "y": 330
+            },
+            {
+              "x": 545,
+              "y": 310
+            }
+          ],
+          "timingWeight": 1.08
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_pistol_pnr",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 635,
+              "y": 365
+            },
+            {
+              "x": 585,
+              "y": 260
+            },
+            {
+              "x": 520,
+              "y": 175
+            }
+          ],
+          "timingWeight": 1.08
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_pistol_react",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 150,
+              "y": 185
+            },
+            {
+              "x": 185,
+              "y": 245
+            },
+            {
+              "x": 230,
+              "y": 300
+            }
+          ],
+          "timingWeight": 0.55
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_pistol_react",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 430,
+              "y": 185
+            },
+            {
+              "x": 410,
+              "y": 190
+            },
+            {
+              "x": 390,
+              "y": 195
+            }
+          ],
+          "timingWeight": 0.4
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 545,
+              "y": 310
+            },
+            {
+              "x": 520,
+              "y": 230
+            },
+            {
+              "x": 500,
+              "y": 165
+            }
+          ],
+          "timingWeight": 0.42
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 545,
+              "y": 310
+            },
+            {
+              "x": 535,
+              "y": 240
+            },
+            {
+              "x": 520,
+              "y": 175
+            }
+          ],
+          "timingWeight": 0.38
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#7c3aed",
+          "points": [
+            {
+              "x": 545,
+              "y": 310
+            },
+            {
+              "x": 710,
+              "y": 245
+            },
+            {
+              "x": 875,
+              "y": 185
+            }
+          ],
+          "timingWeight": 0.38
+        }
+      ],
+      "caption": "TRAIL SIDE PnR — 4 primero SE PLANTA con ángulo para obligar al defensor a pasar por arriba; solo después 1 usa la pantalla. 4 rola, 3 hace Lift y 5 desplaza el dunker. Lecturas: TURN CORNER, roll a 4 o kick a 2. Si seguimos neutrales, 3 ya está listo en SECOND SIDE.",
+      "seconds": 4
+    },
+    {
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 545,
+          "y": 310
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 875,
+          "y": 185
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 230,
+          "y": 300
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 520,
+          "y": 175
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 390,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 579,
+        "y": 314,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": "g_second_side",
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 545,
+              "y": 310
+            },
+            {
+              "x": 390,
+              "y": 305
+            },
+            {
+              "x": 230,
+              "y": 300
+            }
+          ],
+          "timingWeight": 0.52
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_second_side",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 520,
+              "y": 175
+            },
+            {
+              "x": 635,
+              "y": 190
+            },
+            {
+              "x": 750,
+              "y": 210
+            }
+          ],
+          "timingWeight": 0.78
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_second_side",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 545,
+              "y": 310
+            },
+            {
+              "x": 650,
+              "y": 365
+            },
+            {
+              "x": 740,
+              "y": 420
+            }
+          ],
+          "timingWeight": 0.78
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 390,
+              "y": 195
+            },
+            {
+              "x": 355,
+              "y": 240
+            },
+            {
+              "x": 330,
+              "y": 285
+            }
+          ],
+          "timingWeight": 0.68,
+          "screenAngle": 78
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_second_pnr",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 230,
+              "y": 300
+            },
+            {
+              "x": 360,
+              "y": 300
+            },
+            {
+              "x": 495,
+              "y": 300
+            }
+          ],
+          "timingWeight": 1
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_second_pnr",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 330,
+              "y": 285
+            },
+            {
+              "x": 410,
+              "y": 225
+            },
+            {
+              "x": 500,
+              "y": 165
+            }
+          ],
+          "timingWeight": 1
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_second_react",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 875,
+              "y": 185
+            },
+            {
+              "x": 860,
+              "y": 240
+            },
+            {
+              "x": 845,
+              "y": 295
+            }
+          ],
+          "timingWeight": 0.5
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 495,
+              "y": 300
+            },
+            {
+              "x": 500,
+              "y": 235
+            },
+            {
+              "x": 500,
+              "y": 165
+            }
+          ],
+          "timingWeight": 0.38
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o3",
+          "targetKey": "o5",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 495,
+              "y": 300
+            },
+            {
+              "x": 500,
+              "y": 230
+            },
+            {
+              "x": 500,
+              "y": 165
+            }
+          ],
+          "timingWeight": 0.36
+        }
+      ],
+      "caption": "SECOND SIDE — si la primera ventaja muere, 1 cambia el balón a 3. 4 sale al short corner opuesto y 1 limpia. 5 sube, se establece y 3 juega el segundo PnR. No hay reset: la defensa tiene que resolver dos acciones consecutivas.",
+      "seconds": 4
+    },
+    {
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 740,
+          "y": 420
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 845,
+          "y": 295
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 495,
+          "y": 300
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 750,
+          "y": 210
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 165
+        }
+      ],
+      "ball": {
+        "x": 529,
+        "y": 304,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o3",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 495,
+              "y": 300
+            },
+            {
+              "x": 615,
+              "y": 355
+            },
+            {
+              "x": 740,
+              "y": 420
+            }
+          ],
+          "timingWeight": 0.5
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_flow_space",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 495,
+              "y": 300
+            },
+            {
+              "x": 375,
+              "y": 365
+            },
+            {
+              "x": 255,
+              "y": 430
+            }
+          ],
+          "timingWeight": 0.72
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_flow_space",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 845,
+              "y": 295
+            },
+            {
+              "x": 860,
+              "y": 240
+            },
+            {
+              "x": 875,
+              "y": 185
+            }
+          ],
+          "timingWeight": 0.62
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 500,
+              "y": 165
+            },
+            {
+              "x": 560,
+              "y": 265
+            },
+            {
+              "x": 620,
+              "y": 360
+            }
+          ],
+          "timingWeight": 0.78,
+          "screenAngle": 72
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_flow_drag",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 740,
+              "y": 420
+            },
+            {
+              "x": 660,
+              "y": 365
+            },
+            {
+              "x": 570,
+              "y": 320
+            }
+          ],
+          "timingWeight": 0.92
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_flow_drag",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 620,
+              "y": 360
+            },
+            {
+              "x": 560,
+              "y": 255
+            },
+            {
+              "x": 500,
+              "y": 165
+            }
+          ],
+          "timingWeight": 0.92
+        }
+      ],
+      "caption": "BACK TO FLOW — si tampoco aparece ventaja en el segundo lado, 3 revierte a 1, 5 vuelve a subir y entramos al lenguaje normal de 41 FLOW con Drag. Pistol no es una jugada que termina: es una puerta de entrada al sistema.",
+      "seconds": 3.2
+    }
+  ],
+  "animationTotalSeconds": 17.8
+}
