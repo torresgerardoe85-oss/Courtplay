@@ -315,6 +315,31 @@
     }
   }
 
+  async function deleteRemotePublishedPlay(item){
+    if(!item||!item.slug)return;
+    if(!confirm('¿Eliminar "'+(item.name||item.slug)+'" de Biblioteca CourtPlay?\n\nEsto no borra una copia que hayas guardado en Mi Biblioteca.'))return;
+    try{
+      if(window.CourtPlayCloud){
+        const result=await window.CourtPlayCloud.hideRemotePlay(item.slug);
+        if(result&&result.queued){
+          notify('Jugada eliminada de este dispositivo. El cambio se sincronizará con tus otros dispositivos cuando CourtPlay Cloud esté conectado.');
+        }else{
+          notify('Jugada eliminada de Biblioteca CourtPlay en tus dispositivos.');
+        }
+      }else{
+        const key='courtplay_hidden_remote_v1';
+        let hidden=[];
+        try{hidden=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(hidden))hidden=[];}catch(e){}
+        if(!hidden.includes(item.slug))hidden.push(item.slug);
+        localStorage.setItem(key,JSON.stringify(hidden));
+        notify('Jugada eliminada de Biblioteca CourtPlay en este dispositivo.');
+      }
+      renderLibraryContents();
+    }catch(e){
+      notify('No pude eliminar esa jugada ahora mismo.','error');
+    }
+  }
+
   async function remoteRows(container){
     container.append(sectionTitle('Biblioteca CourtPlay','Jugadas que yo publique para ti desde nuestro chat.'));
     const loading=document.createElement('p');loading.className='libraryMessage';loading.textContent='Buscando jugadas publicadas…';container.append(loading);
@@ -322,11 +347,24 @@
       const res=await fetch(base+'index.json?ts='+Date.now(),{cache:'no-store'});
       if(!res.ok)throw new Error('index');
       const payload=await res.json(),plays=Array.isArray(payload)?payload:(payload.plays||[]);
-      loading.remove();
-      if(!plays.length){
-        const p=document.createElement('p');p.className='libraryMessage';p.textContent='Todavía no te he publicado jugadas. Cuando me pidas una en el chat, aparecerá aquí.';container.append(p);return;
+      let hidden=[];
+      if(window.CourtPlayCloud){
+        try{hidden=await window.CourtPlayCloud.listHiddenRemoteSlugs();}catch(e){}
+      }else{
+        try{
+          hidden=JSON.parse(localStorage.getItem('courtplay_hidden_remote_v1')||'[]');
+          if(!Array.isArray(hidden))hidden=[];
+        }catch(e){hidden=[];}
       }
-      plays.forEach(item=>{
+      const hiddenSet=new Set(hidden);
+      const visible=plays.filter(item=>item&&item.slug&&!hiddenSet.has(item.slug));
+      loading.remove();
+      if(!visible.length){
+        const p=document.createElement('p');p.className='libraryMessage';
+        p.textContent=plays.length?'No tienes jugadas publicadas pendientes en Biblioteca CourtPlay.':'Todavía no te he publicado jugadas. Cuando me pidas una en el chat, aparecerá aquí.';
+        container.append(p);return;
+      }
+      visible.forEach(item=>{
         const row=document.createElement('div');row.className='libraryRow';
         const info=document.createElement('div');
         const strong=document.createElement('strong');strong.textContent=item.name||item.slug;
@@ -335,7 +373,9 @@
         const actions=document.createElement('div');actions.className='libraryRowActions';
         const open=document.createElement('button');open.type='button';open.textContent='Abrir';
         open.addEventListener('click',()=>loadPlay(item.slug));
-        actions.append(open);row.append(info,actions);container.append(row);
+        const del=document.createElement('button');del.type='button';del.className='danger';del.textContent='Eliminar';
+        del.addEventListener('click',()=>deleteRemotePublishedPlay(item));
+        actions.append(open,del);row.append(info,actions);container.append(row);
       });
     }catch(e){
       loading.textContent='No pude consultar las jugadas publicadas ahora mismo.';
