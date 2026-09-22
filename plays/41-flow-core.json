@@ -1,7 +1,7 @@
 {
   "version": 2,
   "name": "41 FLOW — Core",
-  "description": "Continuidad 4-Out 1-In: llegada con Rim/Advance, 5 Drag, reversal al segundo lado, Zoom/Chicago y re-PnR. Si no aparece ventaja, el patrón vuelve a comenzar sin resetear.",
+  "description": "Continuidad 4-Out 1-In con timing refinado: llegada con Rim/Advance, 5 Drag angulado, reversal al segundo lado, Zoom/Chicago, re-PnR y regreso al Flow.",
   "status": "Research",
   "system": "41 FLOW",
   "teachingReads": [
@@ -78,7 +78,8 @@
               "x": 500,
               "y": 600
             }
-          ]
+          ],
+          "timingWeight": 1.15
         },
         {
           "type": "move",
@@ -102,7 +103,8 @@
               "x": 150,
               "y": 190
             }
-          ]
+          ],
+          "timingWeight": 1.35
         },
         {
           "type": "move",
@@ -126,7 +128,8 @@
               "x": 850,
               "y": 190
             }
-          ]
+          ],
+          "timingWeight": 1.35
         },
         {
           "type": "move",
@@ -150,7 +153,8 @@
               "x": 500,
               "y": 165
             }
-          ]
+          ],
+          "timingWeight": 1.35
         },
         {
           "type": "move",
@@ -174,7 +178,8 @@
               "x": 710,
               "y": 560
             }
-          ]
+          ],
+          "timingWeight": 1.35
         },
         {
           "type": "pass",
@@ -198,7 +203,8 @@
               "x": 500,
               "y": 165
             }
-          ]
+          ],
+          "timingWeight": 0.52
         },
         {
           "type": "pass",
@@ -222,11 +228,12 @@
               "x": 150,
               "y": 190
             }
-          ]
+          ],
+          "timingWeight": 0.52
         }
       ],
       "caption": "ARRIVAL — 2 y 3 corren profundo, 5 rim run, 4 trail y 1 empuja. Primera lectura: RIM. Segunda: ADVANCE. Si ninguna crea ventaja, 1 mantiene el balón y entramos automáticamente a 5 Drag.",
-      "seconds": 2.8
+      "seconds": 3.2
     },
     {
       "players": [
@@ -294,7 +301,9 @@
               "x": 545,
               "y": 480
             }
-          ]
+          ],
+          "screenAngle": 36,
+          "timingWeight": 0.9
         },
         {
           "type": "dribble",
@@ -318,7 +327,8 @@
               "x": 330,
               "y": 365
             }
-          ]
+          ],
+          "timingWeight": 1.35
         },
         {
           "type": "move",
@@ -342,7 +352,8 @@
               "x": 480,
               "y": 165
             }
-          ]
+          ],
+          "timingWeight": 1.35
         },
         {
           "type": "move",
@@ -366,7 +377,8 @@
               "x": 810,
               "y": 310
             }
-          ]
+          ],
+          "timingWeight": 1.35
         },
         {
           "type": "move",
@@ -390,7 +402,8 @@
               "x": 710,
               "y": 420
             }
-          ]
+          ],
+          "timingWeight": 1.35
         },
         {
           "type": "move",
@@ -414,7 +427,8 @@
               "x": 130,
               "y": 170
             }
-          ]
+          ],
+          "timingWeight": 1.35
         },
         {
           "type": "dribble",
@@ -438,7 +452,8 @@
               "x": 500,
               "y": 165
             }
-          ]
+          ],
+          "timingWeight": 0.52
         },
         {
           "type": "pass",
@@ -462,7 +477,8 @@
               "x": 480,
               "y": 165
             }
-          ]
+          ],
+          "timingWeight": 0.52
         },
         {
           "type": "pass",
@@ -486,11 +502,12 @@
               "x": 810,
               "y": 310
             }
-          ]
+          ],
+          "timingWeight": 0.52
         }
       ],
       "caption": "5 DRAG — 5 vuelve desde el aro y pone Drag. 1 gira la esquina; 5 roll, 3 Shake, 4 llena como trailer y 2 mantiene profundidad. Lecturas: aro, roll o Shake. Si seguimos neutrales: REVERSAL, nunca reset.",
-      "seconds": 3.2
+      "seconds": 3.8
     },
     {
       "players": [
@@ -558,7 +575,8 @@
               "x": 710,
               "y": 420
             }
-          ]
+          ],
+          "timingWeight": 0.58
         },
         {
           "type": "move",
@@ -582,7 +600,8 @@
               "x": 250,
               "y": 500
             }
-          ]
+          ],
+          "timingWeight": 1.18
         },
         {
           "type": "move",
@@ -606,7 +625,8 @@
               "x": 865,
               "y": 185
             }
-          ]
+          ],
+          "timingWeight": 1.18
         },
         {
           "type": "move",
@@ -630,11 +650,12 @@
               "x": 760,
               "y": 225
             }
-          ]
+          ],
+          "timingWeight": 1.18
         }
       ],
       "caption": "SECOND SIDE — 1 revierte a 4. Mientras el balón viaja, 1 limpia espacio, el jugador de esquina prepara Zoom y 5 cruza a la zona de pin-down. La posesión continúa sin llamar otra jugada.",
-      "seconds": 2.3
+      "seconds": 2.6
     },
     {
       "players": [
@@ -702,7 +723,9 @@
               "x": 760,
               "y": 285
             }
-          ]
+          ],
+          "screenAngle": 47,
+          "timingWeight": 1.28
         },
         {
           "type": "move",
@@ -726,7 +749,8 @@
               "x": 690,
               "y": 350
             }
-          ]
+          ],
+          "timingWeight": 1.28
         },
         {
           "type": "handoff",
@@ -750,7 +774,8 @@
               "x": 690,
               "y": 350
             }
-          ]
+          ],
+          "timingWeight": 0.78
         },
         {
           "type": "dribble",
@@ -774,7 +799,8 @@
               "x": 520,
               "y": 165
             }
-          ]
+          ],
+          "timingWeight": 0.52
         },
         {
           "type": "move",
@@ -798,7 +824,8 @@
               "x": 520,
               "y": 170
             }
-          ]
+          ],
+          "timingWeight": 0.52
         },
         {
           "type": "move",
@@ -826,7 +853,7 @@
         }
       ],
       "caption": "ZOOM / CHICAGO — 5 pin-down, 3 sube y 4 entrega DHO. Si 3 gana ventaja: aro. Si cambian: 4 puede slip/seal. Si la defensa contiene, 4 se abre y 5 queda listo para volver a PnR.",
-      "seconds": 3
+      "seconds": 3.4
     },
     {
       "players": [
@@ -894,7 +921,9 @@
               "x": 620,
               "y": 365
             }
-          ]
+          ],
+          "screenAngle": 88,
+          "timingWeight": 0.88
         },
         {
           "type": "dribble",
@@ -918,7 +947,8 @@
               "x": 520,
               "y": 340
             }
-          ]
+          ],
+          "timingWeight": 1.35
         },
         {
           "type": "move",
@@ -942,7 +972,8 @@
               "x": 500,
               "y": 165
             }
-          ]
+          ],
+          "timingWeight": 1.35
         },
         {
           "type": "move",
@@ -966,7 +997,8 @@
               "x": 280,
               "y": 390
             }
-          ]
+          ],
+          "timingWeight": 1.35
         },
         {
           "type": "move",
@@ -990,7 +1022,8 @@
               "x": 850,
               "y": 290
             }
-          ]
+          ],
+          "timingWeight": 1.35
         },
         {
           "type": "pass",
@@ -1014,7 +1047,8 @@
               "x": 500,
               "y": 165
             }
-          ]
+          ],
+          "timingWeight": 0.52
         },
         {
           "type": "pass",
@@ -1038,7 +1072,8 @@
               "x": 130,
               "y": 170
             }
-          ]
+          ],
+          "timingWeight": 0.52
         },
         {
           "type": "dribble",
@@ -1062,11 +1097,12 @@
               "x": 500,
               "y": 165
             }
-          ]
+          ],
+          "timingWeight": 0.52
         }
       ],
       "caption": "RE-PnR — si Zoom no crea ventaja, 5 vuelve a pantalla. 3 ataca el medio; 5 roll, 1 lift y 4 Shake. Lecturas: finish, roll o skip. Si la defensa vuelve a quedar neutral, cambiamos el balón otra vez.",
-      "seconds": 3.2
+      "seconds": 3.6
     },
     {
       "players": [
@@ -1134,7 +1170,8 @@
               "x": 280,
               "y": 390
             }
-          ]
+          ],
+          "timingWeight": 0.55
         },
         {
           "type": "move",
@@ -1158,7 +1195,8 @@
               "x": 750,
               "y": 480
             }
-          ]
+          ],
+          "timingWeight": 1.22
         },
         {
           "type": "move",
@@ -1182,7 +1220,8 @@
               "x": 870,
               "y": 185
             }
-          ]
+          ],
+          "timingWeight": 1.22
         },
         {
           "type": "screen",
@@ -1206,11 +1245,14 @@
               "x": 360,
               "y": 360
             }
-          ]
+          ],
+          "screenAngle": 78,
+          "timingWeight": 1.22
         }
       ],
       "caption": "FLOW LOOP — reversa a 1 y 5 vuelve a subir para otro Drag. Desde aquí se repiten las mismas cinco lecturas: RIM → ADVANCE → PAINT → SCREEN → SECOND SIDE. No hay que parar para llamar una jugada.",
-      "seconds": 2.6
+      "seconds": 2.9
     }
-  ]
+  ],
+  "animationTotalSeconds": 19.5
 }
