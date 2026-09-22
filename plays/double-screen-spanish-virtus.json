@@ -1,0 +1,309 @@
+{
+  "version": 2,
+  "name": "Double Screen Spanish — Virtus",
+  "description": "Reconstrucción para CourtPlay del set DOUBLE SCREEN SPANISH de VIRTUS OFFENSE, pág. 17. El PDF aporta dos diagramas sin explicación escrita; el orden y timing de animación se adaptan para reproducir de forma clara los movimientos y pases visibles.",
+  "source": {
+    "title": "VIRTUS OFFENSE",
+    "page": 17,
+    "playName": "DOUBLE SCREEN SPANISH",
+    "driveFileId": "1svUO3E1XaYVpnQWGegKGUL7wdHU-muLg"
+  },
+  "categories": [
+    "pnr",
+    "spain",
+    "quick"
+  ],
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 245,
+          "y": 550
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 105,
+          "y": 240
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 920,
+          "y": 125
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 560,
+          "y": 625
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 805,
+          "y": 535
+        }
+      ],
+      "ball": {
+        "x": 279,
+        "y": 554,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_double_set",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 560,
+              "y": 625
+            },
+            {
+              "x": 505,
+              "y": 505
+            },
+            {
+              "x": 430,
+              "y": 400
+            }
+          ],
+          "timingWeight": 0.75
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_double_set",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 805,
+              "y": 535
+            },
+            {
+              "x": 660,
+              "y": 485
+            },
+            {
+              "x": 505,
+              "y": 455
+            }
+          ],
+          "timingWeight": 0.78
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_use_double",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 105,
+              "y": 240
+            },
+            {
+              "x": 245,
+              "y": 285
+            },
+            {
+              "x": 315,
+              "y": 395
+            },
+            {
+              "x": 305,
+              "y": 295
+            },
+            {
+              "x": 390,
+              "y": 205
+            }
+          ],
+          "timingWeight": 1.18
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_use_double",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 245,
+              "y": 550
+            },
+            {
+              "x": 430,
+              "y": 555
+            },
+            {
+              "x": 565,
+              "y": 500
+            },
+            {
+              "x": 660,
+              "y": 425
+            },
+            {
+              "x": 700,
+              "y": 330
+            }
+          ],
+          "timingWeight": 1.22
+        }
+      ],
+      "caption": "SOURCE FRAME 1 — 4 y 5 forman el double screen. 2 usa la acción curvando hacia el aro mientras 1 avanza con drible hacia el lado derecho. 3 mantiene el spacing débil. Timing adaptado para CourtPlay; el PDF no especifica tiempos.",
+      "seconds": 3.5
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 810,
+          "y": 495
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 125,
+          "y": 355
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 920,
+          "y": 125
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 350,
+          "y": 190
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 445,
+          "y": 555
+        }
+      ],
+      "ball": {
+        "x": 844,
+        "y": 499,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o5",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 810,
+              "y": 495
+            },
+            {
+              "x": 620,
+              "y": 525
+            },
+            {
+              "x": 445,
+              "y": 555
+            }
+          ],
+          "timingWeight": 0.56
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o5",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 445,
+              "y": 555
+            },
+            {
+              "x": 285,
+              "y": 455
+            },
+            {
+              "x": 125,
+              "y": 355
+            }
+          ],
+          "timingWeight": 0.56
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o2",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": false,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 125,
+              "y": 355
+            },
+            {
+              "x": 238,
+              "y": 273
+            },
+            {
+              "x": 350,
+              "y": 190
+            }
+          ],
+          "timingWeight": 0.52
+        }
+      ],
+      "caption": "SOURCE FRAME 2 — Continuación de pases tal como aparece dibujada: 1 → 5 → 2 → 4. 3 permanece abierto en el lado derecho. El documento no muestra una finalización adicional después de la recepción de 4.",
+      "seconds": 2.4
+    }
+  ]
+}
