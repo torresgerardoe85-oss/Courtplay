@@ -286,15 +286,26 @@ canvas#court{width:100%;height:auto;max-width:100%}
 }
 
 /* v49 library categories */
-.libraryCategoryTabs{display:flex;gap:7px;overflow-x:auto;overscroll-behavior-x:contain;padding:10px 0 12px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
-.libraryCategoryTab{flex:0 0 auto;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid #cbd5e1;background:#fff;color:#475569;font-size:12px;font-weight:850;white-space:nowrap}
+.libraryCategoryTabs{display:flex;gap:4px;overflow-x:auto;overscroll-behavior-x:contain;padding:7px 0 9px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.libraryCategoryTab{flex:0 0 auto;min-height:28px;padding:0 8px;border-radius:999px;border:1px solid #cbd5e1;background:#fff;color:#475569;font-size:10.5px;font-weight:850;white-space:nowrap}
 .libraryCategoryTab.active{background:#0b56bd;border-color:#0b56bd;color:#fff}
 .libraryCategoryBadges{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
 .libraryCategoryBadges span{font-size:10px;line-height:1;padding:5px 7px;border-radius:999px;background:#eef5ff;color:#0b56bd;border:1px solid #cfe0f6;font-weight:800}
 .categoryPicker{display:grid;gap:7px;margin:2px 0 8px}
+.categoryPickerHead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
 .categoryPickerLabel{font-weight:900;color:#172033}
-.categoryPicker>small{color:#64748b}
-.categoryPickerGrid{display:flex;gap:7px;flex-wrap:wrap;max-height:180px;overflow:auto;padding:3px 1px}
-.categoryPickChip{min-height:36px;padding:0 11px;border-radius:999px;border:1px solid #cbd5e1;background:#fff;color:#475569;font-size:12px;font-weight:850}
+.categoryPickerHead small{display:block;color:#64748b;margin-top:2px}
+.categorySuggestBtn{flex:0 0 auto;min-height:32px;padding:0 10px;border-radius:9px;border:1px solid #9fc3f1;background:#eef5ff;color:#0b56bd;font-size:11px;font-weight:900}
+.categoryPickerGrid{display:flex;gap:5px;flex-wrap:wrap;max-height:190px;overflow:auto;padding:3px 1px}
+.categoryPickChip{min-height:29px;padding:0 8px;border-radius:999px;border:1px solid #cbd5e1;background:#fff;color:#475569;font-size:10.5px;font-weight:850}
 .categoryPickChip.active{background:#eaf2ff;border-color:#0b56bd;color:#0b56bd;box-shadow:inset 0 0 0 1px #0b56bd}
 @media(max-width:520px){.libraryCategoryTabs{margin-left:-4px;margin-right:-4px}.categoryPickerGrid{max-height:220px}}
+
+/* v50 compact category tabs */
+.libraryCategoryBadges{gap:4px;margin-top:5px}
+.libraryCategoryBadges span{font-size:9px;padding:4px 6px}
+@media(max-width:520px){
+  .libraryCategoryTab{min-height:27px;padding:0 7px;font-size:10px}
+  .categoryPickChip{min-height:29px;font-size:10px}
+  .categorySuggestBtn{min-height:31px}
+}
