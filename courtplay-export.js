@@ -222,32 +222,67 @@ function actionTimingWeight(action){
 function stepTimingWeight(step){
   return Math.max(.2,...step.map(actionTimingWeight));
 }
+function assignNaturalStepTiming(actions){
+  const list=actions||[];
+  if(list.length<=1){
+    list.forEach(a=>{a._playbackStart=0;a._playbackEnd=1;});
+    return list;
+  }
+  const hasScreen=list.some(a=>a.type==='screen');
+  const hasMover=list.some(a=>['move','dribble','handoff'].includes(a.type));
+  list.forEach(a=>{
+    let start=0,end=1;
+    if(a.type==='screen'){
+      start=0;
+      end=.78;
+    }else if(a.type==='handoff'){
+      start=hasScreen?.12:.04;
+      end=1;
+    }else if(a.type==='dribble'||a.type==='move'){
+      start=hasScreen?.14:0;
+      end=1;
+    }else if(a.type==='pass'){
+      start=hasMover?.18:.08;
+      end=.92;
+    }else if(a.type==='shot'){
+      start=.18;
+      end=1;
+    }
+    a._playbackStart=start;
+    a._playbackEnd=Math.max(start+.15,end);
+  });
+  return list;
+}
+function actionPlaybackProgress(action,t){
+  const start=Number.isFinite(action._playbackStart)?action._playbackStart:0;
+  const end=Number.isFinite(action._playbackEnd)?action._playbackEnd:1;
+  return clamp((t-start)/Math.max(.001,end-start),0,1);
+}
 function sceneDuringActions(base,rawActions,t){
   const scene=copy(base);
   const actions=rawActions.map(a=>actionForCurrentState(a,base));
   let ballHandled=false;
   for(const l of actions){
-    const pts=pathPoints(l),src=playerByKey(scene,l.sourceKey),p=catmullPoint(pts,clamp(t,0,1));
+    const lt=actionPlaybackProgress(l,t),pts=pathPoints(l),src=playerByKey(scene,l.sourceKey),p=catmullPoint(pts,lt);
     if(src&&['move','dribble','screen','handoff'].includes(l.type)){src.x=clamp(p.x,30,W-30);src.y=clamp(p.y,30,H-30);}
   }
-  if(t>=.72){
-    for(const l of actions){
-      if(l.type==='handoff')CourtPlayEngine.ensureHandoffSeparation(scene,l,76);
-    }
+  for(const l of actions){
+    const lt=actionPlaybackProgress(l,t);
+    if(lt>=.72&&l.type==='handoff')CourtPlayEngine.ensureHandoffSeparation(scene,l,76);
   }
   for(const l of actions){
-    const pts=pathPoints(l),src=playerByKey(scene,l.sourceKey),p=catmullPoint(pts,clamp(t,0,1));
-    if(l.type==='dribble'&&src&&!ballHandled){
+    const lt=actionPlaybackProgress(l,t),pts=pathPoints(l),src=playerByKey(scene,l.sourceKey),p=catmullPoint(pts,lt);
+    if(l.type==='dribble'&&src&&!ballHandled&&lt>0){
       scene.ball.owner=src.key;syncSceneBall(scene);ballHandled=true;
-    }else if(l.type==='pass'&&!ballHandled){
+    }else if(l.type==='pass'&&!ballHandled&&lt>0){
       scene.ball.owner=null;scene.ball.x=p.x;scene.ball.y=p.y;
-      if(t>=.995&&l.targetKey){scene.ball.owner=l.targetKey;syncSceneBall(scene);}
+      if(lt>=.995&&l.targetKey){scene.ball.owner=l.targetKey;syncSceneBall(scene);}
       ballHandled=true;
-    }else if(l.type==='handoff'&&!ballHandled){
-      if(t<.68&&src){scene.ball.owner=src.key;syncSceneBall(scene);}
+    }else if(l.type==='handoff'&&!ballHandled&&lt>0){
+      if(lt<.68&&src){scene.ball.owner=src.key;syncSceneBall(scene);}
       else if(l.targetKey){scene.ball.owner=l.targetKey;syncSceneBall(scene);}
       ballHandled=true;
-    }else if(l.type==='shot'&&!ballHandled){
+    }else if(l.type==='shot'&&!ballHandled&&lt>0){
       scene.ball.owner=null;scene.ball.x=p.x;scene.ball.y=p.y;ballHandled=true;
     }
   }
@@ -256,7 +291,7 @@ function sceneDuringActions(base,rawActions,t){
 }
 function drawAnimationStep(scene,actions,t,c=ctx){
   drawCourt(c);
-  actions.forEach(a=>drawActionProgress(c,a,t));
+  actions.forEach(a=>drawActionProgress(c,a,actionPlaybackProgress(a,t)));
   const owner=scene.ball&&scene.ball.owner;
   (scene.players||[]).forEach(p=>drawAnimationPlayer(c,p,p.key===owner));
   if(scene.ball)drawBall(c,scene.ball);
@@ -280,7 +315,7 @@ function buildPlaybackPlan(){
     const weights=steps.map(stepTimingWeight),weightTotal=weights.reduce((a,b)=>a+b,0)||1;
     steps.forEach((rawStep,stepIndex)=>{
       const duration=phaseDuration*(weights[stepIndex]/weightTotal);
-      const prepared=rawStep.map(a=>actionForCurrentState(a,base));
+      const prepared=assignNaturalStepTiming(rawStep.map(a=>actionForCurrentState(a,base)));
       segments.push({phaseIndex,start:cursor,end:cursor+duration,duration,base:copy(base),actions:prepared});
       for(const a of prepared){
         if(!a.isOption)base=applyCompletedAction(base,a);
