@@ -1,7 +1,7 @@
 {
   "version": 2,
   "name": "41 FLOW — Core",
-  "description": "Continuidad 4-Out 1-In con timing refinado: llegada con Rim/Advance, 5 Drag angulado, reversal al segundo lado, Zoom/Chicago, re-PnR y regreso al Flow.",
+  "description": "Core 4-Out 1-In rehecho con timing natural: Rebound/Outlet → 5 Drag → Second Side → Zoom/Chicago → re-PnR → Flow Loop.",
   "status": "Research",
   "system": "41 FLOW",
   "teachingReads": [
@@ -18,68 +18,68 @@
           "key": "o1",
           "label": "1",
           "team": "offense",
-          "x": 500,
-          "y": 760
+          "x": 430,
+          "y": 735
         },
         {
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 250,
-          "y": 760
+          "x": 245,
+          "y": 745
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 750,
-          "y": 760
+          "x": 755,
+          "y": 745
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 400,
-          "y": 805
+          "x": 500,
+          "y": 800
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 600,
-          "y": 805
+          "x": 590,
+          "y": 800
         }
       ],
       "ball": {
         "x": 534,
-        "y": 764,
-        "owner": "o1"
+        "y": 804,
+        "owner": "o4"
       },
       "lines": [
         {
-          "type": "dribble",
-          "sourceKey": "o1",
-          "targetKey": null,
+          "type": "pass",
+          "sourceKey": "o4",
+          "targetKey": "o1",
           "sourceDetached": false,
           "manualCurve": false,
           "isOption": false,
-          "simultaneousGroup": "g_arrival",
-          "color": "#172033",
+          "simultaneousGroup": null,
+          "color": "#2563eb",
           "points": [
             {
               "x": 500,
-              "y": 760
+              "y": 800
             },
             {
-              "x": 500,
-              "y": 680
+              "x": 465,
+              "y": 765
             },
             {
-              "x": 500,
-              "y": 600
+              "x": 430,
+              "y": 735
             }
           ],
-          "timingWeight": 1.15
+          "timingWeight": 0.48
         },
         {
           "type": "move",
@@ -88,23 +88,23 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_arrival",
+          "simultaneousGroup": "g_transition_runners",
           "color": "#ef4444",
           "points": [
             {
-              "x": 250,
-              "y": 760
+              "x": 245,
+              "y": 745
             },
             {
               "x": 185,
-              "y": 470
+              "y": 465
             },
             {
               "x": 150,
               "y": 190
             }
           ],
-          "timingWeight": 1.35
+          "timingWeight": 1.2
         },
         {
           "type": "move",
@@ -113,37 +113,37 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_arrival",
+          "simultaneousGroup": "g_transition_runners",
           "color": "#ef4444",
           "points": [
             {
-              "x": 750,
-              "y": 760
+              "x": 755,
+              "y": 745
             },
             {
               "x": 815,
-              "y": 470
+              "y": 465
             },
             {
               "x": 850,
               "y": 190
             }
           ],
-          "timingWeight": 1.35
+          "timingWeight": 1.2
         },
         {
           "type": "move",
           "sourceKey": "o5",
           "targetKey": null,
           "sourceDetached": false,
-          "manualCurve": false,
+          "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_arrival",
+          "simultaneousGroup": "g_transition_runners",
           "color": "#ef4444",
           "points": [
             {
-              "x": 600,
-              "y": 805
+              "x": 590,
+              "y": 800
             },
             {
               "x": 545,
@@ -154,7 +154,32 @@
               "y": 165
             }
           ],
-          "timingWeight": 1.35
+          "timingWeight": 1.25
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 430,
+              "y": 735
+            },
+            {
+              "x": 465,
+              "y": 665
+            },
+            {
+              "x": 500,
+              "y": 590
+            }
+          ],
+          "timingWeight": 0.95
         },
         {
           "type": "move",
@@ -163,77 +188,27 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_arrival",
+          "simultaneousGroup": null,
           "color": "#ef4444",
           "points": [
             {
-              "x": 400,
-              "y": 805
+              "x": 500,
+              "y": 800
             },
             {
-              "x": 565,
-              "y": 690
+              "x": 590,
+              "y": 680
             },
             {
-              "x": 710,
-              "y": 560
+              "x": 680,
+              "y": 565
             }
           ],
-          "timingWeight": 1.35
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o1",
-          "targetKey": "o5",
-          "sourceDetached": false,
-          "manualCurve": false,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#16a34a",
-          "points": [
-            {
-              "x": 500,
-              "y": 600
-            },
-            {
-              "x": 500,
-              "y": 380
-            },
-            {
-              "x": 500,
-              "y": 165
-            }
-          ],
-          "timingWeight": 0.52
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o1",
-          "targetKey": "o2",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#7c3aed",
-          "points": [
-            {
-              "x": 500,
-              "y": 600
-            },
-            {
-              "x": 330,
-              "y": 380
-            },
-            {
-              "x": 150,
-              "y": 190
-            }
-          ],
-          "timingWeight": 0.52
+          "timingWeight": 0.85
         }
       ],
-      "caption": "ARRIVAL — 2 y 3 corren profundo, 5 rim run, 4 trail y 1 empuja. Primera lectura: RIM. Segunda: ADVANCE. Si ninguna crea ventaja, 1 mantiene el balón y entramos automáticamente a 5 Drag.",
-      "seconds": 3.2
+      "caption": "ARRIVAL — El outlet nace del rebote. 4 asegura y entrega a 1; 2 y 3 corren wide, 5 rim run, 1 avanza y 4 llega de trail. Leer RIM primero y ADVANCE segundo. Si no aparece ventaja, entrar directo a 5 Drag.",
+      "seconds": 3.4
     },
     {
       "players": [
@@ -242,7 +217,7 @@
           "label": "1",
           "team": "offense",
           "x": 500,
-          "y": 600
+          "y": 590
         },
         {
           "key": "o2",
@@ -262,8 +237,8 @@
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 710,
-          "y": 560
+          "x": 680,
+          "y": 565
         },
         {
           "key": "o5",
@@ -275,7 +250,7 @@
       ],
       "ball": {
         "x": 534,
-        "y": 604,
+        "y": 594,
         "owner": "o1"
       },
       "lines": [
@@ -294,16 +269,15 @@
               "y": 165
             },
             {
-              "x": 525,
+              "x": 520,
               "y": 320
             },
             {
-              "x": 545,
-              "y": 480
+              "x": 540,
+              "y": 485
             }
           ],
-          "screenAngle": 36,
-          "timingWeight": 0.9
+          "timingWeight": 0.8
         },
         {
           "type": "dribble",
@@ -312,23 +286,23 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_drag_roll",
+          "simultaneousGroup": "g_drag_use",
           "color": "#172033",
           "points": [
             {
               "x": 500,
-              "y": 600
+              "y": 590
             },
             {
               "x": 430,
-              "y": 470
+              "y": 465
             },
             {
-              "x": 330,
-              "y": 365
+              "x": 340,
+              "y": 360
             }
           ],
-          "timingWeight": 1.35
+          "timingWeight": 1.1
         },
         {
           "type": "move",
@@ -337,23 +311,23 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_drag_roll",
+          "simultaneousGroup": "g_drag_use",
           "color": "#ef4444",
           "points": [
             {
-              "x": 545,
-              "y": 480
+              "x": 540,
+              "y": 485
             },
             {
               "x": 520,
               "y": 300
             },
             {
-              "x": 480,
+              "x": 500,
               "y": 165
             }
           ],
-          "timingWeight": 1.35
+          "timingWeight": 1.1
         },
         {
           "type": "move",
@@ -362,7 +336,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_drag_roll",
+          "simultaneousGroup": null,
           "color": "#ef4444",
           "points": [
             {
@@ -370,15 +344,15 @@
               "y": 190
             },
             {
-              "x": 835,
-              "y": 250
+              "x": 840,
+              "y": 245
             },
             {
-              "x": 810,
-              "y": 310
+              "x": 820,
+              "y": 300
             }
           ],
-          "timingWeight": 1.35
+          "timingWeight": 0.55
         },
         {
           "type": "move",
@@ -387,127 +361,27 @@
           "sourceDetached": false,
           "manualCurve": false,
           "isOption": false,
-          "simultaneousGroup": "g_drag_roll",
+          "simultaneousGroup": null,
           "color": "#ef4444",
           "points": [
             {
-              "x": 710,
-              "y": 560
+              "x": 680,
+              "y": 565
             },
             {
-              "x": 710,
-              "y": 490
+              "x": 690,
+              "y": 500
             },
             {
-              "x": 710,
-              "y": 420
+              "x": 700,
+              "y": 430
             }
           ],
-          "timingWeight": 1.35
-        },
-        {
-          "type": "move",
-          "sourceKey": "o2",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": false,
-          "isOption": false,
-          "simultaneousGroup": "g_drag_roll",
-          "color": "#ef4444",
-          "points": [
-            {
-              "x": 150,
-              "y": 190
-            },
-            {
-              "x": 140,
-              "y": 180
-            },
-            {
-              "x": 130,
-              "y": 170
-            }
-          ],
-          "timingWeight": 1.35
-        },
-        {
-          "type": "dribble",
-          "sourceKey": "o1",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#f97316",
-          "points": [
-            {
-              "x": 330,
-              "y": 365
-            },
-            {
-              "x": 410,
-              "y": 250
-            },
-            {
-              "x": 500,
-              "y": 165
-            }
-          ],
-          "timingWeight": 0.52
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o1",
-          "targetKey": "o5",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#16a34a",
-          "points": [
-            {
-              "x": 330,
-              "y": 365
-            },
-            {
-              "x": 405,
-              "y": 255
-            },
-            {
-              "x": 480,
-              "y": 165
-            }
-          ],
-          "timingWeight": 0.52
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o1",
-          "targetKey": "o3",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#7c3aed",
-          "points": [
-            {
-              "x": 330,
-              "y": 365
-            },
-            {
-              "x": 570,
-              "y": 330
-            },
-            {
-              "x": 810,
-              "y": 310
-            }
-          ],
-          "timingWeight": 0.52
+          "timingWeight": 0.55
         }
       ],
-      "caption": "5 DRAG — 5 vuelve desde el aro y pone Drag. 1 gira la esquina; 5 roll, 3 Shake, 4 llena como trailer y 2 mantiene profundidad. Lecturas: aro, roll o Shake. Si seguimos neutrales: REVERSAL, nunca reset.",
-      "seconds": 3.8
+      "caption": "5 DRAG — 5 llega, se planta y orienta la pantalla según la salida de 1. Después 1 usa el Drag y 5 rola; no arrancan antes de que la pantalla esté lista. 3 hace Shake y 4 llena detrás de la acción. Leer finish, roll, Shake; si no hay ventaja, SECOND SIDE.",
+      "seconds": 3.2
     },
     {
       "players": [
@@ -515,41 +389,41 @@
           "key": "o1",
           "label": "1",
           "team": "offense",
-          "x": 330,
-          "y": 365
+          "x": 340,
+          "y": 360
         },
         {
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 130,
-          "y": 170
+          "x": 150,
+          "y": 190
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 810,
-          "y": 310
+          "x": 820,
+          "y": 300
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 710,
-          "y": 420
+          "x": 700,
+          "y": 430
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 480,
+          "x": 500,
           "y": 165
         }
       ],
       "ball": {
-        "x": 364,
-        "y": 369,
+        "x": 374,
+        "y": 364,
         "owner": "o1"
       },
       "lines": [
@@ -564,19 +438,19 @@
           "color": "#2563eb",
           "points": [
             {
-              "x": 330,
-              "y": 365
+              "x": 340,
+              "y": 360
             },
             {
               "x": 520,
-              "y": 392
+              "y": 395
             },
             {
-              "x": 710,
-              "y": 420
+              "x": 700,
+              "y": 430
             }
           ],
-          "timingWeight": 0.58
+          "timingWeight": 0.5
         },
         {
           "type": "move",
@@ -585,15 +459,15 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_second_side",
+          "simultaneousGroup": "g_second_spacing",
           "color": "#ef4444",
           "points": [
             {
-              "x": 330,
-              "y": 365
+              "x": 340,
+              "y": 360
             },
             {
-              "x": 290,
+              "x": 295,
               "y": 430
             },
             {
@@ -601,7 +475,7 @@
               "y": 500
             }
           ],
-          "timingWeight": 1.18
+          "timingWeight": 0.75
         },
         {
           "type": "move",
@@ -610,23 +484,23 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_second_side",
+          "simultaneousGroup": "g_second_spacing",
           "color": "#ef4444",
           "points": [
             {
-              "x": 810,
-              "y": 310
+              "x": 820,
+              "y": 300
             },
             {
               "x": 850,
-              "y": 250
+              "y": 245
             },
             {
-              "x": 865,
+              "x": 870,
               "y": 185
             }
           ],
-          "timingWeight": 1.18
+          "timingWeight": 0.75
         },
         {
           "type": "move",
@@ -635,26 +509,26 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_second_side",
+          "simultaneousGroup": null,
           "color": "#ef4444",
           "points": [
             {
-              "x": 480,
+              "x": 500,
               "y": 165
             },
             {
-              "x": 620,
-              "y": 180
+              "x": 630,
+              "y": 185
             },
             {
               "x": 760,
-              "y": 225
+              "y": 235
             }
           ],
-          "timingWeight": 1.18
+          "timingWeight": 0.7
         }
       ],
-      "caption": "SECOND SIDE — 1 revierte a 4. Mientras el balón viaja, 1 limpia espacio, el jugador de esquina prepara Zoom y 5 cruza a la zona de pin-down. La posesión continúa sin llamar otra jugada.",
+      "caption": "SECOND SIDE — 1 revierte a 4 y limpia. 3 recupera profundidad para preparar Zoom; 5 cruza después hacia el lado del balón. La reversa sucede primero y luego se organiza la siguiente acción, sin amontonar movimientos.",
       "seconds": 2.6
     },
     {
@@ -670,34 +544,34 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 130,
-          "y": 170
+          "x": 150,
+          "y": 190
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 865,
+          "x": 870,
           "y": 185
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 710,
-          "y": 420
+          "x": 700,
+          "y": 430
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
           "x": 760,
-          "y": 225
+          "y": 235
         }
       ],
       "ball": {
-        "x": 744,
-        "y": 424,
+        "x": 734,
+        "y": 434,
         "owner": "o4"
       },
       "lines": [
@@ -708,24 +582,23 @@
           "sourceDetached": false,
           "manualCurve": false,
           "isOption": false,
-          "simultaneousGroup": "g_zoom",
+          "simultaneousGroup": null,
           "color": "#f97316",
           "points": [
             {
               "x": 760,
-              "y": 225
+              "y": 235
             },
             {
               "x": 760,
-              "y": 255
+              "y": 265
             },
             {
               "x": 760,
-              "y": 285
+              "y": 300
             }
           ],
-          "screenAngle": 47,
-          "timingWeight": 1.28
+          "timingWeight": 0.7
         },
         {
           "type": "move",
@@ -734,11 +607,11 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_zoom",
+          "simultaneousGroup": null,
           "color": "#ef4444",
           "points": [
             {
-              "x": 865,
+              "x": 870,
               "y": 185
             },
             {
@@ -750,7 +623,7 @@
               "y": 350
             }
           ],
-          "timingWeight": 1.28
+          "timingWeight": 0.9
         },
         {
           "type": "handoff",
@@ -763,69 +636,19 @@
           "color": "#38bdf8",
           "points": [
             {
-              "x": 710,
-              "y": 420
-            },
-            {
-              "x": 705,
-              "y": 385
-            },
-            {
-              "x": 690,
-              "y": 350
-            }
-          ],
-          "timingWeight": 0.78
-        },
-        {
-          "type": "dribble",
-          "sourceKey": "o3",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#f97316",
-          "points": [
-            {
-              "x": 690,
-              "y": 350
-            },
-            {
-              "x": 600,
-              "y": 250
-            },
-            {
-              "x": 520,
-              "y": 165
-            }
-          ],
-          "timingWeight": 0.52
-        },
-        {
-          "type": "move",
-          "sourceKey": "o4",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#16a34a",
-          "points": [
-            {
-              "x": 713,
+              "x": 700,
               "y": 430
             },
             {
-              "x": 610,
-              "y": 290
+              "x": 705,
+              "y": 390
             },
             {
-              "x": 520,
-              "y": 170
+              "x": 690,
+              "y": 350
             }
           ],
-          "timingWeight": 0.52
+          "timingWeight": 0.65
         },
         {
           "type": "move",
@@ -838,22 +661,48 @@
           "color": "#ef4444",
           "points": [
             {
-              "x": 713,
+              "x": 700,
               "y": 430
             },
             {
-              "x": 805,
+              "x": 800,
               "y": 300
             },
             {
               "x": 870,
               "y": 190
             }
-          ]
+          ],
+          "timingWeight": 0.7
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 690,
+              "y": 350
+            },
+            {
+              "x": 625,
+              "y": 325
+            },
+            {
+              "x": 560,
+              "y": 300
+            }
+          ],
+          "timingWeight": 0.8
         }
       ],
-      "caption": "ZOOM / CHICAGO — 5 pin-down, 3 sube y 4 entrega DHO. Si 3 gana ventaja: aro. Si cambian: 4 puede slip/seal. Si la defensa contiene, 4 se abre y 5 queda listo para volver a PnR.",
-      "seconds": 3.4
+      "caption": "ZOOM / CHICAGO — 5 establece el pin-down, después 3 sube. Solo cuando 3 llega a la entrega, 4 juega DHO. 3 recibe por fuera/hombro con hombro y entonces sale con drible; 4 limpia después de entregar. Leer curl/turn corner, reject o slip/seal.",
+      "seconds": 3.6
     },
     {
       "players": [
@@ -868,15 +717,15 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 130,
-          "y": 170
+          "x": 150,
+          "y": 190
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 690,
-          "y": 350
+          "x": 560,
+          "y": 300
         },
         {
           "key": "o4",
@@ -890,12 +739,12 @@
           "label": "5",
           "team": "offense",
           "x": 760,
-          "y": 285
+          "y": 300
         }
       ],
       "ball": {
-        "x": 724,
-        "y": 354,
+        "x": 594,
+        "y": 304,
         "owner": "o3"
       },
       "lines": [
@@ -911,19 +760,18 @@
           "points": [
             {
               "x": 760,
-              "y": 285
+              "y": 300
             },
             {
-              "x": 690,
+              "x": 645,
               "y": 325
             },
             {
-              "x": 620,
-              "y": 365
+              "x": 535,
+              "y": 350
             }
           ],
-          "screenAngle": 88,
-          "timingWeight": 0.88
+          "timingWeight": 0.8
         },
         {
           "type": "dribble",
@@ -932,23 +780,23 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_repnr",
+          "simultaneousGroup": "g_repnr_use",
           "color": "#172033",
           "points": [
             {
-              "x": 690,
-              "y": 350
+              "x": 560,
+              "y": 300
             },
             {
-              "x": 610,
-              "y": 350
+              "x": 500,
+              "y": 300
             },
             {
-              "x": 520,
-              "y": 340
+              "x": 430,
+              "y": 300
             }
           ],
-          "timingWeight": 1.35
+          "timingWeight": 1
         },
         {
           "type": "move",
@@ -957,23 +805,23 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_repnr",
+          "simultaneousGroup": "g_repnr_use",
           "color": "#ef4444",
           "points": [
             {
-              "x": 620,
-              "y": 365
+              "x": 535,
+              "y": 350
             },
             {
-              "x": 555,
-              "y": 260
+              "x": 515,
+              "y": 255
             },
             {
               "x": 500,
               "y": 165
             }
           ],
-          "timingWeight": 1.35
+          "timingWeight": 1
         },
         {
           "type": "move",
@@ -982,7 +830,7 @@
           "sourceDetached": false,
           "manualCurve": false,
           "isOption": false,
-          "simultaneousGroup": "g_repnr",
+          "simultaneousGroup": "g_repnr_react",
           "color": "#ef4444",
           "points": [
             {
@@ -998,7 +846,7 @@
               "y": 390
             }
           ],
-          "timingWeight": 1.35
+          "timingWeight": 0.55
         },
         {
           "type": "move",
@@ -1007,7 +855,7 @@
           "sourceDetached": false,
           "manualCurve": false,
           "isOption": false,
-          "simultaneousGroup": "g_repnr",
+          "simultaneousGroup": "g_repnr_react",
           "color": "#ef4444",
           "points": [
             {
@@ -1020,89 +868,14 @@
             },
             {
               "x": 850,
-              "y": 290
+              "y": 285
             }
           ],
-          "timingWeight": 1.35
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o3",
-          "targetKey": "o5",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#16a34a",
-          "points": [
-            {
-              "x": 520,
-              "y": 340
-            },
-            {
-              "x": 510,
-              "y": 250
-            },
-            {
-              "x": 500,
-              "y": 165
-            }
-          ],
-          "timingWeight": 0.52
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o3",
-          "targetKey": "o2",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#7c3aed",
-          "points": [
-            {
-              "x": 520,
-              "y": 340
-            },
-            {
-              "x": 330,
-              "y": 245
-            },
-            {
-              "x": 130,
-              "y": 170
-            }
-          ],
-          "timingWeight": 0.52
-        },
-        {
-          "type": "dribble",
-          "sourceKey": "o3",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#f97316",
-          "points": [
-            {
-              "x": 520,
-              "y": 340
-            },
-            {
-              "x": 510,
-              "y": 245
-            },
-            {
-              "x": 500,
-              "y": 165
-            }
-          ],
-          "timingWeight": 0.52
+          "timingWeight": 0.55
         }
       ],
-      "caption": "RE-PnR — si Zoom no crea ventaja, 5 vuelve a pantalla. 3 ataca el medio; 5 roll, 1 lift y 4 Shake. Lecturas: finish, roll o skip. Si la defensa vuelve a quedar neutral, cambiamos el balón otra vez.",
-      "seconds": 3.6
+      "caption": "RE-PnR — si Zoom no genera ventaja, 5 vuelve a pantalla y se establece antes de que 3 la use. 3 ataca el medio y 5 rola. Después reaccionan 1 con lift y 4 con Shake. Leer finish, roll o skip; si sigue neutral, volver a cambiar el balón.",
+      "seconds": 3.2
     },
     {
       "players": [
@@ -1117,22 +890,22 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 130,
-          "y": 170
+          "x": 150,
+          "y": 190
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 520,
-          "y": 340
+          "x": 430,
+          "y": 300
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
           "x": 850,
-          "y": 290
+          "y": 285
         },
         {
           "key": "o5",
@@ -1143,8 +916,8 @@
         }
       ],
       "ball": {
-        "x": 554,
-        "y": 344,
+        "x": 464,
+        "y": 304,
         "owner": "o3"
       },
       "lines": [
@@ -1159,19 +932,19 @@
           "color": "#2563eb",
           "points": [
             {
-              "x": 520,
-              "y": 340
+              "x": 430,
+              "y": 300
             },
             {
-              "x": 400,
-              "y": 365
+              "x": 355,
+              "y": 345
             },
             {
               "x": 280,
               "y": 390
             }
           ],
-          "timingWeight": 0.55
+          "timingWeight": 0.48
         },
         {
           "type": "move",
@@ -1180,23 +953,23 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_loop",
+          "simultaneousGroup": "g_loop_spacing",
           "color": "#ef4444",
           "points": [
             {
-              "x": 520,
-              "y": 340
+              "x": 430,
+              "y": 300
             },
             {
-              "x": 635,
-              "y": 410
+              "x": 590,
+              "y": 390
             },
             {
               "x": 750,
               "y": 480
             }
           ],
-          "timingWeight": 1.22
+          "timingWeight": 0.75
         },
         {
           "type": "move",
@@ -1205,12 +978,12 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_loop",
+          "simultaneousGroup": "g_loop_spacing",
           "color": "#ef4444",
           "points": [
             {
               "x": 850,
-              "y": 290
+              "y": 285
             },
             {
               "x": 860,
@@ -1221,7 +994,7 @@
               "y": 185
             }
           ],
-          "timingWeight": 1.22
+          "timingWeight": 0.75
         },
         {
           "type": "screen",
@@ -1230,7 +1003,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_loop",
+          "simultaneousGroup": null,
           "color": "#f97316",
           "points": [
             {
@@ -1243,16 +1016,65 @@
             },
             {
               "x": 360,
-              "y": 360
+              "y": 355
             }
           ],
-          "screenAngle": 78,
-          "timingWeight": 1.22
+          "timingWeight": 0.8
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_loop_drag",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 280,
+              "y": 390
+            },
+            {
+              "x": 335,
+              "y": 345
+            },
+            {
+              "x": 395,
+              "y": 310
+            }
+          ],
+          "timingWeight": 0.9
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_loop_drag",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 360,
+              "y": 355
+            },
+            {
+              "x": 430,
+              "y": 250
+            },
+            {
+              "x": 500,
+              "y": 165
+            }
+          ],
+          "timingWeight": 0.9
         }
       ],
-      "caption": "FLOW LOOP — reversa a 1 y 5 vuelve a subir para otro Drag. Desde aquí se repiten las mismas cinco lecturas: RIM → ADVANCE → PAINT → SCREEN → SECOND SIDE. No hay que parar para llamar una jugada.",
-      "seconds": 2.9
+      "caption": "FLOW LOOP — 3 revierte a 1 y limpia junto con 4 para recuperar spacing. 5 vuelve a subir, se planta y 1 usa el nuevo Drag. Así reinicia el mismo lenguaje: RIM → ADVANCE → PAINT → SCREEN → SECOND SIDE, sin detenerse a llamar otra jugada.",
+      "seconds": 3.4
     }
   ],
-  "animationTotalSeconds": 19.5
+  "animationTotalSeconds": 19.4
 }
