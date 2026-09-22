@@ -1,21 +1,21 @@
-const CACHE='courtplay-v44';
+const CACHE='courtplay-v45';
 const ASSETS=[
   './',
-  './index.html',
-  './v2.html',
+  './index.html?v=45',
+  './v2.html?v=45',
   './manifest-v43.json',
   './courtplay-icon-192-v43.png',
   './courtplay-icon-512-v43.png',
   './apple-touch-icon-v43.png',
-  './courtplay.css?v=44',
-  './courtplay-engine.js?v=44',
-  './courtplay-state.js?v=44',
-  './courtplay-render.js?v=44',
-  './courtplay-editor.js?v=44',
-  './courtplay-timeline.js?v=44',
-  './courtplay-cloud.js?v=44',
-  './courtplay-library.js?v=44',
-  './courtplay-export.js?v=44',
+  './courtplay.css?v=45',
+  './courtplay-engine.js?v=45',
+  './courtplay-state.js?v=45',
+  './courtplay-render.js?v=45',
+  './courtplay-editor.js?v=45',
+  './courtplay-timeline.js?v=45',
+  './courtplay-cloud.js?v=45',
+  './courtplay-library.js?v=45',
+  './courtplay-export.js?v=45',
   './plays/index.json'
 ];
 
@@ -32,7 +32,7 @@ self.addEventListener('activate',e=>{
   );
 });
 
-async function updateCache(request,response){
+async function put(request,response){
   try{
     if(response&&response.ok){
       const cache=await caches.open(CACHE);
@@ -52,32 +52,30 @@ self.addEventListener('fetch',e=>{
 
   if(e.request.mode==='navigate'){
     e.respondWith((async()=>{
-      const cache=await caches.open(CACHE);
-      const shell=url.pathname.endsWith('/v2.html')?'./v2.html':'./index.html';
-      const cached=await cache.match(shell,{ignoreSearch:true});
-      const network=fetch(e.request)
-        .then(async r=>{await updateCache(e.request,r);return r;})
-        .catch(()=>null);
-      if(cached){
-        e.waitUntil(network);
-        return cached;
+      try{
+        const fresh=await fetch(e.request,{cache:'no-store'});
+        await put(e.request,fresh);
+        return fresh;
+      }catch(err){
+        const cache=await caches.open(CACHE);
+        return (await cache.match(e.request)) ||
+               (await cache.match('./index.html?v=45')) ||
+               new Response('CourtPlay no disponible sin conexión.',{status:503});
       }
-      return (await network)||new Response('CourtPlay no disponible sin conexión.',{status:503});
     })());
     return;
   }
 
   e.respondWith((async()=>{
     const cache=await caches.open(CACHE);
-    const cached=await cache.match(e.request,{ignoreSearch:true});
-    const network=fetch(e.request)
-      .then(async r=>{await updateCache(e.request,r);return r;})
-      .catch(()=>null);
-
-    if(cached){
-      e.waitUntil(network);
-      return cached;
+    const cached=await cache.match(e.request);
+    if(cached)return cached;
+    try{
+      const fresh=await fetch(e.request);
+      await put(e.request,fresh);
+      return fresh;
+    }catch(err){
+      return new Response('',{status:503,statusText:'Offline'});
     }
-    return (await network)||new Response('',{status:503,statusText:'Offline'});
   })());
 });
