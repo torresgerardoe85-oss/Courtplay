@@ -66,19 +66,79 @@
     }
     return action;
   }
-  function handoffGiverEnd(src,tgt,pts){
+  function handoffGiverEnd(src,tgt,pts,receiverExit=null){
     const gap=82;
     const authoredStart=(pts&&pts.length)?pts[0]:null;
     const from=authoredStart||src||null;
+
+    // If we know how the receiver exits the handoff, keep the giver beside
+    // that lane instead of directly in front of it. This creates the
+    // shoulder-to-shoulder DHO geometry used on court.
+    if(receiverExit&&Number.isFinite(receiverExit.dx)&&Number.isFinite(receiverExit.dy)){
+      const vlen=Math.hypot(receiverExit.dx,receiverExit.dy);
+      if(vlen>1){
+        const vx=receiverExit.dx/vlen,vy=receiverExit.dy/vlen;
+        const n1={x:-vy,y:vx},n2={x:vy,y:-vx};
+        const fx=from?from.x-tgt.x:0,fy=from?from.y-tgt.y:0;
+        const d1=fx*n1.x+fy*n1.y,d2=fx*n2.x+fy*n2.y;
+        const n=d1>=d2?n1:n2;
+        return{
+          x:clamp(tgt.x+n.x*gap,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+          y:clamp(tgt.y+n.y*gap,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+        };
+      }
+    }
+
     let dx=from?from.x-tgt.x:0,dy=from?from.y-tgt.y:0;
     let len=Math.hypot(dx,dy);
     if(len<1){
-      dx=tgt.x<W/2?-1:1;dy=0;len=1;
+      dx=tgt.x<500?-1:1;dy=0;len=1;
     }
     return{
       x:clamp(tgt.x+(dx/len)*gap,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
       y:clamp(tgt.y+(dy/len)*gap,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
     };
+  }
+
+  function inferHandoffExit(phase,handoffAction){
+    if(!phase||!handoffAction||handoffAction.type!=='handoff'||!handoffAction.targetKey)return null;
+    const lines=phase.lines||[],index=lines.indexOf(handoffAction);
+    let best=null;
+    for(let i=0;i<lines.length;i++){
+      const candidate=lines[i];
+      if(!candidate||candidate===handoffAction||candidate.sourceKey!==handoffAction.targetKey)continue;
+      if(!['dribble','move','shot','handoff'].includes(candidate.type))continue;
+      const cpts=points(candidate);
+      if(cpts.length<2)continue;
+      let dx=cpts[1].x-cpts[0].x,dy=cpts[1].y-cpts[0].y;
+      if(Math.hypot(dx,dy)<8&&cpts.length>2){
+        dx=cpts[cpts.length-1].x-cpts[0].x;
+        dy=cpts[cpts.length-1].y-cpts[0].y;
+      }
+      if(Math.hypot(dx,dy)<8)continue;
+      let score=Math.abs(i-index)*20;
+      if(i>index)score-=50;
+      if(candidate.type==='dribble')score-=35;
+      if(handoffAction.simultaneousGroup&&candidate.simultaneousGroup===handoffAction.simultaneousGroup)score-=25;
+      if(!best||score<best.score)best={score,dx,dy};
+    }
+    return best?{dx:best.dx,dy:best.dy}:null;
+  }
+
+  function applyAutoHandoffGeometry(phase){
+    if(!phase||!Array.isArray(phase.lines))return phase;
+    for(const action of phase.lines){
+      if(!action||action.type!=='handoff')continue;
+      const exit=inferHandoffExit(phase,action);
+      if(exit){
+        action.handoffReceiverExit={dx:exit.dx,dy:exit.dy};
+        action.handoffGeometryAuto=true;
+      }else if(action.handoffGeometryAuto){
+        delete action.handoffReceiverExit;
+        delete action.handoffGeometryAuto;
+      }
+    }
+    return phase;
   }
   function ensureHandoffSeparation(state,action,minGap=76){
     if(!state||!action||action.type!=='handoff')return state;
@@ -86,7 +146,7 @@
     if(!src||!tgt)return state;
     const d=Math.hypot(src.x-tgt.x,src.y-tgt.y);
     if(d>=minGap)return state;
-    const sep=handoffGiverEnd(null,tgt,points(action));
+    const sep=handoffGiverEnd(null,tgt,points(action),action.handoffReceiverExit||null);
     src.x=sep.x;src.y=sep.y;
     return state;
   }
@@ -117,7 +177,7 @@
       if(tgt){
         const end=pts[pts.length-1];
         if(action.type==='handoff'){
-          const giverEnd=handoffGiverEnd(src,tgt,pts);
+          const giverEnd=handoffGiverEnd(src,tgt,pts,action.handoffReceiverExit||null);
           end.x=giverEnd.x;end.y=giverEnd.y;
         }else{
           end.x=tgt.x;end.y=tgt.y;
@@ -147,7 +207,7 @@
       const tgt=player(state,action.targetKey);
       if(tgt){
         if(action.type==='handoff'&&src){
-          const sep=handoffGiverEnd(null,tgt,pts);
+          const sep=handoffGiverEnd(null,tgt,pts,action.handoffReceiverExit||null);
           src.x=sep.x;src.y=sep.y;
           ensureHandoffSeparation(state,action);
         }
@@ -236,7 +296,10 @@
     return phase;
   }
   function resolvePhase(phase,{mutateActions=true}={}){
-    if(mutateActions)applyAutoScreenAngles(phase);
+    if(mutateActions){
+      applyAutoScreenAngles(phase);
+      applyAutoHandoffGeometry(phase);
+    }
     const state={players:clone(phase.players||[]),ball:clone(phase.ball||{x:535,y:755,owner:null})};
     syncBall(state);
     const applied=[];
@@ -309,6 +372,6 @@
 
   global.CourtPlayEngine={
     clone,points,captureLocalGeometry,invalidateLocalGeometry,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,handoffGiverEnd,ensureHandoffSeparation,
-    inferScreenAngle,applyAutoScreenAngles,prepareAction,applyAction,bindLegacyPhase,resolvePhase,reflow,nextPhaseFrom,duplicatePhaseForContinuation
+    inferScreenAngle,applyAutoScreenAngles,inferHandoffExit,applyAutoHandoffGeometry,prepareAction,applyAction,bindLegacyPhase,resolvePhase,reflow,nextPhaseFrom,duplicatePhaseForContinuation
   };
 })(typeof window!=='undefined'?window:globalThis);
