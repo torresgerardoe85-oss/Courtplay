@@ -202,6 +202,26 @@ function phaseSteps(phase){
   }
   return steps;
 }
+function actionPathLength(action){
+  const pts=pathPoints(action);let total=0,prev=catmullPoint(pts,0);
+  for(let i=1;i<=18;i++){
+    const p=catmullPoint(pts,i/18);total+=Math.hypot(p.x-prev.x,p.y-prev.y);prev=p;
+  }
+  return total;
+}
+function actionTimingWeight(action){
+  if(Number.isFinite(action.timingWeight))return Math.max(.2,action.timingWeight);
+  const d=actionPathLength(action);
+  if(action.type==='pass')return .48+d/900;
+  if(action.type==='shot')return .55+d/1000;
+  if(action.type==='screen')return .7+d/650;
+  if(action.type==='handoff')return .8+d/620;
+  if(action.type==='dribble')return .82+d/560;
+  return .75+d/620;
+}
+function stepTimingWeight(step){
+  return Math.max(.2,...step.map(actionTimingWeight));
+}
 function sceneDuringActions(base,rawActions,t){
   const scene=copy(base);
   const actions=rawActions.map(a=>actionForCurrentState(a,base));
@@ -241,61 +261,145 @@ function drawAnimationStep(scene,actions,t,c=ctx){
   (scene.players||[]).forEach(p=>drawAnimationPlayer(c,p,p.key===owner));
   if(scene.ball)drawBall(c,scene.ball);
 }
-async function playOnePhase(phase,phaseIndex,runningState,target,exportMode){
-  // Every phase starts from its own saved snapshot. runningState is intentionally
-  // ignored for positioning; it is kept only for backwards-compatible call shape.
-  let base={players:copy(phase.players||[]),ball:copy(phase.ball||{x:535,y:755,owner:null})};
-  syncSceneBall(base);
-  const steps=phaseSteps(phase),total=Math.max(900,(phase.seconds||2.4)*1000);
-  if(!steps.length){
-    const start=performance.now();
-    while(performance.now()-start<total&&(exportMode||playing)){
-      const scene=copy(base);
-      if(exportMode)target(scene,phaseIndex,[],0);else{ctx.clearRect(0,0,W,H);drawAnimationStep(scene,[],0,ctx);}
-      await new Promise(requestAnimationFrame);
-    }
-    return base;
-  }
-  const per=Math.max(700,total/steps.length);
-  for(const rawStep of steps){
-    if(!(exportMode||playing))break;
-    const snapshot=copy(base),prepared=rawStep.map(a=>actionForCurrentState(a,base)),start=performance.now();
-    while(performance.now()-start<per&&(exportMode||playing)){
-      const t=clamp((performance.now()-start)/per,0,1),pack=sceneDuringActions(snapshot,prepared,t);
-      if(exportMode)target(pack.scene,phaseIndex,pack.actions,t);
-      else{ctx.clearRect(0,0,W,H);drawAnimationStep(pack.scene,pack.actions,t,ctx);}
-      await new Promise(requestAnimationFrame);
-    }
-    // Optional actions are demonstrations only. They return to the pre-option state.
-    const completedHandoffs=[];
-    for(const a of prepared){
-      if(!a.isOption){
-        base=applyCompletedAction(base,a);
-        if(a.type==='handoff')completedHandoffs.push(a);
-      }
-    }
-    for(const a of completedHandoffs)CourtPlayEngine.ensureHandoffSeparation(base,a,76);
+function easePlayback(t){
+  const u=clamp(t,0,1);
+  return .5-.5*Math.cos(Math.PI*u);
+}
+function buildPlaybackPlan(){
+  CourtPlayEngine.reflow(data.frames,0);
+  const segments=[];let cursor=0,finalScene=null;
+  data.frames.forEach((phase,phaseIndex)=>{
+    let base={players:copy(phase.players||[]),ball:copy(phase.ball||{x:535,y:755,owner:null})};
     syncSceneBall(base);
-    if(prepared.some(a=>a.type==='shot'&&!a.isOption)){
-      base.terminalShot=true;
-      break;
+    const steps=phaseSteps(phase);
+    const phaseDuration=Math.max(.5,Number(phase.seconds)||2.4);
+    if(!steps.length){
+      segments.push({phaseIndex,start:cursor,end:cursor+phaseDuration,duration:phaseDuration,base:copy(base),actions:[]});
+      cursor+=phaseDuration;finalScene=copy(base);return;
     }
+    const weights=steps.map(stepTimingWeight),weightTotal=weights.reduce((a,b)=>a+b,0)||1;
+    steps.forEach((rawStep,stepIndex)=>{
+      const duration=phaseDuration*(weights[stepIndex]/weightTotal);
+      const prepared=rawStep.map(a=>actionForCurrentState(a,base));
+      segments.push({phaseIndex,start:cursor,end:cursor+duration,duration,base:copy(base),actions:prepared});
+      for(const a of prepared){
+        if(!a.isOption)base=applyCompletedAction(base,a);
+      }
+      for(const a of prepared){
+        if(!a.isOption&&a.type==='handoff')CourtPlayEngine.ensureHandoffSeparation(base,a,76);
+      }
+      syncSceneBall(base);cursor+=duration;
+    });
+    finalScene=copy(base);
+  });
+  return{segments,total:cursor,finalScene};
+}
+const playbackSeek=document.getElementById('playbackSeek');
+const playbackTimeEl=document.getElementById('playbackTime');
+const playbackPhaseEl=document.getElementById('playbackPhase');
+const playbackPlayBtn=document.getElementById('playbackPlayBtn');
+const seekBackBtn=document.getElementById('seekBackBtn');
+const seekForwardBtn=document.getElementById('seekForwardBtn');
+let playbackPosition=0,playbackPlanCache=null,playbackRaf=0,playbackAnchorTime=0,playbackAnchorPosition=0;
+function formatPlaybackTime(seconds){
+  const s=Math.max(0,seconds||0),m=Math.floor(s/60),rest=s-m*60;
+  return m+':'+rest.toFixed(1).padStart(4,'0');
+}
+function updatePlaybackButtons(){
+  playBtn.textContent=playing?'Ⅱ Pausa':'▶ Animación';
+  if(playbackPlayBtn)playbackPlayBtn.textContent=playing?'Ⅱ':'▶';
+}
+function updatePlaybackUI(position,plan,phaseIndex=null){
+  const total=plan?.total||data.frames.reduce((n,f)=>n+(Number(f.seconds)||2.4),0);
+  playbackPosition=clamp(position||0,0,total||0);
+  if(playbackSeek){playbackSeek.max=String(Math.max(.01,total));playbackSeek.value=String(playbackPosition);}
+  if(playbackTimeEl)playbackTimeEl.textContent=`${formatPlaybackTime(playbackPosition)} / ${formatPlaybackTime(total)}`;
+  if(playbackPhaseEl){
+    const idx=phaseIndex==null?(data.frames.length?0:null):phaseIndex;
+    playbackPhaseEl.textContent=idx==null?'':`Fase ${idx+1} / ${data.frames.length}`;
   }
-  return base;
+}
+function getPlaybackFrame(plan,time){
+  if(!plan.segments.length)return null;
+  if(time>=plan.total){
+    const last=plan.segments[plan.segments.length-1];
+    return{scene:copy(plan.finalScene||last.base),actions:[],progress:1,phaseIndex:last.phaseIndex};
+  }
+  const seg=plan.segments.find(x=>time>=x.start&&time<x.end)||plan.segments[0];
+  const linear=seg.duration>0?(time-seg.start)/seg.duration:1;
+  const progress=easePlayback(linear),pack=sceneDuringActions(seg.base,seg.actions,progress);
+  return{scene:pack.scene,actions:pack.actions,progress,phaseIndex:seg.phaseIndex};
+}
+function drawPlaybackAt(time,plan=playbackPlanCache){
+  if(!plan)return;
+  const frameAt=getPlaybackFrame(plan,time);
+  if(!frameAt)return;
+  ctx.clearRect(0,0,W,H);
+  drawAnimationStep(frameAt.scene,frameAt.actions,frameAt.progress,ctx);
+  updatePlaybackUI(time,plan,frameAt.phaseIndex);
+}
+function rebuildPlaybackPlan(){
+  commit();playbackPlanCache=buildPlaybackPlan();
+  updatePlaybackUI(Math.min(playbackPosition,playbackPlanCache.total),playbackPlanCache);
+  return playbackPlanCache;
+}
+function pausePlayback(){
+  playing=false;
+  if(playbackRaf)cancelAnimationFrame(playbackRaf);
+  playbackRaf=0;updatePlaybackButtons();
+}
+function playbackTick(now){
+  if(!playing||!playbackPlanCache)return;
+  const pos=playbackAnchorPosition+(now-playbackAnchorTime)/1000;
+  if(pos>=playbackPlanCache.total){
+    playbackPosition=playbackPlanCache.total;
+    drawPlaybackAt(playbackPosition,playbackPlanCache);
+    pausePlayback();setStatus('Animación terminada.');return;
+  }
+  drawPlaybackAt(pos,playbackPlanCache);
+  playbackRaf=requestAnimationFrame(playbackTick);
+}
+function startPlayback(){
+  const plan=rebuildPlaybackPlan();
+  if(!plan.total)return;
+  if(playbackPosition>=plan.total-.01)playbackPosition=0;
+  playing=true;playbackAnchorPosition=playbackPosition;playbackAnchorTime=performance.now();
+  updatePlaybackButtons();setStatus('Reproduciendo. Usa la barra, −1 s o +1 s para revisar cualquier momento.');
+  playbackRaf=requestAnimationFrame(playbackTick);
+}
+function togglePlayback(){
+  if(playing){pausePlayback();setStatus('Animación en pausa.');}
+  else startPlayback();
+}
+function seekPlayback(position,{pause=true}={}){
+  const plan=playbackPlanCache||rebuildPlaybackPlan();
+  if(pause)pausePlayback();
+  playbackPosition=clamp(Number(position)||0,0,plan.total);
+  drawPlaybackAt(playbackPosition,plan);
 }
 async function animateCanvas(target,exportMode=false){
-  if(playing&&!exportMode)return;
-  CourtPlayEngine.reflow(data.frames,0);
-  const original=current;let phaseEnd=null;
-  if(!exportMode){playing=true;playBtn.textContent='■ Detener';setStatus('Reproduciendo animación por fases…');}
-  for(let i=0;i<data.frames.length&&(exportMode||playing);i++){
-    phaseEnd=await playOnePhase(data.frames[i],i,null,target,exportMode);
-    // A non-option shot ends the CURRENT phase, not the entire play.
-    // Later phases own their own saved starting snapshot and must still animate.
+  const plan=buildPlaybackPlan();
+  if(!exportMode){startPlayback();return;}
+  for(const seg of plan.segments){
+    const started=performance.now();
+    const ms=Math.max(1,seg.duration*1000);
+    while(performance.now()-started<ms){
+      const linear=clamp((performance.now()-started)/ms,0,1),progress=easePlayback(linear);
+      const pack=sceneDuringActions(seg.base,seg.actions,progress);
+      target(pack.scene,seg.phaseIndex,pack.actions,progress);
+      await new Promise(requestAnimationFrame);
+    }
+    const pack=sceneDuringActions(seg.base,seg.actions,1);
+    target(pack.scene,seg.phaseIndex,pack.actions,1);
   }
-  if(!exportMode){playing=false;current=original;playBtn.textContent='▶ Animación';setStatus('Animación terminada.');render();}
 }
-playBtn.addEventListener('click',()=>{if(playing){playing=false;playBtn.textContent='▶ Animación'}else{commit();animateCanvas(null,false)}});
+playBtn.addEventListener('click',togglePlayback);
+playbackPlayBtn?.addEventListener('click',togglePlayback);
+seekBackBtn?.addEventListener('click',()=>seekPlayback(playbackPosition-1));
+seekForwardBtn?.addEventListener('click',()=>seekPlayback(playbackPosition+1));
+playbackSeek?.addEventListener('input',()=>seekPlayback(Number(playbackSeek.value)));
+updatePlaybackButtons();
+updatePlaybackUI(0,null,0);
 videoBtn.addEventListener('click',async()=>{
   try{
     commit();CourtPlayEngine.reflow(data.frames,0);
