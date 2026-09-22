@@ -190,6 +190,21 @@ function actionForCurrentState(raw,scene){
 }
 function applyCompletedAction(scene,l){return CourtPlayEngine.applyAction(scene,l,{mutate:true})}
 
+function splitHardDependencies(group){
+  const handoffs=(group||[]).filter(a=>a&&a.type==='handoff'&&a.targetKey);
+  if(!handoffs.length)return [group];
+  const deferred=new Set();
+  for(const h of handoffs){
+    for(const a of group){
+      if(a===h||a.sourceKey!==h.targetKey)continue;
+      if(['dribble','move','shot','handoff'].includes(a.type))deferred.add(a);
+    }
+  }
+  if(!deferred.size)return [group];
+  const first=group.filter(a=>!deferred.has(a));
+  const second=group.filter(a=>deferred.has(a));
+  return [first,second].filter(x=>x.length);
+}
 function phaseSteps(phase){
   const actions=phase.lines||[],steps=[],seen=new Set();
   for(let i=0;i<actions.length;i++){
@@ -197,7 +212,8 @@ function phaseSteps(phase){
     if(a.simultaneousGroup){
       if(seen.has(a.simultaneousGroup))continue;
       seen.add(a.simultaneousGroup);
-      steps.push(actions.filter(x=>x.simultaneousGroup===a.simultaneousGroup));
+      const group=actions.filter(x=>x.simultaneousGroup===a.simultaneousGroup);
+      steps.push(...splitHardDependencies(group));
     }else steps.push([a]);
   }
   return steps;
