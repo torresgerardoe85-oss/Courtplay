@@ -1,25 +1,53 @@
 {
-  "version": 1,
+  "version": 2,
   "plays": [
     {
       "slug": "41-flow-core",
       "name": "41 FLOW — Core",
-      "description": "Rehecho: Rebound/Outlet → 5 Drag → Second Side → Zoom/Chicago → re-PnR → Flow Loop, con timing y handoff corregidos."
+      "description": "Rehecho: Rebound/Outlet → 5 Drag → Second Side → Zoom/Chicago → re-PnR → Flow Loop, con timing y handoff corregidos.",
+      "categories": [
+        "transition",
+        "flow",
+        "pnr",
+        "dho",
+        "zoom"
+      ]
     },
     {
       "slug": "41-flow-pistol-21-chase",
       "name": "41 FLOW — Pistol 21 Chase",
-      "description": "Advance → Chase/Get → 4 Trail Side PnR → Second Side con 5 → regreso a Flow. Incluye lectura KEEP."
+      "description": "Advance → Chase/Get → 4 Trail Side PnR → Second Side con 5 → regreso a Flow. Incluye lectura KEEP.",
+      "categories": [
+        "transition",
+        "flow",
+        "pistol",
+        "pnr",
+        "dho"
+      ]
     },
     {
       "slug": "4out-1in-pistol-split-flow",
       "name": "4-Out 1-In — Pistol Split Flow",
-      "description": "Entrada 4-Out 1-In con corte al aro, pin-down simultáneo, reversa y PnR con opciones al roll y al corner 3."
+      "description": "Entrada 4-Out 1-In con corte al aro, pin-down simultáneo, reversa y PnR con opciones al roll y al corner 3.",
+      "categories": [
+        "flow",
+        "pistol",
+        "pnr",
+        "shooting"
+      ]
     },
     {
       "slug": "4out-1in-pistol-zoom-pnr",
       "name": "4-Out 1-In — Pistol → Zoom → PnR",
-      "description": "Flow continuo: entrada Pistol, Zoom con pin-down + handoff y re-screen inmediato de 5 para PnR con opciones al roll y al corner."
+      "description": "Flow continuo: entrada Pistol, Zoom con pin-down + handoff y re-screen inmediato de 5 para PnR con opciones al roll y al corner.",
+      "categories": [
+        "flow",
+        "pistol",
+        "zoom",
+        "dho",
+        "pnr",
+        "shooting"
+      ]
     }
   ]
 }
