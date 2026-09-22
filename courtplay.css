@@ -269,3 +269,18 @@ canvas#court{width:100%;height:auto;max-width:100%}
 .cloudAuthInfo small{margin-top:3px;color:#64748b;overflow-wrap:anywhere}
 .cloudAuthStatus{min-height:18px;font-size:12px;color:#475569}
 @media(max-width:520px){.cloudAuthButtons{grid-template-columns:1fr}}
+
+
+/* Playback transport */
+.playbackBar{display:grid;grid-template-columns:auto auto minmax(160px,1fr) auto auto;gap:10px;align-items:center;margin:10px 0 2px;padding:10px 12px;border-radius:14px;background:#071a3d;color:#fff;box-shadow:0 8px 22px rgba(4,18,42,.14)}
+.playbackBtn{min-height:42px;padding:0 13px;border:1px solid rgba(255,255,255,.2);border-radius:10px;background:rgba(255,255,255,.09);color:#fff;font-weight:800;cursor:pointer}
+.playbackBtn.primary{min-width:46px;background:#f47a20;border-color:#f47a20}
+.playbackBtn:active{transform:translateY(1px)}
+.playbackSeek{width:100%;accent-color:#f47a20;cursor:pointer}
+.playbackReadout{display:flex;min-width:126px;flex-direction:column;align-items:flex-end;line-height:1.15}
+.playbackReadout strong{font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.playbackReadout span{margin-top:4px;font-size:11px;color:#b9cae1;white-space:nowrap}
+@media(max-width:900px){
+  .playbackBar{grid-template-columns:auto auto 1fr auto}
+  .playbackReadout{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center;min-width:0}
+}
