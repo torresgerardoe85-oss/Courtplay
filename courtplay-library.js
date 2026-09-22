@@ -6,6 +6,76 @@
 
   const clone=v=>JSON.parse(JSON.stringify(v));
 
+  const CATEGORY_DEFS=[
+    {id:'transition',label:'Transición'},
+    {id:'pnr',label:'Pick & Roll'},
+    {id:'shooting',label:'Triple / Tiro'},
+    {id:'slob',label:'SLOB'},
+    {id:'blob',label:'BLOB'},
+    {id:'flow',label:'Motion / Flow'},
+    {id:'dho',label:'DHO / Handoff'},
+    {id:'horns',label:'Horns'},
+    {id:'pistol',label:'Pistol'},
+    {id:'spain',label:'Spain PnR'},
+    {id:'zoom',label:'Zoom'},
+    {id:'flex',label:'Flex'},
+    {id:'post',label:'Post / Interior'},
+    {id:'zone',label:'Vs Zona'},
+    {id:'pressbreak',label:'Press Break'},
+    {id:'ato',label:'ATO'},
+    {id:'quick',label:'Quick Hitter'},
+    {id:'other',label:'Otras'}
+  ];
+  let activeCategory='all';
+
+  function validCategoryIds(){return new Set(CATEGORY_DEFS.map(x=>x.id))}
+  function normalizeCategories(value){
+    const valid=validCategoryIds();
+    const raw=Array.isArray(value)?value:(value?[value]:[]);
+    const out=[...new Set(raw.map(x=>String(x||'').trim().toLowerCase()).filter(x=>valid.has(x)))];
+    return out.length?out:['other'];
+  }
+  function inferCategoriesFromText(text){
+    const s=String(text||'').toLowerCase(),out=[];
+    const add=id=>{if(!out.includes(id))out.push(id)};
+    if(/transici|transition|early offense|advance|outlet|drag/.test(s))add('transition');
+    if(/pick.?and.?roll|p&r|pnr|ball screen|drag/.test(s))add('pnr');
+    if(/triple|3pt|3-point|shoot|tiro|flare|pin.?down/.test(s))add('shooting');
+    if(/slob|sideline out/.test(s))add('slob');
+    if(/blob|baseline out/.test(s))add('blob');
+    if(/motion|flow|continuidad|continuity/.test(s))add('flow');
+    if(/dho|handoff|hand.?off|chicago/.test(s))add('dho');
+    if(/horns/.test(s))add('horns');
+    if(/pistol|21 chase/.test(s))add('pistol');
+    if(/spain/.test(s))add('spain');
+    if(/zoom/.test(s))add('zoom');
+    if(/flex/.test(s))add('flex');
+    if(/post|interior|low post|high post/.test(s))add('post');
+    if(/zona|zone/.test(s))add('zone');
+    if(/press break|pressbreak|prensa/.test(s))add('pressbreak');
+    if(/ato|after timeout|timeout/.test(s))add('ato');
+    if(/quick hitter|quick|set corto/.test(s))add('quick');
+    return out.length?out:['other'];
+  }
+  function categoriesFor(item){
+    const direct=item&&item.categories;
+    const play=item&&item.play;
+    const nested=play&&play.categories;
+    const one=item&&item.category;
+    if((Array.isArray(direct)&&direct.length)||(Array.isArray(nested)&&nested.length)||one){
+      return normalizeCategories((Array.isArray(direct)&&direct.length)?direct:((Array.isArray(nested)&&nested.length)?nested:one));
+    }
+    const name=(item&&item.name)||(play&&play.name)||'';
+    const desc=(item&&item.description)||(play&&play.description)||'';
+    return inferCategoriesFromText(name+' '+desc);
+  }
+  function matchesCategory(item){
+    return activeCategory==='all'||categoriesFor(item).includes(activeCategory);
+  }
+  function categoryLabel(id){
+    return CATEGORY_DEFS.find(x=>x.id===id)?.label||'Otras';
+  }
+
   function readLocal(){
     try{
       const parsed=JSON.parse(localStorage.getItem(LOCAL_KEY)||'[]');
@@ -26,18 +96,21 @@
     else setStatus(message);
   }
 
-  function saveCurrentToMyLibrary({asNew=false}={}){
+  function saveCurrentToMyLibrary({asNew=false,categories=null}={}){
     try{
       commit();CourtPlayEngine.reflow(data.frames,0);
       if(asNew||!data.libraryId)data.libraryId=makeId();
+      if(categories)data.categories=normalizeCategories(categories);
+      else if(!Array.isArray(data.categories)||!data.categories.length)data.categories=inferCategoriesFromText(data.name||playNameEl.value||'');
       data.savedAt=new Date().toISOString();
       const item={
         id:data.libraryId,
         name:data.name||playNameEl.value||'Jugada sin nombre',
+        categories:normalizeCategories(data.categories),
         updatedAt:data.savedAt,
         play:clone(data)
       };
-      const items=readLocal();
+      const items=readLocal().filter(matchesCategory);
       const at=items.findIndex(x=>x.id===item.id);
       if(at>=0)items.splice(at,1);
       items.unshift(item);writeLocal(items);
@@ -93,38 +166,65 @@
     renderLibraryContents();
   }
 
+  function makeCategoryPicker(initial=[]){
+    const wrap=document.createElement('div');wrap.className='categoryPicker';
+    const label=document.createElement('div');label.className='categoryPickerLabel';label.textContent='Patrones / categorías';
+    const help=document.createElement('small');help.textContent='Puedes seleccionar más de una.';
+    const grid=document.createElement('div');grid.className='categoryPickerGrid';
+    const selected=new Set(normalizeCategories(initial).filter(x=>x!=='other'));
+    CATEGORY_DEFS.forEach(cat=>{
+      const btn=document.createElement('button');btn.type='button';btn.className='categoryPickChip';btn.dataset.category=cat.id;btn.textContent=cat.label;
+      const sync=()=>btn.classList.toggle('active',selected.has(cat.id));
+      btn.addEventListener('click',()=>{
+        selected.has(cat.id)?selected.delete(cat.id):selected.add(cat.id);
+        sync();
+      });
+      sync();grid.append(btn);
+    });
+    wrap.append(label,help,grid);
+    wrap.getValue=()=>selected.size?[...selected]:['other'];
+    return wrap;
+  }
+
   function openLibrarySaveChoices({onDone=null}={}){
     closeAny('courtplayLibrarySaveChoice');
-    if(!data.libraryId){
-      const id=saveCurrentToMyLibrary({asNew:true});
-      if(id&&onDone)onDone(id);
-      return;
-    }
     const wrap=document.createElement('div');wrap.id='courtplayLibrarySaveChoice';wrap.className='saveOverlay';
     const panel=document.createElement('div');panel.className='savePanel';
     const title=document.createElement('strong');title.textContent='Guardar en Mi Biblioteca';
-    const desc=document.createElement('p');desc.textContent='Esta jugada ya existe en tu biblioteca. ¿Qué quieres hacer?';
-
-    const overwrite=document.createElement('button');overwrite.type='button';overwrite.className='saveChoice primary';
-    overwrite.innerHTML='<strong>Guardar encima</strong><small>Actualiza esta misma jugada en todos tus dispositivos.</small>';
-
-    const saveAs=document.createElement('button');saveAs.type='button';saveAs.className='saveChoice';
-    saveAs.innerHTML='<strong>Guardar como nueva</strong><small>Crea una copia independiente y conserva la versión original.</small>';
+    const desc=document.createElement('p');
+    desc.textContent=data.libraryId?'Esta jugada ya existe en tu biblioteca. Elige sus categorías y cómo guardarla.':'Elige una o varias categorías para organizar esta jugada.';
+    const picker=makeCategoryPicker(data.categories||inferCategoriesFromText(data.name||playNameEl.value||''));
 
     const cancel=document.createElement('button');cancel.type='button';cancel.className='saveCancel';cancel.textContent='Cancelar';
-
-    overwrite.addEventListener('click',()=>{
-      const id=saveCurrentToMyLibrary({asNew:false});
-      if(id){wrap.remove();if(onDone)onDone(id);}
-    });
-    saveAs.addEventListener('click',()=>{
-      const id=saveCurrentToMyLibrary({asNew:true});
-      if(id){wrap.remove();if(onDone)onDone(id);}
-    });
     cancel.addEventListener('click',()=>wrap.remove());
     wrap.addEventListener('click',e=>{if(e.target===wrap)wrap.remove();});
 
-    panel.append(title,desc,overwrite,saveAs,cancel);
+    panel.append(title,desc,picker);
+
+    if(data.libraryId){
+      const overwrite=document.createElement('button');overwrite.type='button';overwrite.className='saveChoice primary';
+      overwrite.innerHTML='<strong>Guardar encima</strong><small>Actualiza esta misma jugada con las categorías seleccionadas.</small>';
+      const saveAs=document.createElement('button');saveAs.type='button';saveAs.className='saveChoice';
+      saveAs.innerHTML='<strong>Guardar como nueva</strong><small>Crea una copia independiente.</small>';
+      overwrite.addEventListener('click',()=>{
+        const id=saveCurrentToMyLibrary({asNew:false,categories:picker.getValue()});
+        if(id){wrap.remove();if(onDone)onDone(id);}
+      });
+      saveAs.addEventListener('click',()=>{
+        const id=saveCurrentToMyLibrary({asNew:true,categories:picker.getValue()});
+        if(id){wrap.remove();if(onDone)onDone(id);}
+      });
+      panel.append(overwrite,saveAs,cancel);
+    }else{
+      const saveNew=document.createElement('button');saveNew.type='button';saveNew.className='saveChoice primary';
+      saveNew.innerHTML='<strong>Guardar en Mi Biblioteca</strong><small>La jugada quedará clasificada en estas pestañas.</small>';
+      saveNew.addEventListener('click',()=>{
+        const id=saveCurrentToMyLibrary({asNew:true,categories:picker.getValue()});
+        if(id){wrap.remove();if(onDone)onDone(id);}
+      });
+      panel.append(saveNew,cancel);
+    }
+
     wrap.append(panel);document.body.append(wrap);
   }
 
@@ -202,11 +302,12 @@
     const h=document.createElement('strong');h.textContent='Pídemela en nuestro chat de CourtPlay';
     const p1=document.createElement('p');p1.textContent='Ejemplo: “Crea en CourtPlay un Spain PnR con opción al roll y al skip para triple.”';
     const p2=document.createElement('p');p2.textContent='También puedes decir: “Haz este patrón en CourtPlay, con 4 fases, explicación por fase y las opciones en colores diferentes.”';
-    const p3=document.createElement('p');p3.textContent='Yo la construyo y la publico en la Biblioteca CourtPlay. Luego la abres aquí y puedes editarla.';
+    const p3=document.createElement('p');p3.textContent='Yo la construyo, la clasifico por patrón y la publico en Biblioteca CourtPlay. Luego la abres aquí y puedes editarla.';
     help.append(h,p1,p2,p3);
 
+    const tabs=document.createElement('div');tabs.id='courtplayCategoryTabs';tabs.className='libraryCategoryTabs';tabs.setAttribute('role','tablist');
     const content=document.createElement('div');content.id='courtplayLibraryContents';
-    panel.append(head,cloudAuth,actions,help,content);wrap.append(panel);document.body.append(wrap);
+    panel.append(head,cloudAuth,actions,help,tabs,content);wrap.append(panel);document.body.append(wrap);
     wrap.addEventListener('click',e=>{if(e.target===wrap)wrap.remove();});
     return wrap;
   }
@@ -223,6 +324,32 @@
     return box;
   }
 
+  function renderCategoryTabs(host){
+    if(!host)return;
+    host.innerHTML='';
+    const defs=[{id:'all',label:'Todas'},...CATEGORY_DEFS];
+    defs.forEach(cat=>{
+      const b=document.createElement('button');b.type='button';b.className='libraryCategoryTab';b.dataset.category=cat.id;b.textContent=cat.label;
+      b.setAttribute('role','tab');b.setAttribute('aria-selected',String(activeCategory===cat.id));
+      b.classList.toggle('active',activeCategory===cat.id);
+      b.addEventListener('click',()=>{
+        activeCategory=cat.id;
+        renderLibraryContents();
+      });
+      host.append(b);
+    });
+  }
+
+  function appendCategoryBadges(info,item){
+    const cats=categoriesFor(item).filter(x=>x!=='other').slice(0,4);
+    if(!cats.length)return;
+    const row=document.createElement('div');row.className='libraryCategoryBadges';
+    cats.forEach(id=>{
+      const badge=document.createElement('span');badge.textContent=categoryLabel(id);row.append(badge);
+    });
+    info.append(row);
+  }
+
   function localRows(container){
     container.append(sectionTitle(window.CourtPlayCloud?.isSignedIn()?'Respaldo local':'Mi Biblioteca local',window.CourtPlayCloud?.isSignedIn()?'Copia disponible en este navegador/dispositivo.':'Guardada solo en este navegador/dispositivo hasta que inicies sesión.'));
     const items=readLocal();
@@ -236,6 +363,7 @@
       const small=document.createElement('small');
       small.textContent=item.updatedAt?'Actualizada '+new Date(item.updatedAt).toLocaleString():'Guardada en este dispositivo';
       info.append(strong,small);
+      appendCategoryBadges(info,item);
       const actions=document.createElement('div');actions.className='libraryRowActions';
       const open=document.createElement('button');open.type='button';open.textContent='Abrir';open.addEventListener('click',()=>loadLocalPlay(item.id));
       const del=document.createElement('button');del.type='button';del.className='danger';del.textContent='Eliminar';del.addEventListener('click',()=>deleteLocalPlay(item.id));
@@ -255,6 +383,7 @@
       const cached={
         id:data.libraryId,
         name:data.name||item.name||'Jugada',
+        categories:normalizeCategories(data.categories||categoriesFor(item)),
         updatedAt:item.updated_at||data.savedAt||new Date().toISOString(),
         play:clone(data)
       };
@@ -294,10 +423,11 @@
     container.append(sectionTitle('Mi Biblioteca Cloud','Sincronizada entre tus dispositivos.'));
     const loading=document.createElement('p');loading.className='libraryMessage';loading.textContent='Sincronizando jugadas…';container.append(loading);
     try{
-      const items=await window.CourtPlayCloud.listPlays();
+      const allItems=await window.CourtPlayCloud.listPlays();
+      const items=allItems.filter(matchesCategory);
       loading.remove();
       if(!items.length){
-        const p=document.createElement('p');p.className='libraryMessage';p.textContent='Tu biblioteca cloud está vacía. Guarda una jugada y aparecerá aquí en todos tus dispositivos.';container.append(p);return;
+        const p=document.createElement('p');p.className='libraryMessage';p.textContent=activeCategory==='all'?'Tu biblioteca cloud está vacía. Guarda una jugada y aparecerá aquí en todos tus dispositivos.':'No hay jugadas de '+categoryLabel(activeCategory)+' en Mi Biblioteca Cloud.';container.append(p);return;
       }
       items.forEach(item=>{
         const row=document.createElement('div');row.className='libraryRow';
@@ -305,6 +435,7 @@
         const strong=document.createElement('strong');strong.textContent=item.name||'Jugada';
         const small=document.createElement('small');small.textContent=item.updated_at?'Sincronizada '+new Date(item.updated_at).toLocaleString():'Guardada en la nube';
         info.append(strong,small);
+        appendCategoryBadges(info,item);
         const actions=document.createElement('div');actions.className='libraryRowActions';
         const open=document.createElement('button');open.type='button';open.textContent='Abrir';open.addEventListener('click',()=>loadCloudPlay(item));
         const del=document.createElement('button');del.type='button';del.className='danger';del.textContent='Eliminar';del.addEventListener('click',()=>deleteCloudPlay(item));
@@ -357,11 +488,13 @@
         }catch(e){hidden=[];}
       }
       const hiddenSet=new Set(hidden);
-      const visible=plays.filter(item=>item&&item.slug&&!hiddenSet.has(item.slug));
+      const visible=plays.filter(item=>item&&item.slug&&!hiddenSet.has(item.slug)&&matchesCategory(item));
       loading.remove();
       if(!visible.length){
         const p=document.createElement('p');p.className='libraryMessage';
-        p.textContent=plays.length?'No tienes jugadas publicadas pendientes en Biblioteca CourtPlay.':'Todavía no te he publicado jugadas. Cuando me pidas una en el chat, aparecerá aquí.';
+        p.textContent=activeCategory==='all'
+          ?(plays.length?'No tienes jugadas publicadas pendientes en Biblioteca CourtPlay.':'Todavía no te he publicado jugadas. Cuando me pidas una en el chat, aparecerá aquí.')
+          :'No hay jugadas publicadas de '+categoryLabel(activeCategory)+' en esta sección.';
         container.append(p);return;
       }
       visible.forEach(item=>{
@@ -383,7 +516,8 @@
   }
 
   function renderLibraryContents(){
-    const wrap=ensurePanel(),content=wrap.querySelector('#courtplayLibraryContents'),auth=wrap.querySelector('#courtplayCloudAuth');
+    const wrap=ensurePanel(),content=wrap.querySelector('#courtplayLibraryContents'),auth=wrap.querySelector('#courtplayCloudAuth'),tabs=wrap.querySelector('#courtplayCategoryTabs');
+    renderCategoryTabs(tabs);
     content.innerHTML='';
     if(window.CourtPlayCloud){
       window.CourtPlayCloud.renderAuth(auth,()=>renderLibraryContents()).catch(()=>{});
