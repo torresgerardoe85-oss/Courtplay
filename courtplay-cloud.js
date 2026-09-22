@@ -6,6 +6,8 @@
   const TABLE='courtplay_plays';
   const LOCAL_KEY='courtplay_my_library_v1';
   const OUTBOX_KEY='courtplay_cloud_outbox_v1';
+  const HIDDEN_REMOTE_TABLE='courtplay_hidden_remote_plays';
+  const HIDDEN_REMOTE_KEY='courtplay_hidden_remote_v1';
 
   let client=null,session=null,ready=false,flushing=false,sdkPromise=null;
 
@@ -70,7 +72,7 @@
 
   async function signUp(email,password){
     await ensureReady();
-    const redirectTo='https://torresgerardoe85-oss.github.io/Courtplay/v2.html?v=43';
+    const redirectTo='https://torresgerardoe85-oss.github.io/Courtplay/v2.html?v=44';
     const {data,error}=await client.auth.signUp({
       email,
       password,
@@ -103,15 +105,17 @@
       const raw=JSON.parse(localStorage.getItem(OUTBOX_KEY)||'{}');
       return{
         upserts:Array.isArray(raw.upserts)?raw.upserts:[],
-        deletes:Array.isArray(raw.deletes)?raw.deletes:[]
+        deletes:Array.isArray(raw.deletes)?raw.deletes:[],
+        remoteHides:Array.isArray(raw.remoteHides)?raw.remoteHides:[]
       };
-    }catch(e){return{upserts:[],deletes:[]}}
+    }catch(e){return{upserts:[],deletes:[],remoteHides:[]}}
   }
   function writeOutbox(box){
     try{
       localStorage.setItem(OUTBOX_KEY,JSON.stringify({
         upserts:[...new Set(box.upserts||[])],
-        deletes:[...new Set(box.deletes||[])]
+        deletes:[...new Set(box.deletes||[])],
+        remoteHides:[...new Set(box.remoteHides||[])]
       }));
     }catch(e){}
     document.dispatchEvent(new CustomEvent('courtplay:cloud-queue-changed'));
@@ -130,9 +134,58 @@
     if(!box.deletes.includes(libraryId))box.deletes.push(libraryId);
     writeOutbox(box);
   }
+  function readHiddenRemote(){
+    try{
+      const parsed=JSON.parse(localStorage.getItem(HIDDEN_REMOTE_KEY)||'[]');
+      return Array.isArray(parsed)?parsed:[];
+    }catch(e){return[]}
+  }
+  function writeHiddenRemote(items){
+    try{localStorage.setItem(HIDDEN_REMOTE_KEY,JSON.stringify([...new Set(items||[])]));}catch(e){}
+  }
+  function hideRemoteLocal(slug){
+    if(!slug)return;
+    const items=readHiddenRemote();
+    if(!items.includes(slug)){items.push(slug);writeHiddenRemote(items);}
+  }
+  function queueRemoteHide(slug){
+    if(!slug)return;
+    hideRemoteLocal(slug);
+    const box=readOutbox();
+    if(!box.remoteHides.includes(slug))box.remoteHides.push(slug);
+    writeOutbox(box);
+  }
   function pendingCount(){
     const box=readOutbox();
-    return box.upserts.length+box.deletes.length;
+    return box.upserts.length+box.deletes.length+box.remoteHides.length;
+  }
+
+  async function listHiddenRemoteSlugs(){
+    const local=readHiddenRemote();
+    await ensureReady();
+    if(!isSignedIn()||navigator.onLine===false)return local;
+    const {data,error}=await client.from(HIDDEN_REMOTE_TABLE).select('slug');
+    if(error)throw error;
+    const merged=[...new Set([...local,...(data||[]).map(x=>x.slug).filter(Boolean)])];
+    writeHiddenRemote(merged);
+    return merged;
+  }
+
+  async function hideRemotePlay(slug){
+    if(!slug)return;
+    hideRemoteLocal(slug);
+    await ensureReady();
+    if(!isSignedIn()||navigator.onLine===false){
+      queueRemoteHide(slug);
+      return {queued:true};
+    }
+    const u=user();
+    const {error}=await client.from(HIDDEN_REMOTE_TABLE).insert({user_id:u.id,slug});
+    if(error&&error.code!=='23505')throw error;
+    const box=readOutbox();
+    box.remoteHides=box.remoteHides.filter(x=>x!==slug);
+    writeOutbox(box);
+    return {queued:false};
   }
 
   async function listPlays(){
@@ -233,6 +286,20 @@
           writeOutbox(box);
           deleted++;
         }catch(e){error=e;break;}
+      }
+
+      if(!error){
+        for(const slug of [...box.remoteHides]){
+          try{
+            const u=user();
+            const {error:hideError}=await client.from(HIDDEN_REMOTE_TABLE).insert({user_id:u.id,slug});
+            if(hideError&&hideError.code!=='23505')throw hideError;
+            box=readOutbox();
+            box.remoteHides=box.remoteHides.filter(x=>x!==slug);
+            writeOutbox(box);
+            deleted++;
+          }catch(e){error=e;break;}
+        }
       }
 
       if(!error){
@@ -367,7 +434,7 @@
 
   window.CourtPlayCloud={
     ensureReady,user,isSignedIn,signIn,signUp,signOut,listPlays,savePlay,deletePlay,syncLocalToCloud,
-    queueUpsert,queueDelete,pendingCount,flushOutbox,renderAuth,friendlyError
+    queueUpsert,queueDelete,queueRemoteHide,listHiddenRemoteSlugs,hideRemotePlay,pendingCount,flushOutbox,renderAuth,friendlyError
   };
   installAutoSync();
   ensureReady().then(async()=>{
