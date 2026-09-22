@@ -18,6 +18,15 @@
     {id:'pistol',label:'Pistol'},
     {id:'spain',label:'Spain PnR'},
     {id:'zoom',label:'Zoom'},
+    {id:'stagger',label:'Stagger'},
+    {id:'elevator',label:'Elevator'},
+    {id:'iverson',label:'Iverson'},
+    {id:'flare',label:'Flare'},
+    {id:'chicago',label:'Chicago'},
+    {id:'ram',label:'Ram'},
+    {id:'ghost',label:'Ghost'},
+    {id:'exit',label:'Exit'},
+    {id:'ucla',label:'UCLA'},
     {id:'flex',label:'Flex'},
     {id:'post',label:'Post / Interior'},
     {id:'zone',label:'Vs Zona'},
@@ -49,6 +58,15 @@
     if(/pistol|21 chase/.test(s))add('pistol');
     if(/spain/.test(s))add('spain');
     if(/zoom/.test(s))add('zoom');
+    if(/stagger/.test(s))add('stagger');
+    if(/elevator/.test(s))add('elevator');
+    if(/iverson/.test(s))add('iverson');
+    if(/flare/.test(s))add('flare');
+    if(/chicago/.test(s))add('chicago');
+    if(/\bram\b|ram screen/.test(s))add('ram');
+    if(/ghost/.test(s))add('ghost');
+    if(/\bexit\b|exit screen/.test(s))add('exit');
+    if(/ucla/.test(s))add('ucla');
     if(/flex/.test(s))add('flex');
     if(/post|interior|low post|high post/.test(s))add('post');
     if(/zona|zone/.test(s))add('zone');
@@ -74,6 +92,17 @@
   }
   function categoryLabel(id){
     return CATEGORY_DEFS.find(x=>x.id===id)?.label||'Otras';
+  }
+  function suggestCategoriesFromCurrentPlay(){
+    const frames=Array.isArray(data?.frames)?data.frames:[];
+    const captions=frames.map(f=>f?.caption||'').join(' ');
+    const actionTypes=frames.flatMap(f=>(f?.lines||[]).map(l=>l?.type||''));
+    const text=[data?.name||'',playNameEl?.value||'',captions].join(' ');
+    const suggested=inferCategoriesFromText(text).filter(x=>x!=='other');
+    const add=id=>{if(!suggested.includes(id))suggested.push(id)};
+    if(actionTypes.includes('handoff'))add('dho');
+    if(actionTypes.includes('shot'))add('shooting');
+    return suggested.length?suggested:['other'];
   }
 
   function readLocal(){
@@ -168,20 +197,34 @@
 
   function makeCategoryPicker(initial=[]){
     const wrap=document.createElement('div');wrap.className='categoryPicker';
+    const head=document.createElement('div');head.className='categoryPickerHead';
+    const title=document.createElement('div');
     const label=document.createElement('div');label.className='categoryPickerLabel';label.textContent='Patrones / categorías';
-    const help=document.createElement('small');help.textContent='Puedes seleccionar más de una.';
+    const help=document.createElement('small');help.textContent='Tú decides. Puedes seleccionar varias.';
+    title.append(label,help);
+    const suggest=document.createElement('button');suggest.type='button';suggest.className='categorySuggestBtn';suggest.textContent='Sugerir';
+    head.append(title,suggest);
+
     const grid=document.createElement('div');grid.className='categoryPickerGrid';
     const selected=new Set(normalizeCategories(initial).filter(x=>x!=='other'));
+    const buttons=new Map();
+    const syncAll=()=>buttons.forEach((btn,id)=>btn.classList.toggle('active',selected.has(id)));
     CATEGORY_DEFS.forEach(cat=>{
       const btn=document.createElement('button');btn.type='button';btn.className='categoryPickChip';btn.dataset.category=cat.id;btn.textContent=cat.label;
-      const sync=()=>btn.classList.toggle('active',selected.has(cat.id));
       btn.addEventListener('click',()=>{
         selected.has(cat.id)?selected.delete(cat.id):selected.add(cat.id);
-        sync();
+        syncAll();
       });
-      sync();grid.append(btn);
+      buttons.set(cat.id,btn);grid.append(btn);
     });
-    wrap.append(label,help,grid);
+    suggest.addEventListener('click',()=>{
+      selected.clear();
+      suggestCategoriesFromCurrentPlay().filter(x=>x!=='other').forEach(id=>selected.add(id));
+      syncAll();
+      notify('CourtPlay sugirió categorías. Puedes cambiarlas antes de guardar.');
+    });
+    syncAll();
+    wrap.append(head,grid);
     wrap.getValue=()=>selected.size?[...selected]:['other'];
     return wrap;
   }
@@ -192,7 +235,7 @@
     const panel=document.createElement('div');panel.className='savePanel';
     const title=document.createElement('strong');title.textContent='Guardar en Mi Biblioteca';
     const desc=document.createElement('p');
-    desc.textContent=data.libraryId?'Esta jugada ya existe en tu biblioteca. Elige sus categorías y cómo guardarla.':'Elige una o varias categorías para organizar esta jugada.';
+    desc.textContent=data.libraryId?'Esta jugada ya existe. Tú eliges sus pestañas y cómo guardarla.':'Tú eliges en qué pestañas aparece. Puedes marcar varias o tocar Sugerir.';
     const picker=makeCategoryPicker(data.categories||inferCategoriesFromText(data.name||playNameEl.value||''));
 
     const cancel=document.createElement('button');cancel.type='button';cancel.className='saveCancel';cancel.textContent='Cancelar';
@@ -569,5 +612,5 @@
   button?.addEventListener('click',openLibrary);
   const slug=new URLSearchParams(location.search).get('play');
   if(slug)loadPlay(slug,{closePanel:false});
-  window.CourtPlayLibrary={loadPlay,openLibrary,openSaveMenu,openLibrarySaveChoices,saveCurrentToMyLibrary,loadLocalPlay,categories:CATEGORY_DEFS,categoryLabel};
+  window.CourtPlayLibrary={loadPlay,openLibrary,openSaveMenu,openLibrarySaveChoices,saveCurrentToMyLibrary,loadLocalPlay,categories:CATEGORY_DEFS,categoryLabel,suggestCategoriesFromCurrentPlay};
 })();
