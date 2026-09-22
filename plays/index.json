@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "plays": [
     {
       "slug": "41-flow-core",
@@ -10,7 +10,8 @@
         "flow",
         "pnr",
         "dho",
-        "zoom"
+        "zoom",
+        "chicago"
       ]
     },
     {
