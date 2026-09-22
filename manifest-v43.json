@@ -2,7 +2,7 @@
   "id": "./courtplay-v43",
   "name": "CourtPlay — Basketball Play Designer",
   "short_name": "CourtPlay",
-  "start_url": "./index.html?v=43",
+  "start_url": "./index.html?v=44",
   "scope": "./",
   "display": "standalone",
   "background_color": "#031a36",
