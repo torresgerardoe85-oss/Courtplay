@@ -1,8 +1,8 @@
 {
   "version": 2,
   "name": "PRINCETON CHIN — Motion Continuity",
-  "description": "Reconstrucción de enseñanza en CourtPlay basada en Princeton Chin Continuity: guard-to-guard, wing entry, Chin cut usando al 5 como screener, follow screen/back cut y reset automático para repetir al lado contrario. Coordenadas y timing adaptados para animación; las reglas provienen del playbook.",
-  "status": "Source-based teaching reconstruction",
+  "description": "Reconstrucción corregida de Princeton Chin Continuity basada directamente en los cuatro diagramas de la fuente: guard-to-guard → wing entry + Chin cut → follow screen/back cut → fill, guard-to-guard y repetir.",
+  "status": "Source-faithful reconstruction",
   "system": "Princeton Chin Continuity",
   "categories": [
     "flow",
@@ -10,17 +10,18 @@
   ],
   "source": {
     "title": "Princeton Offence",
-    "sourceSection": "Chin Continuity / Chin Rules",
-    "adaptation": "CourtPlay teaching reconstruction; timing and coordinates adapted for smooth animation"
+    "sourceSection": "Chin Continuity",
+    "sourcePdfPage": 12,
+    "adaptation": "CourtPlay: coordinates and timing adapted only for animation; sequence follows the four source diagrams."
   },
   "teachingReads": [
     "GUARD-TO-GUARD = CHIN",
-    "WING ENTRY",
-    "CUTTER LATE",
-    "FOLLOW SCREEN",
-    "BACK CUT IF DENIED",
-    "FILL + REVERSE",
-    "REPEAT OPPOSITE"
+    "WING V-CUT",
+    "HIT CUTTER LATE",
+    "P FOLLOW SCREEN",
+    "BACK CUT WHEN EVEN WITH RIM",
+    "2 DRIBBLES UP / 3 FILLS",
+    "GUARD-TO-GUARD = REPEAT"
   ],
   "frames": [
     {
@@ -31,41 +32,41 @@
           "key": "o1",
           "label": "1",
           "team": "offense",
-          "x": 380,
-          "y": 680
+          "x": 620,
+          "y": 690
         },
         {
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 175,
-          "y": 435
+          "x": 165,
+          "y": 420
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 825,
-          "y": 435
+          "x": 835,
+          "y": 420
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 620,
-          "y": 680
+          "x": 380,
+          "y": 690
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 430,
-          "y": 205
+          "x": 545,
+          "y": 390
         }
       ],
       "ball": {
-        "x": 414,
-        "y": 684,
+        "x": 654,
+        "y": 694,
         "owner": "o1"
       },
       "lines": [
@@ -78,19 +79,119 @@
           "isOption": false,
           "simultaneousGroup": null,
           "color": "#2563eb",
-          "timingWeight": 0.55,
+          "timingWeight": 0.58,
           "points": [
             {
-              "x": 380,
-              "y": 680
+              "x": 620,
+              "y": 690
             },
             {
               "x": 500,
-              "y": 680
+              "y": 690
             },
             {
-              "x": 620,
-              "y": 680
+              "x": 380,
+              "y": 690
+            }
+          ]
+        }
+      ],
+      "caption": "FRAME 1 — GUARD TO GUARD = CHIN. 1 pasa a 4 para iniciar la continuidad. 5 ya está en su zona de Chin; 2 y 3 mantienen los wings.",
+      "seconds": 1.5
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 620,
+          "y": 690
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 165,
+          "y": 420
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 835,
+          "y": 420
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 380,
+          "y": 690
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 545,
+          "y": 390
+        }
+      ],
+      "ball": {
+        "x": 414,
+        "y": 694,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#6b7280",
+          "timingWeight": 0.72,
+          "points": [
+            {
+              "x": 165,
+              "y": 420
+            },
+            {
+              "x": 215,
+              "y": 360
+            },
+            {
+              "x": 180,
+              "y": 405
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o4",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "timingWeight": 0.58,
+          "points": [
+            {
+              "x": 380,
+              "y": 690
+            },
+            {
+              "x": 285,
+              "y": 545
+            },
+            {
+              "x": 180,
+              "y": 405
             }
           ]
         },
@@ -101,123 +202,23 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_chin_setup",
+          "simultaneousGroup": "g_chin_cut",
           "color": "#f97316",
-          "timingWeight": 0.95,
+          "timingWeight": 0.75,
           "screenAngleLocked": true,
           "screenAngle": 5,
           "points": [
             {
-              "x": 430,
-              "y": 205
+              "x": 545,
+              "y": 390
             },
             {
-              "x": 430,
-              "y": 315
-            },
-            {
-              "x": 430,
+              "x": 550,
               "y": 420
-            }
-          ]
-        },
-        {
-          "type": "move",
-          "sourceKey": "o2",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": false,
-          "simultaneousGroup": "g_chin_setup",
-          "color": "#6b7280",
-          "timingWeight": 0.75,
-          "points": [
-            {
-              "x": 175,
-              "y": 435
             },
             {
-              "x": 150,
-              "y": 410
-            },
-            {
-              "x": 190,
-              "y": 420
-            }
-          ]
-        }
-      ],
-      "caption": "CHIN TRIGGER — pase guard-to-guard inicia Chin. 5 sube a su punto de screen cerca de la línea de carril/3PT y 2 hace V-cut para presentar la entrada. No aceleramos el corte hasta que 5 esté plantado.",
-      "seconds": 2.4
-    },
-    {
-      "phaseStartVersion": 26,
-      "phaseOwnershipVersion": 26,
-      "players": [
-        {
-          "key": "o1",
-          "label": "1",
-          "team": "offense",
-          "x": 380,
-          "y": 680
-        },
-        {
-          "key": "o2",
-          "label": "2",
-          "team": "offense",
-          "x": 190,
-          "y": 420
-        },
-        {
-          "key": "o3",
-          "label": "3",
-          "team": "offense",
-          "x": 825,
-          "y": 435
-        },
-        {
-          "key": "o4",
-          "label": "4",
-          "team": "offense",
-          "x": 620,
-          "y": 680
-        },
-        {
-          "key": "o5",
-          "label": "5",
-          "team": "offense",
-          "x": 430,
-          "y": 420
-        }
-      ],
-      "ball": {
-        "x": 654,
-        "y": 684,
-        "owner": "o4"
-      },
-      "lines": [
-        {
-          "type": "pass",
-          "sourceKey": "o4",
-          "targetKey": "o2",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": false,
-          "simultaneousGroup": null,
-          "color": "#2563eb",
-          "timingWeight": 0.62,
-          "points": [
-            {
-              "x": 620,
-              "y": 680
-            },
-            {
-              "x": 415,
-              "y": 555
-            },
-            {
-              "x": 190,
-              "y": 420
+              "x": 552,
+              "y": 445
             }
           ]
         },
@@ -233,84 +234,59 @@
           "timingWeight": 1.35,
           "points": [
             {
-              "x": 380,
-              "y": 680
-            },
-            {
-              "x": 405,
-              "y": 535
-            },
-            {
-              "x": 455,
-              "y": 390
-            },
-            {
-              "x": 500,
-              "y": 245
+              "x": 620,
+              "y": 690
             },
             {
               "x": 610,
-              "y": 170
-            },
-            {
-              "x": 840,
-              "y": 165
-            }
-          ]
-        },
-        {
-          "type": "move",
-          "sourceKey": "o4",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": false,
-          "simultaneousGroup": "g_chin_cut",
-          "color": "#6b7280",
-          "timingWeight": 0.82,
-          "points": [
-            {
-              "x": 620,
-              "y": 680
+              "y": 560
             },
             {
               "x": 585,
-              "y": 615
+              "y": 455
             },
             {
               "x": 555,
-              "y": 550
+              "y": 350
+            },
+            {
+              "x": 535,
+              "y": 225
+            },
+            {
+              "x": 585,
+              "y": 165
             }
           ]
         },
         {
           "type": "pass",
           "sourceKey": "o2",
-          "targetKey": "o1",
+          "targetKey": null,
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": true,
-          "simultaneousGroup": null,
+          "simultaneousGroup": "g_chin_cut",
           "color": "#16a34a",
-          "timingWeight": 0.48,
+          "timingWeight": 0.5,
           "points": [
             {
-              "x": 190,
-              "y": 420
+              "x": 180,
+              "y": 405
             },
             {
               "x": 350,
-              "y": 300
+              "y": 310
             },
             {
-              "x": 500,
-              "y": 245
+              "x": 535,
+              "y": 225
             }
           ]
         }
       ],
-      "caption": "CHIN CUT — 4 entra rápido a 2. 1 usa el screen de 5, corta duro por la pintura y sale a la esquina contraria si no recibe. 2 sostiene el balón y busca al cutter tarde; el pase a 1 es la primera lectura, no una obligación.",
-      "seconds": 3
+      "caption": "FRAME 2 — 2 hace V-cut, 4 entra a 2 y 1 corta por la lane line usando a 5. 2 sostiene y busca a 1 TARDE si aparece la ventana. 1 todavía NO termina en la esquina; primero completa el Chin cut hacia el aro/baseline.",
+      "seconds": 2.8
     },
     {
       "phaseStartVersion": 26,
@@ -320,44 +296,73 @@
           "key": "o1",
           "label": "1",
           "team": "offense",
-          "x": 840,
+          "x": 585,
           "y": 165
         },
         {
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 190,
-          "y": 420
+          "x": 180,
+          "y": 405
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 825,
-          "y": 435
+          "x": 835,
+          "y": 420
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 555,
-          "y": 550
+          "x": 380,
+          "y": 690
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 430,
-          "y": 420
+          "x": 552,
+          "y": 445
         }
       ],
       "ball": {
-        "x": 224,
-        "y": 424,
+        "x": 214,
+        "y": 409,
         "owner": "o2"
       },
       "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_follow",
+          "color": "#ef4444",
+          "timingWeight": 0.9,
+          "points": [
+            {
+              "x": 585,
+              "y": 165
+            },
+            {
+              "x": 465,
+              "y": 150
+            },
+            {
+              "x": 310,
+              "y": 150
+            },
+            {
+              "x": 150,
+              "y": 165
+            }
+          ]
+        },
         {
           "type": "screen",
           "sourceKey": "o5",
@@ -367,21 +372,21 @@
           "isOption": false,
           "simultaneousGroup": "g_follow",
           "color": "#f97316",
-          "timingWeight": 0.9,
+          "timingWeight": 0.92,
           "screenAngleLocked": true,
-          "screenAngle": 100,
+          "screenAngle": 95,
           "points": [
             {
-              "x": 430,
-              "y": 420
+              "x": 552,
+              "y": 445
+            },
+            {
+              "x": 520,
+              "y": 485
             },
             {
               "x": 500,
-              "y": 465
-            },
-            {
-              "x": 555,
-              "y": 505
+              "y": 510
             }
           ]
         },
@@ -394,76 +399,38 @@
           "isOption": false,
           "simultaneousGroup": "g_follow",
           "color": "#172033",
-          "timingWeight": 1,
+          "timingWeight": 1.45,
           "points": [
             {
-              "x": 555,
-              "y": 550
+              "x": 380,
+              "y": 690
             },
             {
-              "x": 630,
+              "x": 430,
+              "y": 585
+            },
+            {
+              "x": 500,
               "y": 510
             },
             {
-              "x": 690,
-              "y": 455
-            }
-          ]
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o2",
-          "targetKey": "o4",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#38bdf8",
-          "timingWeight": 0.48,
-          "points": [
-            {
-              "x": 190,
+              "x": 555,
               "y": 420
             },
             {
-              "x": 445,
-              "y": 440
-            },
-            {
-              "x": 690,
-              "y": 455
-            }
-          ]
-        },
-        {
-          "type": "move",
-          "sourceKey": "o4",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": false,
-          "simultaneousGroup": null,
-          "color": "#ef4444",
-          "timingWeight": 1.18,
-          "points": [
-            {
-              "x": 690,
-              "y": 455
-            },
-            {
-              "x": 620,
-              "y": 355
-            },
-            {
               "x": 535,
-              "y": 245
+              "y": 285
             },
             {
-              "x": 455,
-              "y": 180
+              "x": 505,
+              "y": 175
             },
             {
-              "x": 175,
+              "x": 650,
+              "y": 150
+            },
+            {
+              "x": 850,
               "y": 165
             }
           ]
@@ -471,31 +438,31 @@
         {
           "type": "pass",
           "sourceKey": "o2",
-          "targetKey": "o4",
+          "targetKey": null,
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": true,
-          "simultaneousGroup": null,
+          "simultaneousGroup": "g_follow",
           "color": "#16a34a",
-          "timingWeight": 0.46,
+          "timingWeight": 0.52,
           "points": [
             {
-              "x": 190,
-              "y": 420
+              "x": 180,
+              "y": 405
             },
             {
               "x": 350,
-              "y": 295
+              "y": 300
             },
             {
-              "x": 535,
-              "y": 245
+              "x": 505,
+              "y": 175
             }
           ]
         }
       ],
-      "caption": "FOLLOW / CHECK CUT — 5 va a buscar el follow screen para 4. Si 4 sale limpio puede recibir; si la defensa niega y 4 llega al nivel del aro, continúa con back cut y limpia hacia la esquina contraria. 2 vuelve a buscar el corte tarde.",
-      "seconds": 3.2
+      "caption": "FRAME 3 — 1 termina su sprint a la esquina opuesta. 5 va a buscar a 4 con el FOLLOW SCREEN. Cuando 4 llega al nivel del aro, back cut: 2 puede golpearlo tarde; si no, 4 limpia hasta la esquina contraria.",
+      "seconds": 3.1
     },
     {
       "phaseStartVersion": 26,
@@ -505,41 +472,41 @@
           "key": "o1",
           "label": "1",
           "team": "offense",
-          "x": 840,
+          "x": 150,
           "y": 165
         },
         {
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 190,
-          "y": 420
+          "x": 180,
+          "y": 405
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 825,
-          "y": 435
+          "x": 835,
+          "y": 420
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 175,
+          "x": 850,
           "y": 165
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 555,
-          "y": 505
+          "x": 500,
+          "y": 510
         }
       ],
       "ball": {
-        "x": 224,
-        "y": 424,
+        "x": 214,
+        "y": 409,
         "owner": "o2"
       },
       "lines": [
@@ -550,25 +517,25 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_reset",
+          "simultaneousGroup": "g_fill",
           "color": "#172033",
           "timingWeight": 1,
           "points": [
             {
-              "x": 190,
-              "y": 420
+              "x": 180,
+              "y": 405
             },
             {
-              "x": 255,
-              "y": 505
+              "x": 245,
+              "y": 500
             },
             {
-              "x": 350,
+              "x": 320,
               "y": 585
             },
             {
-              "x": 405,
-              "y": 650
+              "x": 385,
+              "y": 675
             }
           ]
         },
@@ -579,50 +546,75 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_reset",
+          "simultaneousGroup": "g_fill",
           "color": "#6b7280",
           "timingWeight": 0.95,
           "points": [
             {
-              "x": 825,
-              "y": 435
+              "x": 835,
+              "y": 420
             },
             {
-              "x": 755,
-              "y": 505
+              "x": 770,
+              "y": 500
             },
             {
-              "x": 665,
+              "x": 690,
               "y": 585
             },
             {
-              "x": 600,
-              "y": 650
+              "x": 615,
+              "y": 675
             }
           ]
         },
         {
           "type": "move",
-          "sourceKey": "o5",
+          "sourceKey": "o1",
           "targetKey": null,
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_reset",
-          "color": "#f97316",
-          "timingWeight": 0.92,
+          "simultaneousGroup": "g_fill",
+          "color": "#6b7280",
+          "timingWeight": 0.82,
           "points": [
             {
-              "x": 555,
-              "y": 505
+              "x": 150,
+              "y": 165
             },
             {
-              "x": 565,
-              "y": 455
+              "x": 155,
+              "y": 275
             },
             {
-              "x": 575,
-              "y": 420
+              "x": 165,
+              "y": 410
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_fill",
+          "color": "#6b7280",
+          "timingWeight": 0.82,
+          "points": [
+            {
+              "x": 850,
+              "y": 165
+            },
+            {
+              "x": 845,
+              "y": 275
+            },
+            {
+              "x": 835,
+              "y": 410
             }
           ]
         },
@@ -635,239 +627,25 @@
           "isOption": false,
           "simultaneousGroup": null,
           "color": "#2563eb",
-          "timingWeight": 0.52,
+          "timingWeight": 0.55,
           "points": [
             {
-              "x": 405,
-              "y": 650
+              "x": 385,
+              "y": 675
             },
             {
               "x": 500,
-              "y": 650
+              "y": 675
             },
             {
-              "x": 600,
-              "y": 650
+              "x": 615,
+              "y": 675
             }
           ]
         }
       ],
-      "caption": "RESET — si no hubo ventaja, 2 driblea arriba, 3 llena el guard spot y 5 se reposiciona para el próximo Chin screen. El pase guard-to-guard reinicia la continuidad sin parar la ofensiva.",
-      "seconds": 2.8
-    },
-    {
-      "phaseStartVersion": 26,
-      "phaseOwnershipVersion": 26,
-      "players": [
-        {
-          "key": "o1",
-          "label": "1",
-          "team": "offense",
-          "x": 840,
-          "y": 165
-        },
-        {
-          "key": "o2",
-          "label": "2",
-          "team": "offense",
-          "x": 405,
-          "y": 650
-        },
-        {
-          "key": "o3",
-          "label": "3",
-          "team": "offense",
-          "x": 600,
-          "y": 650
-        },
-        {
-          "key": "o4",
-          "label": "4",
-          "team": "offense",
-          "x": 175,
-          "y": 165
-        },
-        {
-          "key": "o5",
-          "label": "5",
-          "team": "offense",
-          "x": 575,
-          "y": 420
-        }
-      ],
-      "ball": {
-        "x": 634,
-        "y": 654,
-        "owner": "o3"
-      },
-      "lines": [
-        {
-          "type": "move",
-          "sourceKey": "o1",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": false,
-          "simultaneousGroup": "g_mirror_setup",
-          "color": "#6b7280",
-          "timingWeight": 0.82,
-          "points": [
-            {
-              "x": 840,
-              "y": 165
-            },
-            {
-              "x": 835,
-              "y": 300
-            },
-            {
-              "x": 820,
-              "y": 425
-            }
-          ]
-        },
-        {
-          "type": "screen",
-          "sourceKey": "o5",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": false,
-          "simultaneousGroup": "g_mirror_setup",
-          "color": "#f97316",
-          "timingWeight": 0.92,
-          "screenAngleLocked": true,
-          "screenAngle": 175,
-          "points": [
-            {
-              "x": 575,
-              "y": 420
-            },
-            {
-              "x": 570,
-              "y": 420
-            },
-            {
-              "x": 570,
-              "y": 420
-            }
-          ]
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o3",
-          "targetKey": "o1",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": false,
-          "simultaneousGroup": null,
-          "color": "#2563eb",
-          "timingWeight": 0.58,
-          "points": [
-            {
-              "x": 600,
-              "y": 650
-            },
-            {
-              "x": 715,
-              "y": 550
-            },
-            {
-              "x": 820,
-              "y": 425
-            }
-          ]
-        },
-        {
-          "type": "move",
-          "sourceKey": "o2",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": false,
-          "simultaneousGroup": "g_mirror_cut",
-          "color": "#ef4444",
-          "timingWeight": 1.32,
-          "points": [
-            {
-              "x": 405,
-              "y": 650
-            },
-            {
-              "x": 445,
-              "y": 525
-            },
-            {
-              "x": 530,
-              "y": 390
-            },
-            {
-              "x": 500,
-              "y": 245
-            },
-            {
-              "x": 390,
-              "y": 175
-            },
-            {
-              "x": 160,
-              "y": 165
-            }
-          ]
-        },
-        {
-          "type": "move",
-          "sourceKey": "o3",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": false,
-          "simultaneousGroup": "g_mirror_cut",
-          "color": "#6b7280",
-          "timingWeight": 0.78,
-          "points": [
-            {
-              "x": 600,
-              "y": 650
-            },
-            {
-              "x": 635,
-              "y": 600
-            },
-            {
-              "x": 660,
-              "y": 550
-            }
-          ]
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o1",
-          "targetKey": "o2",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#16a34a",
-          "timingWeight": 0.48,
-          "points": [
-            {
-              "x": 820,
-              "y": 425
-            },
-            {
-              "x": 655,
-              "y": 300
-            },
-            {
-              "x": 500,
-              "y": 245
-            }
-          ]
-        }
-      ],
-      "caption": "MIRROR CHIN — la misma regla aparece al otro lado: wing fill, entrada, screen de 5 y cutter usando la espalda de la defensa. Desde aquí vuelve a FOLLOW → BACK CUT → FILL → GUARD-TO-GUARD. Es una continuidad, no una jugada que termina.",
-      "seconds": 3.2
+      "caption": "FRAME 4 — 2 driblea arriba hasta la volleyball line; 3 llena el guard spot. A la vez, 1 y 4 salen de las esquinas para recuperar los wings. 2 pasa guard-to-guard a 3 y CHIN CONTINÚA desde el otro lado.",
+      "seconds": 2.9
     }
   ]
 }
