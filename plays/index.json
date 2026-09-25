@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "plays": [
     {
       "slug": "41-flow-core",
@@ -75,7 +75,7 @@
     {
       "slug": "princeton-chin-motion-continuity",
       "name": "PRINCETON CHIN — Motion Continuity",
-      "description": "Source-based Chin continuity: guard-to-guard → wing entry → Chin cut → follow/back cut → fill/reverse → repeat opposite.",
+      "description": "Corregido según los 4 diagramas originales: guard-to-guard → wing entry/Chin cut → follow screen/back cut → fill/reverse y repetir.",
       "categories": [
         "flow",
         "post"
