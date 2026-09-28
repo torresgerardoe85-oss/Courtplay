@@ -29,7 +29,7 @@
     ],
     "screenSequence": "APPROACH → SET → USE → RELEASE"
   },
-  "totalSeconds": 9.6,
+  "totalSeconds": 7.1,
   "frames": [
     {
       "phaseStartVersion": 26,
@@ -161,31 +161,6 @@
         {
           "type": "pass",
           "sourceKey": "o1",
-          "targetKey": "o4",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#16a34a",
-          "points": [
-            {
-              "x": 625,
-              "y": 265
-            },
-            {
-              "x": 580,
-              "y": 215
-            },
-            {
-              "x": 535,
-              "y": 165
-            }
-          ],
-          "timingWeight": 0.24
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o1",
           "targetKey": "o5",
           "sourceDetached": false,
           "manualCurve": true,
@@ -210,10 +185,10 @@
         }
       ],
       "caption": "WING PnR → TOP — 4 se planta con ángulo para que 1 ataque el medio. 1 usa; después 4 rola. Si no aparece ventaja, 1 conecta arriba con 5.",
-      "seconds": 3.4,
+      "seconds": 2.4,
       "timeline": {
         "start": 0,
-        "end": 3.4,
+        "end": 2.4,
         "logic": [
           "4 SET → 1 USE → 4 ROLL",
           "pass top only after neutral read"
@@ -344,46 +319,13 @@
             }
           ],
           "timingWeight": 0.58
-        },
-        {
-          "type": "move",
-          "sourceKey": "o3",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": "g_dat",
-          "color": "#ef4444",
-          "points": [
-            {
-              "x": 150,
-              "y": 185
-            },
-            {
-              "x": 220,
-              "y": 225
-            },
-            {
-              "x": 305,
-              "y": 270
-            },
-            {
-              "x": 410,
-              "y": 205
-            },
-            {
-              "x": 500,
-              "y": 155
-            }
-          ],
-          "timingWeight": 0.95
         }
       ],
-      "caption": "DRIBBLE-AT / BACKDOOR — 5 dribla hacia 3. Si 3 está negado, backdoor es la primera opción; si no, 3 permanece. 1 lift y 4 limpia para preparar el lado opuesto.",
-      "seconds": 2.8,
+      "caption": "DRIBBLE-AT — 5 dribla hacia 3. BACKDOOR si hay negación es una lectura, no se reproduce dentro de la posesión base. 1 lift y 4 limpia.",
+      "seconds": 2.2,
       "timeline": {
-        "start": 3.4,
-        "end": 6.2,
+        "start": 2.4,
+        "end": 4.6,
         "logic": [
           "DRIBBLE-AT trigger",
           "backdoor is OPTION, not mandatory",
@@ -542,42 +484,24 @@
             }
           ],
           "timingWeight": 0.9
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o1",
-          "targetKey": "o5",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#16a34a",
-          "points": [
-            {
-              "x": 625,
-              "y": 340
-            },
-            {
-              "x": 570,
-              "y": 245
-            },
-            {
-              "x": 520,
-              "y": 165
-            }
-          ],
-          "timingWeight": 0.24
         }
       ],
-      "caption": "OPPOSITE PnR — 5 entrega a 1 y sigue el pase. Después del catch, 5 entra al ángulo de side screen, se planta; 1 usa hacia el medio y 5 rola.",
-      "seconds": 3.4,
+      "caption": "OPPOSITE PnR — 5 pasa a 1 y sigue. Después del catch se aproxima, se planta, 1 usa hacia el medio y solo entonces 5 rola.",
+      "seconds": 2.5,
       "timeline": {
-        "start": 6.2,
-        "end": 9.6,
+        "start": 4.6,
+        "end": 7.1,
         "logic": [
           "pass catch → 5 approach/set → 1 use → 5 roll"
         ]
       }
     }
+  ],
+  "teachingReads": [
+    "Wing PnR",
+    "top connection",
+    "dribble-at",
+    "backdoor if denied",
+    "opposite PnR"
   ]
 }
