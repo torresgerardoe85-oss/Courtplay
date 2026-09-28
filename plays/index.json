@@ -1,5 +1,5 @@
 {
-  "version": 9,
+  "version": 10,
   "plays": [
     {
       "slug": "41-flow-core",
@@ -147,6 +147,16 @@
         "flow",
         "pnr",
         "dho"
+      ]
+    },
+    {
+      "slug": "iisalo-flow-angle-empty-thirdside",
+      "name": "IISALO FLOW — Angle → Empty → Third Side",
+      "description": "Iisalo Flow: 1–5 Angle P&R → reverse → 4 throw-and-chase / 2–4 Empty P&R → reverse → 1–5 Third-Side Top P&R.",
+      "categories": [
+        "transition",
+        "flow",
+        "pnr"
       ]
     }
   ]
