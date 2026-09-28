@@ -1,0 +1,556 @@
+{
+  "version": 2,
+  "name": "GT FLOW — Early DHO → Side PnR",
+  "description": "Entrada basada en Early DHO #4 de Virtus: 4 conecta un DHO temprano con el guard y la posesión fluye directamente a PnR con 5.",
+  "status": "GT FLOW System — Entry",
+  "system": "GT FLOW — Transition to Offense",
+  "module": "CORE E",
+  "categories": [
+    "transition",
+    "flow",
+    "dho",
+    "pnr"
+  ],
+  "source": {
+    "type": "source-informed adaptation",
+    "title": "VIRTUS OFFENSE",
+    "sourcePlay": "EARLY DHO #4",
+    "adaptation": "DHO early used as GT FLOW entry, then connected to 5 side PnR for continuity."
+  },
+  "teachingReads": [
+    "EARLY DHO",
+    "TURN CORNER",
+    "4 ROLL/SEAL",
+    "5 NEXT SCREEN",
+    "SECOND SIDE"
+  ],
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 520,
+          "y": 640
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 820,
+          "y": 300
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 180
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 665,
+          "y": 470
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 165
+        }
+      ],
+      "ball": {
+        "x": 554,
+        "y": 644,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 520,
+              "y": 640
+            },
+            {
+              "x": 595,
+              "y": 555
+            },
+            {
+              "x": 665,
+              "y": 470
+            }
+          ],
+          "timingWeight": 0.46
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_edho",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 520,
+              "y": 640
+            },
+            {
+              "x": 610,
+              "y": 530
+            },
+            {
+              "x": 700,
+              "y": 420
+            }
+          ],
+          "timingWeight": 0.92
+        },
+        {
+          "type": "handoff",
+          "sourceKey": "o4",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 665,
+              "y": 470
+            },
+            {
+              "x": 690,
+              "y": 445
+            },
+            {
+              "x": 700,
+              "y": 420
+            }
+          ],
+          "timingWeight": 0.66
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 820,
+              "y": 300
+            },
+            {
+              "x": 845,
+              "y": 240
+            },
+            {
+              "x": 865,
+              "y": 180
+            }
+          ],
+          "timingWeight": 0.55
+        }
+      ],
+      "caption": "EARLY DHO #4 — 1 encuentra al trail 4 y sigue su pase. 4 entrega DHO para que 1 ataque en movimiento. Esta es la entrada: no hay que llegar a cinco spots perfectos antes de empezar.",
+      "seconds": 2.8
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 700,
+          "y": 420
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 865,
+          "y": 180
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 180
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 618,
+          "y": 475
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 165
+        }
+      ],
+      "ball": {
+        "x": 734,
+        "y": 424,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 700,
+              "y": 420
+            },
+            {
+              "x": 630,
+              "y": 350
+            },
+            {
+              "x": 565,
+              "y": 305
+            }
+          ],
+          "timingWeight": 0.75
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 618,
+              "y": 475
+            },
+            {
+              "x": 690,
+              "y": 360
+            },
+            {
+              "x": 760,
+              "y": 250
+            }
+          ],
+          "timingWeight": 0.7
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 500,
+              "y": 165
+            },
+            {
+              "x": 500,
+              "y": 245
+            },
+            {
+              "x": 510,
+              "y": 315
+            }
+          ],
+          "timingWeight": 0.68,
+          "screenAngleLocked": true,
+          "screenAngle": 90
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_e5",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 565,
+              "y": 305
+            },
+            {
+              "x": 500,
+              "y": 285
+            },
+            {
+              "x": 435,
+              "y": 265
+            }
+          ],
+          "timingWeight": 0.92
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_e5",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 510,
+              "y": 315
+            },
+            {
+              "x": 510,
+              "y": 235
+            },
+            {
+              "x": 500,
+              "y": 165
+            }
+          ],
+          "timingWeight": 0.92
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o5",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 435,
+              "y": 265
+            },
+            {
+              "x": 465,
+              "y": 205
+            },
+            {
+              "x": 500,
+              "y": 165
+            }
+          ],
+          "timingWeight": 0.32
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#7c3aed",
+          "points": [
+            {
+              "x": 435,
+              "y": 265
+            },
+            {
+              "x": 295,
+              "y": 220
+            },
+            {
+              "x": 150,
+              "y": 180
+            }
+          ],
+          "timingWeight": 0.32
+        }
+      ],
+      "caption": "DHO → 5 PNR — 1 sale del DHO y 5 llega inmediatamente al siguiente ball screen. 4 limpia hacia el lado fuerte/dunker y 3 mantiene weakside. Una acción alimenta la próxima.",
+      "seconds": 3.2
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 435,
+          "y": 265
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 865,
+          "y": 180
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 180
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 760,
+          "y": 250
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 165
+        }
+      ],
+      "ball": {
+        "x": 469,
+        "y": 269,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 435,
+              "y": 265
+            },
+            {
+              "x": 295,
+              "y": 220
+            },
+            {
+              "x": 150,
+              "y": 180
+            }
+          ],
+          "timingWeight": 0.48
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_e2nd",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 435,
+              "y": 265
+            },
+            {
+              "x": 535,
+              "y": 360
+            },
+            {
+              "x": 640,
+              "y": 430
+            }
+          ],
+          "timingWeight": 0.68
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_e2nd",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 760,
+              "y": 250
+            },
+            {
+              "x": 790,
+              "y": 215
+            },
+            {
+              "x": 820,
+              "y": 180
+            }
+          ],
+          "timingWeight": 0.55
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_e2nd",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 500,
+              "y": 165
+            },
+            {
+              "x": 420,
+              "y": 215
+            },
+            {
+              "x": 350,
+              "y": 285
+            }
+          ],
+          "timingWeight": 0.68
+        }
+      ],
+      "caption": "SECOND SIDE — si el PnR no crea ventaja, 1 mueve la pelota a 3 y limpia. 5 cruza para poder activar el siguiente DHO/PnR; 4 mantiene profundidad. La posesión continúa, no se reinicia.",
+      "seconds": 2.5
+    }
+  ]
+}
