@@ -30,7 +30,7 @@
     ],
     "screenSequence": "APPROACH → SET → USE → RELEASE"
   },
-  "totalSeconds": 8.9,
+  "totalSeconds": 6.5,
   "frames": [
     {
       "phaseStartVersion": 26,
@@ -179,11 +179,11 @@
           "timingWeight": 0.62
         }
       ],
-      "caption": "EARLY DHO — 1 pasa al trail 4. Solo después del catch, 1 se acerca; 4 presenta balón y 1 recibe pegado al hombro. 4 no desaparece ni se cruza con el receptor.",
-      "seconds": 3,
+      "caption": "EARLY DHO — 1 pasa a 4, espera el catch, se acerca y recibe hombro con hombro. El balón cambia de dueño en el contacto.",
+      "seconds": 2.2,
       "timeline": {
         "start": 0,
-        "end": 3,
+        "end": 2.2,
         "logic": [
           "pass catch → 1 approach → DHO transfer → exit"
         ]
@@ -340,63 +340,13 @@
             }
           ],
           "timingWeight": 0.9
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o1",
-          "targetKey": "o5",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#16a34a",
-          "points": [
-            {
-              "x": 440,
-              "y": 285
-            },
-            {
-              "x": 470,
-              "y": 215
-            },
-            {
-              "x": 500,
-              "y": 160
-            }
-          ],
-          "timingWeight": 0.25
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o1",
-          "targetKey": "o3",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#7c3aed",
-          "points": [
-            {
-              "x": 440,
-              "y": 285
-            },
-            {
-              "x": 295,
-              "y": 230
-            },
-            {
-              "x": 150,
-              "y": 185
-            }
-          ],
-          "timingWeight": 0.25
         }
       ],
-      "caption": "5 SIDE PnR — tras el DHO, 4 limpia al dunker. 5 llega con ángulo, se planta, 1 usa la cortina hacia el medio y solo entonces 5 rola.",
-      "seconds": 3.4,
+      "caption": "5 SIDE PnR — 4 limpia mientras 5 llega al ángulo. 5 se establece, 1 usa y después 5 rola. Nada de screen+roll simultáneo.",
+      "seconds": 2.6,
       "timeline": {
-        "start": 3,
-        "end": 6.4,
+        "start": 2.2,
+        "end": 4.8,
         "logic": [
           "4 clears + 5 approach/set",
           "5 SET → 1 USE → 5 ROLL"
@@ -526,14 +476,20 @@
         }
       ],
       "caption": "SECOND SIDE — si no hay ventaja, 1 revierte a 3 y después limpia. 5 cruza controlado para ser el próximo trigger; 4 mantiene profundidad interior.",
-      "seconds": 2.5,
+      "seconds": 1.7,
       "timeline": {
-        "start": 6.4,
-        "end": 8.9,
+        "start": 4.8,
+        "end": 6.5,
         "logic": [
           "reverse catch → clear/reposition"
         ]
       }
     }
+  ],
+  "teachingReads": [
+    "pass-to-trail",
+    "DHO shoulder-to-shoulder",
+    "5 side PnR",
+    "second-side continuation"
   ]
 }
