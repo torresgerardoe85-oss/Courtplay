@@ -1,8 +1,8 @@
 {
   "version": 2,
   "name": "GT FLOW — Early DHO → Side PnR",
-  "description": "Entrada basada en Early DHO #4 de Virtus: 4 conecta un DHO temprano con el guard y la posesión fluye directamente a PnR con 5.",
-  "status": "GT FLOW System — Entry",
+  "description": "Corrección profesional: pass-to-trail → approach → DHO → 5 Side PnR → second side. Transferencia y screens respetan dependencias.",
+  "status": "GT FLOW v2 — timing standard",
   "system": "GT FLOW — Transition to Offense",
   "module": "CORE E",
   "categories": [
@@ -13,17 +13,24 @@
   ],
   "source": {
     "type": "source-informed adaptation",
-    "title": "VIRTUS OFFENSE",
-    "sourcePlay": "EARLY DHO #4",
-    "adaptation": "DHO early used as GT FLOW entry, then connected to 5 side PnR for continuity."
+    "title": "VIRTUS OFFENSE — EARLY DHO #4",
+    "references": [
+      "COURTPLAY_ANIMATION_TIMING_STANDARD"
+    ]
   },
-  "teachingReads": [
-    "EARLY DHO",
-    "TURN CORNER",
-    "4 ROLL/SEAL",
-    "5 NEXT SCREEN",
-    "SECOND SIDE"
-  ],
+  "animationStandard": {
+    "name": "COURTPLAY_ANIMATION_TIMING_STANDARD",
+    "rules": [
+      "BASKETBALL LOGIC",
+      "TIMELINE",
+      "DEPENDENCIES",
+      "GEOMETRY",
+      "BALL OWNERSHIP",
+      "SLOW-MOTION VALIDATION"
+    ],
+    "screenSequence": "APPROACH → SET → USE → RELEASE"
+  },
+  "totalSeconds": 8.9,
   "frames": [
     {
       "phaseStartVersion": 26,
@@ -40,7 +47,7 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 820,
+          "x": 835,
           "y": 300
         },
         {
@@ -48,7 +55,7 @@
           "label": "3",
           "team": "offense",
           "x": 150,
-          "y": 180
+          "y": 185
         },
         {
           "key": "o4",
@@ -62,7 +69,7 @@
           "label": "5",
           "team": "offense",
           "x": 500,
-          "y": 165
+          "y": 160
         }
       ],
       "ball": {
@@ -103,7 +110,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_edho",
+          "simultaneousGroup": null,
           "color": "#ef4444",
           "points": [
             {
@@ -111,15 +118,15 @@
               "y": 640
             },
             {
-              "x": 610,
-              "y": 530
+              "x": 585,
+              "y": 555
             },
             {
-              "x": 700,
-              "y": 420
+              "x": 635,
+              "y": 495
             }
           ],
-          "timingWeight": 0.92
+          "timingWeight": 0.72
         },
         {
           "type": "handoff",
@@ -128,7 +135,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": null,
+          "simultaneousGroup": "g_edho",
           "color": "#38bdf8",
           "points": [
             {
@@ -136,44 +143,51 @@
               "y": 470
             },
             {
-              "x": 690,
-              "y": 445
+              "x": 650,
+              "y": 485
             },
             {
-              "x": 700,
-              "y": 420
+              "x": 635,
+              "y": 495
             }
           ],
-          "timingWeight": 0.66
+          "timingWeight": 0.7
         },
         {
-          "type": "move",
-          "sourceKey": "o2",
+          "type": "dribble",
+          "sourceKey": "o1",
           "targetKey": null,
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": null,
-          "color": "#6b7280",
+          "simultaneousGroup": "g_edho",
+          "color": "#172033",
           "points": [
             {
-              "x": 820,
-              "y": 300
+              "x": 635,
+              "y": 495
             },
             {
-              "x": 845,
-              "y": 240
+              "x": 610,
+              "y": 445
             },
             {
-              "x": 865,
-              "y": 180
+              "x": 575,
+              "y": 390
             }
           ],
-          "timingWeight": 0.55
+          "timingWeight": 0.62
         }
       ],
-      "caption": "EARLY DHO #4 — 1 encuentra al trail 4 y sigue su pase. 4 entrega DHO para que 1 ataque en movimiento. Esta es la entrada: no hay que llegar a cinco spots perfectos antes de empezar.",
-      "seconds": 2.8
+      "caption": "EARLY DHO — 1 pasa al trail 4. Solo después del catch, 1 se acerca; 4 presenta balón y 1 recibe pegado al hombro. 4 no desaparece ni se cruza con el receptor.",
+      "seconds": 3,
+      "timeline": {
+        "start": 0,
+        "end": 3,
+        "logic": [
+          "pass catch → 1 approach → DHO transfer → exit"
+        ]
+      }
     },
     {
       "phaseStartVersion": 26,
@@ -183,69 +197,44 @@
           "key": "o1",
           "label": "1",
           "team": "offense",
-          "x": 700,
-          "y": 420
+          "x": 575,
+          "y": 390
         },
         {
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 865,
-          "y": 180
+          "x": 835,
+          "y": 300
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
           "x": 150,
-          "y": 180
+          "y": 185
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 618,
-          "y": 475
+          "x": 708.3430296619931,
+          "y": 458.32848516900344
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
           "x": 500,
-          "y": 165
+          "y": 160
         }
       ],
       "ball": {
-        "x": 734,
-        "y": 424,
+        "x": 609,
+        "y": 394,
         "owner": "o1"
       },
       "lines": [
-        {
-          "type": "dribble",
-          "sourceKey": "o1",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": false,
-          "simultaneousGroup": null,
-          "color": "#172033",
-          "points": [
-            {
-              "x": 700,
-              "y": 420
-            },
-            {
-              "x": 630,
-              "y": 350
-            },
-            {
-              "x": 565,
-              "y": 305
-            }
-          ],
-          "timingWeight": 0.75
-        },
         {
           "type": "move",
           "sourceKey": "o4",
@@ -253,23 +242,23 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": null,
+          "simultaneousGroup": "g_eset",
           "color": "#6b7280",
           "points": [
             {
-              "x": 618,
-              "y": 475
+              "x": 705,
+              "y": 450
             },
             {
-              "x": 690,
-              "y": 360
+              "x": 735,
+              "y": 315
             },
             {
               "x": 760,
-              "y": 250
+              "y": 190
             }
           ],
-          "timingWeight": 0.7
+          "timingWeight": 0.62
         },
         {
           "type": "screen",
@@ -278,25 +267,25 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": null,
+          "simultaneousGroup": "g_eset",
           "color": "#f97316",
           "points": [
             {
               "x": 500,
-              "y": 165
+              "y": 160
             },
             {
-              "x": 500,
-              "y": 245
+              "x": 525,
+              "y": 250
             },
             {
-              "x": 510,
-              "y": 315
+              "x": 540,
+              "y": 350
             }
           ],
-          "timingWeight": 0.68,
+          "timingWeight": 0.72,
           "screenAngleLocked": true,
-          "screenAngle": 90
+          "screenAngle": 126.5
         },
         {
           "type": "dribble",
@@ -305,20 +294,24 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_e5",
+          "simultaneousGroup": null,
           "color": "#172033",
           "points": [
             {
-              "x": 565,
-              "y": 305
+              "x": 575,
+              "y": 390
             },
             {
-              "x": 500,
+              "x": 535,
+              "y": 350
+            },
+            {
+              "x": 485,
+              "y": 315
+            },
+            {
+              "x": 440,
               "y": 285
-            },
-            {
-              "x": 435,
-              "y": 265
             }
           ],
           "timingWeight": 0.92
@@ -330,23 +323,23 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_e5",
+          "simultaneousGroup": null,
           "color": "#16a34a",
           "points": [
             {
-              "x": 510,
-              "y": 315
+              "x": 540,
+              "y": 350
             },
             {
-              "x": 510,
-              "y": 235
+              "x": 525,
+              "y": 245
             },
             {
               "x": 500,
-              "y": 165
+              "y": 160
             }
           ],
-          "timingWeight": 0.92
+          "timingWeight": 0.9
         },
         {
           "type": "pass",
@@ -359,19 +352,19 @@
           "color": "#16a34a",
           "points": [
             {
-              "x": 435,
-              "y": 265
+              "x": 440,
+              "y": 285
             },
             {
-              "x": 465,
-              "y": 205
+              "x": 470,
+              "y": 215
             },
             {
               "x": 500,
-              "y": 165
+              "y": 160
             }
           ],
-          "timingWeight": 0.32
+          "timingWeight": 0.25
         },
         {
           "type": "pass",
@@ -384,23 +377,31 @@
           "color": "#7c3aed",
           "points": [
             {
-              "x": 435,
-              "y": 265
+              "x": 440,
+              "y": 285
             },
             {
               "x": 295,
-              "y": 220
+              "y": 230
             },
             {
               "x": 150,
-              "y": 180
+              "y": 185
             }
           ],
-          "timingWeight": 0.32
+          "timingWeight": 0.25
         }
       ],
-      "caption": "DHO → 5 PNR — 1 sale del DHO y 5 llega inmediatamente al siguiente ball screen. 4 limpia hacia el lado fuerte/dunker y 3 mantiene weakside. Una acción alimenta la próxima.",
-      "seconds": 3.2
+      "caption": "5 SIDE PnR — tras el DHO, 4 limpia al dunker. 5 llega con ángulo, se planta, 1 usa la cortina hacia el medio y solo entonces 5 rola.",
+      "seconds": 3.4,
+      "timeline": {
+        "start": 3,
+        "end": 6.4,
+        "logic": [
+          "4 clears + 5 approach/set",
+          "5 SET → 1 USE → 5 ROLL"
+        ]
+      }
     },
     {
       "phaseStartVersion": 26,
@@ -410,41 +411,41 @@
           "key": "o1",
           "label": "1",
           "team": "offense",
-          "x": 435,
-          "y": 265
+          "x": 440,
+          "y": 285
         },
         {
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 865,
-          "y": 180
+          "x": 835,
+          "y": 300
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
           "x": 150,
-          "y": 180
+          "y": 185
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
           "x": 760,
-          "y": 250
+          "y": 190
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
           "x": 500,
-          "y": 165
+          "y": 160
         }
       ],
       "ball": {
-        "x": 469,
-        "y": 269,
+        "x": 474,
+        "y": 289,
         "owner": "o1"
       },
       "lines": [
@@ -459,16 +460,16 @@
           "color": "#2563eb",
           "points": [
             {
-              "x": 435,
-              "y": 265
+              "x": 440,
+              "y": 285
             },
             {
               "x": 295,
-              "y": 220
+              "y": 230
             },
             {
               "x": 150,
-              "y": 180
+              "y": 185
             }
           ],
           "timingWeight": 0.48
@@ -480,48 +481,23 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_e2nd",
+          "simultaneousGroup": "g_econt",
           "color": "#6b7280",
           "points": [
             {
-              "x": 435,
-              "y": 265
+              "x": 440,
+              "y": 285
             },
             {
-              "x": 535,
-              "y": 360
+              "x": 525,
+              "y": 365
             },
             {
-              "x": 640,
-              "y": 430
+              "x": 620,
+              "y": 425
             }
           ],
-          "timingWeight": 0.68
-        },
-        {
-          "type": "move",
-          "sourceKey": "o4",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": false,
-          "simultaneousGroup": "g_e2nd",
-          "color": "#6b7280",
-          "points": [
-            {
-              "x": 760,
-              "y": 250
-            },
-            {
-              "x": 790,
-              "y": 215
-            },
-            {
-              "x": 820,
-              "y": 180
-            }
-          ],
-          "timingWeight": 0.55
+          "timingWeight": 0.62
         },
         {
           "type": "move",
@@ -530,27 +506,34 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_e2nd",
+          "simultaneousGroup": "g_econt",
           "color": "#f97316",
           "points": [
             {
               "x": 500,
-              "y": 165
+              "y": 160
             },
             {
-              "x": 420,
-              "y": 215
+              "x": 390,
+              "y": 210
             },
             {
-              "x": 350,
+              "x": 315,
               "y": 285
             }
           ],
-          "timingWeight": 0.68
+          "timingWeight": 0.65
         }
       ],
-      "caption": "SECOND SIDE — si el PnR no crea ventaja, 1 mueve la pelota a 3 y limpia. 5 cruza para poder activar el siguiente DHO/PnR; 4 mantiene profundidad. La posesión continúa, no se reinicia.",
-      "seconds": 2.5
+      "caption": "SECOND SIDE — si no hay ventaja, 1 revierte a 3 y después limpia. 5 cruza controlado para ser el próximo trigger; 4 mantiene profundidad interior.",
+      "seconds": 2.5,
+      "timeline": {
+        "start": 6.4,
+        "end": 8.9,
+        "logic": [
+          "reverse catch → clear/reposition"
+        ]
+      }
     }
   ]
 }
