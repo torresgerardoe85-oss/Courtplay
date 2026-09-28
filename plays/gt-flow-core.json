@@ -33,7 +33,7 @@
     ],
     "screenSequence": "APPROACH → SET → USE → RELEASE"
   },
-  "totalSeconds": 19.6,
+  "totalSeconds": 13.4,
   "frames": [
     {
       "phaseStartVersion": 26,
@@ -208,10 +208,10 @@
         }
       ],
       "caption": "LLEGADA — 1 empuja; 2/3 corren wide; 5 rim run; 4 trail. Si hay ventaja temprana se ataca. Si no, 4 llega al Drag.",
-      "seconds": 3.2,
+      "seconds": 2.8,
       "timeline": {
         "start": 0,
-        "end": 3.2,
+        "end": 2.8,
         "logic": [
           "SIMULTÁNEA: push + wings wide + rim run + trail"
         ]
@@ -393,63 +393,13 @@
             }
           ],
           "timingWeight": 0.55
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o1",
-          "targetKey": "o4",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#16a34a",
-          "points": [
-            {
-              "x": 430,
-              "y": 385
-            },
-            {
-              "x": 470,
-              "y": 265
-            },
-            {
-              "x": 515,
-              "y": 165
-            }
-          ],
-          "timingWeight": 0.28
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o1",
-          "targetKey": "o3",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#7c3aed",
-          "points": [
-            {
-              "x": 430,
-              "y": 385
-            },
-            {
-              "x": 625,
-              "y": 335
-            },
-            {
-              "x": 830,
-              "y": 285
-            }
-          ],
-          "timingWeight": 0.28
         }
       ],
-      "caption": "4 TRAIL DRAG — 4 se establece primero. 1 pasa hombro con cadera y ataca centro-izquierda. Solo después 4 rola; 5 limpia al dunker débil y 3 hace shake.",
-      "seconds": 3.6,
+      "caption": "4 TRAIL DRAG — 4 establece la pantalla antes del cambio de dirección. 1 pasa hombro con cadera; después 4 rola y 5 limpia al dunker débil.",
+      "seconds": 2.4,
       "timeline": {
-        "start": 3.2,
-        "end": 6.8,
+        "start": 2.8,
+        "end": 5.2,
         "logic": [
           "SECUENCIAL: 4 SET → 1 USE → 4 RELEASE",
           "TRIGGER: después de que 1 supera la pantalla, 5 reloca y 3 shake"
@@ -604,10 +554,10 @@
         }
       ],
       "caption": "SECOND SIDE — 1 revierte a 3. Después de la recepción, 1 limpia; 4 cruza al dunker opuesto y 5 se aproxima al ángulo de pin-down para 2.",
-      "seconds": 2.5,
+      "seconds": 1.6,
       "timeline": {
-        "start": 6.8,
-        "end": 9.3,
+        "start": 5.2,
+        "end": 6.8,
         "logic": [
           "SECUENCIAL: reverse catch → clear/relocate",
           "5 aproxima pin-down después del cambio de lado"
@@ -676,16 +626,16 @@
             },
             {
               "x": 265,
-              "y": 315
+              "y": 330
             },
             {
               "x": 265,
-              "y": 325
+              "y": 350
             }
           ],
           "timingWeight": 0.62,
           "screenAngleLocked": true,
-          "screenAngle": 129
+          "screenAngle": 129.8
         },
         {
           "type": "move",
@@ -702,16 +652,16 @@
               "y": 185
             },
             {
-              "x": 215,
-              "y": 255
+              "x": 220,
+              "y": 260
             },
             {
-              "x": 300,
-              "y": 320
+              "x": 305,
+              "y": 335
             },
             {
-              "x": 450,
-              "y": 345
+              "x": 420,
+              "y": 410
             }
           ],
           "timingWeight": 1.05
@@ -731,22 +681,22 @@
               "y": 285
             },
             {
-              "x": 710,
-              "y": 315
+              "x": 680,
+              "y": 350
             },
             {
-              "x": 585,
-              "y": 345
+              "x": 515,
+              "y": 410
             }
           ],
           "timingWeight": 0.78
         }
       ],
-      "caption": "PIN-DOWN — 5 se planta con ángulo para liberar a 2 hacia el ala. 2 espera el SET y luego sube pegado al hombro del screener.",
-      "seconds": 2.3,
+      "caption": "PIN-DOWN — 5 se planta antes de que 2 salga. 2 sube desde la esquina al ala; 3 trae el balón hacia el punto real del Zoom.",
+      "seconds": 1.5,
       "timeline": {
-        "start": 9.3,
-        "end": 11.6,
+        "start": 6.8,
+        "end": 8.3,
         "logic": [
           "SECUENCIAL: 5 SET pin-down → 2 USE",
           "2 espera a que 5 esté plantado"
@@ -768,15 +718,15 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 450,
-          "y": 345
+          "x": 420,
+          "y": 410
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 585,
-          "y": 345
+          "x": 515,
+          "y": 410
         },
         {
           "key": "o4",
@@ -790,12 +740,12 @@
           "label": "5",
           "team": "offense",
           "x": 265,
-          "y": 325
+          "y": 350
         }
       ],
       "ball": {
-        "x": 619,
-        "y": 349,
+        "x": 549,
+        "y": 414,
         "owner": "o3"
       },
       "lines": [
@@ -810,16 +760,16 @@
           "color": "#ef4444",
           "points": [
             {
-              "x": 450,
-              "y": 345
+              "x": 420,
+              "y": 410
             },
             {
-              "x": 485,
-              "y": 345
+              "x": 465,
+              "y": 410
             },
             {
-              "x": 505,
-              "y": 345
+              "x": 490,
+              "y": 410
             }
           ],
           "timingWeight": 0.42
@@ -835,16 +785,16 @@
           "color": "#38bdf8",
           "points": [
             {
-              "x": 585,
-              "y": 345
-            },
-            {
-              "x": 545,
-              "y": 345
+              "x": 515,
+              "y": 410
             },
             {
               "x": 505,
-              "y": 345
+              "y": 410
+            },
+            {
+              "x": 490,
+              "y": 410
             }
           ],
           "timingWeight": 0.72
@@ -860,16 +810,16 @@
           "color": "#172033",
           "points": [
             {
-              "x": 505,
-              "y": 345
+              "x": 490,
+              "y": 410
             },
             {
-              "x": 535,
-              "y": 325
+              "x": 515,
+              "y": 400
             },
             {
-              "x": 565,
-              "y": 300
+              "x": 540,
+              "y": 385
             }
           ],
           "timingWeight": 0.65
@@ -885,12 +835,12 @@
           "color": "#6b7280",
           "points": [
             {
-              "x": 585,
-              "y": 345
+              "x": 515,
+              "y": 410
             },
             {
-              "x": 720,
-              "y": 255
+              "x": 690,
+              "y": 285
             },
             {
               "x": 855,
@@ -900,11 +850,11 @@
           "timingWeight": 0.62
         }
       ],
-      "caption": "ZOOM / CHICAGO — 2 llega al DHO; 3 presenta el balón y la transferencia ocurre con contacto real. 2 sale por el hombro interior; 3 limpia después.",
-      "seconds": 2.4,
+      "caption": "ZOOM / CHICAGO — 2 llega al handoff en el ala, no dentro de la pintura. Transferencia hombro con hombro; 3 limpia después del contacto.",
+      "seconds": 1.6,
       "timeline": {
-        "start": 11.6,
-        "end": 14,
+        "start": 8.3,
+        "end": 9.9,
         "logic": [
           "SECUENCIAL: 2 APPROACH → DHO transfer → 2 exits shoulder-to-shoulder",
           "3 clears only after transfer"
@@ -926,8 +876,8 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 565,
-          "y": 300
+          "x": 540,
+          "y": 385
         },
         {
           "key": "o3",
@@ -948,12 +898,12 @@
           "label": "5",
           "team": "offense",
           "x": 265,
-          "y": 325
+          "y": 350
         }
       ],
       "ball": {
-        "x": 599,
-        "y": 304,
+        "x": 574,
+        "y": 389,
         "owner": "o2"
       },
       "lines": [
@@ -969,20 +919,20 @@
           "points": [
             {
               "x": 265,
-              "y": 325
+              "y": 350
             },
             {
-              "x": 375,
-              "y": 320
+              "x": 370,
+              "y": 365
             },
             {
-              "x": 505,
-              "y": 310
+              "x": 480,
+              "y": 385
             }
           ],
           "timingWeight": 0.72,
           "screenAngleLocked": true,
-          "screenAngle": 125.5
+          "screenAngle": 133.4
         },
         {
           "type": "dribble",
@@ -995,20 +945,20 @@
           "color": "#172033",
           "points": [
             {
-              "x": 565,
+              "x": 540,
+              "y": 385
+            },
+            {
+              "x": 510,
+              "y": 355
+            },
+            {
+              "x": 480,
+              "y": 325
+            },
+            {
+              "x": 450,
               "y": 300
-            },
-            {
-              "x": 520,
-              "y": 275
-            },
-            {
-              "x": 470,
-              "y": 245
-            },
-            {
-              "x": 420,
-              "y": 220
             }
           ],
           "timingWeight": 1
@@ -1024,12 +974,12 @@
           "color": "#16a34a",
           "points": [
             {
-              "x": 505,
-              "y": 310
+              "x": 480,
+              "y": 385
             },
             {
-              "x": 505,
-              "y": 235
+              "x": 500,
+              "y": 270
             },
             {
               "x": 500,
@@ -1053,72 +1003,22 @@
               "y": 500
             },
             {
-              "x": 675,
-              "y": 445
+              "x": 660,
+              "y": 455
             },
             {
-              "x": 720,
-              "y": 390
+              "x": 695,
+              "y": 415
             }
           ],
           "timingWeight": 0.58
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o2",
-          "targetKey": "o5",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#16a34a",
-          "points": [
-            {
-              "x": 420,
-              "y": 220
-            },
-            {
-              "x": 460,
-              "y": 185
-            },
-            {
-              "x": 500,
-              "y": 160
-            }
-          ],
-          "timingWeight": 0.26
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o2",
-          "targetKey": "o3",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#7c3aed",
-          "points": [
-            {
-              "x": 420,
-              "y": 220
-            },
-            {
-              "x": 640,
-              "y": 200
-            },
-            {
-              "x": 855,
-              "y": 185
-            }
-          ],
-          "timingWeight": 0.26
         }
       ],
-      "caption": "5 RE-PNR — 5 llega y se establece. 2 usa la pantalla hacia el medio. Solo cuando 2 supera el screen, 5 rola; 1 levanta como safety.",
-      "seconds": 3.2,
+      "caption": "5 RE-PnR — 5 llega desde el pin-down, se establece fuera de la pintura y orienta el screen para que 2 ataque el medio. Después del uso, 5 rola.",
+      "seconds": 2.1,
       "timeline": {
-        "start": 14,
-        "end": 17.2,
+        "start": 9.9,
+        "end": 12,
         "logic": [
           "SECUENCIAL: 5 SET → 2 USE → 5 RELEASE",
           "TRIGGER: 1 lift después del turn-corner"
@@ -1133,15 +1033,15 @@
           "key": "o1",
           "label": "1",
           "team": "offense",
-          "x": 720,
-          "y": 390
+          "x": 695,
+          "y": 415
         },
         {
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 420,
-          "y": 220
+          "x": 450,
+          "y": 300
         },
         {
           "key": "o3",
@@ -1166,8 +1066,8 @@
         }
       ],
       "ball": {
-        "x": 454,
-        "y": 224,
+        "x": 484,
+        "y": 304,
         "owner": "o2"
       },
       "lines": [
@@ -1273,15 +1173,22 @@
         }
       ],
       "caption": "FLOW RESET — 2 revierte a 1. Tras la recepción, 2 limpia; 4 vuelve a subir como próximo trail y 5 se acomoda al dunker débil. El sistema se regenera sin llamada.",
-      "seconds": 2.4,
+      "seconds": 1.4,
       "timeline": {
-        "start": 17.2,
-        "end": 19.6,
+        "start": 12,
+        "end": 13.4,
         "logic": [
           "SECUENCIAL: reverse → clear/reset",
           "4 rises only after ball changes side"
         ]
       }
     }
+  ],
+  "teachingReads": [
+    "EARLY ADVANTAGE",
+    "4 DRAG: finish / roll / shake",
+    "ZOOM: turn corner",
+    "5 RE-PnR: finish / roll / weakside",
+    "RESET if neutral"
   ]
 }
