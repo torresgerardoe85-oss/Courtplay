@@ -1,0 +1,649 @@
+{
+  "version": 2,
+  "name": "GT FLOW — Double Drag → Hub DHO",
+  "description": "Double Drag de transición con 5 primer screener y 4 segundo; si no hay ventaja, 4 se convierte en hub de DHO en vez de popper.",
+  "status": "GT FLOW System — Entry",
+  "system": "GT FLOW — Transition to Offense",
+  "module": "CORE C",
+  "categories": [
+    "transition",
+    "flow",
+    "pnr",
+    "dho"
+  ],
+  "source": {
+    "type": "source-informed adaptation",
+    "philosophy": [
+      "Early offense enters a common reaction system instead of stopping for set-play calls.",
+      "First read is early advantage; if neutral, flow immediately to the next trigger.",
+      "Adapted for two non-shooting bigs: 4/5 screen, roll, seal, handoff and occupy dunker; no required pick-and-pop."
+    ],
+    "sources": [
+      "VIRTUS OFFENSE — Transition: Early Drag, Early DHO #4",
+      "ZALGIRIS OFFENSE — Transition: Early Drag, Double Drag, Early Floppy Stepup",
+      "Serbia WBB — Secondary Flare",
+      "Euro Ball Screen Offense — basic continuity",
+      "Tuomas Iisalo / Bonn — early offense entries, drag and team reactions",
+      "Mike Brown Early Flow — pace, spacing, quick decisions and early drag/drag-drag/quick"
+    ]
+  },
+  "teachingReads": [
+    "DOUBLE DRAG",
+    "5 ROLL",
+    "4 SHORT HUB",
+    "DHO",
+    "SECOND SIDE"
+  ],
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 700
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 180
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 180
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 650,
+          "y": 570
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 565,
+          "y": 520
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 704,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 565,
+              "y": 520
+            },
+            {
+              "x": 560,
+              "y": 505
+            },
+            {
+              "x": 550,
+              "y": 490
+            }
+          ],
+          "timingWeight": 0.55,
+          "screenAngleLocked": true,
+          "screenAngle": 45
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 650,
+              "y": 570
+            },
+            {
+              "x": 620,
+              "y": 535
+            },
+            {
+              "x": 590,
+              "y": 505
+            }
+          ],
+          "timingWeight": 0.62,
+          "screenAngleLocked": true,
+          "screenAngle": 45
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_dd",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 500,
+              "y": 700
+            },
+            {
+              "x": 510,
+              "y": 590
+            },
+            {
+              "x": 520,
+              "y": 485
+            },
+            {
+              "x": 460,
+              "y": 390
+            }
+          ],
+          "timingWeight": 1.12
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_dd",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 550,
+              "y": 490
+            },
+            {
+              "x": 530,
+              "y": 320
+            },
+            {
+              "x": 505,
+              "y": 165
+            }
+          ],
+          "timingWeight": 1
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_dd",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 590,
+              "y": 505
+            },
+            {
+              "x": 610,
+              "y": 405
+            },
+            {
+              "x": 625,
+              "y": 335
+            }
+          ],
+          "timingWeight": 0.78
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o5",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 460,
+              "y": 390
+            },
+            {
+              "x": 485,
+              "y": 270
+            },
+            {
+              "x": 505,
+              "y": 165
+            }
+          ],
+          "timingWeight": 0.34
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 460,
+              "y": 390
+            },
+            {
+              "x": 545,
+              "y": 360
+            },
+            {
+              "x": 625,
+              "y": 335
+            }
+          ],
+          "timingWeight": 0.34
+        }
+      ],
+      "caption": "DOUBLE DRAG — 5 pone el primer screen y rola duro; 4 pone el segundo y NO hace pop para tirar: se frena en short slot/elbow como hub. 1 lee aro, 5 roll o 4 short catch.",
+      "seconds": 3.5
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 460,
+          "y": 390
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 180
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 180
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 625,
+          "y": 335
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 505,
+          "y": 165
+        }
+      ],
+      "ball": {
+        "x": 494,
+        "y": 394,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 460,
+              "y": 390
+            },
+            {
+              "x": 545,
+              "y": 360
+            },
+            {
+              "x": 625,
+              "y": 335
+            }
+          ],
+          "timingWeight": 0.48
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_hub",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 460,
+              "y": 390
+            },
+            {
+              "x": 390,
+              "y": 430
+            },
+            {
+              "x": 315,
+              "y": 465
+            }
+          ],
+          "timingWeight": 0.62
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_hub",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 850,
+              "y": 180
+            },
+            {
+              "x": 800,
+              "y": 250
+            },
+            {
+              "x": 730,
+              "y": 315
+            }
+          ],
+          "timingWeight": 0.72
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_hub",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 505,
+              "y": 165
+            },
+            {
+              "x": 390,
+              "y": 170
+            },
+            {
+              "x": 300,
+              "y": 180
+            }
+          ],
+          "timingWeight": 0.55
+        },
+        {
+          "type": "handoff",
+          "sourceKey": "o4",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 625,
+              "y": 335
+            },
+            {
+              "x": 680,
+              "y": 325
+            },
+            {
+              "x": 730,
+              "y": 315
+            }
+          ],
+          "timingWeight": 0.66
+        }
+      ],
+      "caption": "4 HUB DHO — si 1 no rompe la defensa, entrega a 4 y limpia. 3 sube y recibe DHO de 4; 5 queda en dunker débil. El segundo grande aporta creación con mano a mano, no tiro exterior.",
+      "seconds": 2.8
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 315,
+          "y": 465
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 180
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 730,
+          "y": 315
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 648,
+          "y": 340
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 300,
+          "y": 180
+        }
+      ],
+      "ball": {
+        "x": 764,
+        "y": 319,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 730,
+              "y": 315
+            },
+            {
+              "x": 645,
+              "y": 300
+            },
+            {
+              "x": 565,
+              "y": 285
+            }
+          ],
+          "timingWeight": 0.8
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 648,
+              "y": 340
+            },
+            {
+              "x": 620,
+              "y": 320
+            },
+            {
+              "x": 600,
+              "y": 300
+            }
+          ],
+          "timingWeight": 0.58,
+          "screenAngleLocked": true,
+          "screenAngle": 90
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_hubroll",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 600,
+              "y": 300
+            },
+            {
+              "x": 555,
+              "y": 230
+            },
+            {
+              "x": 515,
+              "y": 170
+            }
+          ],
+          "timingWeight": 0.9
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_hubroll",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 565,
+              "y": 285
+            },
+            {
+              "x": 505,
+              "y": 245
+            },
+            {
+              "x": 455,
+              "y": 215
+            }
+          ],
+          "timingWeight": 0.9
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o3",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 455,
+              "y": 215
+            },
+            {
+              "x": 485,
+              "y": 190
+            },
+            {
+              "x": 515,
+              "y": 170
+            }
+          ],
+          "timingWeight": 0.32
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o3",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#7c3aed",
+          "points": [
+            {
+              "x": 455,
+              "y": 215
+            },
+            {
+              "x": 300,
+              "y": 195
+            },
+            {
+              "x": 150,
+              "y": 180
+            }
+          ],
+          "timingWeight": 0.32
+        }
+      ],
+      "caption": "DHO → RE-SCREEN — después del DHO, 4 puede girar y re-screenear. 3 ataca, 4 rola, 5 ocupa el dunker opuesto. Si siguen neutrales, 2 ya está listo para la próxima reversa.",
+      "seconds": 3.2
+    }
+  ]
+}
