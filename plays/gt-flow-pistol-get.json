@@ -31,7 +31,7 @@
     ],
     "screenSequence": "APPROACH → SET → USE → RELEASE"
   },
-  "totalSeconds": 12.9,
+  "totalSeconds": 9.2,
   "frames": [
     {
       "phaseStartVersion": 26,
@@ -231,10 +231,10 @@
         }
       ],
       "caption": "ADVANCE — llegada con 2 adelantado. 1 empuja; 3 wide; 5 rim run; 4 trail. Cuando 2 gana el ala, 1 entrega el advance pass.",
-      "seconds": 3.4,
+      "seconds": 2.8,
       "timeline": {
         "start": 0,
-        "end": 3.4,
+        "end": 2.8,
         "logic": [
           "SIMULTÁNEA arrival, luego pase advance"
         ]
@@ -312,31 +312,6 @@
           "timingWeight": 0.82
         },
         {
-          "type": "dribble",
-          "sourceKey": "o2",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#7c3aed",
-          "points": [
-            {
-              "x": 835,
-              "y": 300
-            },
-            {
-              "x": 855,
-              "y": 245
-            },
-            {
-              "x": 870,
-              "y": 185
-            }
-          ],
-          "timingWeight": 0.3
-        },
-        {
           "type": "handoff",
           "sourceKey": "o2",
           "targetKey": "o1",
@@ -387,11 +362,11 @@
           "timingWeight": 0.62
         }
       ],
-      "caption": "GET / KEEP — 1 sigue el pase y llega hombro con hombro. 2 puede KEEP como opción; en la base entrega DHO a 1 y 1 sale hacia el medio.",
-      "seconds": 2.6,
+      "caption": "GET — 1 sigue el advance pass, se acerca a distancia real y recibe el DHO de 2. KEEP permanece como lectura de enseñanza, no se anima en la posesión base.",
+      "seconds": 1.8,
       "timeline": {
-        "start": 3.4,
-        "end": 6,
+        "start": 2.8,
+        "end": 4.6,
         "logic": [
           "1 APPROACH después del catch",
           "KEEP es opción; DHO es base",
@@ -571,63 +546,13 @@
             }
           ],
           "timingWeight": 0.55
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o1",
-          "targetKey": "o4",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#16a34a",
-          "points": [
-            {
-              "x": 540,
-              "y": 285
-            },
-            {
-              "x": 535,
-              "y": 220
-            },
-            {
-              "x": 525,
-              "y": 165
-            }
-          ],
-          "timingWeight": 0.26
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o1",
-          "targetKey": "o3",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#7c3aed",
-          "points": [
-            {
-              "x": 540,
-              "y": 285
-            },
-            {
-              "x": 385,
-              "y": 290
-            },
-            {
-              "x": 225,
-              "y": 295
-            }
-          ],
-          "timingWeight": 0.26
         }
       ],
-      "caption": "4 TRAIL PnR — 4 llega con paciencia, se planta y orienta la pantalla para enviar a 1 al medio. 1 usa; luego 4 rola. 5 despeja al dunker débil y 3 lift.",
-      "seconds": 3.4,
+      "caption": "4 TRAIL PnR — 4 se planta primero; 1 usa la pantalla hacia el medio; solo después 4 rola. 5 despeja al dunker débil.",
+      "seconds": 2.3,
       "timeline": {
-        "start": 6,
-        "end": 9.4,
+        "start": 4.6,
+        "end": 6.9,
         "logic": [
           "4 SET → 1 USE → 4 ROLL",
           "5 clears only after turn-corner"
@@ -781,42 +706,23 @@
             }
           ],
           "timingWeight": 0.92
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o3",
-          "targetKey": "o5",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#16a34a",
-          "points": [
-            {
-              "x": 340,
-              "y": 325
-            },
-            {
-              "x": 420,
-              "y": 235
-            },
-            {
-              "x": 500,
-              "y": 160
-            }
-          ],
-          "timingWeight": 0.26
         }
       ],
-      "caption": "SECOND SIDE 5 — 1 revierte a 3. Después de la recepción 5 sale del dunker, se planta como side screener; 3 usa y entonces 5 rola. 4 queda opuesto por dentro.",
-      "seconds": 3.5,
+      "caption": "5 SECOND SIDE — tras la reversa, 5 sale del dunker, establece el screen y 3 lo usa. 5 rola después de que 3 supera la pantalla.",
+      "seconds": 2.3,
       "timeline": {
-        "start": 9.4,
-        "end": 12.9,
+        "start": 6.9,
+        "end": 9.2,
         "logic": [
           "reverse catch → 5 approach/set → 3 use → 5 release"
         ]
       }
     }
+  ],
+  "teachingReads": [
+    "ADVANCE",
+    "GET base / KEEP read",
+    "4 Trail PnR",
+    "5 second-side PnR"
   ]
 }
