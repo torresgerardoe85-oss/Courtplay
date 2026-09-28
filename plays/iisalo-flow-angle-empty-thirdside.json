@@ -1,0 +1,822 @@
+{
+  "version": 2,
+  "name": "IISALO FLOW — Angle → Empty → Third Side",
+  "description": "Reconstrucción profesional del Flow de Tuomas Iisalo: 1–5 Angle P&R con corners filled → reverse → 4 throw-and-chase con 2 en Empty P&R → reverse → 1–5 Top P&R desde un ángulo diferente. Adaptado para 4 y 5 no tiradores: ambos rolan/ocupan interior; no hay pop obligatorio.",
+  "status": "Source-based professional reconstruction",
+  "system": "Tuomas Iisalo Flow",
+  "categories": [
+    "transition",
+    "flow",
+    "pnr"
+  ],
+  "source": {
+    "basis": [
+      "Adam Pike — Memphis Grizzlies and 'The Tuomas Iisalo System': Flow starts from 5-Out with 1–5 Angle P&R, 2/3 in corners, 4 strong-side slot; second-side 2–4 Empty P&R; third-side 1–5 Top P&R.",
+      "Adam Pike — 2025–26 Memphis Grizzlies Offence Recap: second side commonly uses 4 throw-and-chase into P&R with 2; third side returns to Top P&R spacing.",
+      "FIBA — Telekom Baskets Bonn: Iisalo described early offense generally starting with a drag screen and emphasized rapid side-to-side decisions."
+    ],
+    "adaptation": "CourtPlay coordinates/timing adapted for animation. 4 is forced to roll/short interior instead of pop because this roster uses non-shooting 4/5."
+  },
+  "animationStandard": {
+    "name": "COURTPLAY_ANIMATION_TIMING_STANDARD",
+    "screenSequence": "APPROACH → SET → USE → RELEASE",
+    "validation": [
+      "basketball logic",
+      "timeline",
+      "dependencies",
+      "ball ownership",
+      "screen angles",
+      "continuity",
+      "slow-motion review"
+    ]
+  },
+  "teachingReads": [
+    "FIRST SIDE: score if Angle P&R creates advantage",
+    "SECOND SIDE: 4 throw-and-chase → 2–4 Empty P&R",
+    "THIRD SIDE: 1–5 Top P&R from different angle",
+    "Top-lock counter: Blind Pig (not animated in Core)",
+    "Third-side variation: G2G Throw-and-Chase (not animated in Core)"
+  ],
+  "totalSeconds": 11,
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 620,
+          "y": 610
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 185
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 185
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 285,
+          "y": 365
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 545,
+          "y": 505
+        }
+      ],
+      "ball": {
+        "x": 654,
+        "y": 614,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 545,
+              "y": 505
+            },
+            {
+              "x": 560,
+              "y": 500
+            },
+            {
+              "x": 575,
+              "y": 495
+            }
+          ],
+          "timingWeight": 0.68,
+          "screenAngleLocked": true,
+          "screenAngle": 36.3
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 620,
+              "y": 610
+            },
+            {
+              "x": 605,
+              "y": 555
+            },
+            {
+              "x": 620,
+              "y": 500
+            },
+            {
+              "x": 660,
+              "y": 445
+            },
+            {
+              "x": 700,
+              "y": 395
+            }
+          ],
+          "timingWeight": 1
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 575,
+              "y": 495
+            },
+            {
+              "x": 555,
+              "y": 355
+            },
+            {
+              "x": 525,
+              "y": 170
+            }
+          ],
+          "timingWeight": 0.92
+        }
+      ],
+      "caption": "FIRST SIDE — ANGLE P&R. 5 establece el Angle screen antes de que 1 cambie dirección. 1 pasa hombro con cadera y ataca el primer lado. Después de superar la pantalla, 5 rola por el channel. 2/3 sostienen esquinas y 4 conserva el slot para la reversa.",
+      "seconds": 2.5,
+      "timeline": {
+        "start": 0,
+        "end": 2.5,
+        "logic": [
+          "FIRST SIDE",
+          "SECUENCIAL: 5 APPROACH/SET → 1 USE → 5 RELEASE",
+          "2 y 3 mantienen esquinas; 4 mantiene slot del segundo lado",
+          "Si 1 crea ventaja, la posesión termina aquí; CourtPlay muestra la continuidad base neutral"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 700,
+          "y": 395
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 185
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 185
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 285,
+          "y": 365
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 525,
+          "y": 170
+        }
+      ],
+      "ball": {
+        "x": 734,
+        "y": 399,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 700,
+              "y": 395
+            },
+            {
+              "x": 495,
+              "y": 375
+            },
+            {
+              "x": 285,
+              "y": 365
+            }
+          ],
+          "timingWeight": 0.46
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_reverse_relocate",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 150,
+              "y": 185
+            },
+            {
+              "x": 160,
+              "y": 245
+            },
+            {
+              "x": 180,
+              "y": 305
+            }
+          ],
+          "timingWeight": 0.58
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_reverse_relocate",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 525,
+              "y": 170
+            },
+            {
+              "x": 600,
+              "y": 175
+            },
+            {
+              "x": 675,
+              "y": 185
+            }
+          ],
+          "timingWeight": 0.52
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_reverse_relocate",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 700,
+              "y": 395
+            },
+            {
+              "x": 675,
+              "y": 420
+            },
+            {
+              "x": 650,
+              "y": 440
+            }
+          ],
+          "timingWeight": 0.48
+        }
+      ],
+      "caption": "REVERSE — si el Angle P&R queda neutral, 1 cambia el balón a 4. 2 levanta desde la esquina para dejar el corner vacío. 5 despeja al dunker contrario y 1 reloca al lado derecho preparando el tercer lado.",
+      "seconds": 1.5,
+      "timeline": {
+        "start": 2.5,
+        "end": 4,
+        "logic": [
+          "REVERSE TRIGGER: solo si FIRST SIDE queda neutral",
+          "Pase 1→4",
+          "Durante/tras la reversa: 2 lift para crear Empty P&R; 5 despeja al dunker opuesto; 1 reloca como third-side outlet"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 650,
+          "y": 440
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 180,
+          "y": 305
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 185
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 285,
+          "y": 365
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 675,
+          "y": 185
+        }
+      ],
+      "ball": {
+        "x": 319,
+        "y": 369,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o4",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 285,
+              "y": 365
+            },
+            {
+              "x": 230,
+              "y": 335
+            },
+            {
+              "x": 180,
+              "y": 305
+            }
+          ],
+          "timingWeight": 0.42
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 285,
+              "y": 365
+            },
+            {
+              "x": 265,
+              "y": 340
+            },
+            {
+              "x": 245,
+              "y": 320
+            }
+          ],
+          "timingWeight": 0.72,
+          "screenAngleLocked": true,
+          "screenAngle": 105.6
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 180,
+              "y": 305
+            },
+            {
+              "x": 225,
+              "y": 325
+            },
+            {
+              "x": 280,
+              "y": 340
+            },
+            {
+              "x": 345,
+              "y": 340
+            },
+            {
+              "x": 400,
+              "y": 320
+            }
+          ],
+          "timingWeight": 1
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 245,
+              "y": 320
+            },
+            {
+              "x": 335,
+              "y": 245
+            },
+            {
+              "x": 435,
+              "y": 170
+            }
+          ],
+          "timingWeight": 0.9
+        }
+      ],
+      "caption": "SECOND SIDE — EMPTY P&R. 4 pasa a 2 y persigue el pase a velocidad de sprint. 4 se planta antes de que 2 use la pantalla; 2 gira hacia el medio y solo después 4 rola. El corner queda vacío para ampliar la línea de ataque.",
+      "seconds": 3,
+      "timeline": {
+        "start": 4,
+        "end": 7,
+        "logic": [
+          "SECOND SIDE — THROW-AND-CHASE",
+          "SECUENCIAL: 4 PASS to 2 → 4 SPRINT/SET → 2 USE → 4 RELEASE",
+          "Empty corner permanece vacío",
+          "4 ROLL (adaptación para 4 no tirador; la fuente también contempla pop según personal)"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 650,
+          "y": 440
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 400,
+          "y": 320
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 185
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 435,
+          "y": 170
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 675,
+          "y": 185
+        }
+      ],
+      "ball": {
+        "x": 434,
+        "y": 324,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o2",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 400,
+              "y": 320
+            },
+            {
+              "x": 525,
+              "y": 380
+            },
+            {
+              "x": 650,
+              "y": 440
+            }
+          ],
+          "timingWeight": 0.46
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_third_prep",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 435,
+              "y": 170
+            },
+            {
+              "x": 360,
+              "y": 175
+            },
+            {
+              "x": 300,
+              "y": 185
+            }
+          ],
+          "timingWeight": 0.5
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_third_prep",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 400,
+              "y": 320
+            },
+            {
+              "x": 270,
+              "y": 245
+            },
+            {
+              "x": 150,
+              "y": 185
+            }
+          ],
+          "timingWeight": 0.58
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_third_prep",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 675,
+              "y": 185
+            },
+            {
+              "x": 630,
+              "y": 275
+            },
+            {
+              "x": 590,
+              "y": 365
+            }
+          ],
+          "timingWeight": 0.68
+        }
+      ],
+      "caption": "REVERSE TO THIRD SIDE — 2 devuelve el balón a 1. Mientras el balón cambia de lado, 4 limpia al dunker débil, 2 vuelve a profundidad de esquina y 5 sale del dunker para aproximarse al próximo Top P&R.",
+      "seconds": 1.4,
+      "timeline": {
+        "start": 7,
+        "end": 8.4,
+        "logic": [
+          "THIRD-SIDE TRIGGER: solo si SECOND SIDE queda neutral",
+          "2 reverses to 1",
+          "4 clears weak dunker; 5 approaches Top P&R while pass changes side",
+          "2 re-fills left corner after release"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 650,
+          "y": 440
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 185
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 185
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 300,
+          "y": 185
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 590,
+          "y": 365
+        }
+      ],
+      "ball": {
+        "x": 684,
+        "y": 444,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 590,
+              "y": 365
+            },
+            {
+              "x": 575,
+              "y": 375
+            },
+            {
+              "x": 560,
+              "y": 385
+            }
+          ],
+          "timingWeight": 0.68,
+          "screenAngleLocked": true,
+          "screenAngle": 121
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 650,
+              "y": 440
+            },
+            {
+              "x": 620,
+              "y": 415
+            },
+            {
+              "x": 585,
+              "y": 385
+            },
+            {
+              "x": 545,
+              "y": 350
+            },
+            {
+              "x": 500,
+              "y": 320
+            }
+          ],
+          "timingWeight": 0.95
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 560,
+              "y": 385
+            },
+            {
+              "x": 540,
+              "y": 270
+            },
+            {
+              "x": 505,
+              "y": 160
+            }
+          ],
+          "timingWeight": 0.9
+        }
+      ],
+      "caption": "THIRD SIDE — TOP P&R. 5 completa la aproximación y se establece con un ángulo distinto al primer screen. 1 usa hacia el medio y 5 rola solo después del uso. 2/3 mantienen las esquinas y 4 ocupa ayuda interior. Aquí termina el Core; los counters se enseñan aparte.",
+      "seconds": 2.6,
+      "timeline": {
+        "start": 8.4,
+        "end": 11,
+        "logic": [
+          "THIRD SIDE — TOP P&R FROM DIFFERENT ANGLE",
+          "SECUENCIAL: 5 SET → 1 USE → 5 RELEASE",
+          "2/3 hold corners; 4 occupies weak dunker",
+          "Base Flow ends here; Blind Pig / G2G Throw-and-Chase are counters, not simultaneous base actions"
+        ]
+      }
+    }
+  ]
+}
