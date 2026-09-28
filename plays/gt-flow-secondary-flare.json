@@ -36,7 +36,7 @@
     ],
     "screenSequence": "APPROACH → SET → USE → RELEASE"
   },
-  "totalSeconds": 6.5,
+  "totalSeconds": 4.8,
   "frames": [
     {
       "phaseStartVersion": 26,
@@ -161,10 +161,10 @@
         }
       ],
       "caption": "ENTRY — 1 pasa a 4 mientras 2 profundiza la esquina débil. 4 recibe y enseguida cambia el balón a 3. 5 conserva posición para el flare.",
-      "seconds": 2.7,
+      "seconds": 2,
       "timeline": {
         "start": 0,
-        "end": 2.7,
+        "end": 2,
         "logic": [
           "2 fade puede empezar con primer pase",
           "4→3 solo después de 4 catch"
@@ -357,63 +357,13 @@
             }
           ],
           "timingWeight": 0.95
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o3",
-          "targetKey": "o4",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#16a34a",
-          "points": [
-            {
-              "x": 600,
-              "y": 260
-            },
-            {
-              "x": 560,
-              "y": 205
-            },
-            {
-              "x": 520,
-              "y": 160
-            }
-          ],
-          "timingWeight": 0.25
-        },
-        {
-          "type": "pass",
-          "sourceKey": "o3",
-          "targetKey": "o1",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#7c3aed",
-          "points": [
-            {
-              "x": 600,
-              "y": 260
-            },
-            {
-              "x": 420,
-              "y": 270
-            },
-            {
-              "x": 235,
-              "y": 275
-            }
-          ],
-          "timingWeight": 0.25
         }
       ],
-      "caption": "BALL SCREEN + FLARE — 4 y 5 primero se plantan con ángulos distintos. Luego 3 usa PnR y 1 usa flare a la vez. Cuando 3 supera el screen, 4 rola. Lecturas: roll 4 o flare 1.",
-      "seconds": 3.8,
+      "caption": "BALL SCREEN + FLARE — 4 y 5 se establecen primero. 3 usa el ball screen y 1 usa el flare en simultáneo; luego 4 rola. Roll y flare son lecturas, no pases animados simultáneamente.",
+      "seconds": 2.8,
       "timeline": {
-        "start": 2.7,
-        "end": 6.5,
+        "start": 2,
+        "end": 4.8,
         "logic": [
           "SIMULTÁNEA SET: 4 ball screen + 5 flare screen",
           "SIMULTÁNEA USE: 3 uses + 1 flares",
@@ -421,5 +371,12 @@
         ]
       }
     }
+  ],
+  "teachingReads": [
+    "1→4→3",
+    "2 fade",
+    "4 PnR",
+    "1 flare off 5",
+    "read roll / flare"
   ]
 }
