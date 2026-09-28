@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "plays": [
     {
       "slug": "41-flow-core",
@@ -79,6 +79,74 @@
       "categories": [
         "flow",
         "post"
+      ]
+    },
+    {
+      "slug": "gt-flow-core",
+      "name": "GT FLOW — CORE: Drag → Zoom → Re-PnR",
+      "description": "Sistema base de llegar jugando: outlet/advance → 4 Trail Drag → reverse → Zoom/Chicago → 5 re-PnR → automatic reset. Diseñado para 4 y 5 no tiradores.",
+      "categories": [
+        "transition",
+        "flow",
+        "pnr",
+        "dho",
+        "zoom",
+        "chicago"
+      ]
+    },
+    {
+      "slug": "gt-flow-pistol-get",
+      "name": "GT FLOW — Pistol/Get → Trail PnR",
+      "description": "Entrada automática por advance pass: Pistol/Get → 4 Trail PnR → second-side 5 screen. Para dos grandes no tiradores.",
+      "categories": [
+        "transition",
+        "flow",
+        "pistol",
+        "dho",
+        "pnr"
+      ]
+    },
+    {
+      "slug": "gt-flow-double-drag",
+      "name": "GT FLOW — Double Drag → Hub DHO",
+      "description": "Double Drag de transición con 5 primer screener y 4 segundo; si no hay ventaja, 4 se convierte en hub de DHO en vez de popper.",
+      "categories": [
+        "transition",
+        "flow",
+        "pnr",
+        "dho"
+      ]
+    },
+    {
+      "slug": "gt-flow-secondary-flare",
+      "name": "GT FLOW — Secondary Flare",
+      "description": "Secondary break basado en Serbia WBB: 1→4→3, 2 fade; 4 ball screen-roll a 3 y 1 flare cut usando a 5. Adaptado como entrada automática de GT FLOW.",
+      "categories": [
+        "transition",
+        "flow",
+        "pnr",
+        "flare"
+      ]
+    },
+    {
+      "slug": "gt-flow-early-dho",
+      "name": "GT FLOW — Early DHO → Side PnR",
+      "description": "Entrada basada en Early DHO #4 de Virtus: 4 conecta un DHO temprano con el guard y la posesión fluye directamente a PnR con 5.",
+      "categories": [
+        "transition",
+        "flow",
+        "dho",
+        "pnr"
+      ]
+    },
+    {
+      "slug": "gt-flow-continuity-reset",
+      "name": "GT FLOW — Continuity Reset",
+      "description": "Puente de media cancha para cuando la transición queda neutral: wing PnR → top read → dribble-at/backdoor → nuevo wing PnR al lado contrario. Basado en Euro Ball Screen Offense.",
+      "categories": [
+        "flow",
+        "pnr",
+        "dho"
       ]
     }
   ]
