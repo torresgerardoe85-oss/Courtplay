@@ -1,0 +1,616 @@
+{
+  "version": 2,
+  "name": "GT FLOW — Continuity Reset",
+  "description": "Puente de media cancha para cuando la transición queda neutral: wing PnR → top read → dribble-at/backdoor → nuevo wing PnR al lado contrario. Basado en Euro Ball Screen Offense.",
+  "status": "GT FLOW System — Continuity",
+  "system": "GT FLOW — Transition to Offense",
+  "module": "CORE F",
+  "categories": [
+    "flow",
+    "pnr",
+    "dho"
+  ],
+  "source": {
+    "type": "source-based adaptation",
+    "title": "Euro Ball Screen Offense",
+    "sourceConcept": "basic continuity",
+    "adaptation": "Kept as a no-call reset inside GT FLOW; non-shooting bigs roll/replace rather than pop."
+  },
+  "teachingReads": [
+    "WING PNR",
+    "ROLL",
+    "TOP",
+    "DRIBBLE-AT",
+    "BACKDOOR",
+    "OPPOSITE PNR"
+  ],
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 820,
+          "y": 330
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 850,
+          "y": 180
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 180
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 640,
+          "y": 360
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 560
+        }
+      ],
+      "ball": {
+        "x": 854,
+        "y": 334,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 640,
+              "y": 360
+            },
+            {
+              "x": 700,
+              "y": 350
+            },
+            {
+              "x": 750,
+              "y": 340
+            }
+          ],
+          "timingWeight": 0.62,
+          "screenAngleLocked": true,
+          "screenAngle": 90
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_c1",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 820,
+              "y": 330
+            },
+            {
+              "x": 720,
+              "y": 300
+            },
+            {
+              "x": 625,
+              "y": 270
+            }
+          ],
+          "timingWeight": 0.95
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_c1",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 750,
+              "y": 340
+            },
+            {
+              "x": 640,
+              "y": 255
+            },
+            {
+              "x": 535,
+              "y": 170
+            }
+          ],
+          "timingWeight": 0.95
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_c1",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 500,
+              "y": 560
+            },
+            {
+              "x": 500,
+              "y": 475
+            },
+            {
+              "x": 500,
+              "y": 390
+            }
+          ],
+          "timingWeight": 0.65
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 625,
+              "y": 270
+            },
+            {
+              "x": 580,
+              "y": 220
+            },
+            {
+              "x": 535,
+              "y": 170
+            }
+          ],
+          "timingWeight": 0.3
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o5",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 625,
+              "y": 270
+            },
+            {
+              "x": 560,
+              "y": 330
+            },
+            {
+              "x": 500,
+              "y": 390
+            }
+          ],
+          "timingWeight": 0.45
+        }
+      ],
+      "caption": "WING PNR → TOP — 4 ball screen-roll. Si 1 no tiene aro ni roll, pasa rápido a 5 arriba; 5 mira primero el roll de 4. Esta conexión mantiene viva la ventaja potencial.",
+      "seconds": 3.2
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 625,
+          "y": 270
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 850,
+          "y": 180
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 180
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 535,
+          "y": 170
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 390
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 394,
+        "owner": "o5"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_dat",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 500,
+              "y": 390
+            },
+            {
+              "x": 390,
+              "y": 350
+            },
+            {
+              "x": 285,
+              "y": 305
+            }
+          ],
+          "timingWeight": 0.85
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_dat",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 150,
+              "y": 180
+            },
+            {
+              "x": 210,
+              "y": 220
+            },
+            {
+              "x": 300,
+              "y": 260
+            },
+            {
+              "x": 420,
+              "y": 190
+            },
+            {
+              "x": 500,
+              "y": 155
+            }
+          ],
+          "timingWeight": 1.02
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_dat",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 625,
+              "y": 270
+            },
+            {
+              "x": 720,
+              "y": 285
+            },
+            {
+              "x": 800,
+              "y": 300
+            }
+          ],
+          "timingWeight": 0.58
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_dat",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 535,
+              "y": 170
+            },
+            {
+              "x": 650,
+              "y": 175
+            },
+            {
+              "x": 760,
+              "y": 185
+            }
+          ],
+          "timingWeight": 0.58
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o5",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 285,
+              "y": 305
+            },
+            {
+              "x": 385,
+              "y": 220
+            },
+            {
+              "x": 500,
+              "y": 155
+            }
+          ],
+          "timingWeight": 0.32
+        }
+      ],
+      "caption": "DRIBBLE-AT / BACKDOOR — 5 driblea hacia 3; 3 backdoor si está negado. 1 recupera el wing contrario y 4 limpia. Si el backdoor no está, 5 continúa hacia el lado y la pelota vuelve a un wing.",
+      "seconds": 2.8
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 800,
+          "y": 300
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 850,
+          "y": 180
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 500,
+          "y": 155
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 760,
+          "y": 185
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 285,
+          "y": 305
+        }
+      ],
+      "ball": {
+        "x": 319,
+        "y": 309,
+        "owner": "o5"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o5",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 285,
+              "y": 305
+            },
+            {
+              "x": 540,
+              "y": 300
+            },
+            {
+              "x": 800,
+              "y": 300
+            }
+          ],
+          "timingWeight": 0.5
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 285,
+              "y": 305
+            },
+            {
+              "x": 485,
+              "y": 300
+            },
+            {
+              "x": 710,
+              "y": 300
+            }
+          ],
+          "timingWeight": 0.76,
+          "screenAngleLocked": true,
+          "screenAngle": 90
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_c2",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 800,
+              "y": 300
+            },
+            {
+              "x": 710,
+              "y": 330
+            },
+            {
+              "x": 620,
+              "y": 340
+            }
+          ],
+          "timingWeight": 0.92
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_c2",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 710,
+              "y": 300
+            },
+            {
+              "x": 620,
+              "y": 235
+            },
+            {
+              "x": 520,
+              "y": 165
+            }
+          ],
+          "timingWeight": 0.92
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_c2",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 760,
+              "y": 185
+            },
+            {
+              "x": 650,
+              "y": 180
+            },
+            {
+              "x": 550,
+              "y": 180
+            }
+          ],
+          "timingWeight": 0.52
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o5",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 620,
+              "y": 340
+            },
+            {
+              "x": 570,
+              "y": 245
+            },
+            {
+              "x": 520,
+              "y": 165
+            }
+          ],
+          "timingWeight": 0.32
+        }
+      ],
+      "caption": "OPPOSITE PNR — 5 sigue su pase y pone el nuevo ball screen. Ahora el sistema está otra vez dentro de PnR en el lado contrario. Si queda neutral, el mismo patrón puede repetirse con 4 reemplazando arriba.",
+      "seconds": 3.2
+    }
+  ]
+}
