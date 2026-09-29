@@ -88,7 +88,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": null,
+          "simultaneousGroup": "g_weak_entry",
           "color": "#ef4444",
           "points": [
             {
@@ -125,7 +125,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": null,
+          "simultaneousGroup": "g_weak_entry",
           "color": "#172033",
           "points": [
             {
@@ -151,9 +151,8 @@
         "end": 1.6,
         "logic": [
           "WEAK trigger",
-          "3 CUT THROUGH to opposite corner",
-          "1 holds/advances under control",
-          "5 waits to enter screen until cutter clears"
+          "SIMULTÁNEO: 3 CUT THROUGH + 1 controlled ADVANCE",
+          "5 waits; ball screen begins only after cutter clears"
         ]
       }
     },
