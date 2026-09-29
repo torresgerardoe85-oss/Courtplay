@@ -121,10 +121,12 @@
       if(!['dribble','move','shot','handoff'].includes(candidate.type))continue;
       const cpts=points(candidate);
       if(cpts.length<2)continue;
-      let dx=cpts[1].x-cpts[0].x,dy=cpts[1].y-cpts[0].y;
+      const receiverStart=player(phase,handoffAction.targetKey);
+      const origin=receiverStart||cpts[0];
+      let dx=cpts[1].x-origin.x,dy=cpts[1].y-origin.y;
       if(Math.hypot(dx,dy)<8&&cpts.length>2){
-        dx=cpts[cpts.length-1].x-cpts[0].x;
-        dy=cpts[cpts.length-1].y-cpts[0].y;
+        dx=cpts[cpts.length-1].x-origin.x;
+        dy=cpts[cpts.length-1].y-origin.y;
       }
       if(Math.hypot(dx,dy)<8)continue;
       let score=Math.abs(i-index)*20;
