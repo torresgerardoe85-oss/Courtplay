@@ -284,6 +284,17 @@ function sceneDuringActions(base,rawActions,t){
   }
   for(const l of actions){
     const lt=actionPlaybackProgress(l,t);
+    if(l.type==='handoff'&&l.targetKey&&l.handoffReceiverExit&&lt>=.68){
+      const targetStart=playerByKey(base,l.targetKey);
+      const target=playerByKey(scene,l.targetKey);
+      const targetEnd=CourtPlayEngine.handoffReceiverEnd(targetStart,l.handoffReceiverExit,46);
+      if(targetStart&&target&&targetEnd){
+        const q=clamp((lt-.68)/.32,0,1);
+        const eased=.5-.5*Math.cos(Math.PI*q);
+        target.x=targetStart.x+(targetEnd.x-targetStart.x)*eased;
+        target.y=targetStart.y+(targetEnd.y-targetStart.y)*eased;
+      }
+    }
     if(lt>=.72&&l.type==='handoff')CourtPlayEngine.ensureHandoffSeparation(scene,l,76);
   }
   for(const l of actions){
