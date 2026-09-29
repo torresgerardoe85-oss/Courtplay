@@ -1,5 +1,5 @@
 {
-  "version": 13,
+  "version": 14,
   "plays": [
     {
       "slug": "41-flow-core",
@@ -147,58 +147,6 @@
         "flow",
         "pnr",
         "dho"
-      ]
-    },
-    {
-      "slug": "iisalo-flow-angle-empty-thirdside",
-      "name": "IISALO FLOW — Angle → Empty → Third Side",
-      "description": "Iisalo Flow: 1–5 Angle P&R → reverse → 4 throw-and-chase / 2–4 Empty P&R → reverse → 1–5 Third-Side Top P&R.",
-      "categories": [
-        "transition",
-        "flow",
-        "pnr"
-      ]
-    },
-    {
-      "slug": "test-motion-41-timing",
-      "name": "TEST — Motion 4-1 Timing",
-      "description": "Prueba de timing: pass/cut/fill → pin-down → Get/DHO → side PnR. 'Misma vez' solo en reacciones que comparten trigger.",
-      "categories": [
-        "flow",
-        "dho",
-        "pnr",
-        "other"
-      ]
-    },
-    {
-      "slug": "test-handoff-middle",
-      "name": "TEST — Handoff Middle",
-      "description": "Approach → contacto/transferencia → salida continua hacia middle; el receptor no regresa.",
-      "categories": [
-        "dho",
-        "flow",
-        "other"
-      ]
-    },
-    {
-      "slug": "test-handoff-baseline",
-      "name": "TEST — Handoff Baseline",
-      "description": "Approach diagonal → handoff → salida continua hacia baseline sin devolverse.",
-      "categories": [
-        "dho",
-        "flow",
-        "other"
-      ]
-    },
-    {
-      "slug": "test-handoff-rescreen",
-      "name": "TEST — Handoff + Re-screen",
-      "description": "Approach → handoff → salida continua → re-screen → use → roll.",
-      "categories": [
-        "dho",
-        "pnr",
-        "flow",
-        "other"
       ]
     },
     {
