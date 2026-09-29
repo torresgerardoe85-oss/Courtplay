@@ -100,6 +100,17 @@
     };
   }
 
+  function handoffReceiverEnd(tgt,receiverExit=null,distance=46){
+    if(!tgt||!receiverExit||!Number.isFinite(receiverExit.dx)||!Number.isFinite(receiverExit.dy))return null;
+    const len=Math.hypot(receiverExit.dx,receiverExit.dy);
+    if(len<1)return null;
+    const vx=receiverExit.dx/len,vy=receiverExit.dy/len;
+    return{
+      x:clamp(tgt.x+vx*distance,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+      y:clamp(tgt.y+vy*distance,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+    };
+  }
+
   function inferHandoffExit(phase,handoffAction){
     if(!phase||!handoffAction||handoffAction.type!=='handoff'||!handoffAction.targetKey)return null;
     const lines=phase.lines||[],index=lines.indexOf(handoffAction);
@@ -207,8 +218,10 @@
       const tgt=player(state,action.targetKey);
       if(tgt){
         if(action.type==='handoff'&&src){
+          const receiverEnd=handoffReceiverEnd(tgt,action.handoffReceiverExit||null,46);
           const sep=handoffGiverEnd(null,tgt,pts,action.handoffReceiverExit||null);
           src.x=sep.x;src.y=sep.y;
+          if(receiverEnd){tgt.x=receiverEnd.x;tgt.y=receiverEnd.y;}
           ensureHandoffSeparation(state,action);
         }
         state.ball.owner=tgt.key;
@@ -371,7 +384,7 @@
   }
 
   global.CourtPlayEngine={
-    clone,points,captureLocalGeometry,invalidateLocalGeometry,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,handoffGiverEnd,ensureHandoffSeparation,
+    clone,points,captureLocalGeometry,invalidateLocalGeometry,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,handoffGiverEnd,handoffReceiverEnd,ensureHandoffSeparation,
     inferScreenAngle,applyAutoScreenAngles,inferHandoffExit,applyAutoHandoffGeometry,prepareAction,applyAction,bindLegacyPhase,resolvePhase,reflow,nextPhaseFrom,duplicatePhaseForContinuation
   };
 })(typeof window!=='undefined'?window:globalThis);
