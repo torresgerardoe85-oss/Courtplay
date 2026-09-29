@@ -1,5 +1,5 @@
 {
-  "version": 10,
+  "version": 11,
   "plays": [
     {
       "slug": "41-flow-core",
@@ -157,6 +157,17 @@
         "transition",
         "flow",
         "pnr"
+      ]
+    },
+    {
+      "slug": "test-motion-41-timing",
+      "name": "TEST — Motion 4-1 Timing",
+      "description": "Prueba de timing: pass/cut/fill → pin-down → Get/DHO → side PnR. 'Misma vez' solo en reacciones que comparten trigger.",
+      "categories": [
+        "flow",
+        "dho",
+        "pnr",
+        "other"
       ]
     }
   ]
