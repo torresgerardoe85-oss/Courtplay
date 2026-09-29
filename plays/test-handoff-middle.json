@@ -1,0 +1,244 @@
+{
+  "version": 2,
+  "status": "TEST — Handoff mechanics v2",
+  "system": "CourtPlay Handoff Test",
+  "categories": [
+    "dho",
+    "flow",
+    "other"
+  ],
+  "source": {
+    "basis": "COURTPLAY_ANIMATION_TIMING_STANDARD + Motion 4-1 user reference video"
+  },
+  "animationStandard": {
+    "name": "COURTPLAY_ANIMATION_TIMING_STANDARD",
+    "handoffSequence": "APPROACH → PRESENT → CONTACT/TRANSFER → CONTINUOUS EXIT",
+    "rule": "El receptor continúa hacia la salida; no regresa por donde vino."
+  },
+  "name": "TEST — Handoff Middle",
+  "description": "Prueba de handoff hacia el medio: receiver approach → contact/transfer → salida continua a middle; giver clears después de la transferencia.",
+  "totalSeconds": 3.2,
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 640,
+          "y": 410
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 820,
+          "y": 330
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 185
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 850,
+          "y": 185
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 300,
+          "y": 180
+        }
+      ],
+      "ball": {
+        "x": 674,
+        "y": 414,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 820,
+              "y": 330
+            },
+            {
+              "x": 770,
+              "y": 355
+            },
+            {
+              "x": 720,
+              "y": 385
+            }
+          ],
+          "timingWeight": 0.72
+        }
+      ],
+      "caption": "APPROACH — 2 se acerca desde el ala con un ángulo que ya apunta hacia el medio. 1 sostiene el balón y presenta el handoff; los demás mantienen spacing.",
+      "seconds": 1.3,
+      "timeline": {
+        "start": 0,
+        "end": 1.3,
+        "logic": [
+          "2 APPROACH controlled",
+          "1 HOLD/PRESENT"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 640,
+          "y": 410
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 720,
+          "y": 385
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 185
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 850,
+          "y": 185
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 300,
+          "y": 180
+        }
+      ],
+      "ball": {
+        "x": 674,
+        "y": 414,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "handoff",
+          "sourceKey": "o1",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 640,
+              "y": 410
+            },
+            {
+              "x": 680,
+              "y": 398
+            },
+            {
+              "x": 720,
+              "y": 385
+            }
+          ],
+          "timingWeight": 0.76
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_middle_exit",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 720,
+              "y": 385
+            },
+            {
+              "x": 675,
+              "y": 365
+            },
+            {
+              "x": 620,
+              "y": 345
+            },
+            {
+              "x": 560,
+              "y": 330
+            }
+          ],
+          "timingWeight": 0.9
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_middle_exit",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 640,
+              "y": 410
+            },
+            {
+              "x": 700,
+              "y": 445
+            },
+            {
+              "x": 755,
+              "y": 470
+            }
+          ],
+          "timingWeight": 0.62
+        }
+      ],
+      "caption": "HANDOFF MIDDLE — contacto hombro con hombro. La posesión cambia en el intercambio y 2 CONTINÚA hacia el medio; no vuelve al ala. Después de la transferencia, 1 limpia mientras 2 ataca.",
+      "seconds": 1.9,
+      "timeline": {
+        "start": 1.3,
+        "end": 3.2,
+        "logic": [
+          "1 HANDOFF to 2",
+          "TRANSFER at contact",
+          "AFTER transfer: 2 EXIT middle + 1 CLEAR simultaneously"
+        ]
+      }
+    }
+  ]
+}
