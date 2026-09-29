@@ -1,0 +1,407 @@
+{
+  "version": 2,
+  "name": "IISALO EARLY — Wide Lanes → Drag",
+  "description": "Llegar jugando: guard lane advance + wide lanes + 5 Drag cuando no existe rim-run advantage. Adaptado al roster: 5 siempre roll; 4 trail/second-side, sin pop obligatorio.",
+  "status": "Source-based reconstruction — 4/1 roster adaptation",
+  "system": "Tuomas Iisalo Early Offense",
+  "categories": [
+    "transition",
+    "flow",
+    "pnr"
+  ],
+  "source": {
+    "primary": [
+      "FIBA Basketball — Mountaintop: A closer look at Telekom Baskets Bonn (Iisalo: early offense generally begins with a 1–5 drag; anyone may advance the ball; entries rather than rigid set calls).",
+      "Slappin' Glass / Iisalo interview excerpt — five-lane fast break; 5 rim-runs if he can beat his man, otherwise most likely drags."
+    ],
+    "adaptation": "La fuente define la decisión rim-run/drag; esta animación representa únicamente la rama NO RIM ADVANTAGE → DRAG. 4 y 5 no necesitan tirar."
+  },
+  "animationStandard": {
+    "name": "COURTPLAY_ANIMATION_TIMING_STANDARD",
+    "screenSequence": "APPROACH → SET → USE → RELEASE",
+    "rules": [
+      "Simultaneous only when actions share the same basketball trigger",
+      "Pass is completed before dependent next action",
+      "No screen-and-roll at the same instant",
+      "Phase end becomes the exact next phase start",
+      "Review at 1x, 0.75x and 0.5x before approval"
+    ]
+  },
+  "teachingReads": [
+    "Si 5 gana la carrera: rim run (otra rama, no animada aquí).",
+    "Si 5 no gana la carrera: Drag inmediato.",
+    "Score first; si queda neutral, entrar a Flow/second side."
+  ],
+  "totalSeconds": 4.6,
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 625,
+          "y": 775
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 255,
+          "y": 785
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 780,
+          "y": 785
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 410,
+          "y": 805
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 545,
+          "y": 805
+        }
+      ],
+      "ball": {
+        "x": 659,
+        "y": 779,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_arrival",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 625,
+              "y": 775
+            },
+            {
+              "x": 635,
+              "y": 690
+            },
+            {
+              "x": 645,
+              "y": 610
+            },
+            {
+              "x": 650,
+              "y": 560
+            }
+          ],
+          "timingWeight": 1
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_arrival",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 255,
+              "y": 785
+            },
+            {
+              "x": 210,
+              "y": 610
+            },
+            {
+              "x": 170,
+              "y": 420
+            },
+            {
+              "x": 150,
+              "y": 215
+            }
+          ],
+          "timingWeight": 1.1
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_arrival",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 780,
+              "y": 785
+            },
+            {
+              "x": 815,
+              "y": 620
+            },
+            {
+              "x": 845,
+              "y": 430
+            },
+            {
+              "x": 850,
+              "y": 215
+            }
+          ],
+          "timingWeight": 1.1
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_arrival",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 410,
+              "y": 805
+            },
+            {
+              "x": 385,
+              "y": 690
+            },
+            {
+              "x": 360,
+              "y": 595
+            }
+          ],
+          "timingWeight": 0.85
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_arrival",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 545,
+              "y": 805
+            },
+            {
+              "x": 565,
+              "y": 700
+            },
+            {
+              "x": 585,
+              "y": 610
+            }
+          ],
+          "timingWeight": 0.88
+        }
+      ],
+      "caption": "ARRIVAL — 1 avanza por guard lane. 2 y 3 corren ancho, 4 llega de trailer y 5 no tiene ventaja para rim-run, así que se aproxima al Drag. Todos estos desplazamientos sí ocurren a la misma vez porque pertenecen a la transición.",
+      "seconds": 1.8,
+      "timeline": {
+        "start": 0,
+        "end": 1.8,
+        "logic": [
+          "SIMULTÁNEO de transición: 1 ADVANCE + 2/3 WIDE + 4 TRAIL + 5 APPROACH",
+          "5 reconoce que no tiene rim-run advantage y llega al Drag lane",
+          "Nadie se cruza por la pintura"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 650,
+          "y": 560
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 215
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 215
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 360,
+          "y": 595
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 585,
+          "y": 610
+        }
+      ],
+      "ball": {
+        "x": 684,
+        "y": 564,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 585,
+              "y": 610
+            },
+            {
+              "x": 595,
+              "y": 585
+            },
+            {
+              "x": 605,
+              "y": 565
+            }
+          ],
+          "timingWeight": 0.66,
+          "screenAngleLocked": true,
+          "screenAngle": 128
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 650,
+              "y": 560
+            },
+            {
+              "x": 625,
+              "y": 545
+            },
+            {
+              "x": 595,
+              "y": 525
+            },
+            {
+              "x": 555,
+              "y": 490
+            },
+            {
+              "x": 515,
+              "y": 450
+            }
+          ],
+          "timingWeight": 0.96
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_drag_release",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 605,
+              "y": 565
+            },
+            {
+              "x": 580,
+              "y": 410
+            },
+            {
+              "x": 545,
+              "y": 275
+            },
+            {
+              "x": 520,
+              "y": 165
+            }
+          ],
+          "timingWeight": 0.92
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_drag_release",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 150,
+              "y": 215
+            },
+            {
+              "x": 175,
+              "y": 275
+            },
+            {
+              "x": 205,
+              "y": 325
+            }
+          ],
+          "timingWeight": 0.52
+        }
+      ],
+      "caption": "EARLY DRAG — 5 se establece antes del cambio de dirección. 1 pasa hombro con cadera y gira al medio. Solo cuando 1 supera la pantalla, 5 rola por el channel y 2 levanta para dar ventana de pase. 3 y 4 mantienen spacing.",
+      "seconds": 2.8,
+      "timeline": {
+        "start": 1.8,
+        "end": 4.6,
+        "logic": [
+          "SECUENCIAL: 5 SET → 1 USE → 5 ROLL",
+          "TRIGGER cuando 1 supera el screen: 2 LIFT",
+          "3 holds deep corner; 4 holds trail slot"
+        ]
+      }
+    }
+  ]
+}
