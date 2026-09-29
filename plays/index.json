@@ -1,5 +1,5 @@
 {
-  "version": 12,
+  "version": 13,
   "plays": [
     {
       "slug": "41-flow-core",
@@ -199,6 +199,47 @@
         "pnr",
         "flow",
         "other"
+      ]
+    },
+    {
+      "slug": "iisalo-early-wide-drag",
+      "name": "IISALO EARLY — Wide Lanes → Drag",
+      "description": "Llegar jugando: guard lane advance + wide lanes + 5 Drag cuando no existe rim-run advantage. Adaptado al roster: 5 siempre roll; 4 trail/second-side, sin pop obligatorio.",
+      "categories": [
+        "transition",
+        "flow",
+        "pnr"
+      ]
+    },
+    {
+      "slug": "iisalo-flow-spread-wing-top",
+      "name": "IISALO FLOW — Spread → Wing → Top",
+      "description": "Core de tres lados: first-side Spread/Angle P&R → reverse → second-side throw-and-chase Wing/Empty P&R → reverse → third-side Top P&R.",
+      "categories": [
+        "transition",
+        "flow",
+        "pnr"
+      ]
+    },
+    {
+      "slug": "iisalo-iverson-follow-empty",
+      "name": "IISALO ENTRY — Iverson Follow Empty",
+      "description": "Entrada moderna: baseline clear + Iverson cut → catch on empty side → screener follows into Empty P&R. Flex queda como wrinkle aparte, no como base.",
+      "categories": [
+        "flow",
+        "pnr",
+        "iverson",
+        "quick"
+      ]
+    },
+    {
+      "slug": "iisalo-flow-weak-entry",
+      "name": "IISALO ENTRY — Flow Weak",
+      "description": "Cuando no se llega en las cinco lanes ideales: weak cut through → Spread P&R trigger → reverse into second-side Wing P&R. Misma estructura, diferente entrada.",
+      "categories": [
+        "transition",
+        "flow",
+        "pnr"
       ]
     }
   ]
