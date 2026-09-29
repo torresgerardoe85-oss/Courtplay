@@ -420,13 +420,17 @@
             },
             {
               "x": 340,
-              "y": 190
+              "y": 185
+            },
+            {
+              "x": 260,
+              "y": 195
             }
           ],
           "timingWeight": 0.48
         }
       ],
-      "caption": "SECOND-SIDE PREP — si el primer lado queda neutral, 1 revierte a 4. Después del catch, 3 levanta desde la esquina y 5 despeja al dunker débil para abrir la siguiente acción.",
+      "caption": "SECOND-SIDE PREP — si el primer lado queda neutral, 1 revierte a 4. Después del catch, 3 levanta desde la esquina y 5 limpia bien ancho al short-corner/dunker débil para dejar libre el channel del próximo roller.",
       "seconds": 1.4,
       "timeline": {
         "start": 4.1,
@@ -473,8 +477,8 @@
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 340,
-          "y": 190
+          "x": 260,
+          "y": 195
         }
       ],
       "ball": {
