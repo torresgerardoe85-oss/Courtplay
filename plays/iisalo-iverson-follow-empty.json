@@ -107,7 +107,7 @@
           ],
           "timingWeight": 0.55,
           "screenAngleLocked": true,
-          "screenAngle": 0
+          "screenAngle": 90
         },
         {
           "type": "move",
@@ -116,7 +116,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": null,
+          "simultaneousGroup": "g_iverson_clear",
           "color": "#ef4444",
           "points": [
             {
@@ -145,7 +145,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": null,
+          "simultaneousGroup": "g_iverson_clear",
           "color": "#6b7280",
           "points": [
             {
@@ -176,15 +176,15 @@
           "timingWeight": 1
         }
       ],
-      "caption": "IVERSON ENTRY — 2 empieza el corte horizontal mientras 3 corta por baseline al lado contrario para vaciar la esquina de recepción. 4 y 5 están colocados como los dos puntos de la entrada; 2 no atraviesa ambas pantallas a la vez.",
+      "caption": "IVERSON ENTRY — 4 se planta para el primer punto de la entrada. Cuando 2 empieza a usarlo, 3 corta por baseline al lado contrario AL MISMO TIEMPO para vaciar la esquina de recepción. 5 espera el segundo contacto; no ponemos las dos pantallas simultáneamente.",
       "seconds": 1.7,
       "timeline": {
         "start": 0,
         "end": 1.7,
         "logic": [
-          "SIMULTANEO trigger: 2 starts Iverson while 3 baseline-clears",
-          "4 holds first screen; 5 holds second screen",
-          "2 uses the first screen before the second"
+          "SECUENCIAL: 4 SET first Iverson screen",
+          "TRIGGER after set: 2 STARTS IVERSON + 3 BASELINE CLEAR at the same time",
+          "5 waits for the second contact in the next phase"
         ]
       }
     },
@@ -259,7 +259,7 @@
           ],
           "timingWeight": 0.56,
           "screenAngleLocked": true,
-          "screenAngle": 0
+          "screenAngle": 90
         },
         {
           "type": "move",
