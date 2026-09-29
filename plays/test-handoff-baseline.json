@@ -1,0 +1,231 @@
+{
+  "version": 2,
+  "name": "TEST — Handoff Baseline",
+  "description": "Prueba de handoff hacia baseline: el receptor llega desde slot/ala y sale en continuidad hacia línea de fondo, sin devolverse.",
+  "status": "TEST — Handoff mechanics v2",
+  "system": "CourtPlay Handoff Test",
+  "categories": [
+    "dho",
+    "flow",
+    "other"
+  ],
+  "source": {
+    "basis": "COURTPLAY_ANIMATION_TIMING_STANDARD + Motion 4-1 user reference video"
+  },
+  "animationStandard": {
+    "name": "COURTPLAY_ANIMATION_TIMING_STANDARD",
+    "handoffSequence": "APPROACH → PRESENT → CONTACT/TRANSFER → CONTINUOUS EXIT",
+    "rule": "El receptor continúa hacia la salida; no regresa por donde vino."
+  },
+  "totalSeconds": 3.4,
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 300,
+          "y": 360
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 500,
+          "y": 500
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 185
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 720,
+          "y": 360
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 180
+        }
+      ],
+      "ball": {
+        "x": 334,
+        "y": 364,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#ef4444",
+          "timingWeight": 0.76,
+          "points": [
+            {
+              "x": 500,
+              "y": 500
+            },
+            {
+              "x": 440,
+              "y": 455
+            },
+            {
+              "x": 380,
+              "y": 410
+            }
+          ]
+        }
+      ],
+      "caption": "APPROACH — 2 baja desde el slot hacia 1 con una trayectoria diagonal. La ruta ya está orientada para atravesar el handoff y continuar hacia baseline.",
+      "seconds": 1.4
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 300,
+          "y": 360
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 380,
+          "y": 410
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 185
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 720,
+          "y": 360
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 180
+        }
+      ],
+      "ball": {
+        "x": 334,
+        "y": 364,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "handoff",
+          "sourceKey": "o1",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "timingWeight": 0.76,
+          "points": [
+            {
+              "x": 300,
+              "y": 360
+            },
+            {
+              "x": 340,
+              "y": 385
+            },
+            {
+              "x": 380,
+              "y": 410
+            }
+          ]
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_baseline_exit",
+          "color": "#172033",
+          "timingWeight": 1,
+          "points": [
+            {
+              "x": 380,
+              "y": 410
+            },
+            {
+              "x": 330,
+              "y": 360
+            },
+            {
+              "x": 275,
+              "y": 300
+            },
+            {
+              "x": 220,
+              "y": 235
+            },
+            {
+              "x": 175,
+              "y": 185
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_baseline_exit",
+          "color": "#6b7280",
+          "timingWeight": 0.62,
+          "points": [
+            {
+              "x": 300,
+              "y": 360
+            },
+            {
+              "x": 355,
+              "y": 410
+            },
+            {
+              "x": 410,
+              "y": 445
+            }
+          ]
+        }
+      ],
+      "caption": "HANDOFF BASELINE — 2 pasa por el hombro de 1, recibe y sigue hacia línea de fondo. No se devuelve hacia el punto de donde vino. 1 queda detrás de la acción y limpia.",
+      "seconds": 2
+    }
+  ]
+}
