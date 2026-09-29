@@ -1,5 +1,5 @@
 {
-  "version": 11,
+  "version": 12,
   "plays": [
     {
       "slug": "41-flow-core",
@@ -167,6 +167,37 @@
         "flow",
         "dho",
         "pnr",
+        "other"
+      ]
+    },
+    {
+      "slug": "test-handoff-middle",
+      "name": "TEST — Handoff Middle",
+      "description": "Approach → contacto/transferencia → salida continua hacia middle; el receptor no regresa.",
+      "categories": [
+        "dho",
+        "flow",
+        "other"
+      ]
+    },
+    {
+      "slug": "test-handoff-baseline",
+      "name": "TEST — Handoff Baseline",
+      "description": "Approach diagonal → handoff → salida continua hacia baseline sin devolverse.",
+      "categories": [
+        "dho",
+        "flow",
+        "other"
+      ]
+    },
+    {
+      "slug": "test-handoff-rescreen",
+      "name": "TEST — Handoff + Re-screen",
+      "description": "Approach → handoff → salida continua → re-screen → use → roll.",
+      "categories": [
+        "dho",
+        "pnr",
+        "flow",
         "other"
       ]
     }
