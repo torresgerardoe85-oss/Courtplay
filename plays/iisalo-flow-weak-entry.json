@@ -1,0 +1,614 @@
+{
+  "version": 2,
+  "name": "IISALO ENTRY — Flow Weak",
+  "description": "Cuando no se llega en las cinco lanes ideales: weak cut through → Spread P&R trigger → reverse into second-side Wing P&R. Misma estructura, diferente entrada.",
+  "status": "Source-based reconstruction — spacing adaptation",
+  "system": "Tuomas Iisalo Flow Entry",
+  "categories": [
+    "transition",
+    "flow",
+    "pnr"
+  ],
+  "source": {
+    "primary": [
+      "Adam Pike — 2025–26 Iisalo offence: if the team is not set in five-lane spacing, it can 'Weak' the floor; the cutter goes through to the opposite corner and the group transitions directly into Flow (Spread + Wing P&R).",
+      "FIBA Basketball — Iisalo uses different entries to enter the same reaction system rather than relying on rigid set calls."
+    ],
+    "adaptation": "4/5 remain non-shooting roles: 5 first-side screener/roller; 4 becomes second-side screener rather than a stationary stretch forward."
+  },
+  "animationStandard": {
+    "name": "COURTPLAY_ANIMATION_TIMING_STANDARD",
+    "screenSequence": "APPROACH → SET → USE → RELEASE",
+    "rules": [
+      "Simultaneous only when actions share the same basketball trigger",
+      "Pass is completed before dependent next action",
+      "No screen-and-roll at the same instant",
+      "Phase end becomes the exact next phase start",
+      "Review at 1x, 0.75x and 0.5x before approval"
+    ]
+  },
+  "teachingReads": [
+    "Weak cut can score if open.",
+    "If not open, immediately enter Spread P&R without stopping.",
+    "Neutral first side reverses into Wing P&R.",
+    "Different entry, same Flow reactions."
+  ],
+  "totalSeconds": 8.1,
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 650,
+          "y": 640
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 330,
+          "y": 390
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 575,
+          "y": 520
+        }
+      ],
+      "ball": {
+        "x": 684,
+        "y": 644,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 330,
+              "y": 390
+            },
+            {
+              "x": 410,
+              "y": 320
+            },
+            {
+              "x": 500,
+              "y": 265
+            },
+            {
+              "x": 600,
+              "y": 220
+            },
+            {
+              "x": 700,
+              "y": 195
+            },
+            {
+              "x": 850,
+              "y": 190
+            }
+          ],
+          "timingWeight": 1
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 650,
+              "y": 640
+            },
+            {
+              "x": 640,
+              "y": 600
+            },
+            {
+              "x": 630,
+              "y": 565
+            }
+          ],
+          "timingWeight": 0.48
+        }
+      ],
+      "caption": "WEAK CUT — el spacing inicial no está perfecto. 3 corta por la pintura hacia la esquina opuesta. 1 puede encontrarlo si queda libre; si no, no detenemos la posesión. 5 espera a que el corte limpie antes de entrar al ball screen.",
+      "seconds": 1.6,
+      "timeline": {
+        "start": 0,
+        "end": 1.6,
+        "logic": [
+          "WEAK trigger",
+          "3 CUT THROUGH to opposite corner",
+          "1 holds/advances under control",
+          "5 waits to enter screen until cutter clears"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 630,
+          "y": 565
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 575,
+          "y": 520
+        }
+      ],
+      "ball": {
+        "x": 664,
+        "y": 569,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 575,
+              "y": 520
+            },
+            {
+              "x": 585,
+              "y": 505
+            },
+            {
+              "x": 595,
+              "y": 490
+            }
+          ],
+          "timingWeight": 0.64,
+          "screenAngleLocked": true,
+          "screenAngle": 126.5
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 630,
+              "y": 565
+            },
+            {
+              "x": 610,
+              "y": 545
+            },
+            {
+              "x": 580,
+              "y": 520
+            },
+            {
+              "x": 545,
+              "y": 485
+            },
+            {
+              "x": 505,
+              "y": 450
+            }
+          ],
+          "timingWeight": 0.92
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 595,
+              "y": 490
+            },
+            {
+              "x": 575,
+              "y": 355
+            },
+            {
+              "x": 545,
+              "y": 250
+            },
+            {
+              "x": 520,
+              "y": 165
+            }
+          ],
+          "timingWeight": 0.86
+        }
+      ],
+      "caption": "FLOW FIRST SIDE — una vez 3 limpia, 5 se establece y 1 entra directamente al Spread P&R. 5 rola solamente después del uso. 2 y 3 mantienen profundidad y 4 queda preparado para el segundo lado.",
+      "seconds": 2.5,
+      "timeline": {
+        "start": 1.6,
+        "end": 4.1,
+        "logic": [
+          "SPREAD P&R",
+          "SECUENCIAL: 5 SET → 1 USE → 5 ROLL",
+          "2/3 corners hold; 4 second-side wing"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 505,
+          "y": 450
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 520,
+          "y": 165
+        }
+      ],
+      "ball": {
+        "x": 539,
+        "y": 454,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 505,
+              "y": 450
+            },
+            {
+              "x": 665,
+              "y": 400
+            },
+            {
+              "x": 820,
+              "y": 355
+            }
+          ],
+          "timingWeight": 0.46
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_weak_reverse",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 850,
+              "y": 190
+            },
+            {
+              "x": 825,
+              "y": 255
+            },
+            {
+              "x": 800,
+              "y": 315
+            }
+          ],
+          "timingWeight": 0.5
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "g_weak_reverse",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 520,
+              "y": 165
+            },
+            {
+              "x": 430,
+              "y": 175
+            },
+            {
+              "x": 340,
+              "y": 190
+            }
+          ],
+          "timingWeight": 0.48
+        }
+      ],
+      "caption": "SECOND-SIDE PREP — si el primer lado queda neutral, 1 revierte a 4. Después del catch, 3 levanta desde la esquina y 5 despeja al dunker débil para abrir la siguiente acción.",
+      "seconds": 1.4,
+      "timeline": {
+        "start": 4.1,
+        "end": 5.5,
+        "logic": [
+          "If first side neutral: 1 PASS → 4 CATCH",
+          "After catch 3 lifts from corner to create working space"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 505,
+          "y": 450
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 800,
+          "y": 315
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 340,
+          "y": 190
+        }
+      ],
+      "ball": {
+        "x": 854,
+        "y": 359,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o4",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 820,
+              "y": 355
+            },
+            {
+              "x": 810,
+              "y": 335
+            },
+            {
+              "x": 800,
+              "y": 315
+            }
+          ],
+          "timingWeight": 0.38
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 820,
+              "y": 355
+            },
+            {
+              "x": 790,
+              "y": 340
+            },
+            {
+              "x": 765,
+              "y": 330
+            }
+          ],
+          "timingWeight": 0.68,
+          "screenAngleLocked": true,
+          "screenAngle": 82.6
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 800,
+              "y": 315
+            },
+            {
+              "x": 760,
+              "y": 325
+            },
+            {
+              "x": 715,
+              "y": 330
+            },
+            {
+              "x": 665,
+              "y": 320
+            },
+            {
+              "x": 615,
+              "y": 300
+            }
+          ],
+          "timingWeight": 0.9
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 765,
+              "y": 330
+            },
+            {
+              "x": 685,
+              "y": 255
+            },
+            {
+              "x": 595,
+              "y": 190
+            },
+            {
+              "x": 520,
+              "y": 160
+            }
+          ],
+          "timingWeight": 0.84
+        }
+      ],
+      "caption": "WING P&R — 4 pasa a 3 y persigue el pase. 4 se establece antes del cambio de dirección; 3 usa hacia el medio y 4 rola después del uso. Flow continúa desde aquí según la ventaja creada.",
+      "seconds": 2.6,
+      "timeline": {
+        "start": 5.5,
+        "end": 8.1,
+        "logic": [
+          "SECOND SIDE",
+          "4 PASS→3 CATCH → 4 CHASE/SET → 3 USE → 4 ROLL"
+        ]
+      }
+    }
+  ]
+}
