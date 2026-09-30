@@ -294,10 +294,21 @@ function sceneDuringActions(base,rawActions,t){
       const target=playerByKey(scene,l.targetKey);
       if(geom){
         const transferAt=geom.transferAt;
-        const giverT=clamp(lt/Math.max(.001,transferAt),0,1);
-        const giverEase=.5-.5*Math.cos(Math.PI*giverT);
-        const giverP=catmullPoint(pts,giverEase);
-        src.x=clamp(giverP.x,30,W-30);src.y=clamp(giverP.y,30,H-30);
+
+        // Giver travels to PRESENTATION before the exchange, then continues
+        // UNDER the receiver after the ball changes hands.
+        if(lt<transferAt){
+          const giverT=clamp(lt/Math.max(.001,transferAt),0,1);
+          const giverEase=.5-.5*Math.cos(Math.PI*giverT);
+          const giverP=catmullPoint(pts,giverEase);
+          src.x=clamp(giverP.x,30,W-30);src.y=clamp(giverP.y,30,H-30);
+        }else{
+          const present=geom.giverPresentation||catmullPoint(pts,1);
+          const q=clamp((lt-transferAt)/Math.max(.001,1-transferAt),0,1);
+          const eased=.5-.5*Math.cos(Math.PI*q);
+          src.x=clamp(present.x+(geom.giverEnd.x-present.x)*eased,30,W-30);
+          src.y=clamp(present.y+(geom.giverEnd.y-present.y)*eased,30,H-30);
+        }
 
         if(target&&geom.receiverStart&&geom.receiverContact&&geom.receiverEnd){
           const approachStart=.08;
