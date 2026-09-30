@@ -1,7 +1,7 @@
 {
   "version": 2,
   "name": "4-Out 1-In — Pistol → Zoom → PnR",
-  "description": "Flow continuo: entrada Pistol, Zoom con pin-down + handoff y re-screen inmediato de 5 para PnR con opciones al roll y al corner.",
+  "description": "Flow continuo corregido: Pistol/Get con salida real del receptor → Zoom/DHO → re-screen PnR. Handoffs respetan APPROACH → CONTACT → TRANSFER → EXIT sin regresar al punto de origen.",
   "frames": [
     {
       "players": [
@@ -158,12 +158,26 @@
               "y": 470
             },
             {
-              "x": 760,
+              "x": 755,
               "y": 390
             },
             {
               "x": 790,
               "y": 320
+            }
+          ],
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 55,
+              "y": -80
+            },
+            {
+              "x": 90,
+              "y": -150
             }
           ]
         },
@@ -182,14 +196,36 @@
               "y": 195
             },
             {
-              "x": 820,
+              "x": 825,
               "y": 255
             },
             {
-              "x": 790,
-              "y": 320
+              "x": 823.9318414326971,
+              "y": 245.3499488480664
             }
-          ]
+          ],
+          "handoffVersion": 2,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 96,
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -20,
+              "y": 60
+            },
+            {
+              "x": -21.06815856730293,
+              "y": 50.34994884806639
+            }
+          ],
+          "handoffReceiverExit": {
+            "dx": -110,
+            "dy": -50
+          },
+          "handoffGeometryAuto": true
         },
         {
           "type": "move",
@@ -202,8 +238,8 @@
           "color": "#ef4444",
           "points": [
             {
-              "x": 790,
-              "y": 320
+              "x": 823.9318414326971,
+              "y": 245.3499488480664
             },
             {
               "x": 825,
@@ -212,6 +248,20 @@
             {
               "x": 850,
               "y": 195
+            }
+          ],
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1.0681585673029304,
+              "y": 9.65005115193361
+            },
+            {
+              "x": 26.06815856730293,
+              "y": -50.34994884806639
             }
           ]
         },
@@ -226,16 +276,30 @@
           "color": "#16a34a",
           "points": [
             {
-              "x": 790,
-              "y": 320
+              "x": 710.8808770496136,
+              "y": 262.0675877978342
             },
             {
-              "x": 650,
-              "y": 240
+              "x": 690,
+              "y": 235
             },
             {
-              "x": 510,
+              "x": 560,
               "y": 155
+            }
+          ],
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -20.88087704961356,
+              "y": -27.06758779783422
+            },
+            {
+              "x": -150.88087704961356,
+              "y": -107.06758779783422
             }
           ]
         },
@@ -250,22 +314,47 @@
           "color": "#172033",
           "points": [
             {
-              "x": 790,
-              "y": 320
+              "x": 710.8808770496136,
+              "y": 262.0675877978342
             },
             {
-              "x": 690,
-              "y": 405
+              "x": 680,
+              "y": 270
             },
             {
-              "x": 560,
-              "y": 485
+              "x": 570,
+              "y": 300
+            }
+          ],
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -30.88087704961356,
+              "y": 7.932412202165779
+            },
+            {
+              "x": -140.88087704961356,
+              "y": 37.93241220216578
             }
           ]
         }
       ],
-      "caption": "PISTOL: 1 sigue su pase y 2 entrega Handoff. OPCIÓN A: 1 puede girar la esquina y atacar el aro. Si no hay ventaja, 1 mantiene el drible y conecta inmediatamente con Zoom.",
-      "seconds": 2.5
+      "caption": "PISTOL / GET — 1 sigue su pase, llega al hombro de 2 y recibe sin detenerse. El balón cambia de dueño en el contacto. 1 sale DELANTE del handoff hacia el medio; no vuelve al punto de donde vino. 2 limpia a la esquina. Opción: si gana el hombro, 1 ataca el aro.",
+      "seconds": 2.4,
+      "timeline": {
+        "start": 1.8,
+        "end": 4.2,
+        "logic": [
+          "APPROACH: 1 llega primero al punto de intercambio",
+          "CONTACT/TRANSFER: 2 entrega cuando 1 está hombro con hombro",
+          "EXIT: 1 continúa hacia el medio en la misma acción",
+          "2 CLEAR después de entregar",
+          "La opción de aro no define la geometría de la continuación base"
+        ]
+      }
     },
     {
       "players": [
@@ -273,8 +362,8 @@
           "key": "o1",
           "label": "1",
           "team": "offense",
-          "x": 560,
-          "y": 485
+          "x": 570,
+          "y": 300
         },
         {
           "key": "o2",
@@ -306,8 +395,8 @@
         }
       ],
       "ball": {
-        "x": 594,
-        "y": 489,
+        "x": 604,
+        "y": 304,
         "owner": "o1"
       },
       "lines": [
@@ -318,7 +407,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_zoom",
+          "simultaneousGroup": "g_zoom_entry",
           "color": "#f97316",
           "points": [
             {
@@ -326,12 +415,29 @@
               "y": 205
             },
             {
-              "x": 330,
+              "x": 335,
               "y": 255
             },
             {
-              "x": 300,
+              "x": 305,
               "y": 305
+            }
+          ],
+          "timingWeight": 0.78,
+          "screenAngle": 119.98163936884936,
+          "screenAngleAuto": true,
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -30,
+              "y": 50
+            },
+            {
+              "x": -60,
+              "y": 100
             }
           ]
         },
@@ -342,7 +448,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_zoom",
+          "simultaneousGroup": "g_zoom_entry",
           "color": "#ef4444",
           "points": [
             {
@@ -350,12 +456,27 @@
               "y": 195
             },
             {
-              "x": 245,
-              "y": 285
+              "x": 260,
+              "y": 275
             },
             {
-              "x": 360,
-              "y": 400
+              "x": 390,
+              "y": 350
+            }
+          ],
+          "timingWeight": 0.92,
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 105,
+              "y": 80
+            },
+            {
+              "x": 235,
+              "y": 155
             }
           ]
         },
@@ -370,18 +491,41 @@
           "color": "#38bdf8",
           "points": [
             {
-              "x": 560,
-              "y": 485
+              "x": 570,
+              "y": 300
             },
             {
-              "x": 455,
-              "y": 445
+              "x": 480,
+              "y": 325
             },
             {
-              "x": 360,
-              "y": 400
+              "x": 385.08883216030836,
+              "y": 268.14720267180616
             }
-          ]
+          ],
+          "timingWeight": 0.78,
+          "handoffVersion": 2,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 88,
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -90,
+              "y": 25
+            },
+            {
+              "x": -184.91116783969164,
+              "y": -31.852797328193844
+            }
+          ],
+          "handoffReceiverExit": {
+            "dx": 50,
+            "dy": -3
+          },
+          "handoffGeometryAuto": true
         },
         {
           "type": "move",
@@ -394,16 +538,31 @@
           "color": "#ef4444",
           "points": [
             {
-              "x": 360,
-              "y": 400
+              "x": 385.08883216030836,
+              "y": 268.14720267180616
             },
             {
-              "x": 545,
-              "y": 455
+              "x": 555,
+              "y": 380
             },
             {
               "x": 720,
-              "y": 500
+              "y": 430
+            }
+          ],
+          "timingWeight": 0.72,
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 169.91116783969164,
+              "y": 111.85279732819384
+            },
+            {
+              "x": 334.91116783969164,
+              "y": 161.85279732819384
             }
           ]
         },
@@ -418,22 +577,87 @@
           "color": "#16a34a",
           "points": [
             {
-              "x": 360,
-              "y": 400
+              "x": 476.64418058642957,
+              "y": 324.7653815066251
             },
             {
-              "x": 430,
-              "y": 275
+              "x": 455,
+              "y": 255
+            },
+            {
+              "x": 505,
+              "y": 165
+            }
+          ],
+          "timingWeight": 0.65,
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -21.64418058642957,
+              "y": -69.76538150662509
+            },
+            {
+              "x": 28.35581941357043,
+              "y": -159.7653815066251
+            }
+          ]
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 476.64418058642957,
+              "y": 324.7653815066251
+            },
+            {
+              "x": 455,
+              "y": 342
             },
             {
               "x": 500,
-              "y": 155
+              "y": 340
+            }
+          ],
+          "timingWeight": 0.46,
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -21.64418058642957,
+              "y": 17.23461849337491
+            },
+            {
+              "x": 23.35581941357043,
+              "y": 15.23461849337491
             }
           ]
         }
       ],
-      "caption": "ZOOM: 5 coloca pin-down para 3 mientras 3 sube desde la esquina. 1 entrega el Handoff y limpia al slot derecho. OPCIÓN B: 3 puede doblar la esquina y atacar inmediatamente.",
-      "seconds": 2.7
+      "caption": "ZOOM — 5 pone pin-down y 3 sube. 1 llega con balón, entrega el DHO y 3 atraviesa el intercambio: recibe y sigue hacia el siguiente ball screen. 1 limpia al slot derecho. La opción al aro existe, pero la base continúa al PnR.",
+      "seconds": 2.6,
+      "timeline": {
+        "start": 4.2,
+        "end": 6.8,
+        "logic": [
+          "5 SCREEN + 3 USE primero",
+          "Después 1 y 3 llegan al DHO",
+          "TRANSFER en contacto",
+          "3 EXIT hacia el PnR; no vuelve a la esquina",
+          "1 CLEAR después de entregar"
+        ]
+      }
     },
     {
       "players": [
@@ -442,7 +666,7 @@
           "label": "1",
           "team": "offense",
           "x": 720,
-          "y": 500
+          "y": 430
         },
         {
           "key": "o2",
@@ -455,8 +679,8 @@
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 360,
-          "y": 400
+          "x": 500,
+          "y": 340
         },
         {
           "key": "o4",
@@ -469,13 +693,13 @@
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 300,
+          "x": 305,
           "y": 305
         }
       ],
       "ball": {
-        "x": 394,
-        "y": 404,
+        "x": 534,
+        "y": 344,
         "owner": "o3"
       },
       "lines": [
@@ -490,16 +714,34 @@
           "color": "#f97316",
           "points": [
             {
-              "x": 300,
+              "x": 305,
               "y": 305
             },
             {
               "x": 360,
-              "y": 350
+              "y": 325
             },
             {
               "x": 430,
-              "y": 390
+              "y": 340
+            }
+          ],
+          "timingWeight": 0.72,
+          "screenAngleLocked": true,
+          "screenAngle": 92,
+          "screenAngleAuto": true,
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 55,
+              "y": 20
+            },
+            {
+              "x": 125,
+              "y": 35
             }
           ]
         },
@@ -510,20 +752,35 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_pnr",
+          "simultaneousGroup": null,
           "color": "#172033",
           "points": [
             {
-              "x": 360,
-              "y": 400
+              "x": 500,
+              "y": 340
             },
             {
-              "x": 465,
-              "y": 395
+              "x": 545,
+              "y": 320
             },
             {
-              "x": 560,
-              "y": 385
+              "x": 610,
+              "y": 280
+            }
+          ],
+          "timingWeight": 0.88,
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 45,
+              "y": -20
+            },
+            {
+              "x": 110,
+              "y": -60
             }
           ]
         },
@@ -534,20 +791,35 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_pnr",
+          "simultaneousGroup": null,
           "color": "#ef4444",
           "points": [
             {
               "x": 430,
-              "y": 390
+              "y": 340
             },
             {
               "x": 465,
-              "y": 280
+              "y": 250
             },
             {
               "x": 500,
               "y": 170
+            }
+          ],
+          "timingWeight": 0.84,
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 35,
+              "y": -90
+            },
+            {
+              "x": 70,
+              "y": -170
             }
           ]
         },
@@ -562,16 +834,31 @@
           "color": "#16a34a",
           "points": [
             {
-              "x": 560,
-              "y": 385
+              "x": 610,
+              "y": 280
             },
             {
-              "x": 530,
-              "y": 275
+              "x": 555,
+              "y": 225
             },
             {
               "x": 500,
               "y": 170
+            }
+          ],
+          "timingWeight": 0.48,
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -55,
+              "y": -55
+            },
+            {
+              "x": -110,
+              "y": -110
             }
           ]
         },
@@ -586,16 +873,31 @@
           "color": "#7c3aed",
           "points": [
             {
-              "x": 560,
-              "y": 385
+              "x": 610,
+              "y": 280
             },
             {
-              "x": 705,
-              "y": 285
+              "x": 735,
+              "y": 235
             },
             {
               "x": 850,
               "y": 195
+            }
+          ],
+          "timingWeight": 0.5,
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 125,
+              "y": -45
+            },
+            {
+              "x": 240,
+              "y": -85
             }
           ]
         },
@@ -610,16 +912,31 @@
           "color": "#172033",
           "points": [
             {
-              "x": 560,
-              "y": 385
+              "x": 610,
+              "y": 280
             },
             {
-              "x": 530,
-              "y": 275
+              "x": 555,
+              "y": 225
             },
             {
               "x": 505,
               "y": 175
+            }
+          ],
+          "timingWeight": 0.74,
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -55,
+              "y": -55
+            },
+            {
+              "x": -105,
+              "y": -105
             }
           ]
         },
@@ -638,18 +955,45 @@
               "y": 175
             },
             {
-              "x": 502,
-              "y": 145
+              "x": 502.5,
+              "y": 143.5
             },
             {
               "x": 500,
               "y": 112
             }
+          ],
+          "timingWeight": 0.42,
+          "localPoints": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -2.5,
+              "y": -31.5
+            },
+            {
+              "x": -5,
+              "y": -63
+            }
           ]
         }
       ],
-      "caption": "PnR: 5 re-screenea inmediatamente para 3. 3 ataca al medio y 5 rolea. OPCIÓN C1: pocket/roll a 5. OPCIÓN C2: skip a 2 en la esquina. Si ninguna aparece, 3 termina en el aro.",
-      "seconds": 3.4
+      "caption": "RE-SCREEN PnR — 5 se establece primero. 3 usa la pantalla desde la salida real del Zoom; después 5 rola. Lecturas: aro, pocket al 5 o skip a 2. No hay salto de posición entre DHO y PnR.",
+      "seconds": 3.2,
+      "timeline": {
+        "start": 6.8,
+        "end": 10,
+        "logic": [
+          "5 SET antes de que 3 cambie trayectoria",
+          "3 USE hombro con cadera",
+          "5 ROLL solo después del uso",
+          "Opciones: finish / roller / skip"
+        ]
+      }
     }
-  ]
+  ],
+  "status": "Rebuilt for COURTPLAY_ANIMATION_TIMING_STANDARD — Handoff continuity correction",
+  "totalSeconds": 10
 }
