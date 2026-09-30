@@ -1,0 +1,181 @@
+{
+  "version": 2,
+  "name": "TEST DHO v4 — 5 Stationary → 2 Middle",
+  "description": "Prueba aislada del Handoff v4: 5 casi no se mueve; 2 es quien llega al hombro, recibe en contacto y sigue hacia el medio sin detenerse ni devolverse.",
+  "status": "VALIDATION — Handoff v4",
+  "system": "CourtPlay Handoff Validation",
+  "categories": [
+    "dho",
+    "flow",
+    "quick"
+  ],
+  "source": {
+    "basis": "COURTPLAY_ANIMATION_TIMING_STANDARD",
+    "purpose": "Validar que el giver no persiga al receptor y que el receptor atraviese el intercambio con continuidad real."
+  },
+  "animationStandard": {
+    "name": "COURTPLAY_ANIMATION_TIMING_STANDARD",
+    "handoffSequence": "APPROACH → PRESENT → CONTACT/TRANSFER → CONTINUOUS EXIT",
+    "rules": [
+      "5 permanece prácticamente estacionario y presenta el balón.",
+      "2 hace el approach real al hombro de 5.",
+      "El balón sigue con 5 hasta el contacto.",
+      "La transferencia ocurre en el punto de encuentro.",
+      "2 continúa hacia el medio sin pausa, U-turn ni regreso.",
+      "La siguiente acción comienza exactamente desde el final del handoff."
+    ]
+  },
+  "totalSeconds": 4,
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 260,
+          "y": 520
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 830,
+          "y": 420
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 350,
+          "y": 300
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 640,
+          "y": 400
+        }
+      ],
+      "ball": {
+        "x": 674,
+        "y": 404,
+        "owner": "o5"
+      },
+      "lines": [
+        {
+          "type": "handoff",
+          "sourceKey": "o5",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "timingWeight": 1,
+          "handoffVersion": 4,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 118,
+          "handoffExitPoint": {
+            "x": 525,
+            "y": 300
+          },
+          "handoffGeometryAuto": false,
+          "points": [
+            {
+              "x": 640,
+              "y": 400
+            },
+            {
+              "x": 645,
+              "y": 400
+            },
+            {
+              "x": 650,
+              "y": 400
+            }
+          ]
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "timingWeight": 1,
+          "points": [
+            {
+              "x": 525,
+              "y": 300
+            },
+            {
+              "x": 505,
+              "y": 245
+            },
+            {
+              "x": 500,
+              "y": 185
+            }
+          ]
+        },
+        {
+          "type": "shot",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#df6813",
+          "timingWeight": 0.55,
+          "points": [
+            {
+              "x": 500,
+              "y": 185
+            },
+            {
+              "x": 500,
+              "y": 145
+            },
+            {
+              "x": 500,
+              "y": 112
+            }
+          ]
+        }
+      ],
+      "caption": "DHO v4 — 5 presenta casi estacionario. 2 llega desde el ala al hombro de 5, recibe en contacto y continúa hacia el medio en una sola trayectoria. No debe parar, devolverse ni hacer que 5 lo persiga.",
+      "seconds": 4,
+      "timeline": {
+        "start": 0,
+        "end": 4,
+        "logic": [
+          "0.0–1.3 s — 2 APPROACH; 5 apenas ajusta su posición y presenta.",
+          "≈1.3 s — CONTACT + BALL_OWNER o5 → o2.",
+          "1.3–2.0 s — 2 EXIT continuo hacia el medio.",
+          "2.0–3.3 s — 2 continúa drible al aro desde exactamente el final del DHO.",
+          "3.3–4.0 s — finalización."
+        ]
+      }
+    }
+  ],
+  "teachingReads": [
+    "Mira a 5: no debe ir detrás de 2 para entregar.",
+    "Mira a 2: debe ser él quien llegue al handoff.",
+    "En el contacto, 2 continúa en la misma dirección general hacia el medio.",
+    "No debe existir pausa ni regreso entre el handoff y el drible."
+  ]
+}
