@@ -36,7 +36,7 @@
       action.handoffTransferAt=clamp(action.handoffTransferAt,.48,.78);
       if(!Number.isFinite(action.handoffExitDistance))action.handoffExitDistance=118;
       action.handoffExitDistance=clamp(action.handoffExitDistance,88,190);
-      if(!Number.isFinite(action.handoffVersion)||action.handoffVersion<3)action.handoffVersion=3;
+      if(!Number.isFinite(action.handoffVersion)||action.handoffVersion<4)action.handoffVersion=4;
     }
     return action;
   }
@@ -98,31 +98,20 @@
     return{dx:dx/len*108,dy:dy/len*108};
   }
   function handoffGiverEnd(src,tgt,pts,receiverExit=null){
-    const gap=82;
-    const authoredStart=(pts&&pts.length)?pts[0]:null;
-    const from=authoredStart||src||null;
-    const ev=handoffExitVector(tgt,receiverExit);
-
-    // Keep the giver beside the receiver's lane. The receiver then travels
-    // through the exchange instead of being teleported back to its old spot.
-    if(ev){
-      const n1={x:-ev.vy,y:ev.vx},n2={x:ev.vy,y:-ev.vx};
-      const fx=from?from.x-tgt.x:0,fy=from?from.y-tgt.y:0;
-      const d1=fx*n1.x+fy*n1.y,d2=fx*n2.x+fy*n2.y;
-      const n=d1>=d2?n1:n2;
+    // Handoff v4: the authored HANDOFF path belongs to the GIVER.
+    // Its final point is the presentation/exchange spot. Never move the giver
+    // toward the receiver's old location just because a target is assigned.
+    const list=Array.isArray(pts)&&pts.length?pts:null;
+    const end=list?list[list.length-1]:src;
+    if(end&&Number.isFinite(end.x)&&Number.isFinite(end.y)){
       return{
-        x:clamp(tgt.x+n.x*gap,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
-        y:clamp(tgt.y+n.y*gap,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+        x:clamp(end.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+        y:clamp(end.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
       };
     }
-
-    let dx=from?from.x-tgt.x:0,dy=from?from.y-tgt.y:0;
-    let len=Math.hypot(dx,dy);
-    if(len<1){dx=tgt.x<500?-1:1;dy=0;len=1;}
-    return{
-      x:clamp(tgt.x+(dx/len)*gap,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
-      y:clamp(tgt.y+(dy/len)*gap,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
-    };
+    if(src)return{x:src.x,y:src.y};
+    if(tgt)return{x:tgt.x,y:tgt.y};
+    return{x:500,y:430};
   }
 
   function handoffReceiverEnd(tgt,receiverExit=null,distance=108){
@@ -142,16 +131,23 @@
   }
   function handoffReceiverContact(tgt,giverEnd,receiverExit=null){
     if(!tgt||!giverEnd)return null;
-    let dx=tgt.x-giverEnd.x,dy=tgt.y-giverEnd.y,len=Math.hypot(dx,dy);
-    if(len<1){
-      const ev=handoffExitVector(tgt,receiverExit);
-      if(!ev)return{x:tgt.x,y:tgt.y};
-      dx=-ev.vx;dy=-ev.vy;len=1;
+    let ev=handoffExitVector(giverEnd,receiverExit);
+    if(!ev){
+      const dx=giverEnd.x-tgt.x,dy=giverEnd.y-tgt.y,len=Math.hypot(dx,dy)||1;
+      ev={vx:dx/len,vy:dy/len};
     }
-    const gap=62;
+
+    // Receiver passes by one SHOULDER of the giver instead of running into him.
+    // Pick the shoulder that requires the shortest natural approach.
+    const gap=54;
+    const n1={x:-ev.vy,y:ev.vx},n2={x:ev.vy,y:-ev.vx};
+    const a={x:giverEnd.x+n1.x*gap,y:giverEnd.y+n1.y*gap};
+    const b={x:giverEnd.x+n2.x*gap,y:giverEnd.y+n2.y*gap};
+    const da=Math.hypot(a.x-tgt.x,a.y-tgt.y),db=Math.hypot(b.x-tgt.x,b.y-tgt.y);
+    const pick=da<=db?a:b;
     return{
-      x:clamp(giverEnd.x+(dx/len)*gap,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
-      y:clamp(giverEnd.y+(dy/len)*gap,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+      x:clamp(pick.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+      y:clamp(pick.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
     };
   }
   function handoffGeometry(state,action){
@@ -159,24 +155,48 @@
     const src=player(state,action.sourceKey),tgt=player(state,action.targetKey);
     if(!src||!tgt)return null;
     const pts=points(action);
-    const autoFallback=fallbackHandoffExit(src,tgt,pts);
-    const exitSpec=action.handoffExitPoint||action.handoffReceiverExit||autoFallback;
-    const giverEnd=handoffGiverEnd(src,tgt,pts,exitSpec);
+    const giverEnd=handoffGiverEnd(src,tgt,pts,null);
+
+    // Exit direction comes from an explicit exit point first, then the
+    // receiver's next real action, then a natural "continue through" fallback.
+    let exitSpec=null;
+    if(action.handoffExitPoint&&Number.isFinite(action.handoffExitPoint.x)&&Number.isFinite(action.handoffExitPoint.y)){
+      exitSpec={x:action.handoffExitPoint.x,y:action.handoffExitPoint.y};
+    }else if(action.handoffReceiverExit&&Number.isFinite(action.handoffReceiverExit.dx)&&Number.isFinite(action.handoffReceiverExit.dy)){
+      exitSpec={dx:action.handoffReceiverExit.dx,dy:action.handoffReceiverExit.dy};
+    }else{
+      const dx=giverEnd.x-tgt.x,dy=giverEnd.y-tgt.y,len=Math.hypot(dx,dy)||1;
+      exitSpec={dx:(dx/len)*118,dy:(dy/len)*118};
+    }
+
+    // Build contact around the giver's shoulder using the intended exit lane.
     const receiverContact=handoffReceiverContact(tgt,giverEnd,exitSpec);
 
-    // EXIT begins at the exchange/contact point, not at the receiver's old
-    // location. Automatic geometry may curve, but it may not reverse back
-    // toward the receiver's approach point.
-    let safeExitSpec=exitSpec;
-    if(!action.handoffExitPoint&&receiverContact){
-      const ev=handoffExitVector(tgt,exitSpec);
-      const ax=receiverContact.x-tgt.x,ay=receiverContact.y-tgt.y,alen=Math.hypot(ax,ay);
-      if(ev&&alen>1){
-        const dot=ev.vx*(ax/alen)+ev.vy*(ay/alen);
-        if(dot<-.20)safeExitSpec={dx:ax,dy:ay};
+    // Automatic geometry is not allowed to reverse the receiver back toward
+    // the spot he came from. A handoff must flow THROUGH the exchange.
+    let exitVector=handoffExitVector(receiverContact,exitSpec);
+    const ax=receiverContact.x-tgt.x,ay=receiverContact.y-tgt.y,alen=Math.hypot(ax,ay);
+    if(!action.handoffExitPoint&&alen>1){
+      const avx=ax/alen,avy=ay/alen;
+      if(!exitVector||(exitVector.vx*avx+exitVector.vy*avy)<.10){
+        exitVector={vx:avx,vy:avy,dx:avx,dy:avy,len:1};
       }
     }
-    const receiverEnd=handoffReceiverEnd(receiverContact,safeExitSpec,Number(action.handoffExitDistance)||118);
+
+    let receiverEnd=null;
+    if(action.handoffExitPoint&&Number.isFinite(action.handoffExitPoint.x)&&Number.isFinite(action.handoffExitPoint.y)){
+      receiverEnd={
+        x:clamp(action.handoffExitPoint.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+        y:clamp(action.handoffExitPoint.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+      };
+    }else if(exitVector){
+      const distance=Number(action.handoffExitDistance)||118;
+      receiverEnd={
+        x:clamp(receiverContact.x+exitVector.vx*distance,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+        y:clamp(receiverContact.y+exitVector.vy*distance,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+      };
+    }
+
     return{
       sourceStart:{x:src.x,y:src.y},
       receiverStart:{x:tgt.x,y:tgt.y},
@@ -252,7 +272,7 @@
           action.handoffGeometryAuto=true;
         }
       }
-      action.handoffVersion=3;
+      action.handoffVersion=4;
     }
     return phase;
   }
@@ -293,8 +313,8 @@
       if(tgt){
         const end=pts[pts.length-1];
         if(action.type==='handoff'){
-          const giverEnd=handoffGiverEnd(src,tgt,pts,action.handoffExitPoint||action.handoffReceiverExit||null);
-          end.x=giverEnd.x;end.y=giverEnd.y;
+          // Handoff v4: DO NOT snap the giver to the receiver. The endpoint the
+          // coach drew is the giver's presentation spot; the receiver approaches it.
         }else{
           end.x=tgt.x;end.y=tgt.y;
         }
