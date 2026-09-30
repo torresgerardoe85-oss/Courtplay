@@ -184,9 +184,10 @@ pdfBtn?.addEventListener('click',async()=>{
 function playerByKey(scene,key){return(scene.players||[]).find(p=>p.key===key)||null}
 function syncSceneBall(scene){return CourtPlayEngine.syncBall(scene)}
 function actionForCurrentState(raw,scene){
-  const action=CourtPlayEngine.clone(raw);
-  CourtPlayEngine.normalizeAction(action);
-  return action;
+  // Playback must inherit the REAL state left by the previous action.
+  // prepareAction re-anchors the action start to the player's current position
+  // without moving the authored destination/control points.
+  return CourtPlayEngine.prepareAction(raw,scene,{mutate:false,infer:true});
 }
 function applyCompletedAction(scene,l){return CourtPlayEngine.applyAction(scene,l,{mutate:true})}
 
@@ -532,9 +533,7 @@ render();
 
 /* CourtPlay engine animation bindings */
 actionForCurrentState=function(raw,scene){
-  const action=CourtPlayEngine.clone(raw);
-  CourtPlayEngine.normalizeAction(action);
-  return action;
+  return CourtPlayEngine.prepareAction(raw,scene,{mutate:false,infer:true});
 };
 applyCompletedAction=function(scene,l){
   return CourtPlayEngine.applyAction(scene,l,{mutate:true});
