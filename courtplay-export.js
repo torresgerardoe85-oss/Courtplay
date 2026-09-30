@@ -300,19 +300,25 @@ function sceneDuringActions(base,rawActions,t){
         src.x=clamp(giverP.x,30,W-30);src.y=clamp(giverP.y,30,H-30);
 
         if(target&&geom.receiverStart&&geom.receiverContact&&geom.receiverEnd){
-          const approachStart=.10;
+          const approachStart=.08;
           if(lt<=approachStart){
             target.x=geom.receiverStart.x;target.y=geom.receiverStart.y;
-          }else if(lt<transferAt){
-            const q=clamp((lt-approachStart)/Math.max(.001,transferAt-approachStart),0,1);
-            const eased=.5-.5*Math.cos(Math.PI*q);
-            target.x=geom.receiverStart.x+(geom.receiverContact.x-geom.receiverStart.x)*eased;
-            target.y=geom.receiverStart.y+(geom.receiverContact.y-geom.receiverStart.y)*eased;
           }else{
-            const q=clamp((lt-transferAt)/Math.max(.001,1-transferAt),0,1);
-            const eased=.5-.5*Math.cos(Math.PI*q);
-            target.x=geom.receiverContact.x+(geom.receiverEnd.x-geom.receiverContact.x)*eased;
-            target.y=geom.receiverContact.y+(geom.receiverEnd.y-geom.receiverContact.y)*eased;
+            // Handoff v3: ONE continuous receiver path. The old animation used
+            // two independent eased segments (approach→contact and contact→exit),
+            // which forced velocity to zero at the exchange and made the
+            // receiver look like he stopped/turned back. Catmull-Rom passes
+            // through CONTACT while preserving continuous motion.
+            let pathT;
+            if(lt<transferAt){
+              const q=clamp((lt-approachStart)/Math.max(.001,transferAt-approachStart),0,1);
+              pathT=.5*q;
+            }else{
+              const q=clamp((lt-transferAt)/Math.max(.001,1-transferAt),0,1);
+              pathT=.5+.5*q;
+            }
+            const rp=catmullPoint([geom.receiverStart,geom.receiverContact,geom.receiverEnd],clamp(pathT,0,1));
+            target.x=clamp(rp.x,30,W-30);target.y=clamp(rp.y,30,H-30);
           }
         }
       }
