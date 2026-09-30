@@ -1,6 +1,16 @@
 {
-  "version": 15,
+  "version": 16,
   "plays": [
+    {
+      "slug": "handoff-v3-wing-middle-test",
+      "name": "TEST DHO v3 — Wing → Middle Keep",
+      "description": "Prueba limpia del Handoff v3: 5 entrega a 2 en el ala derecha; 2 llega, recibe en contacto real, sale continuo hacia el medio y ataca el aro. 5 permanece presente y limpia después del intercambio.",
+      "categories": [
+        "dho",
+        "flow",
+        "quick"
+      ]
+    },
     {
       "slug": "41-flow-core",
       "name": "41 FLOW — Core",
