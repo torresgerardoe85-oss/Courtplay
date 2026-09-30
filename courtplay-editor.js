@@ -13,6 +13,11 @@ function hitReceiver(p,sourceKey=null){
 function distSeg(px,py,a,b){const vx=b.x-a.x,vy=b.y-a.y,wx=px-a.x,wy=py-a.y,d=vx*vx+vy*vy||1,t=clamp((wx*vx+wy*vy)/d,0,1),x=a.x+t*vx,y=a.y+t*vy;return Math.hypot(px-x,py-y)}
 function hitLine(p){for(let i=frame().lines.length-1;i>=0;i--){const pts=pathPoints(frame().lines[i]);let prev=catmullPoint(pts,0);for(let s=1;s<=50;s++){const cur=catmullPoint(pts,s/50);if(distSeg(p.x,p.y,prev,cur)<18)return i;prev=cur}}return-1}
 function hitHandle(p,l){const pts=pathPoints(l);for(let i=0;i<pts.length;i++){if(Math.hypot(p.x-pts[i].x,p.y-pts[i].y)<=26)return i;}return-1}
+function hitHandoffExitHandle(p,l){
+  if(!l||l.type!=='handoff'||!l.targetKey||!CourtPlayEngine.handoffGeometry)return false;
+  const geom=CourtPlayEngine.handoffGeometry(frame(),l);
+  return !!(geom&&geom.receiverEnd&&Math.hypot(p.x-geom.receiverEnd.x,p.y-geom.receiverEnd.y)<=32);
+}
 function hitBall(p){return Math.hypot(frame().ball.x-p.x,frame().ball.y-p.y)<=25}
 function syncBallOwner(){if(!frame().ball.owner)return;const owner=frame().players.find(p=>p.key===frame().ball.owner);if(owner){frame().ball.x=owner.x+34;frame().ball.y=owner.y+4}else frame().ball.owner=null}
 function recenterCurve(l){
@@ -77,14 +82,22 @@ function transferVisualEnd(l,target){
   if(!l||!target)return null;
   if(l.type!=='handoff')return{x:target.x,y:target.y};
   const src=l.sourceKey&&frame().players.find(p=>p.key===l.sourceKey);
-  const exit=CourtPlayEngine.inferHandoffExit?CourtPlayEngine.inferHandoffExit(frame(),l):null;
+  const exit=l.handoffExitPoint||(CourtPlayEngine.inferHandoffExit?CourtPlayEngine.inferHandoffExit(frame(),l):null)||l.handoffReceiverExit||null;
   return CourtPlayEngine.handoffGiverEnd(src,target,pathPoints(l),exit);
 }
 canvas.addEventListener('pointerdown',e=>{e.preventDefault();canvas.setPointerCapture?.(e.pointerId);const p=point(e);
   if(tool==='token'&&pendingToken){const key=(pendingToken.team==='defense'?'d':'o')+pendingToken.label.toLowerCase();let pl=frame().players.find(x=>x.key===key);if(pl){pl.x=p.x;pl.y=p.y}else{pl={key,label:pendingToken.label,team:pendingToken.team,x:p.x,y:p.y};frame().players.push(pl);}pendingToken=null;selectedPlayer=key;document.querySelectorAll('.tokenBtn').forEach(x=>x.classList.remove('active'));setTool('select');return;}
   if(tool==='ballAssign'){const pl=hitPlayer(p);if(pl){frame().ball.owner=pl.key;selectedPlayer=pl.key;syncBallOwner();setStatus(`Balón asignado a ${pl.team==='defense'?'x':''}${pl.label}.`);setTool('select')}return;}
   if(tool==='select'){
-    if(selectedLine>=0&&frame().lines[selectedLine]){const hi=hitHandle(p,frame().lines[selectedLine]);if(hi>=0){drag={type:'handle',line:selectedLine,point:hi};return;}}
+    if(selectedLine>=0&&frame().lines[selectedLine]){
+      const active=frame().lines[selectedLine];
+      if(hitHandoffExitHandle(p,active)){
+        drag={type:'handoffExit',line:selectedLine};
+        setStatus('Arrastra el punto violeta para definir por dónde sale el receptor del handoff.');
+        return;
+      }
+      const hi=hitHandle(p,active);if(hi>=0){drag={type:'handle',line:selectedLine,point:hi};return;}
+    }
     const pl=hitPlayer(p);if(pl){selectedLine=-1;selectedPlayer=pl.key;drag={type:'player',key:pl.key,dx:p.x-pl.x,dy:p.y-pl.y};render();return;}
     if(hitBall(p)){selectedLine=-1;selectedPlayer=null;drag={type:'ball',dx:p.x-frame().ball.x,dy:p.y-frame().ball.y};frame().ball.owner=null;return;}
     const li=hitLine(p);selectedLine=li;selectedPlayer=li>=0?(frame().lines[li].sourceKey||null):null;render();return;
@@ -92,6 +105,15 @@ canvas.addEventListener('pointerdown',e=>{e.preventDefault();canvas.setPointerCa
 });
 canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefault();const p=point(e);
   if(draft){draft.points[draft.points.length-1]={x:clamp(p.x,20,W-20),y:clamp(p.y,20,H-20)};}
+  else if(drag?.type==='handoffExit'){
+    const l=frame().lines[drag.line],tgt=l&&l.targetKey&&frame().players.find(x=>x.key===l.targetKey);
+    if(l&&tgt){
+      const x=clamp(p.x,30,W-30),y=clamp(p.y,30,H-30);
+      l.handoffExitPoint={x,y};
+      l.handoffReceiverExit={dx:x-tgt.x,dy:y-tgt.y};
+      l.handoffGeometryAuto=false;l.handoffVersion=2;
+    }
+  }
   else if(drag?.type==='handle'){
     const l=frame().lines[drag.line],pt=l.points[drag.point];
     let x=clamp(p.x,20,W-20),y=clamp(p.y,20,H-20);
@@ -116,6 +138,10 @@ canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefau
   ctx.clearRect(0,0,W,H);drawScene();
 });
 function finishPointer(e){
+  if(drag?.type==='handoffExit'){
+    const l=frame().lines[drag.line];
+    if(l)setStatus('Salida del receptor guardada. El handoff continuará desde ese punto.');
+  }
   if(drag?.type==='handle'){
     const l=frame().lines[drag.line];
     if(l&&drag.point===l.points.length-1&&['pass','handoff'].includes(l.type)){
@@ -140,12 +166,16 @@ canvas.addEventListener('pointercancel',()=>finishPointer(null));
 lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){
   const l=frame().lines[selectedLine];l.type=lineTypeEl.value;
   if(!['pass','handoff'].includes(l.type))l.targetKey=null;
-  else applyBallTransfer(l);
+  if(l.type!=='handoff'){
+    delete l.handoffExitPoint;delete l.handoffReceiverExit;delete l.handoffGeometryAuto;delete l.handoffVersion;delete l.handoffTransferAt;delete l.handoffExitDistance;
+  }
+  else{l.handoffVersion=2;if(!Number.isFinite(l.handoffTransferAt))l.handoffTransferAt=.62;}
+  if(['pass','handoff'].includes(l.type))applyBallTransfer(l);
   reflowPhasesAfter(current);render();
 }});
 addPointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const l=frame().lines[selectedLine],pts=pathPoints(l);let best=0,bestLen=-1;for(let i=0;i<pts.length-1;i++){const d=Math.hypot(pts[i+1].x-pts[i].x,pts[i+1].y-pts[i].y);if(d>bestLen){best=i;bestLen=d}}pts.splice(best+1,0,{x:(pts[best].x+pts[best+1].x)/2,y:(pts[best].y+pts[best+1].y)/2});l.manualCurve=true;CourtPlayEngine.invalidateLocalGeometry(l);reflowPhasesAfter(current);render();});
 removePointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const l=frame().lines[selectedLine],pts=pathPoints(l);if(pts.length<=2){setStatus('Una trayectoria necesita al menos inicio y final.');return}pts.splice(Math.max(1,pts.length-2),1);CourtPlayEngine.invalidateLocalGeometry(l);reflowPhasesAfter(current);render();});
-reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){const l=frame().lines[selectedLine];l.points.reverse();l.sourceKey=null;l.targetKey=null;l.sourceDetached=true;CourtPlayEngine.invalidateLocalGeometry(l);selectedPlayer=null;setStatus('Trayectoria invertida. Ya no está anclada a un jugador.');reflowPhasesAfter(current);render();}});
+reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){const l=frame().lines[selectedLine];l.points.reverse();l.sourceKey=null;l.targetKey=null;l.sourceDetached=true;delete l.handoffExitPoint;delete l.handoffReceiverExit;delete l.handoffGeometryAuto;CourtPlayEngine.invalidateLocalGeometry(l);selectedPlayer=null;setStatus('Trayectoria invertida. Ya no está anclada a un jugador.');reflowPhasesAfter(current);render();}});
 deleteLineBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1;reflowPhasesAfter(current);render();}});
 deleteObjectBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1}else if(selectedPlayer){const key=selectedPlayer,i=frame().players.findIndex(x=>x.key===key);if(i>=0){if(frame().ball.owner===key)frame().ball.owner=null;frame().players.splice(i,1);frame().lines=frame().lines.filter(l=>l.sourceKey!==key);}selectedPlayer=null}reflowPhasesAfter(current);render();});
 
