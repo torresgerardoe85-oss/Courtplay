@@ -36,7 +36,9 @@
       action.handoffTransferAt=clamp(action.handoffTransferAt,.48,.78);
       if(!Number.isFinite(action.handoffExitDistance))action.handoffExitDistance=118;
       action.handoffExitDistance=clamp(action.handoffExitDistance,88,190);
-      if(!Number.isFinite(action.handoffVersion)||action.handoffVersion<4)action.handoffVersion=4;
+      if(!Number.isFinite(action.handoffGiverUnderDistance))action.handoffGiverUnderDistance=72;
+      action.handoffGiverUnderDistance=clamp(action.handoffGiverUnderDistance,54,110);
+      if(!Number.isFinite(action.handoffVersion)||action.handoffVersion<5)action.handoffVersion=5;
     }
     return action;
   }
@@ -129,25 +131,23 @@
       y:clamp(tgt.y+ev.vy*distance,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
     };
   }
-  function handoffReceiverContact(tgt,giverEnd,receiverExit=null){
-    if(!tgt||!giverEnd)return null;
-    let ev=handoffExitVector(giverEnd,receiverExit);
-    if(!ev){
-      const dx=giverEnd.x-tgt.x,dy=giverEnd.y-tgt.y,len=Math.hypot(dx,dy)||1;
-      ev={vx:dx/len,vy:dy/len};
-    }
+  function handoffReceiverContact(tgt,giverPresentation,receiverExit=null){
+    if(!tgt||!giverPresentation)return null;
 
-    // Receiver passes by one SHOULDER of the giver instead of running into him.
-    // Pick the shoulder that requires the shortest natural approach.
-    const gap=54;
-    const n1={x:-ev.vy,y:ev.vx},n2={x:ev.vy,y:-ev.vx};
-    const a={x:giverEnd.x+n1.x*gap,y:giverEnd.y+n1.y*gap};
-    const b={x:giverEnd.x+n2.x*gap,y:giverEnd.y+n2.y*gap};
-    const da=Math.hypot(a.x-tgt.x,a.y-tgt.y),db=Math.hypot(b.x-tgt.x,b.y-tgt.y);
-    const pick=da<=db?a:b;
+    // CourtPlay DHO rule: receiver goes OVER the exchange (basket-side / visually
+    // above on the half-court), giver goes UNDER. Keep a real shoulder gap.
+    const gap=56;
+    let x=giverPresentation.x;
+    let y=giverPresentation.y-gap;
+
+    // A small horizontal bias follows the intended receiver exit so the path
+    // flows naturally instead of cutting straight through the giver.
+    const ev=handoffExitVector(giverPresentation,receiverExit);
+    if(ev)x+=clamp(ev.vx*18,-18,18);
+
     return{
-      x:clamp(pick.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
-      y:clamp(pick.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+      x:clamp(x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+      y:clamp(y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
     };
   }
   function handoffGeometry(state,action){
@@ -155,25 +155,25 @@
     const src=player(state,action.sourceKey),tgt=player(state,action.targetKey);
     if(!src||!tgt)return null;
     const pts=points(action);
-    const giverEnd=handoffGiverEnd(src,tgt,pts,null);
 
-    // Exit direction comes from an explicit exit point first, then the
-    // receiver's next real action, then a natural "continue through" fallback.
+    // The authored handoff path belongs to the giver up to PRESENTATION.
+    const giverPresentation=handoffGiverEnd(src,tgt,pts,null);
+
+    // Exit direction comes from an explicit exit point first, then inferred
+    // continuation, then a simple continue-through fallback.
     let exitSpec=null;
     if(action.handoffExitPoint&&Number.isFinite(action.handoffExitPoint.x)&&Number.isFinite(action.handoffExitPoint.y)){
       exitSpec={x:action.handoffExitPoint.x,y:action.handoffExitPoint.y};
     }else if(action.handoffReceiverExit&&Number.isFinite(action.handoffReceiverExit.dx)&&Number.isFinite(action.handoffReceiverExit.dy)){
       exitSpec={dx:action.handoffReceiverExit.dx,dy:action.handoffReceiverExit.dy};
     }else{
-      const dx=giverEnd.x-tgt.x,dy=giverEnd.y-tgt.y,len=Math.hypot(dx,dy)||1;
+      const dx=giverPresentation.x-tgt.x,dy=giverPresentation.y-tgt.y,len=Math.hypot(dx,dy)||1;
       exitSpec={dx:(dx/len)*118,dy:(dy/len)*118};
     }
 
-    // Build contact around the giver's shoulder using the intended exit lane.
-    const receiverContact=handoffReceiverContact(tgt,giverEnd,exitSpec);
+    // RECEIVER goes OVER the giver.
+    const receiverContact=handoffReceiverContact(tgt,giverPresentation,exitSpec);
 
-    // Automatic geometry is not allowed to reverse the receiver back toward
-    // the spot he came from. A handoff must flow THROUGH the exchange.
     let exitVector=handoffExitVector(receiverContact,exitSpec);
     const ax=receiverContact.x-tgt.x,ay=receiverContact.y-tgt.y,alen=Math.hypot(ax,ay);
     if(!action.handoffExitPoint&&alen>1){
@@ -197,9 +197,18 @@
       };
     }
 
+    // GIVER goes UNDER after the exchange (away from the basket / visually
+    // below the receiver path). This keeps the two bodies on separate lanes.
+    const under=Number(action.handoffGiverUnderDistance)||72;
+    const giverEnd={
+      x:clamp(giverPresentation.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+      y:clamp(giverPresentation.y+under,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+    };
+
     return{
       sourceStart:{x:src.x,y:src.y},
       receiverStart:{x:tgt.x,y:tgt.y},
+      giverPresentation,
       giverEnd,
       receiverContact,
       receiverEnd,
@@ -272,12 +281,13 @@
           action.handoffGeometryAuto=true;
         }
       }
-      action.handoffVersion=4;
+      action.handoffVersion=5;
     }
     return phase;
   }
   function ensureHandoffSeparation(state,action,minGap=76){
     if(!state||!action||action.type!=='handoff')return state;
+    if(Number(action.handoffVersion)>=5)return state; // v5 geometry already owns both lanes.
     const src=player(state,action.sourceKey),tgt=player(state,action.targetKey);
     if(!src||!tgt)return state;
     const d=Math.hypot(src.x-tgt.x,src.y-tgt.y);
