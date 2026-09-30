@@ -278,25 +278,49 @@ function sceneDuringActions(base,rawActions,t){
   const scene=copy(base);
   const actions=rawActions.map(a=>actionForCurrentState(a,base));
   let ballHandled=false;
+
+  // Movement pass. Handoff v2 moves BOTH players: receiver approach → contact
+  // → exit. The giver reaches the exchange point by transfer time and holds.
   for(const l of actions){
-    const lt=actionPlaybackProgress(l,t),pts=pathPoints(l),src=playerByKey(scene,l.sourceKey),p=catmullPoint(pts,lt);
-    if(src&&['move','dribble','screen','handoff'].includes(l.type)){src.x=clamp(p.x,30,W-30);src.y=clamp(p.y,30,H-30);}
-  }
-  for(const l of actions){
-    const lt=actionPlaybackProgress(l,t);
-    if(l.type==='handoff'&&l.targetKey&&l.handoffReceiverExit&&lt>=.68){
-      const targetStart=playerByKey(base,l.targetKey);
+    const lt=actionPlaybackProgress(l,t),pts=pathPoints(l),src=playerByKey(scene,l.sourceKey);
+    if(l.type==='handoff'&&src&&l.targetKey&&CourtPlayEngine.handoffGeometry){
+      const geom=CourtPlayEngine.handoffGeometry(base,l);
       const target=playerByKey(scene,l.targetKey);
-      const targetEnd=CourtPlayEngine.handoffReceiverEnd(targetStart,l.handoffReceiverExit,46);
-      if(targetStart&&target&&targetEnd){
-        const q=clamp((lt-.68)/.32,0,1);
-        const eased=.5-.5*Math.cos(Math.PI*q);
-        target.x=targetStart.x+(targetEnd.x-targetStart.x)*eased;
-        target.y=targetStart.y+(targetEnd.y-targetStart.y)*eased;
+      if(geom){
+        const transferAt=geom.transferAt;
+        const giverT=clamp(lt/Math.max(.001,transferAt),0,1);
+        const giverEase=.5-.5*Math.cos(Math.PI*giverT);
+        const giverP=catmullPoint(pts,giverEase);
+        src.x=clamp(giverP.x,30,W-30);src.y=clamp(giverP.y,30,H-30);
+
+        if(target&&geom.receiverStart&&geom.receiverContact&&geom.receiverEnd){
+          const approachStart=.10;
+          if(lt<=approachStart){
+            target.x=geom.receiverStart.x;target.y=geom.receiverStart.y;
+          }else if(lt<transferAt){
+            const q=clamp((lt-approachStart)/Math.max(.001,transferAt-approachStart),0,1);
+            const eased=.5-.5*Math.cos(Math.PI*q);
+            target.x=geom.receiverStart.x+(geom.receiverContact.x-geom.receiverStart.x)*eased;
+            target.y=geom.receiverStart.y+(geom.receiverContact.y-geom.receiverStart.y)*eased;
+          }else{
+            const q=clamp((lt-transferAt)/Math.max(.001,1-transferAt),0,1);
+            const eased=.5-.5*Math.cos(Math.PI*q);
+            target.x=geom.receiverContact.x+(geom.receiverEnd.x-geom.receiverContact.x)*eased;
+            target.y=geom.receiverContact.y+(geom.receiverEnd.y-geom.receiverContact.y)*eased;
+          }
+        }
       }
+      continue;
     }
-    if(lt>=.72&&l.type==='handoff')CourtPlayEngine.ensureHandoffSeparation(scene,l,76);
+
+    const p=catmullPoint(pts,lt);
+    if(src&&['move','dribble','screen'].includes(l.type)){
+      src.x=clamp(p.x,30,W-30);src.y=clamp(p.y,30,H-30);
+    }
   }
+
+  // Ball-state pass. The ball remains with the giver until the exact exchange,
+  // then attaches to the receiver while the receiver continues through the DHO.
   for(const l of actions){
     const lt=actionPlaybackProgress(l,t),pts=pathPoints(l),src=playerByKey(scene,l.sourceKey),p=catmullPoint(pts,lt);
     if(l.type==='dribble'&&src&&!ballHandled&&lt>0){
@@ -306,8 +330,12 @@ function sceneDuringActions(base,rawActions,t){
       if(lt>=.995&&l.targetKey){scene.ball.owner=l.targetKey;syncSceneBall(scene);}
       ballHandled=true;
     }else if(l.type==='handoff'&&!ballHandled&&lt>0){
-      if(lt<.68&&src){scene.ball.owner=src.key;syncSceneBall(scene);}
-      else if(l.targetKey){scene.ball.owner=l.targetKey;syncSceneBall(scene);}
+      const transferAt=CourtPlayEngine.handoffTransferAt?CourtPlayEngine.handoffTransferAt(l):.62;
+      if(lt<transferAt&&src){
+        scene.ball.owner=src.key;syncSceneBall(scene);
+      }else if(l.targetKey){
+        scene.ball.owner=l.targetKey;syncSceneBall(scene);
+      }
       ballHandled=true;
     }else if(l.type==='shot'&&!ballHandled&&lt>0){
       scene.ball.owner=null;scene.ball.x=p.x;scene.ball.y=p.y;ballHandled=true;
