@@ -178,28 +178,45 @@
   function inferHandoffExit(phase,handoffAction){
     if(!phase||!handoffAction||handoffAction.type!=='handoff'||!handoffAction.targetKey)return null;
     const lines=phase.lines||[],index=lines.indexOf(handoffAction);
-    let best=null;
-    for(let i=0;i<lines.length;i++){
-      const candidate=lines[i];
-      if(!candidate||candidate===handoffAction||candidate.sourceKey!==handoffAction.targetKey)continue;
-      if(!['dribble','move','shot','handoff'].includes(candidate.type))continue;
-      const cpts=points(candidate);
-      if(cpts.length<2)continue;
-      const receiverStart=player(phase,handoffAction.targetKey);
-      const origin=receiverStart||cpts[0];
-      let dx=cpts[1].x-origin.x,dy=cpts[1].y-origin.y;
-      if(Math.hypot(dx,dy)<8&&cpts.length>2){
-        dx=cpts[cpts.length-1].x-origin.x;
-        dy=cpts[cpts.length-1].y-origin.y;
+
+    // Geometry must come from the receiver's REAL continuation, not from an
+    // option branch. Otherwise a finish option can send the receiver one way
+    // during the DHO and the base action immediately back the other way.
+    const eligible=(allowOptions=false)=>{
+      let best=null;
+      for(let i=0;i<lines.length;i++){
+        const candidate=lines[i];
+        if(!candidate||candidate===handoffAction||candidate.sourceKey!==handoffAction.targetKey)continue;
+        if(!['dribble','move','shot','handoff'].includes(candidate.type))continue;
+        if(!allowOptions&&candidate.isOption)continue;
+        const cpts=points(candidate);
+        if(cpts.length<2)continue;
+
+        // Use the candidate's authored first segment. The phase-start position
+        // can be stale because the receiver may already have cut/approached
+        // into the handoff before this continuation begins.
+        const origin=cpts[0];
+        let dx=cpts[1].x-origin.x,dy=cpts[1].y-origin.y;
+        if(Math.hypot(dx,dy)<8&&cpts.length>2){
+          dx=cpts[cpts.length-1].x-origin.x;
+          dy=cpts[cpts.length-1].y-origin.y;
+        }
+        if(Math.hypot(dx,dy)<8)continue;
+
+        let score=Math.abs(i-index)*20;
+        if(i>index)score-=50;
+        else score+=80; // prefer actions after the exchange
+        if(candidate.type==='dribble')score-=35;
+        if(handoffAction.simultaneousGroup&&candidate.simultaneousGroup===handoffAction.simultaneousGroup)score-=25;
+        if(candidate.isOption)score+=120;
+        if(!best||score<best.score)best={score,dx,dy};
       }
-      if(Math.hypot(dx,dy)<8)continue;
-      let score=Math.abs(i-index)*20;
-      if(i>index)score-=50;
-      if(candidate.type==='dribble')score-=35;
-      if(handoffAction.simultaneousGroup&&candidate.simultaneousGroup===handoffAction.simultaneousGroup)score-=25;
-      if(!best||score<best.score)best={score,dx,dy};
-    }
-    return best?{dx:best.dx,dy:best.dy}:null;
+      return best;
+    };
+
+    const base=eligible(false);
+    const fallback=base||eligible(true);
+    return fallback?{dx:fallback.dx,dy:fallback.dy}:null;
   }
 
   function applyAutoHandoffGeometry(phase){
