@@ -5,6 +5,23 @@
   const LOCAL_KEY='courtplay_my_library_v1';
 
   const clone=v=>JSON.parse(JSON.stringify(v));
+  function withTimeout(promise,ms,fallback){
+    return Promise.race([
+      Promise.resolve(promise),
+      new Promise(resolve=>setTimeout(()=>resolve(fallback),ms))
+    ]);
+  }
+  async function fetchJsonWithTimeout(url,ms=7000){
+    const controller=typeof AbortController!=='undefined'?new AbortController():null;
+    const timer=controller?setTimeout(()=>controller.abort(),ms):null;
+    try{
+      const res=await fetch(url,{cache:'no-store',signal:controller?.signal});
+      if(!res.ok)throw new Error('HTTP '+res.status);
+      return await res.json();
+    }finally{
+      if(timer)clearTimeout(timer);
+    }
+  }
 
   const CATEGORY_DEFS=[
     {id:'transition',label:'Transición'},
@@ -520,18 +537,24 @@
     container.append(sectionTitle('Biblioteca CourtPlay','Jugadas que yo publique para ti desde nuestro chat.'));
     const loading=document.createElement('p');loading.className='libraryMessage';loading.textContent='Buscando jugadas publicadas…';container.append(loading);
     try{
-      const res=await fetch(base+'index.json?ts='+Date.now(),{cache:'no-store'});
-      if(!res.ok)throw new Error('index');
-      const payload=await res.json(),plays=Array.isArray(payload)?payload:(payload.plays||[]);
+      const payload=await fetchJsonWithTimeout(base+'index.json?ts='+Date.now(),7000);
+      const plays=Array.isArray(payload)?payload:(payload.plays||[]);
+
+      // Las jugadas publicadas NO deben depender de Supabase ni del login.
+      // Primero usamos el estado local; si Cloud responde rápido, lo combinamos.
       let hidden=[];
-      if(window.CourtPlayCloud){
-        try{hidden=await window.CourtPlayCloud.listHiddenRemoteSlugs();}catch(e){}
-      }else{
+      try{
+        hidden=JSON.parse(localStorage.getItem('courtplay_hidden_remote_v1')||'[]');
+        if(!Array.isArray(hidden))hidden=[];
+      }catch(e){hidden=[];}
+
+      if(window.CourtPlayCloud?.isSignedIn?.()){
         try{
-          hidden=JSON.parse(localStorage.getItem('courtplay_hidden_remote_v1')||'[]');
-          if(!Array.isArray(hidden))hidden=[];
-        }catch(e){hidden=[];}
+          const cloudHidden=await withTimeout(window.CourtPlayCloud.listHiddenRemoteSlugs(),2500,hidden);
+          if(Array.isArray(cloudHidden))hidden=[...new Set([...hidden,...cloudHidden])];
+        }catch(e){}
       }
+
       const hiddenSet=new Set(hidden);
       const visible=plays.filter(item=>item&&item.slug&&!hiddenSet.has(item.slug)&&matchesCategory(item));
       loading.remove();
@@ -557,7 +580,7 @@
         actions.append(open,del);row.append(info,actions);container.append(row);
       });
     }catch(e){
-      loading.textContent='No pude consultar las jugadas publicadas ahora mismo.';
+      loading.textContent='No pude consultar las jugadas publicadas ahora mismo. Verifica internet y vuelve a abrir Biblioteca.';
     }
   }
 
@@ -565,12 +588,26 @@
     const wrap=ensurePanel(),content=wrap.querySelector('#courtplayLibraryContents'),auth=wrap.querySelector('#courtplayCloudAuth'),tabs=wrap.querySelector('#courtplayCategoryTabs');
     renderCategoryTabs(tabs);
     content.innerHTML='';
+
+    // Cada fuente carga de forma independiente. Un CDN/Supabase lento no puede
+    // bloquear "Biblioteca CourtPlay" ni las copias locales.
+    const cloudHost=document.createElement('div');
+    const localHost=document.createElement('div');
+    const remoteHost=document.createElement('div');
+    content.append(cloudHost,localHost,remoteHost);
+
+    localRows(localHost);
+    remoteRows(remoteHost);
+
     if(window.CourtPlayCloud){
-      window.CourtPlayCloud.renderAuth(auth,()=>renderLibraryContents()).catch(()=>{});
-      cloudRows(content).then(()=>{localRows(content);remoteRows(content);});
+      withTimeout(window.CourtPlayCloud.renderAuth(auth,()=>renderLibraryContents()),5000,null).catch(()=>{});
+      withTimeout(cloudRows(cloudHost),6500,null).catch(()=>{
+        cloudHost.innerHTML='';
+        const p=document.createElement('p');p.className='libraryMessage';p.textContent='Cloud tardó demasiado. Tus jugadas locales y las publicadas siguen disponibles.';
+        cloudHost.append(p);
+      });
     }else{
       if(auth)auth.innerHTML='<div class="libraryMessage">Cloud no disponible; usando almacenamiento local.</div>';
-      localRows(content);remoteRows(content);
     }
   }
 
