@@ -1,6 +1,16 @@
 {
-  "version": 17,
+  "version": 18,
   "plays": [
+    {
+      "slug": "handoff-v5-under-over-test",
+      "name": "TEST DHO v5 — Giver Under / Receiver Over",
+      "description": "Prueba exacta de la regla solicitada: el que entrega va por debajo; el receptor pasa por encima, recibe en contacto y continúa su ruta sin detenerse ni devolverse.",
+      "categories": [
+        "dho",
+        "flow",
+        "quick"
+      ]
+    },
     {
       "slug": "handoff-v4-stationary-giver-test",
       "name": "TEST DHO v4 — 5 Stationary → 2 Middle",
