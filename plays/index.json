@@ -1,30 +1,10 @@
 {
-  "version": 18,
+  "version": 19,
   "plays": [
     {
-      "slug": "handoff-v5-under-over-test",
-      "name": "TEST DHO v5 — Giver Under / Receiver Over",
-      "description": "Prueba exacta de la regla solicitada: el que entrega va por debajo; el receptor pasa por encima, recibe en contacto y continúa su ruta sin detenerse ni devolverse.",
-      "categories": [
-        "dho",
-        "flow",
-        "quick"
-      ]
-    },
-    {
-      "slug": "handoff-v4-stationary-giver-test",
-      "name": "TEST DHO v4 — 5 Stationary → 2 Middle",
-      "description": "Prueba aislada del Handoff v4: 5 casi no se mueve; 2 es quien llega al hombro, recibe en contacto y sigue hacia el medio sin detenerse ni devolverse.",
-      "categories": [
-        "dho",
-        "flow",
-        "quick"
-      ]
-    },
-    {
-      "slug": "handoff-v3-wing-middle-test",
-      "name": "TEST DHO v3 — Wing → Middle Keep",
-      "description": "Prueba limpia del Handoff v3: 5 entrega a 2 en el ala derecha; 2 llega, recibe en contacto real, sale continuo hacia el medio y ataca el aro. 5 permanece presente y limpia después del intercambio.",
+      "slug": "handoff-v6-correct-cross-test",
+      "name": "TEST DHO v6 — Cruce Correcto",
+      "description": "Prueba limpia del handoff: 5 entrega y cruza POR DEBAJO; 2 pasa POR ENCIMA, recibe en el cruce y continúa su ruta hacia el aro sin detenerse ni devolverse.",
       "categories": [
         "dho",
         "flow",
