@@ -34,9 +34,9 @@
     if(action.type==='handoff'){
       if(!Number.isFinite(action.handoffTransferAt))action.handoffTransferAt=.62;
       action.handoffTransferAt=clamp(action.handoffTransferAt,.48,.78);
-      if(!Number.isFinite(action.handoffExitDistance))action.handoffExitDistance=108;
-      action.handoffExitDistance=clamp(action.handoffExitDistance,72,180);
-      if(!Number.isFinite(action.handoffVersion))action.handoffVersion=2;
+      if(!Number.isFinite(action.handoffExitDistance))action.handoffExitDistance=118;
+      action.handoffExitDistance=clamp(action.handoffExitDistance,88,190);
+      if(!Number.isFinite(action.handoffVersion)||action.handoffVersion<3)action.handoffVersion=3;
     }
     return action;
   }
@@ -165,8 +165,18 @@
     const receiverContact=handoffReceiverContact(tgt,giverEnd,exitSpec);
 
     // EXIT begins at the exchange/contact point, not at the receiver's old
-    // location. This is the key continuity rule for a real DHO.
-    const receiverEnd=handoffReceiverEnd(receiverContact,exitSpec,Number(action.handoffExitDistance)||108);
+    // location. Automatic geometry may curve, but it may not reverse back
+    // toward the receiver's approach point.
+    let safeExitSpec=exitSpec;
+    if(!action.handoffExitPoint&&receiverContact){
+      const ev=handoffExitVector(tgt,exitSpec);
+      const ax=receiverContact.x-tgt.x,ay=receiverContact.y-tgt.y,alen=Math.hypot(ax,ay);
+      if(ev&&alen>1){
+        const dot=ev.vx*(ax/alen)+ev.vy*(ay/alen);
+        if(dot<-.20)safeExitSpec={dx:ax,dy:ay};
+      }
+    }
+    const receiverEnd=handoffReceiverEnd(receiverContact,safeExitSpec,Number(action.handoffExitDistance)||118);
     return{
       sourceStart:{x:src.x,y:src.y},
       receiverStart:{x:tgt.x,y:tgt.y},
@@ -242,7 +252,7 @@
           action.handoffGeometryAuto=true;
         }
       }
-      action.handoffVersion=2;
+      action.handoffVersion=3;
     }
     return phase;
   }
