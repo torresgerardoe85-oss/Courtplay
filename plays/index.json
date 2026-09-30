@@ -1,5 +1,5 @@
 {
-  "version": 14,
+  "version": 15,
   "plays": [
     {
       "slug": "41-flow-core",
@@ -92,6 +92,16 @@
         "dho",
         "zoom",
         "chicago"
+      ]
+    },
+    {
+      "slug": "gt-flow-early-drag",
+      "name": "GT FLOW — Early Drag",
+      "description": "Advance + wide lanes + 5 Drag: SET antes del uso, 1 hombro con cadera, 5 roll después de liberar y 2 lift por trigger. 4/5 no necesitan pop.",
+      "categories": [
+        "transition",
+        "flow",
+        "pnr"
       ]
     },
     {
