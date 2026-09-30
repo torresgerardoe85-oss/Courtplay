@@ -31,6 +31,13 @@
     if(typeof action.isOption!=='boolean')action.isOption=false;
     if(typeof action.simultaneousGroup==='undefined')action.simultaneousGroup=null;
     if(typeof action.color!=='string'||!action.color)action.color='#172033';
+    if(action.type==='handoff'){
+      if(!Number.isFinite(action.handoffTransferAt))action.handoffTransferAt=.62;
+      action.handoffTransferAt=clamp(action.handoffTransferAt,.48,.78);
+      if(!Number.isFinite(action.handoffExitDistance))action.handoffExitDistance=108;
+      action.handoffExitDistance=clamp(action.handoffExitDistance,72,180);
+      if(!Number.isFinite(action.handoffVersion))action.handoffVersion=2;
+    }
     return action;
   }
   function player(state,key){return key&&(state.players||[]).find(p=>p.key===key)||null}
@@ -66,48 +73,105 @@
     }
     return action;
   }
+  function handoffTransferAt(action){
+    return clamp(Number(action&&action.handoffTransferAt)||.62,.48,.78);
+  }
+  function handoffExitVector(tgt,exitSpec=null){
+    if(!tgt||!exitSpec)return null;
+    let dx,dy;
+    if(Number.isFinite(exitSpec.x)&&Number.isFinite(exitSpec.y)){
+      dx=exitSpec.x-tgt.x;dy=exitSpec.y-tgt.y;
+    }else if(Number.isFinite(exitSpec.dx)&&Number.isFinite(exitSpec.dy)){
+      dx=exitSpec.dx;dy=exitSpec.dy;
+    }else return null;
+    const len=Math.hypot(dx,dy);
+    if(len<1)return null;
+    return{dx,dy,vx:dx/len,vy:dy/len,len};
+  }
+  function fallbackHandoffExit(src,tgt,pts){
+    if(!tgt)return null;
+    const authoredStart=(pts&&pts.length)?pts[0]:null;
+    const from=authoredStart||src||null;
+    let dx=from?from.x-tgt.x:0,dy=from?from.y-tgt.y:0;
+    let len=Math.hypot(dx,dy);
+    if(len<1){dx=tgt.x<500?1:-1;dy=-.15;len=Math.hypot(dx,dy);}
+    return{dx:dx/len*108,dy:dy/len*108};
+  }
   function handoffGiverEnd(src,tgt,pts,receiverExit=null){
     const gap=82;
     const authoredStart=(pts&&pts.length)?pts[0]:null;
     const from=authoredStart||src||null;
+    const ev=handoffExitVector(tgt,receiverExit);
 
-    // If we know how the receiver exits the handoff, keep the giver beside
-    // that lane instead of directly in front of it. This creates the
-    // shoulder-to-shoulder DHO geometry used on court.
-    if(receiverExit&&Number.isFinite(receiverExit.dx)&&Number.isFinite(receiverExit.dy)){
-      const vlen=Math.hypot(receiverExit.dx,receiverExit.dy);
-      if(vlen>1){
-        const vx=receiverExit.dx/vlen,vy=receiverExit.dy/vlen;
-        const n1={x:-vy,y:vx},n2={x:vy,y:-vx};
-        const fx=from?from.x-tgt.x:0,fy=from?from.y-tgt.y:0;
-        const d1=fx*n1.x+fy*n1.y,d2=fx*n2.x+fy*n2.y;
-        const n=d1>=d2?n1:n2;
-        return{
-          x:clamp(tgt.x+n.x*gap,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
-          y:clamp(tgt.y+n.y*gap,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
-        };
-      }
+    // Keep the giver beside the receiver's lane. The receiver then travels
+    // through the exchange instead of being teleported back to its old spot.
+    if(ev){
+      const n1={x:-ev.vy,y:ev.vx},n2={x:ev.vy,y:-ev.vx};
+      const fx=from?from.x-tgt.x:0,fy=from?from.y-tgt.y:0;
+      const d1=fx*n1.x+fy*n1.y,d2=fx*n2.x+fy*n2.y;
+      const n=d1>=d2?n1:n2;
+      return{
+        x:clamp(tgt.x+n.x*gap,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+        y:clamp(tgt.y+n.y*gap,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+      };
     }
 
     let dx=from?from.x-tgt.x:0,dy=from?from.y-tgt.y:0;
     let len=Math.hypot(dx,dy);
-    if(len<1){
-      dx=tgt.x<500?-1:1;dy=0;len=1;
-    }
+    if(len<1){dx=tgt.x<500?-1:1;dy=0;len=1;}
     return{
       x:clamp(tgt.x+(dx/len)*gap,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
       y:clamp(tgt.y+(dy/len)*gap,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
     };
   }
 
-  function handoffReceiverEnd(tgt,receiverExit=null,distance=46){
-    if(!tgt||!receiverExit||!Number.isFinite(receiverExit.dx)||!Number.isFinite(receiverExit.dy))return null;
-    const len=Math.hypot(receiverExit.dx,receiverExit.dy);
-    if(len<1)return null;
-    const vx=receiverExit.dx/len,vy=receiverExit.dy/len;
+  function handoffReceiverEnd(tgt,receiverExit=null,distance=108){
+    if(!tgt||!receiverExit)return null;
+    if(Number.isFinite(receiverExit.x)&&Number.isFinite(receiverExit.y)){
+      return{
+        x:clamp(receiverExit.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+        y:clamp(receiverExit.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+      };
+    }
+    const ev=handoffExitVector(tgt,receiverExit);
+    if(!ev)return null;
     return{
-      x:clamp(tgt.x+vx*distance,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
-      y:clamp(tgt.y+vy*distance,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+      x:clamp(tgt.x+ev.vx*distance,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+      y:clamp(tgt.y+ev.vy*distance,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+    };
+  }
+  function handoffReceiverContact(tgt,giverEnd,receiverExit=null){
+    if(!tgt||!giverEnd)return null;
+    let dx=tgt.x-giverEnd.x,dy=tgt.y-giverEnd.y,len=Math.hypot(dx,dy);
+    if(len<1){
+      const ev=handoffExitVector(tgt,receiverExit);
+      if(!ev)return{x:tgt.x,y:tgt.y};
+      dx=-ev.vx;dy=-ev.vy;len=1;
+    }
+    const gap=62;
+    return{
+      x:clamp(giverEnd.x+(dx/len)*gap,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+      y:clamp(giverEnd.y+(dy/len)*gap,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+    };
+  }
+  function handoffGeometry(state,action){
+    if(!state||!action||action.type!=='handoff')return null;
+    const src=player(state,action.sourceKey),tgt=player(state,action.targetKey);
+    if(!src||!tgt)return null;
+    const pts=points(action);
+    const autoFallback=fallbackHandoffExit(src,tgt,pts);
+    const exitSpec=action.handoffExitPoint||action.handoffReceiverExit||autoFallback;
+    const giverEnd=handoffGiverEnd(src,tgt,pts,exitSpec);
+    const receiverContact=handoffReceiverContact(tgt,giverEnd,exitSpec);
+    const receiverEnd=handoffReceiverEnd(tgt,exitSpec,Number(action.handoffExitDistance)||108);
+    return{
+      sourceStart:{x:src.x,y:src.y},
+      receiverStart:{x:tgt.x,y:tgt.y},
+      giverEnd,
+      receiverContact,
+      receiverEnd,
+      transferAt:handoffTransferAt(action),
+      exitSpec
     };
   }
 
@@ -142,14 +206,23 @@
     if(!phase||!Array.isArray(phase.lines))return phase;
     for(const action of phase.lines){
       if(!action||action.type!=='handoff')continue;
-      const exit=inferHandoffExit(phase,action);
-      if(exit){
-        action.handoffReceiverExit={dx:exit.dx,dy:exit.dy};
-        action.handoffGeometryAuto=true;
-      }else if(action.handoffGeometryAuto){
-        delete action.handoffReceiverExit;
-        delete action.handoffGeometryAuto;
+      normalizeAction(action);
+      const tgt=player(phase,action.targetKey),src=player(phase,action.sourceKey);
+      if(action.handoffExitPoint&&tgt&&Number.isFinite(action.handoffExitPoint.x)&&Number.isFinite(action.handoffExitPoint.y)){
+        action.handoffReceiverExit={
+          dx:action.handoffExitPoint.x-tgt.x,
+          dy:action.handoffExitPoint.y-tgt.y
+        };
+        action.handoffGeometryAuto=false;
+      }else if(!action.handoffReceiverExit||action.handoffGeometryAuto){
+        const inferred=inferHandoffExit(phase,action);
+        const exit=inferred||fallbackHandoffExit(src,tgt,points(action));
+        if(exit){
+          action.handoffReceiverExit={dx:exit.dx,dy:exit.dy};
+          action.handoffGeometryAuto=true;
+        }
       }
+      action.handoffVersion=2;
     }
     return phase;
   }
@@ -159,7 +232,7 @@
     if(!src||!tgt)return state;
     const d=Math.hypot(src.x-tgt.x,src.y-tgt.y);
     if(d>=minGap)return state;
-    const sep=handoffGiverEnd(null,tgt,points(action),action.handoffReceiverExit||null);
+    const sep=handoffGiverEnd(null,tgt,points(action),action.handoffExitPoint||action.handoffReceiverExit||null);
     src.x=sep.x;src.y=sep.y;
     return state;
   }
@@ -190,7 +263,7 @@
       if(tgt){
         const end=pts[pts.length-1];
         if(action.type==='handoff'){
-          const giverEnd=handoffGiverEnd(src,tgt,pts,action.handoffReceiverExit||null);
+          const giverEnd=handoffGiverEnd(src,tgt,pts,action.handoffExitPoint||action.handoffReceiverExit||null);
           end.x=giverEnd.x;end.y=giverEnd.y;
         }else{
           end.x=tgt.x;end.y=tgt.y;
@@ -210,6 +283,7 @@
     const state=mutate?input:clone(input);
     const action=normalizeAction(raw);
     const pts=points(action),end=pts[pts.length-1],src=player(state,action.sourceKey);
+    const handoffGeom=action.type==='handoff'?handoffGeometry(state,action):null;
 
     if(src&&movingTypes.has(action.type)){
       src.x=end.x;src.y=end.y;
@@ -219,11 +293,11 @@
     }else if(transferTypes.has(action.type)){
       const tgt=player(state,action.targetKey);
       if(tgt){
-        if(action.type==='handoff'&&src){
-          const receiverEnd=handoffReceiverEnd(tgt,action.handoffReceiverExit||null,46);
-          const sep=handoffGiverEnd(null,tgt,pts,action.handoffReceiverExit||null);
-          src.x=sep.x;src.y=sep.y;
-          if(receiverEnd){tgt.x=receiverEnd.x;tgt.y=receiverEnd.y;}
+        if(action.type==='handoff'&&src&&handoffGeom){
+          src.x=handoffGeom.giverEnd.x;src.y=handoffGeom.giverEnd.y;
+          if(handoffGeom.receiverEnd){
+            tgt.x=handoffGeom.receiverEnd.x;tgt.y=handoffGeom.receiverEnd.y;
+          }
           ensureHandoffSeparation(state,action);
         }
         state.ball.owner=tgt.key;
@@ -386,7 +460,8 @@
   }
 
   global.CourtPlayEngine={
-    clone,points,captureLocalGeometry,invalidateLocalGeometry,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,handoffGiverEnd,handoffReceiverEnd,ensureHandoffSeparation,
+    clone,points,captureLocalGeometry,invalidateLocalGeometry,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,
+    handoffTransferAt,handoffExitVector,fallbackHandoffExit,handoffGiverEnd,handoffReceiverEnd,handoffReceiverContact,handoffGeometry,ensureHandoffSeparation,
     inferScreenAngle,applyAutoScreenAngles,inferHandoffExit,applyAutoHandoffGeometry,prepareAction,applyAction,bindLegacyPhase,resolvePhase,reflow,nextPhaseFrom,duplicatePhaseForContinuation
   };
 })(typeof window!=='undefined'?window:globalThis);
