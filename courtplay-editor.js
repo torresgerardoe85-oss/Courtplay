@@ -111,7 +111,7 @@ canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefau
       const x=clamp(p.x,30,W-30),y=clamp(p.y,30,H-30);
       l.handoffExitPoint={x,y};
       l.handoffReceiverExit={dx:x-tgt.x,dy:y-tgt.y};
-      l.handoffGeometryAuto=false;l.handoffVersion=2;
+      l.handoffGeometryAuto=false;l.handoffVersion=4;
     }
   }
   else if(drag?.type==='handle'){
@@ -169,7 +169,7 @@ lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){
   if(l.type!=='handoff'){
     delete l.handoffExitPoint;delete l.handoffReceiverExit;delete l.handoffGeometryAuto;delete l.handoffVersion;delete l.handoffTransferAt;delete l.handoffExitDistance;
   }
-  else{l.handoffVersion=2;if(!Number.isFinite(l.handoffTransferAt))l.handoffTransferAt=.62;}
+  else{l.handoffVersion=4;if(!Number.isFinite(l.handoffTransferAt))l.handoffTransferAt=.62;}
   if(['pass','handoff'].includes(l.type))applyBallTransfer(l);
   reflowPhasesAfter(current);render();
 }});
