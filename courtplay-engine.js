@@ -163,7 +163,10 @@
     const exitSpec=action.handoffExitPoint||action.handoffReceiverExit||autoFallback;
     const giverEnd=handoffGiverEnd(src,tgt,pts,exitSpec);
     const receiverContact=handoffReceiverContact(tgt,giverEnd,exitSpec);
-    const receiverEnd=handoffReceiverEnd(tgt,exitSpec,Number(action.handoffExitDistance)||108);
+
+    // EXIT begins at the exchange/contact point, not at the receiver's old
+    // location. This is the key continuity rule for a real DHO.
+    const receiverEnd=handoffReceiverEnd(receiverContact,exitSpec,Number(action.handoffExitDistance)||108);
     return{
       sourceStart:{x:src.x,y:src.y},
       receiverStart:{x:tgt.x,y:tgt.y},
