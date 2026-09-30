@@ -1,6 +1,16 @@
 {
-  "version": 16,
+  "version": 17,
   "plays": [
+    {
+      "slug": "handoff-v4-stationary-giver-test",
+      "name": "TEST DHO v4 — 5 Stationary → 2 Middle",
+      "description": "Prueba aislada del Handoff v4: 5 casi no se mueve; 2 es quien llega al hombro, recibe en contacto y sigue hacia el medio sin detenerse ni devolverse.",
+      "categories": [
+        "dho",
+        "flow",
+        "quick"
+      ]
+    },
     {
       "slug": "handoff-v3-wing-middle-test",
       "name": "TEST DHO v3 — Wing → Middle Keep",
