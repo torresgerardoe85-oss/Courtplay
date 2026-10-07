@@ -797,7 +797,9 @@
               "y": 410
             }
           ],
-          "timingWeight": 0.72
+          "timingWeight": 0.72,
+          "assistantAuthored": true,
+          "handoffReceiverSide": "under"
         },
         {
           "type": "dribble",
@@ -1190,5 +1192,6 @@
     "ZOOM: turn corner",
     "5 RE-PnR: finish / roll / weakside",
     "RESET if neutral"
-  ]
+  ],
+  "authoringProfile": "assistant"
 }
