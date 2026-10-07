@@ -31,6 +31,14 @@
     if(typeof action.isOption!=='boolean')action.isOption=false;
     if(typeof action.simultaneousGroup==='undefined')action.simultaneousGroup=null;
     if(typeof action.color!=='string'||!action.color)action.color='#172033';
+    if(action.usesScreenKey&&!Array.isArray(action.usesScreenKeys))action.usesScreenKeys=[action.usesScreenKey];
+    if(Array.isArray(action.usesScreenKeys)){
+      action.usesScreenKeys=[...new Set(action.usesScreenKeys.filter(Boolean).map(String))];
+      if(!action.screenUseSide)action.screenUseSide='over';
+      if(!Number.isFinite(action.screenUseClearance))action.screenUseClearance=58;
+      action.screenUseClearance=clamp(action.screenUseClearance,52,68);
+      action.screenUseVersion=1;
+    }
     if(action.type==='handoff'){
       if(!Number.isFinite(action.handoffTransferAt))action.handoffTransferAt=.62;
       action.handoffTransferAt=clamp(action.handoffTransferAt,.48,.78);
@@ -380,6 +388,39 @@
     }
     return syncBall(state);
   }
+  function screenUserGeometry(state,action){
+    if(!state||!action)return null;
+    normalizeAction(action);
+    const keys=Array.isArray(action.usesScreenKeys)?action.usesScreenKeys:(action.usesScreenKey?[action.usesScreenKey]:[]);
+    if(!keys.length||!['dribble','move'].includes(action.type))return null;
+    const src=player(state,action.sourceKey);
+    if(!src)return null;
+    const authored=points(action),last=authored[authored.length-1];
+    const start={x:src.x,y:src.y},end={x:last.x,y:last.y};
+    const clearance=Number(action.screenUseClearance)||58;
+    const side=action.screenUseSide==='under'?'under':'over';
+    const contacts=[];
+    let prev=start;
+    for(const key of keys){
+      const screener=player(state,key);
+      if(!screener||key===action.sourceKey)continue;
+      let dx=end.x-prev.x,dy=end.y-prev.y,len=Math.hypot(dx,dy);
+      if(len<1){dx=end.x-start.x;dy=end.y-start.y;len=Math.hypot(dx,dy)||1;}
+      const vx=dx/len,vy=dy/len;
+      const n1={x:-vy,y:vx},n2={x:vy,y:-vx};
+      const a={x:screener.x+n1.x*clearance,y:screener.y+n1.y*clearance};
+      const b={x:screener.x+n2.x*clearance,y:screener.y+n2.y*clearance};
+      const chosen=side==='over'?(a.y<=b.y?a:b):(a.y>=b.y?a:b);
+      const contact={
+        x:clamp(chosen.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+        y:clamp(chosen.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY),
+        screenerKey:key
+      };
+      contacts.push(contact);prev=contact;
+    }
+    if(!contacts.length)return null;
+    return{start,end,contacts,points:[start,...contacts.map(p=>({x:p.x,y:p.y})),end],side,clearance};
+  }
   function normalizeScreenAngle(deg){
     let a=Number(deg)||0;
     a=((a%180)+180)%180;
@@ -530,6 +571,6 @@
   global.CourtPlayEngine={
     clone,points,captureLocalGeometry,invalidateLocalGeometry,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,
     handoffTransferAt,handoffExitVector,fallbackHandoffExit,handoffGiverEnd,handoffReceiverEnd,handoffReceiverContact,handoffGeometry,ensureHandoffSeparation,
-    inferScreenAngle,applyAutoScreenAngles,inferHandoffExit,applyAutoHandoffGeometry,prepareAction,applyAction,bindLegacyPhase,resolvePhase,reflow,nextPhaseFrom,duplicatePhaseForContinuation
+    screenUserGeometry,inferScreenAngle,applyAutoScreenAngles,inferHandoffExit,applyAutoHandoffGeometry,prepareAction,applyAction,bindLegacyPhase,resolvePhase,reflow,nextPhaseFrom,duplicatePhaseForContinuation
   };
 })(typeof window!=='undefined'?window:globalThis);
