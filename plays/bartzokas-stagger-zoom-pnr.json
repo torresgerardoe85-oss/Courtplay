@@ -1,7 +1,7 @@
 {
-  "version": 10,
+  "version": 11,
   "name": "BARTZOKAS — Stagger Entry → Zoom → Roll/Pop",
-  "description": "COMPACTADA PARA EDICIÓN: 5 fases tácticas — Stagger · Entry/Clear · Zoom/DHO · Spacing+Tandem Set · Use+Roll/Pop.",
+  "description": "RECONSTRUIDA: Zoom DHO deja a 3 debajo del tandem; 4/5 quedan entre balón y aro; 3 usa ambas por debajo y ataca; 4 ROLL / 5 POP atrás.",
   "status": "Research / Testing — spacing rebuild",
   "system": "Bartzokas / Olympiacos Modern Flow",
   "categories": [
@@ -23,7 +23,7 @@
     "sequence": "SET → USE → CATCH → ZOOM SET → ZOOM USE → DHO → BIGS SET → USE → 4 ROLL / 5 POP",
     "assistantGeometry": "En jugadas creadas por ChatGPT, la ruta táctica OVER se codifica como under por la convención visual de CourtPlay.",
     "spacingRule": "Los jugadores sin balón conservan su spot salvo trigger real. No pre-rotar hacia el lado de la próxima acción.",
-    "tandemRule": "En esta acción específica, 3 usa 4 y 5 POR DEBAJO. La ruta es manual y no usa el helper automático under/over."
+    "tandemRule": "3 empieza detrás de 4/5. Usa el lado inferior de ambos y sale hacia el aro. 4 rolla; 5 poppea atrás/opuesto a la salida para conservar spacing."
   },
   "teachingReads": [
     "DHO downhill",
@@ -445,12 +445,12 @@
           "handoffGiverUnderDistance": 82,
           "handoffExitPoint": {
             "x": 560,
-            "y": 430
+            "y": 625
           },
           "handoffGeometryAuto": false
         }
       ],
-      "caption": "ZOOM / DHO — 4 pone el pindown; 3 usa mientras 2 dribla al punto de entrega; después ocurre el DHO y 3 sale al slot.",
+      "caption": "ZOOM / DHO — 4 pone el pindown; 3 sale y recibe el DHO ABAJO de la siguiente acción. Queda detrás de 4/5 para atacar hacia el aro.",
       "seconds": 2.9
     },
     {
@@ -468,15 +468,15 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 367.84,
-          "y": 437.94
+          "x": 359.68,
+          "y": 367.39
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
           "x": 560,
-          "y": 430
+          "y": 625
         },
         {
           "key": "o4",
@@ -495,7 +495,7 @@
       ],
       "ball": {
         "x": 594,
-        "y": 434,
+        "y": 629,
         "owner": "o3"
       },
       "lines": [
@@ -510,16 +510,16 @@
           "color": "#6b7280",
           "points": [
             {
-              "x": 367.84,
-              "y": 437.94
+              "x": 359.68,
+              "y": 367.39
             },
             {
-              "x": 300,
-              "y": 400
+              "x": 310,
+              "y": 430
             },
             {
-              "x": 220,
-              "y": 290
+              "x": 225,
+              "y": 300
             },
             {
               "x": 150,
@@ -543,19 +543,19 @@
             },
             {
               "x": 410,
-              "y": 375
+              "y": 390
             },
             {
               "x": 520,
-              "y": 455
+              "y": 500
             },
             {
-              "x": 610,
-              "y": 495
+              "x": 615,
+              "y": 555
             }
           ],
           "screenAngleLocked": true,
-          "screenAngle": 112
+          "screenAngle": 118
         },
         {
           "type": "screen",
@@ -572,23 +572,23 @@
               "y": 350
             },
             {
-              "x": 720,
+              "x": 710,
               "y": 420
             },
             {
-              "x": 715,
-              "y": 490
+              "x": 705,
+              "y": 485
             },
             {
-              "x": 710,
-              "y": 540
+              "x": 690,
+              "y": 520
             }
           ],
           "screenAngleLocked": true,
-          "screenAngle": 120
+          "screenAngle": 122
         }
       ],
-      "caption": "SPACING + TANDEM SET — 2 limpia al corner; después 4 baja y se planta; luego 5 llega como segundo screener más profundo.",
+      "caption": "SPACING + TANDEM SET — 2 limpia al corner. 4 se planta primero y 5 segundo, ambos DELANTE de 3 y entre el balón y el aro. 3 espera abajo.",
       "seconds": 2.15
     },
     {
@@ -614,26 +614,26 @@
           "label": "3",
           "team": "offense",
           "x": 560,
-          "y": 430
+          "y": 625
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 610,
-          "y": 495
+          "x": 615,
+          "y": 555
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 710,
-          "y": 540
+          "x": 690,
+          "y": 520
         }
       ],
       "ball": {
         "x": 594,
-        "y": 434,
+        "y": 629,
         "owner": "o3"
       },
       "lines": [
@@ -649,28 +649,40 @@
           "points": [
             {
               "x": 560,
-              "y": 430
+              "y": 625
             },
             {
-              "x": 550,
-              "y": 535
+              "x": 600,
+              "y": 615
             },
             {
-              "x": 610,
+              "x": 635,
+              "y": 605
+            },
+            {
+              "x": 670,
+              "y": 585
+            },
+            {
+              "x": 705,
               "y": 575
             },
             {
-              "x": 680,
-              "y": 600
+              "x": 745,
+              "y": 545
             },
             {
               "x": 760,
-              "y": 590
+              "y": 495
+            },
+            {
+              "x": 750,
+              "y": 440
             }
           ],
           "assistantAuthored": true,
           "manualScreenRoute": true,
-          "screenRouteSide": "below"
+          "screenRouteSide": "below-then-downhill"
         },
         {
           "type": "move",
@@ -683,16 +695,16 @@
           "color": "#16a34a",
           "points": [
             {
-              "x": 610,
-              "y": 495
+              "x": 615,
+              "y": 555
             },
             {
-              "x": 575,
-              "y": 380
+              "x": 585,
+              "y": 445
             },
             {
-              "x": 535,
-              "y": 265
+              "x": 545,
+              "y": 300
             },
             {
               "x": 500,
@@ -711,36 +723,34 @@
           "color": "#7c3aed",
           "points": [
             {
-              "x": 710,
-              "y": 540
+              "x": 690,
+              "y": 520
             },
             {
-              "x": 755,
-              "y": 540
+              "x": 650,
+              "y": 535
             },
             {
-              "x": 800,
-              "y": 530
+              "x": 600,
+              "y": 555
             },
             {
-              "x": 845,
-              "y": 515
+              "x": 545,
+              "y": 575
             }
           ]
         }
       ],
-      "caption": "USE + ROLL/POP — 3 pasa POR DEBAJO de 4 y 5; después 4 ROLL al aro y 5 POP. 1 y 2 mantienen corners.",
+      "caption": "USE + ROLL/POP — 3 empieza ABAJO de 4/5, pasa por el lado inferior de ambas y luego gira hacia el aro. 4 ROLL; 5 POP atrás al slot contrario. 1 y 2 mantienen corners.",
       "seconds": 2.15
     }
   ],
   "totalSeconds": 10.450000000000001,
   "reviewNotes": [
-    "Compactada de 12 a 5 fases para facilitar edición.",
-    "Las acciones secuenciales permanecen en orden dentro de cada fase.",
-    "Zoom Meet conserva simultaneousGroup.",
-    "Roll/Pop conserva simultaneousGroup.",
-    "3 continúa usando 4 y 5 POR DEBAJO con ruta manual.",
-    "Spacing final se mantiene: corners 1/2, 4 roll, 5 pop."
+    "Profundidad corregida: 3 empieza detrás de los screeners.",
+    "4/5 están entre balón y aro.",
+    "3 pasa por debajo de ambos y luego ataca hacia el aro.",
+    "4 rolla; 5 poppea atrás/opuesto; 1/2 mantienen corners."
   ],
   "editingStructure": {
     "phaseCount": 5,
