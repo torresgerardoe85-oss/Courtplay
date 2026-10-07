@@ -1,0 +1,952 @@
+{
+  "version": 3,
+  "name": "MODERN FLOW — Weak → Second Side",
+  "description": "Entrada para spacing imperfecto: Weak cut through → clear → Spread PnR → reverse/catch → second-side Wing PnR. El corte limpia antes de la pantalla; la siguiente acción no comienza hasta completar la anterior.",
+  "status": "Research / Testing — source-based reconstruction",
+  "system": "41 Modern Flow / Weak Entry",
+  "categories": [
+    "transition",
+    "flow",
+    "pnr"
+  ],
+  "source": {
+    "basis": [
+      "Iisalo principle: different entries feed same reaction system.",
+      "FIBA — Bonn: structure inside freedom and fast side-to-side reactions."
+    ],
+    "adaptation": "4-Out 1-In; 5 first-side screener/roller; 4 second-side screener."
+  },
+  "animationStandard": {
+    "screenSequence": "CLEAR → SET → USE → RELEASE",
+    "reverseRule": "PASS/CATCH before next-side movement"
+  },
+  "teachingReads": [
+    "Weak cut can score.",
+    "If not: first-side Spread PnR.",
+    "Neutral: reverse.",
+    "Second side: pass/chase Wing PnR."
+  ],
+  "totalSeconds": 8.95,
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 650,
+          "y": 640
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 330,
+          "y": 390
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 575,
+          "y": 520
+        }
+      ],
+      "ball": {
+        "x": 684,
+        "y": 644,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "weakArrival",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 330,
+              "y": 390
+            },
+            {
+              "x": 410,
+              "y": 320
+            },
+            {
+              "x": 500,
+              "y": 265
+            },
+            {
+              "x": 600,
+              "y": 220
+            },
+            {
+              "x": 700,
+              "y": 195
+            },
+            {
+              "x": 850,
+              "y": 190
+            }
+          ],
+          "timingWeight": 1
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "weakArrival",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 650,
+              "y": 640
+            },
+            {
+              "x": 640,
+              "y": 600
+            },
+            {
+              "x": 630,
+              "y": 565
+            }
+          ],
+          "timingWeight": 0.48
+        }
+      ],
+      "caption": "WEAK CLEAR — 3 atraviesa y limpia al corner contrario mientras 1 avanza controlado. 5 espera: todavía no hay pantalla.",
+      "seconds": 1.55,
+      "timeline": {
+        "start": 0,
+        "end": 1.55,
+        "logic": [
+          "3 CUT THROUGH + 1 CONTROLLED ADVANCE",
+          "5 WAITS"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 630,
+          "y": 565
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 575,
+          "y": 520
+        }
+      ],
+      "ball": {
+        "x": 664,
+        "y": 569,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 575,
+              "y": 520
+            },
+            {
+              "x": 585,
+              "y": 505
+            },
+            {
+              "x": 595,
+              "y": 490
+            }
+          ],
+          "timingWeight": 1,
+          "screenAngleLocked": true,
+          "screenAngle": 126.5
+        }
+      ],
+      "caption": "FIRST SIDE — SET. Solo cuando 3 termina de limpiar, 5 entra y se planta.",
+      "seconds": 0.65,
+      "timeline": {
+        "start": 1.55,
+        "end": 2.2,
+        "logic": [
+          "5 SET after clear"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 630,
+          "y": 565
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 595,
+          "y": 490
+        }
+      ],
+      "ball": {
+        "x": 664,
+        "y": 569,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 630,
+              "y": 565
+            },
+            {
+              "x": 610,
+              "y": 545
+            },
+            {
+              "x": 580,
+              "y": 520
+            },
+            {
+              "x": 545,
+              "y": 485
+            },
+            {
+              "x": 505,
+              "y": 450
+            }
+          ],
+          "timingWeight": 1
+        }
+      ],
+      "caption": "FIRST SIDE — USE. 1 usa; 5 mantiene pantalla. 2/3/4 no se mueven.",
+      "seconds": 1.05,
+      "timeline": {
+        "start": 2.2,
+        "end": 3.25,
+        "logic": [
+          "1 USE",
+          "5 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 505,
+          "y": 450
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 595,
+          "y": 490
+        }
+      ],
+      "ball": {
+        "x": 539,
+        "y": 454,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 595,
+              "y": 490
+            },
+            {
+              "x": 575,
+              "y": 355
+            },
+            {
+              "x": 545,
+              "y": 250
+            },
+            {
+              "x": 520,
+              "y": 165
+            }
+          ],
+          "timingWeight": 1
+        }
+      ],
+      "caption": "FIRST SIDE — RELEASE. 5 rola después del uso.",
+      "seconds": 1,
+      "timeline": {
+        "start": 3.25,
+        "end": 4.25,
+        "logic": [
+          "5 ROLL"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 505,
+          "y": 450
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 520,
+          "y": 165
+        }
+      ],
+      "ball": {
+        "x": 539,
+        "y": 454,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 505,
+              "y": 450
+            },
+            {
+              "x": 665,
+              "y": 400
+            },
+            {
+              "x": 820,
+              "y": 355
+            }
+          ],
+          "timingWeight": 1
+        }
+      ],
+      "caption": "REVERSE — si queda neutral, 1 pasa a 4. No hacemos el lift ni el chase antes del catch.",
+      "seconds": 0.65,
+      "timeline": {
+        "start": 4.25,
+        "end": 4.9,
+        "logic": [
+          "1→4 PASS/CATCH"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 505,
+          "y": 450
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 520,
+          "y": 165
+        }
+      ],
+      "ball": {
+        "x": 854,
+        "y": 359,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "weakSecondPrep",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 850,
+              "y": 190
+            },
+            {
+              "x": 825,
+              "y": 255
+            },
+            {
+              "x": 800,
+              "y": 315
+            }
+          ],
+          "timingWeight": 0.7
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "weakSecondPrep",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 520,
+              "y": 165
+            },
+            {
+              "x": 430,
+              "y": 175
+            },
+            {
+              "x": 340,
+              "y": 185
+            },
+            {
+              "x": 260,
+              "y": 195
+            }
+          ],
+          "timingWeight": 0.7
+        }
+      ],
+      "caption": "SECOND-SIDE PREP — después del catch: 3 lift y 5 limpia el lane contrario.",
+      "seconds": 0.8,
+      "timeline": {
+        "start": 4.9,
+        "end": 5.7,
+        "logic": [
+          "Trigger = 4 CATCH",
+          "3 LIFT + 5 CLEAR"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 505,
+          "y": 450
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 800,
+          "y": 315
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 260,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 854,
+        "y": 359,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o4",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 820,
+              "y": 355
+            },
+            {
+              "x": 810,
+              "y": 335
+            },
+            {
+              "x": 800,
+              "y": 315
+            }
+          ],
+          "timingWeight": 1
+        }
+      ],
+      "caption": "SECOND SIDE — PASS. 4 entrega a 3.",
+      "seconds": 0.45,
+      "timeline": {
+        "start": 5.7,
+        "end": 6.15,
+        "logic": [
+          "4→3 PASS/CATCH"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 505,
+          "y": 450
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 800,
+          "y": 315
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 260,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 834,
+        "y": 319,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 820,
+              "y": 355
+            },
+            {
+              "x": 790,
+              "y": 340
+            },
+            {
+              "x": 765,
+              "y": 330
+            }
+          ],
+          "timingWeight": 1,
+          "screenAngleLocked": true,
+          "screenAngle": 83
+        }
+      ],
+      "caption": "SECOND SIDE — CHASE/SET. 4 persigue y se planta; 3 espera.",
+      "seconds": 0.65,
+      "timeline": {
+        "start": 6.15,
+        "end": 6.8,
+        "logic": [
+          "4 CHASE → SET",
+          "3 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 505,
+          "y": 450
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 800,
+          "y": 315
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 765,
+          "y": 330
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 260,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 834,
+        "y": 319,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 800,
+              "y": 315
+            },
+            {
+              "x": 760,
+              "y": 325
+            },
+            {
+              "x": 715,
+              "y": 330
+            },
+            {
+              "x": 665,
+              "y": 320
+            },
+            {
+              "x": 615,
+              "y": 300
+            }
+          ],
+          "timingWeight": 1
+        }
+      ],
+      "caption": "SECOND SIDE — USE. 3 ataca el middle; 4 sostiene hasta que 3 limpia la pantalla.",
+      "seconds": 1.05,
+      "timeline": {
+        "start": 6.8,
+        "end": 7.85,
+        "logic": [
+          "3 USE",
+          "4 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 505,
+          "y": 450
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 615,
+          "y": 300
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 765,
+          "y": 330
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 260,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 649,
+        "y": 304,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 765,
+              "y": 330
+            },
+            {
+              "x": 685,
+              "y": 255
+            },
+            {
+              "x": 595,
+              "y": 190
+            },
+            {
+              "x": 520,
+              "y": 160
+            }
+          ],
+          "timingWeight": 1
+        }
+      ],
+      "caption": "SECOND SIDE — RELEASE. 4 rola después del uso. Desde aquí seguimos según la ventaja, no por memoria.",
+      "seconds": 1.1,
+      "timeline": {
+        "start": 7.85,
+        "end": 8.95,
+        "logic": [
+          "4 ROLL",
+          "Team reaction next"
+        ]
+      }
+    }
+  ]
+}
