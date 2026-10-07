@@ -1,7 +1,7 @@
 {
-  "version": 8,
+  "version": 9,
   "name": "BARTZOKAS — Stagger Entry → Zoom → Roll/Pop",
-  "description": "Secuencia final bajada para tener sentido espacial: Zoom DHO más bajo → 4 SET en slot → 5 SET más profundo → 3 usa ambas POR DEBAJO → 4 ROLL / 5 POP.",
+  "description": "Continuación final bajada al slot: Zoom DHO bajo → 4 SET → 5 SET → 3 usa ambas POR DEBAJO con clearance real → 4 ROLL / 5 POP.",
   "status": "Research / Testing — spacing rebuild",
   "system": "Bartzokas / Olympiacos Modern Flow",
   "categories": [
@@ -645,12 +645,12 @@
           "handoffGiverUnderDistance": 82,
           "handoffExitPoint": {
             "x": 560,
-            "y": 410
+            "y": 430
           },
           "handoffGeometryAuto": false
         }
       ],
-      "caption": "ZOOM DHO — 3 recibe más abajo, con espacio delante. No lo mandamos directo a dos cuerpos cerca del aro.",
+      "caption": "ZOOM DHO — 3 recibe más abajo, cerca del slot. La continuación no nace pegada al aro.",
       "seconds": 0.95
     },
     {
@@ -668,15 +668,15 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 375.39,
-          "y": 447.2
+          "x": 367.84,
+          "y": 437.94
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
           "x": 560,
-          "y": 410
+          "y": 430
         },
         {
           "key": "o4",
@@ -695,7 +695,7 @@
       ],
       "ball": {
         "x": 594,
-        "y": 414,
+        "y": 434,
         "owner": "o3"
       },
       "lines": [
@@ -710,16 +710,16 @@
           "color": "#6b7280",
           "points": [
             {
-              "x": 375.39,
-              "y": 447.2
+              "x": 367.84,
+              "y": 437.94
             },
             {
               "x": 300,
-              "y": 390
+              "y": 400
             },
             {
               "x": 220,
-              "y": 285
+              "y": 290
             },
             {
               "x": 150,
@@ -728,7 +728,7 @@
           ]
         }
       ],
-      "caption": "POST-DHO SPACING — 2 limpia al corner. 3 queda más abajo en el slot con cancha para usar la siguiente acción; 1 y 2 fijan corners.",
+      "caption": "POST-DHO SPACING — 2 limpia al corner; 3 queda en slot con cancha por delante. 1 y 2 siguen fijando las esquinas.",
       "seconds": 0.8
     },
     {
@@ -754,7 +754,7 @@
           "label": "3",
           "team": "offense",
           "x": 560,
-          "y": 410
+          "y": 430
         },
         {
           "key": "o4",
@@ -773,7 +773,7 @@
       ],
       "ball": {
         "x": 594,
-        "y": 414,
+        "y": 434,
         "owner": "o3"
       },
       "lines": [
@@ -792,23 +792,23 @@
               "y": 285
             },
             {
-              "x": 420,
-              "y": 365
+              "x": 410,
+              "y": 375
             },
             {
               "x": 520,
-              "y": 435
+              "y": 455
             },
             {
-              "x": 605,
-              "y": 470
+              "x": 610,
+              "y": 495
             }
           ],
           "screenAngleLocked": true,
           "screenAngle": 112
         }
       ],
-      "caption": "4 SET — 4 baja hasta el slot y llega a la línea de conducción de 3. La pantalla ocurre más lejos del aro, con espacio para el roll.",
+      "caption": "4 SET — 4 baja hasta el slot y se planta bastante más lejos del aro. Hay profundidad para atacar y para el roll.",
       "seconds": 0.7
     },
     {
@@ -834,14 +834,14 @@
           "label": "3",
           "team": "offense",
           "x": 560,
-          "y": 410
+          "y": 430
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 605,
-          "y": 470
+          "x": 610,
+          "y": 495
         },
         {
           "key": "o5",
@@ -873,22 +873,22 @@
             },
             {
               "x": 720,
-              "y": 410
+              "y": 420
             },
             {
               "x": 715,
-              "y": 475
+              "y": 490
             },
             {
-              "x": 705,
-              "y": 525
+              "x": 710,
+              "y": 540
             }
           ],
           "screenAngleLocked": true,
           "screenAngle": 120
         }
       ],
-      "caption": "5 SET — 5 llega segundo, más profundo y abierto. 4 y 5 quedan escalonados; no forman una pared apretada cerca del aro.",
+      "caption": "5 SET — 5 llega segundo y más profundo. Los dos grandes quedan escalonados, no amontonados cerca del aro.",
       "seconds": 0.65
     },
     {
@@ -914,26 +914,26 @@
           "label": "3",
           "team": "offense",
           "x": 560,
-          "y": 410
+          "y": 430
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 605,
-          "y": 470
+          "x": 610,
+          "y": 495
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 705,
-          "y": 525
+          "x": 710,
+          "y": 540
         }
       ],
       "ball": {
         "x": 594,
-        "y": 414,
+        "y": 434,
         "owner": "o3"
       },
       "lines": [
@@ -949,23 +949,23 @@
           "points": [
             {
               "x": 560,
-              "y": 410
+              "y": 430
             },
             {
-              "x": 585,
-              "y": 460
+              "x": 550,
+              "y": 535
             },
             {
-              "x": 620,
-              "y": 505
+              "x": 610,
+              "y": 575
             },
             {
-              "x": 665,
-              "y": 545
+              "x": 680,
+              "y": 600
             },
             {
-              "x": 725,
-              "y": 555
+              "x": 760,
+              "y": 590
             }
           ],
           "assistantAuthored": true,
@@ -973,7 +973,7 @@
           "screenRouteSide": "below"
         }
       ],
-      "caption": "USE — 3 pasa POR DEBAJO de 4 y luego POR DEBAJO de 5 en una acción más baja. Tiene un carril real entre ambas pantallas y sale con espacio.",
+      "caption": "USE — 3 pasa POR DEBAJO de 4 y 5 con separación real de los cuerpos. La ruta ocurre más abajo y no obliga al manejador a subir hacia el aro.",
       "seconds": 1
     },
     {
@@ -998,27 +998,27 @@
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 725,
-          "y": 555
+          "x": 760,
+          "y": 590
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 605,
-          "y": 470
+          "x": 610,
+          "y": 495
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 705,
-          "y": 525
+          "x": 710,
+          "y": 540
         }
       ],
       "ball": {
-        "x": 759,
-        "y": 559,
+        "x": 794,
+        "y": 594,
         "owner": "o3"
       },
       "lines": [
@@ -1033,12 +1033,12 @@
           "color": "#16a34a",
           "points": [
             {
-              "x": 605,
-              "y": 470
+              "x": 610,
+              "y": 495
             },
             {
-              "x": 570,
-              "y": 370
+              "x": 575,
+              "y": 380
             },
             {
               "x": 535,
@@ -1061,34 +1061,33 @@
           "color": "#7c3aed",
           "points": [
             {
-              "x": 705,
-              "y": 525
+              "x": 710,
+              "y": 540
             },
             {
-              "x": 750,
-              "y": 520
+              "x": 755,
+              "y": 540
             },
             {
-              "x": 795,
-              "y": 510
+              "x": 800,
+              "y": 530
             },
             {
-              "x": 840,
-              "y": 500
+              "x": 845,
+              "y": 515
             }
           ]
         }
       ],
-      "caption": "ROLL / POP — después de que 3 sale por debajo: 4 tiene profundidad para ROLL al aro; 5 POP fuera del tráfico. 1 y 2 continúan en corners.",
+      "caption": "ROLL / POP — 4 ROLL con una pista larga hacia el aro; 5 POP fuera del tráfico; 3 queda con ángulo y espacio. 1 y 2 sostienen corners.",
       "seconds": 1.15
     }
   ],
   "totalSeconds": 10.450000000000001,
   "reviewNotes": [
-    "La continuación ya no ocurre tan cerca del aro.",
-    "3 recibe DHO más abajo antes del tandem.",
-    "4 screen en slot; 5 segundo screen más profundo.",
-    "3 usa ambas pantallas por debajo con ruta manual.",
-    "4 roll con profundidad; 5 pop fuera del tráfico."
+    "La continuación se bajó todavía más respecto a la versión anterior.",
+    "4 screen en y≈495; 5 screen en y≈540.",
+    "3 pasa por debajo con ~56 px de separación respecto a cada screener.",
+    "El roll de 4 gana profundidad y el pop de 5 queda fuera del tráfico."
   ]
 }
