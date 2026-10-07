@@ -1,0 +1,633 @@
+{
+  "version": 3,
+  "name": "MODERN FLOW — Early Wide Drag",
+  "description": "Llegada moderna separada por triggers reales: transición en cinco lanes → 5 planta Drag → 1 usa → 5 roll + weak lift → reverse si queda neutral. Diseñado para que CourtPlay no anime screen/use/roll a la vez.",
+  "status": "Research / Testing — source-based reconstruction",
+  "system": "41 Modern Flow / Tuomas Iisalo principles",
+  "categories": [
+    "transition",
+    "flow",
+    "pnr"
+  ],
+  "source": {
+    "basis": [
+      "FIBA — Bonn: early offense y Drag/third-side reactions.",
+      "FIBA terminology: Drag es ball screen en transición."
+    ],
+    "adaptation": "4-Out 1-In; 5 rim runner/screener. 4 llega como trail/second-side connector."
+  },
+  "animationStandard": {
+    "screenSequence": "APPROACH → SET → USE → RELEASE",
+    "simultaneousRule": "Solo transición y reacciones nacidas del mismo trigger pueden ir simultáneas."
+  },
+  "teachingReads": [
+    "Rim run primero.",
+    "Si no hay ventaja: Drag.",
+    "Si Drag queda neutral: reverse inmediato al second side."
+  ],
+  "totalSeconds": 5.65,
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 620,
+          "y": 780
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 250,
+          "y": 790
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 780,
+          "y": 790
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 400,
+          "y": 810
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 540,
+          "y": 810
+        }
+      ],
+      "ball": {
+        "x": 654,
+        "y": 784,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 620,
+              "y": 780
+            },
+            {
+              "x": 630,
+              "y": 690
+            },
+            {
+              "x": 640,
+              "y": 610
+            },
+            {
+              "x": 640,
+              "y": 560
+            }
+          ],
+          "timingWeight": 1
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 250,
+              "y": 790
+            },
+            {
+              "x": 205,
+              "y": 610
+            },
+            {
+              "x": 170,
+              "y": 410
+            },
+            {
+              "x": 150,
+              "y": 215
+            }
+          ],
+          "timingWeight": 1.05
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 780,
+              "y": 790
+            },
+            {
+              "x": 815,
+              "y": 610
+            },
+            {
+              "x": 845,
+              "y": 415
+            },
+            {
+              "x": 850,
+              "y": 215
+            }
+          ],
+          "timingWeight": 1.05
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 400,
+              "y": 810
+            },
+            {
+              "x": 360,
+              "y": 650
+            },
+            {
+              "x": 320,
+              "y": 500
+            },
+            {
+              "x": 285,
+              "y": 390
+            }
+          ],
+          "timingWeight": 0.95
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 540,
+              "y": 810
+            },
+            {
+              "x": 560,
+              "y": 710
+            },
+            {
+              "x": 575,
+              "y": 650
+            },
+            {
+              "x": 585,
+              "y": 610
+            }
+          ],
+          "timingWeight": 0.75
+        }
+      ],
+      "caption": "ARRIVAL — aquí sí corren todos: 1 empuja, 2/3 llenan ancho, 4 trail y 5 decide que no ganó el aro y llega al Drag lane.",
+      "seconds": 1.8,
+      "timeline": {
+        "start": 0,
+        "end": 1.8,
+        "logic": [
+          "TRANSICIÓN = simultáneo por naturaleza",
+          "5 no pone pantalla todavía; solo llega a su punto"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 640,
+          "y": 560
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 215
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 215
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 285,
+          "y": 390
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 585,
+          "y": 610
+        }
+      ],
+      "ball": {
+        "x": 674,
+        "y": 564,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 585,
+              "y": 610
+            },
+            {
+              "x": 595,
+              "y": 585
+            },
+            {
+              "x": 605,
+              "y": 565
+            }
+          ],
+          "timingWeight": 1,
+          "screenAngleLocked": true,
+          "screenAngle": 128
+        }
+      ],
+      "caption": "SET — 5 llega, ajusta el ángulo y se PLANTA. 1 no cambia dirección hasta que 5 esté establecido.",
+      "seconds": 0.7,
+      "timeline": {
+        "start": 1.8,
+        "end": 2.5,
+        "logic": [
+          "5 APPROACH → SET",
+          "2/3/4 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 640,
+          "y": 560
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 215
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 215
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 285,
+          "y": 390
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 605,
+          "y": 565
+        }
+      ],
+      "ball": {
+        "x": 674,
+        "y": 564,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 640,
+              "y": 560
+            },
+            {
+              "x": 620,
+              "y": 545
+            },
+            {
+              "x": 590,
+              "y": 525
+            },
+            {
+              "x": 555,
+              "y": 490
+            },
+            {
+              "x": 515,
+              "y": 450
+            }
+          ],
+          "timingWeight": 1
+        }
+      ],
+      "caption": "USE — 1 pasa hombro con cadera y ataca el middle. 5 permanece quieto hasta que 1 supera su nivel.",
+      "seconds": 1.15,
+      "timeline": {
+        "start": 2.5,
+        "end": 3.65,
+        "logic": [
+          "1 USE",
+          "5 HOLDS SCREEN",
+          "2/3/4 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 515,
+          "y": 450
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 215
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 215
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 285,
+          "y": 390
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 605,
+          "y": 565
+        }
+      ],
+      "ball": {
+        "x": 549,
+        "y": 454,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "advantageReaction",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 605,
+              "y": 565
+            },
+            {
+              "x": 585,
+              "y": 430
+            },
+            {
+              "x": 550,
+              "y": 285
+            },
+            {
+              "x": 520,
+              "y": 165
+            }
+          ],
+          "timingWeight": 1
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "advantageReaction",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 150,
+              "y": 215
+            },
+            {
+              "x": 170,
+              "y": 270
+            },
+            {
+              "x": 205,
+              "y": 325
+            }
+          ],
+          "timingWeight": 0.62
+        }
+      ],
+      "caption": "RELEASE — después del uso, 5 rola. Solo ahora 2 hace lift porque su defensor puede ser el low man. 3 conserva corner y 4 conserva el outlet.",
+      "seconds": 1.2,
+      "timeline": {
+        "start": 3.65,
+        "end": 4.85,
+        "logic": [
+          "Trigger = 1 supera la pantalla",
+          "5 ROLL + 2 LIFT",
+          "3/4 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 515,
+          "y": 450
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 205,
+          "y": 325
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 215
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 285,
+          "y": 390
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 520,
+          "y": 165
+        }
+      ],
+      "ball": {
+        "x": 549,
+        "y": 454,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 515,
+              "y": 450
+            },
+            {
+              "x": 400,
+              "y": 420
+            },
+            {
+              "x": 285,
+              "y": 390
+            }
+          ],
+          "timingWeight": 0.55
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 520,
+              "y": 165
+            },
+            {
+              "x": 610,
+              "y": 175
+            },
+            {
+              "x": 690,
+              "y": 195
+            }
+          ],
+          "timingWeight": 0.52
+        }
+      ],
+      "caption": "NEUTRAL → SECOND SIDE — si no hubo ventaja, 1 revierte a 4. Después del pase, 5 limpia al dunker débil. La próxima acción empieza desde esta nueva foto.",
+      "seconds": 0.8,
+      "timeline": {
+        "start": 4.85,
+        "end": 5.65,
+        "logic": [
+          "Solo si Drag queda neutral",
+          "1→4 REVERSE",
+          "5 CLEAR después de ocupar rim"
+        ]
+      }
+    }
+  ]
+}
