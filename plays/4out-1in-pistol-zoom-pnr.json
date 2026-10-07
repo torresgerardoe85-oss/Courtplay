@@ -225,7 +225,9 @@
             "dx": -110,
             "dy": -50
           },
-          "handoffGeometryAuto": true
+          "handoffGeometryAuto": true,
+          "assistantAuthored": true,
+          "handoffReceiverSide": "under"
         },
         {
           "type": "move",
@@ -525,7 +527,9 @@
             "dx": 50,
             "dy": -3
           },
-          "handoffGeometryAuto": true
+          "handoffGeometryAuto": true,
+          "assistantAuthored": true,
+          "handoffReceiverSide": "under"
         },
         {
           "type": "move",
@@ -995,5 +999,6 @@
     }
   ],
   "status": "Rebuilt for COURTPLAY_ANIMATION_TIMING_STANDARD — Handoff continuity correction",
-  "totalSeconds": 10
+  "totalSeconds": 10,
+  "authoringProfile": "assistant"
 }
