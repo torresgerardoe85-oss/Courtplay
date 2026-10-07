@@ -548,7 +548,7 @@ videoBtn.addEventListener('click',async()=>{
 });
 if('serviceWorker'in navigator)window.addEventListener('load',async()=>{
   try{
-    const reg=await navigator.serviceWorker.register('./sw.js?v=72');
+    const reg=await navigator.serviceWorker.register('./sw.js?v=73');
     await reg.update();
   }catch(e){}
 });
