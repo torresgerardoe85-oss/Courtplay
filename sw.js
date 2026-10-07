@@ -1,4 +1,4 @@
-const CACHE='courtplay-v72';
+const CACHE='courtplay-v73';
 const ASSETS=[
   './',
   './index.html?v=73',
