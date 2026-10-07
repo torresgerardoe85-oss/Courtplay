@@ -19,7 +19,8 @@
   },
   "animationStandard": {
     "screenSequence": "CLEAR → SET → USE → CATCH → FOLLOW/SET → USE → ROLL",
-    "simultaneousRule": "No iniciar Follow Empty hasta completar el catch de Iverson."
+    "simultaneousRule": "No iniciar Follow Empty hasta completar el catch de Iverson.",
+    "screenUserRule": "El usuario de toda cortina pasa OVER/basket-side, hombro con cadera; nunca por debajo."
   },
   "teachingReads": [
     "Iverson catch con lado vacío.",
@@ -300,7 +301,14 @@
               "y": 355
             }
           ],
-          "timingWeight": 1
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o4",
+            "o5"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1
         }
       ],
       "caption": "USE — 2 cruza el Iverson pegado a las pantallas y llega al ala derecha. Los bigs no liberan antes del cruce.",
@@ -585,7 +593,13 @@
               "y": 350
             }
           ],
-          "timingWeight": 1
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1
         }
       ],
       "caption": "USE — 2 gira al medio pasando hombro con cadera. 5 mantiene la pantalla hasta que 2 supera su nivel.",
