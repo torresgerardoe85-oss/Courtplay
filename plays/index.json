@@ -1,5 +1,5 @@
 {
-  "version": 24,
+  "version": 25,
   "plays": [
     {
       "slug": "handoff-v6-correct-cross-test",
@@ -213,7 +213,7 @@
     {
       "slug": "bartzokas-stagger-zoom-pnr",
       "name": "BARTZOKAS — Stagger Entry → Zoom → Roll/Pop",
-      "description": "REHECHO por spacing: Stagger → catch → Zoom DHO → tandem screen. 4 ROLL, 5 POP; 1/2 mantienen corners. Sin pre-rotaciones hacia el balón.",
+      "description": "COMPACTADA: 5 fases editables — Stagger · Entry/Clear · Zoom/DHO · Spacing+Tandem Set · Use+Roll/Pop.",
       "categories": [
         "flow",
         "zoom",
