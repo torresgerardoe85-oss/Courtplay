@@ -89,7 +89,7 @@ function partialPathPoints(pts,t){
   return out;
 }
 function drawActionProgress(c,l,t){
-  const pts=pathPoints(l),tt=clamp(t,0,1);
+  const pts=(Array.isArray(l._screenUserPath)&&l._screenUserPath.length>=2)?l._screenUserPath:pathPoints(l),tt=clamp(t,0,1);
   if(tt<=0)return;
   c.save();const actionColor=l.color||(l.type==='shot'?'#df6813':'#172033');c.strokeStyle=actionColor;c.fillStyle=actionColor;c.lineWidth=6;c.lineCap='round';c.lineJoin='round';c.setLineDash([]);
   if(l.type==='screen'){
