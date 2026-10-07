@@ -89,7 +89,7 @@ function partialPathPoints(pts,t){
   return out;
 }
 function drawActionProgress(c,l,t){
-  const pts=(Array.isArray(l._screenUserPath)&&l._screenUserPath.length>=2)?l._screenUserPath:pathPoints(l),tt=clamp(t,0,1);
+  const pts=(l.assistantAuthored&&Array.isArray(l._assistantScreenPath)&&l._assistantScreenPath.length>=2)?l._assistantScreenPath:pathPoints(l),tt=clamp(t,0,1);
   if(tt<=0)return;
   c.save();const actionColor=l.color||(l.type==='shot'?'#df6813':'#172033');c.strokeStyle=actionColor;c.fillStyle=actionColor;c.lineWidth=6;c.lineCap='round';c.lineJoin='round';c.setLineDash([]);
   if(l.type==='screen'){
@@ -131,18 +131,6 @@ function drawAnimationScene(scene,c=ctx,activeAction=null,progress=0){
   drawCourt(c);
   if(activeAction)drawActionProgress(c,activeAction,progress);
   const owner=scene.ball&&scene.ball.owner;
-  const actions=Array.isArray(activeAction)?activeAction:(activeAction?[activeAction]:[]);
-  const h=actions.find(a=>a&&a.type==='handoff'&&a.targetKey);
-  const players=[...(scene.players||[])];
-  if(h){
-    players.sort((a,b)=>{
-      if(a.key===h.targetKey)return 1;
-      if(b.key===h.targetKey)return -1;
-      if(a.key===h.sourceKey)return -1;
-      if(b.key===h.sourceKey)return 1;
-      return 0;
-    });
-  }
-  players.forEach(p=>drawAnimationPlayer(c,p,p.key===owner));
+  (scene.players||[]).forEach(p=>drawAnimationPlayer(c,p,p.key===owner));
   if(scene.ball)drawBall(c,scene.ball);
 }
