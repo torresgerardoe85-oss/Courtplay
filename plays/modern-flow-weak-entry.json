@@ -314,9 +314,10 @@
           "usesScreenKeys": [
             "o5"
           ],
-          "screenUseSide": "over",
+          "screenUseSide": "under",
           "screenUseClearance": 58,
-          "screenUseVersion": 1
+          "screenUseVersion": 1,
+          "assistantAuthored": true
         }
       ],
       "caption": "FIRST SIDE — USE. 1 usa; 5 mantiene pantalla. 2/3/4 no se mueven.",
@@ -858,9 +859,10 @@
           "usesScreenKeys": [
             "o4"
           ],
-          "screenUseSide": "over",
+          "screenUseSide": "under",
           "screenUseClearance": 58,
-          "screenUseVersion": 1
+          "screenUseVersion": 1,
+          "assistantAuthored": true
         }
       ],
       "caption": "SECOND SIDE — USE. 3 ataca el middle; 4 sostiene hasta que 3 limpia la pantalla.",
@@ -961,5 +963,6 @@
         ]
       }
     }
-  ]
+  ],
+  "authoringProfile": "assistant"
 }
