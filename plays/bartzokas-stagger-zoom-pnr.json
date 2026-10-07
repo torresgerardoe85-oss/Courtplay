@@ -1,7 +1,7 @@
 {
-  "version": 4,
+  "version": 5,
   "name": "BARTZOKAS — Stagger Entry → Zoom → Roll/Pop",
-  "description": "REHECHO por spacing: Stagger entry → catch → Zoom DHO → double/tandem ball screen. 4 ROLL, 5 POP. Los dos corners se mantienen ocupados; nadie se mueve hacia el balón sin trigger.",
+  "description": "REHECHO por spacing y geometría del tandem: Stagger → Zoom DHO → 4 SET → 5 SET → 3 usa ambas pantallas con ruta manual corta → 4 ROLL / 5 POP.",
   "status": "Research / Testing — spacing rebuild",
   "system": "Bartzokas / Olympiacos Modern Flow",
   "categories": [
@@ -22,7 +22,8 @@
   "animationStandard": {
     "sequence": "SET → USE → CATCH → ZOOM SET → ZOOM USE → DHO → BIGS SET → USE → 4 ROLL / 5 POP",
     "assistantGeometry": "En jugadas creadas por ChatGPT, la ruta táctica OVER se codifica como under por la convención visual de CourtPlay.",
-    "spacingRule": "Los jugadores sin balón conservan su spot salvo trigger real. No pre-rotar hacia el lado de la próxima acción."
+    "spacingRule": "Los jugadores sin balón conservan su spot salvo trigger real. No pre-rotar hacia el lado de la próxima acción.",
+    "tandemRule": "En doble pantalla, 4 se planta primero; 5 llega segundo y más abierto. La ruta del manejador se dibuja manualmente por encima de ambos para evitar el auto-routing estrecho."
   },
   "teachingReads": [
     "DHO downhill",
@@ -787,46 +788,24 @@
               "y": 285
             },
             {
-              "x": 470,
-              "y": 335
+              "x": 430,
+              "y": 325
             },
             {
-              "x": 610,
-              "y": 355
-            }
-          ],
-          "screenAngleLocked": true,
-          "screenAngle": 118
-        },
-        {
-          "type": "screen",
-          "sourceKey": "o5",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": false,
-          "simultaneousGroup": null,
-          "color": "#f97316",
-          "points": [
-            {
-              "x": 705,
+              "x": 525,
               "y": 350
             },
             {
-              "x": 680,
-              "y": 365
-            },
-            {
-              "x": 650,
-              "y": 380
+              "x": 605,
+              "y": 360
             }
           ],
           "screenAngleLocked": true,
-          "screenAngle": 118
+          "screenAngle": 112
         }
       ],
-      "caption": "BIGS SET — 4 llega como primer screener y 5 como segundo. Los corners NO se mueven. 3 espera a que ambos estén colocados.",
-      "seconds": 1
+      "caption": "4 SET — 4 llega primero a la línea de conducción de 3 y se planta. 5 TODAVÍA mantiene su espacio; 3 no tiene que subir para buscar la pantalla.",
+      "seconds": 0.7
     },
     {
       "phaseStartVersion": 26,
@@ -857,15 +836,95 @@
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 610,
-          "y": 355
+          "x": 605,
+          "y": 360
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 650,
-          "y": 380
+          "x": 705,
+          "y": 350
+        }
+      ],
+      "ball": {
+        "x": 594,
+        "y": 334,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 705,
+              "y": 350
+            },
+            {
+              "x": 710,
+              "y": 365
+            },
+            {
+              "x": 705,
+              "y": 385
+            },
+            {
+              "x": 695,
+              "y": 400
+            }
+          ],
+          "screenAngleLocked": true,
+          "screenAngle": 120
+        }
+      ],
+      "caption": "5 SET — después de 4, 5 se coloca como segundo screener más abierto y más profundo. Hay espacio real entre las dos pantallas.",
+      "seconds": 0.65
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 560,
+          "y": 330
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 605,
+          "y": 360
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 695,
+          "y": 400
         }
       ],
       "ball": {
@@ -889,28 +948,27 @@
               "y": 330
             },
             {
-              "x": 600,
-              "y": 345
+              "x": 590,
+              "y": 334
             },
             {
-              "x": 650,
-              "y": 345
+              "x": 625,
+              "y": 338
             },
             {
-              "x": 705,
-              "y": 320
+              "x": 665,
+              "y": 342
+            },
+            {
+              "x": 720,
+              "y": 325
             }
           ],
           "assistantAuthored": true,
-          "usesScreenKeys": [
-            "o4",
-            "o5"
-          ],
-          "screenUseSide": "under",
-          "screenUseClearance": 58
+          "manualScreenRoute": true
         }
       ],
-      "caption": "USE — 3 usa el tandem. 4 y 5 mantienen sus screens hasta que el manejador supera el segundo nivel.",
+      "caption": "USE — ruta MANUAL: 3 pasa por encima del hombro de 4 y luego por encima de 5 sin subir demasiado. No entra en un pasillo estrecho ni cambia de altura innecesariamente.",
       "seconds": 1
     },
     {
@@ -935,27 +993,27 @@
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 705,
-          "y": 320
+          "x": 720,
+          "y": 325
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 610,
-          "y": 355
+          "x": 605,
+          "y": 360
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 650,
-          "y": 380
+          "x": 695,
+          "y": 400
         }
       ],
       "ball": {
-        "x": 739,
-        "y": 324,
+        "x": 754,
+        "y": 329,
         "owner": "o3"
       },
       "lines": [
@@ -970,15 +1028,15 @@
           "color": "#16a34a",
           "points": [
             {
-              "x": 610,
-              "y": 355
+              "x": 605,
+              "y": 360
             },
             {
-              "x": 575,
+              "x": 570,
               "y": 285
             },
             {
-              "x": 535,
+              "x": 530,
               "y": 215
             },
             {
@@ -998,27 +1056,33 @@
           "color": "#7c3aed",
           "points": [
             {
-              "x": 650,
-              "y": 380
-            },
-            {
-              "x": 700,
+              "x": 695,
               "y": 400
             },
             {
-              "x": 750,
-              "y": 420
+              "x": 735,
+              "y": 410
             },
             {
-              "x": 805,
+              "x": 775,
+              "y": 425
+            },
+            {
+              "x": 820,
               "y": 440
             }
           ]
         }
       ],
-      "caption": "ROLL / POP — 4 ROLA fuerte al aro; 5 POP al slot/ala. 1 y 2 permanecen en corners. Cinco jugadores, cinco espacios distintos.",
+      "caption": "ROLL / POP — después de que 3 limpia las dos pantallas: 4 ROLL directo al aro y 5 POP al slot/ala. 1 y 2 siguen clavando los corners.",
       "seconds": 1.15
     }
   ],
-  "totalSeconds": 10.1
+  "totalSeconds": 10.450000000000001,
+  "reviewNotes": [
+    "Tandem final reconstruido tras revisión del video del usuario.",
+    "3 ya no sube para buscar 4/5: las pantallas llegan a su línea.",
+    "Separación final 4–5 ampliada y screen arrival secuencial.",
+    "Ruta del 3 es manual en esta acción; no usa el helper automático under/over."
+  ]
 }
