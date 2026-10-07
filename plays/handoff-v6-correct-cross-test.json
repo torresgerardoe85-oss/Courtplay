@@ -104,7 +104,9 @@
               "x": 650,
               "y": 410
             }
-          ]
+          ],
+          "assistantAuthored": true,
+          "handoffReceiverSide": "under"
         },
         {
           "type": "dribble",
@@ -171,5 +173,6 @@
         ]
       }
     }
-  ]
+  ],
+  "authoringProfile": "assistant"
 }
