@@ -18,7 +18,8 @@
   },
   "animationStandard": {
     "screenSequence": "APPROACH → SET → USE → RELEASE",
-    "simultaneousRule": "Solo transición y reacciones nacidas del mismo trigger pueden ir simultáneas."
+    "simultaneousRule": "Solo transición y reacciones nacidas del mismo trigger pueden ir simultáneas.",
+    "screenUserRule": "El usuario de toda cortina pasa OVER/basket-side, hombro con cadera; nunca por debajo."
   },
   "teachingReads": [
     "Rim run primero.",
@@ -392,7 +393,13 @@
               "y": 450
             }
           ],
-          "timingWeight": 1
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1
         }
       ],
       "caption": "USE — 1 pasa hombro con cadera y ataca el middle. 5 permanece quieto hasta que 1 supera su nivel.",
