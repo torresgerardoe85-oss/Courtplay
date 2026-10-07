@@ -648,7 +648,9 @@
               "y": 350
             }
           ],
-          "timingWeight": 0.65
+          "timingWeight": 0.65,
+          "assistantAuthored": true,
+          "handoffReceiverSide": "under"
         },
         {
           "type": "move",
@@ -1076,5 +1078,6 @@
       "seconds": 3.4
     }
   ],
-  "animationTotalSeconds": 19.4
+  "animationTotalSeconds": 19.4,
+  "authoringProfile": "assistant"
 }
