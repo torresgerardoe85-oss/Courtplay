@@ -1,7 +1,7 @@
 {
-  "version": 6,
+  "version": 7,
   "name": "BARTZOKAS — Stagger Entry → Zoom → Roll/Pop",
-  "description": "Tandem final corregido: 4 y 5 llegan escalonados y separados; 3 usa ambas pantallas con una ruta casi plana, sin subir ni atravesar un espacio estrecho; 4 ROLL / 5 POP.",
+  "description": "Tandem final corregido según revisión: 4 SET → 5 SET → 3 usa ambas pantallas POR DEBAJO con ruta manual → 4 ROLL / 5 POP.",
   "status": "Research / Testing — spacing rebuild",
   "system": "Bartzokas / Olympiacos Modern Flow",
   "categories": [
@@ -23,7 +23,7 @@
     "sequence": "SET → USE → CATCH → ZOOM SET → ZOOM USE → DHO → BIGS SET → USE → 4 ROLL / 5 POP",
     "assistantGeometry": "En jugadas creadas por ChatGPT, la ruta táctica OVER se codifica como under por la convención visual de CourtPlay.",
     "spacingRule": "Los jugadores sin balón conservan su spot salvo trigger real. No pre-rotar hacia el lado de la próxima acción.",
-    "tandemRule": "En doble pantalla, 4 se planta primero; 5 llega segundo y más abierto. La ruta del manejador se dibuja manualmente por encima de ambos para evitar el auto-routing estrecho."
+    "tandemRule": "En esta acción específica, 3 usa 4 y 5 POR DEBAJO. La ruta es manual y no usa el helper automático under/over."
   },
   "teachingReads": [
     "DHO downhill",
@@ -948,27 +948,28 @@
               "y": 330
             },
             {
-              "x": 590,
-              "y": 332
+              "x": 580,
+              "y": 385
             },
             {
-              "x": 625,
-              "y": 335
+              "x": 615,
+              "y": 420
             },
             {
-              "x": 665,
-              "y": 338
+              "x": 660,
+              "y": 452
             },
             {
-              "x": 720,
-              "y": 325
+              "x": 715,
+              "y": 460
             }
           ],
           "assistantAuthored": true,
-          "manualScreenRoute": true
+          "manualScreenRoute": true,
+          "screenRouteSide": "below"
         }
       ],
-      "caption": "USE — 3 mantiene una línea casi plana: usa primero 4 y luego 5 por encima, con espacio entre los dos cuerpos. No sube para meterse entre pantallas.",
+      "caption": "USE — 3 PASA POR DEBAJO de 4 y después POR DEBAJO de 5. Ruta manual: no usa la corrección automática de CourtPlay. Sale abierto después de la segunda pantalla.",
       "seconds": 1
     },
     {
@@ -993,8 +994,8 @@
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 720,
-          "y": 325
+          "x": 715,
+          "y": 460
         },
         {
           "key": "o4",
@@ -1012,8 +1013,8 @@
         }
       ],
       "ball": {
-        "x": 754,
-        "y": 329,
+        "x": 749,
+        "y": 464,
         "owner": "o3"
       },
       "lines": [
@@ -1074,15 +1075,15 @@
           ]
         }
       ],
-      "caption": "ROLL / POP — después de que 3 limpia las dos pantallas: 4 ROLL directo al aro y 5 POP al slot/ala. 1 y 2 siguen clavando los corners.",
+      "caption": "ROLL / POP — solo después de que 3 sale POR DEBAJO de las dos pantallas: 4 ROLL al aro y 5 POP al slot/ala. 1 y 2 mantienen corners.",
       "seconds": 1.15
     }
   ],
   "totalSeconds": 10.450000000000001,
   "reviewNotes": [
-    "4 y 5 separados ~112 px en el tandem final.",
-    "Ruta manual de 3 casi horizontal; no usa auto-routing.",
+    "Corrección explícita del usuario: 3 pasa POR DEBAJO de 4 y 5.",
+    "Se eliminó el auto-routing de screen use en esta fase.",
     "4 llega primero; 5 segundo y más profundo.",
-    "4 ROLL / 5 POP; corners permanecen ocupados."
+    "Después del uso: 4 ROLL / 5 POP; corners permanecen ocupados."
   ]
 }
