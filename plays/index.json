@@ -1,5 +1,5 @@
 {
-  "version": 22,
+  "version": 23,
   "plays": [
     {
       "slug": "handoff-v6-correct-cross-test",
@@ -213,7 +213,7 @@
     {
       "slug": "bartzokas-stagger-zoom-pnr",
       "name": "BARTZOKAS — Stagger Entry → Zoom → PnR",
-      "description": "40:30. Stagger entry → recepción → Zoom (pindown + DHO) → PnR. Reconstrucción para enseñanza, con SET→USE→RELEASE y sin movimientos innecesarios.",
+      "description": "40:30. ORIENTACIÓN CORREGIDA para coincidir con el lado del video: Stagger Entry → recepción → Zoom (pindown + DHO) → PnR. Research/Testing.",
       "categories": [
         "flow",
         "zoom",
