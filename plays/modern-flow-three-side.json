@@ -19,7 +19,8 @@
   "animationStandard": {
     "screenSequence": "SET → USE → RELEASE",
     "reverseRule": "PASS/CATCH antes de relocation o próxima pantalla",
-    "simultaneousRule": "Solo reacciones que nacen del mismo trigger."
+    "simultaneousRule": "Solo reacciones que nacen del mismo trigger.",
+    "screenUserRule": "El usuario de toda cortina pasa OVER/basket-side, hombro con cadera; nunca por debajo."
   },
   "teachingReads": [
     "FIRST SIDE: score if advantage.",
@@ -192,7 +193,13 @@
               "y": 450
             }
           ],
-          "timingWeight": 1
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1
         }
       ],
       "caption": "FIRST SIDE — USE. 1 usa la pantalla; 5 todavía sostiene su posición.",
@@ -752,7 +759,13 @@
               "y": 320
             }
           ],
-          "timingWeight": 1
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o4"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1
         }
       ],
       "caption": "SECOND SIDE — USE. 2 ataca middle. 4 sigue plantado hasta que el balón supera su nivel.",
@@ -1205,7 +1218,13 @@
               "y": 360
             }
           ],
-          "timingWeight": 1
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1
         }
       ],
       "caption": "THIRD SIDE — USE. 1 vuelve a atacar, ahora desde otro ángulo y contra una defensa que ya cambió de lado dos veces.",
