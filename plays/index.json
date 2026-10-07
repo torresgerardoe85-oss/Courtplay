@@ -1,5 +1,5 @@
 {
-  "version": 20,
+  "version": 21,
   "plays": [
     {
       "slug": "handoff-v6-correct-cross-test",
@@ -170,8 +170,8 @@
       ]
     },
     {
-      "slug": "iisalo-early-wide-drag",
-      "name": "IISALO EARLY — Wide Lanes → Drag",
+      "slug": "modern-flow-early-wide-drag",
+      "name": "MODERN FLOW — Early Wide Drag",
       "description": "Llegada moderna: cinco lanes → 5 planta Drag → 1 usa → 5 roll + lift → reverse si neutral. Timing dividido en SET→USE→RELEASE.",
       "categories": [
         "transition",
@@ -180,9 +180,9 @@
       ]
     },
     {
-      "slug": "iisalo-flow-spread-wing-top",
-      "name": "IISALO FLOW — Spread → Wing → Top",
-      "description": "Three-Side Flow legible: Angle PnR → reverse/catch → throw-and-chase Empty PnR → reverse/catch → Top PnR. Cada acción empieza solo cuando termina la anterior.",
+      "slug": "modern-flow-three-side",
+      "name": "MODERN FLOW — Three-Side Flow",
+      "description": "First-side Angle PnR → reverse/catch → second-side Empty PnR → reverse/catch → third-side Top PnR. Cada acción empieza solo cuando termina la anterior.",
       "categories": [
         "transition",
         "flow",
@@ -190,8 +190,8 @@
       ]
     },
     {
-      "slug": "iisalo-iverson-follow-empty",
-      "name": "IISALO ENTRY — Iverson Follow Empty",
+      "slug": "modern-flow-iverson-empty",
+      "name": "MODERN FLOW — Iverson → Empty PnR",
       "description": "Baseline clear → Iverson → catch → 5 follow/set → Empty PnR. El follow no comienza antes del catch y el roll ocurre después del uso.",
       "categories": [
         "flow",
@@ -201,8 +201,8 @@
       ]
     },
     {
-      "slug": "iisalo-flow-weak-entry",
-      "name": "IISALO ENTRY — Flow Weak",
+      "slug": "modern-flow-weak-entry",
+      "name": "MODERN FLOW — Weak → Second Side",
       "description": "Weak clear → Spread PnR → reverse/catch → second-side Wing PnR. El corte limpia primero y cada screen respeta SET→USE→RELEASE.",
       "categories": [
         "transition",
