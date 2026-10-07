@@ -1,7 +1,7 @@
 {
-  "version": 5,
+  "version": 6,
   "name": "BARTZOKAS — Stagger Entry → Zoom → Roll/Pop",
-  "description": "REHECHO por spacing y geometría del tandem: Stagger → Zoom DHO → 4 SET → 5 SET → 3 usa ambas pantallas con ruta manual corta → 4 ROLL / 5 POP.",
+  "description": "Tandem final corregido: 4 y 5 llegan escalonados y separados; 3 usa ambas pantallas con una ruta casi plana, sin subir ni atravesar un espacio estrecho; 4 ROLL / 5 POP.",
   "status": "Research / Testing — spacing rebuild",
   "system": "Bartzokas / Olympiacos Modern Flow",
   "categories": [
@@ -789,22 +789,22 @@
             },
             {
               "x": 430,
-              "y": 325
+              "y": 330
             },
             {
               "x": 525,
-              "y": 350
+              "y": 365
             },
             {
-              "x": 605,
-              "y": 360
+              "x": 600,
+              "y": 375
             }
           ],
           "screenAngleLocked": true,
           "screenAngle": 112
         }
       ],
-      "caption": "4 SET — 4 llega primero a la línea de conducción de 3 y se planta. 5 TODAVÍA mantiene su espacio; 3 no tiene que subir para buscar la pantalla.",
+      "caption": "4 SET — 4 llega primero y se planta ligeramente por debajo de la línea de 3. La pantalla llega al manejador; 3 no tiene que subir para buscarla.",
       "seconds": 0.7
     },
     {
@@ -836,8 +836,8 @@
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 605,
-          "y": 360
+          "x": 600,
+          "y": 375
         },
         {
           "key": "o5",
@@ -868,23 +868,23 @@
               "y": 350
             },
             {
+              "x": 715,
+              "y": 375
+            },
+            {
               "x": 710,
-              "y": 365
+              "y": 405
             },
             {
-              "x": 705,
-              "y": 385
-            },
-            {
-              "x": 695,
-              "y": 400
+              "x": 700,
+              "y": 425
             }
           ],
           "screenAngleLocked": true,
           "screenAngle": 120
         }
       ],
-      "caption": "5 SET — después de 4, 5 se coloca como segundo screener más abierto y más profundo. Hay espacio real entre las dos pantallas.",
+      "caption": "5 SET — 5 llega segundo, más atrás y más abierto que 4. Ya no forma una pared cerrada con 4; deja un carril real para que 3 use ambas.",
       "seconds": 0.65
     },
     {
@@ -916,15 +916,15 @@
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 605,
-          "y": 360
+          "x": 600,
+          "y": 375
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 695,
-          "y": 400
+          "x": 700,
+          "y": 425
         }
       ],
       "ball": {
@@ -949,15 +949,15 @@
             },
             {
               "x": 590,
-              "y": 334
+              "y": 332
             },
             {
               "x": 625,
-              "y": 338
+              "y": 335
             },
             {
               "x": 665,
-              "y": 342
+              "y": 338
             },
             {
               "x": 720,
@@ -968,7 +968,7 @@
           "manualScreenRoute": true
         }
       ],
-      "caption": "USE — ruta MANUAL: 3 pasa por encima del hombro de 4 y luego por encima de 5 sin subir demasiado. No entra en un pasillo estrecho ni cambia de altura innecesariamente.",
+      "caption": "USE — 3 mantiene una línea casi plana: usa primero 4 y luego 5 por encima, con espacio entre los dos cuerpos. No sube para meterse entre pantallas.",
       "seconds": 1
     },
     {
@@ -1000,15 +1000,15 @@
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 605,
-          "y": 360
+          "x": 600,
+          "y": 375
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 695,
-          "y": 400
+          "x": 700,
+          "y": 425
         }
       ],
       "ball": {
@@ -1028,16 +1028,16 @@
           "color": "#16a34a",
           "points": [
             {
-              "x": 605,
-              "y": 360
+              "x": 600,
+              "y": 375
             },
             {
-              "x": 570,
-              "y": 285
+              "x": 565,
+              "y": 300
             },
             {
-              "x": 530,
-              "y": 215
+              "x": 525,
+              "y": 220
             },
             {
               "x": 500,
@@ -1056,20 +1056,20 @@
           "color": "#7c3aed",
           "points": [
             {
-              "x": 695,
-              "y": 400
-            },
-            {
-              "x": 735,
-              "y": 410
-            },
-            {
-              "x": 775,
+              "x": 700,
               "y": 425
             },
             {
-              "x": 820,
-              "y": 440
+              "x": 740,
+              "y": 430
+            },
+            {
+              "x": 780,
+              "y": 438
+            },
+            {
+              "x": 825,
+              "y": 445
             }
           ]
         }
@@ -1080,9 +1080,9 @@
   ],
   "totalSeconds": 10.450000000000001,
   "reviewNotes": [
-    "Tandem final reconstruido tras revisión del video del usuario.",
-    "3 ya no sube para buscar 4/5: las pantallas llegan a su línea.",
-    "Separación final 4–5 ampliada y screen arrival secuencial.",
-    "Ruta del 3 es manual en esta acción; no usa el helper automático under/over."
+    "4 y 5 separados ~112 px en el tandem final.",
+    "Ruta manual de 3 casi horizontal; no usa auto-routing.",
+    "4 llega primero; 5 segundo y más profundo.",
+    "4 ROLL / 5 POP; corners permanecen ocupados."
   ]
 }
