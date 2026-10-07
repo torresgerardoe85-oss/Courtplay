@@ -1,21 +1,21 @@
-const CACHE='courtplay-v68';
+const CACHE='courtplay-v69';
 const ASSETS=[
   './',
-  './index.html?v=68',
-  './v2.html?v=68',
+  './index.html?v=69',
+  './v2.html?v=69',
   './manifest-v43.json',
   './courtplay-icon-192-v43.png',
   './courtplay-icon-512-v43.png',
   './apple-touch-icon-v43.png',
-  './courtplay.css?v=68',
-  './courtplay-engine.js?v=68',
-  './courtplay-state.js?v=68',
-  './courtplay-render.js?v=68',
-  './courtplay-editor.js?v=68',
-  './courtplay-timeline.js?v=68',
-  './courtplay-cloud.js?v=68',
-  './courtplay-library.js?v=68',
-  './courtplay-export.js?v=68',
+  './courtplay.css?v=69',
+  './courtplay-engine.js?v=69',
+  './courtplay-state.js?v=69',
+  './courtplay-render.js?v=69',
+  './courtplay-editor.js?v=69',
+  './courtplay-timeline.js?v=69',
+  './courtplay-cloud.js?v=69',
+  './courtplay-library.js?v=69',
+  './courtplay-export.js?v=69',
   './plays/index.json'
 ];
 
@@ -50,6 +50,20 @@ self.addEventListener('fetch',e=>{
     return;
   }
 
+  if(url.pathname.includes('/plays/')){
+    e.respondWith((async()=>{
+      try{
+        const fresh=await fetch(e.request,{cache:'no-store'});
+        await put(e.request,fresh);
+        return fresh;
+      }catch(err){
+        const cache=await caches.open(CACHE);
+        return (await cache.match(e.request)) || new Response('',{status:503,statusText:'Offline'});
+      }
+    })());
+    return;
+  }
+
   if(e.request.mode==='navigate'){
     e.respondWith((async()=>{
       try{
@@ -59,7 +73,7 @@ self.addEventListener('fetch',e=>{
       }catch(err){
         const cache=await caches.open(CACHE);
         return (await cache.match(e.request)) ||
-               (await cache.match('./index.html?v=68')) ||
+               (await cache.match('./index.html?v=69')) ||
                new Response('CourtPlay no disponible sin conexión.',{status:503});
       }
     })());
