@@ -1,39 +1,32 @@
 {
-  "version": 2,
+  "version": 3,
   "name": "IISALO ENTRY — Flow Weak",
-  "description": "Cuando no se llega en las cinco lanes ideales: weak cut through → Spread P&R trigger → reverse into second-side Wing P&R. Misma estructura, diferente entrada.",
-  "status": "Source-based reconstruction — spacing adaptation",
-  "system": "Tuomas Iisalo Flow Entry",
+  "description": "Entrada para spacing imperfecto: Weak cut through → clear → Spread PnR → reverse/catch → second-side Wing PnR. El corte limpia antes de la pantalla; la siguiente acción no comienza hasta completar la anterior.",
+  "status": "Research / Testing — source-based reconstruction",
+  "system": "41 Modern Flow / Weak Entry",
   "categories": [
     "transition",
     "flow",
     "pnr"
   ],
   "source": {
-    "primary": [
-      "Adam Pike — 2025–26 Iisalo offence: if the team is not set in five-lane spacing, it can 'Weak' the floor; the cutter goes through to the opposite corner and the group transitions directly into Flow (Spread + Wing P&R).",
-      "FIBA Basketball — Iisalo uses different entries to enter the same reaction system rather than relying on rigid set calls."
+    "basis": [
+      "Iisalo principle: different entries feed same reaction system.",
+      "FIBA — Bonn: structure inside freedom and fast side-to-side reactions."
     ],
-    "adaptation": "4/5 remain non-shooting roles: 5 first-side screener/roller; 4 becomes second-side screener rather than a stationary stretch forward."
+    "adaptation": "4-Out 1-In; 5 first-side screener/roller; 4 second-side screener."
   },
   "animationStandard": {
-    "name": "COURTPLAY_ANIMATION_TIMING_STANDARD",
-    "screenSequence": "APPROACH → SET → USE → RELEASE",
-    "rules": [
-      "Simultaneous only when actions share the same basketball trigger",
-      "Pass is completed before dependent next action",
-      "No screen-and-roll at the same instant",
-      "Phase end becomes the exact next phase start",
-      "Review at 1x, 0.75x and 0.5x before approval"
-    ]
+    "screenSequence": "CLEAR → SET → USE → RELEASE",
+    "reverseRule": "PASS/CATCH before next-side movement"
   },
   "teachingReads": [
-    "Weak cut can score if open.",
-    "If not open, immediately enter Spread P&R without stopping.",
-    "Neutral first side reverses into Wing P&R.",
-    "Different entry, same Flow reactions."
+    "Weak cut can score.",
+    "If not: first-side Spread PnR.",
+    "Neutral: reverse.",
+    "Second side: pass/chase Wing PnR."
   ],
-  "totalSeconds": 8.1,
+  "totalSeconds": 8.95,
   "frames": [
     {
       "phaseStartVersion": 26,
@@ -88,7 +81,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_weak_entry",
+          "simultaneousGroup": "weakArrival",
           "color": "#ef4444",
           "points": [
             {
@@ -125,7 +118,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_weak_entry",
+          "simultaneousGroup": "weakArrival",
           "color": "#172033",
           "points": [
             {
@@ -144,15 +137,14 @@
           "timingWeight": 0.48
         }
       ],
-      "caption": "WEAK CUT — el spacing inicial no está perfecto. 3 corta por la pintura hacia la esquina opuesta. 1 puede encontrarlo si queda libre; si no, no detenemos la posesión. 5 espera a que el corte limpie antes de entrar al ball screen.",
-      "seconds": 1.6,
+      "caption": "WEAK CLEAR — 3 atraviesa y limpia al corner contrario mientras 1 avanza controlado. 5 espera: todavía no hay pantalla.",
+      "seconds": 1.55,
       "timeline": {
         "start": 0,
-        "end": 1.6,
+        "end": 1.55,
         "logic": [
-          "WEAK trigger",
-          "SIMULTÁNEO: 3 CUT THROUGH + 1 controlled ADVANCE",
-          "5 waits; ball screen begins only after cutter clears"
+          "3 CUT THROUGH + 1 CONTROLLED ADVANCE",
+          "5 WAITS"
         ]
       }
     },
@@ -225,10 +217,67 @@
               "y": 490
             }
           ],
-          "timingWeight": 0.64,
+          "timingWeight": 1,
           "screenAngleLocked": true,
           "screenAngle": 126.5
+        }
+      ],
+      "caption": "FIRST SIDE — SET. Solo cuando 3 termina de limpiar, 5 entra y se planta.",
+      "seconds": 0.65,
+      "timeline": {
+        "start": 1.55,
+        "end": 2.2,
+        "logic": [
+          "5 SET after clear"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 630,
+          "y": 565
         },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 595,
+          "y": 490
+        }
+      ],
+      "ball": {
+        "x": 664,
+        "y": 569,
+        "owner": "o1"
+      },
+      "lines": [
         {
           "type": "dribble",
           "sourceKey": "o1",
@@ -260,8 +309,66 @@
               "y": 450
             }
           ],
-          "timingWeight": 0.92
+          "timingWeight": 1
+        }
+      ],
+      "caption": "FIRST SIDE — USE. 1 usa; 5 mantiene pantalla. 2/3/4 no se mueven.",
+      "seconds": 1.05,
+      "timeline": {
+        "start": 2.2,
+        "end": 3.25,
+        "logic": [
+          "1 USE",
+          "5 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 505,
+          "y": 450
         },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 595,
+          "y": 490
+        }
+      ],
+      "ball": {
+        "x": 539,
+        "y": 454,
+        "owner": "o1"
+      },
+      "lines": [
         {
           "type": "move",
           "sourceKey": "o5",
@@ -289,18 +396,16 @@
               "y": 165
             }
           ],
-          "timingWeight": 0.86
+          "timingWeight": 1
         }
       ],
-      "caption": "FLOW FIRST SIDE — una vez 3 limpia, 5 se establece y 1 entra directamente al Spread P&R. 5 rola solamente después del uso. 2 y 3 mantienen profundidad y 4 queda preparado para el segundo lado.",
-      "seconds": 2.5,
+      "caption": "FIRST SIDE — RELEASE. 5 rola después del uso.",
+      "seconds": 1,
       "timeline": {
-        "start": 1.6,
-        "end": 4.1,
+        "start": 3.25,
+        "end": 4.25,
         "logic": [
-          "SPREAD P&R",
-          "SECUENCIAL: 5 SET → 1 USE → 5 ROLL",
-          "2/3 corners hold; 4 second-side wing"
+          "5 ROLL"
         ]
       }
     },
@@ -373,8 +478,65 @@
               "y": 355
             }
           ],
-          "timingWeight": 0.46
+          "timingWeight": 1
+        }
+      ],
+      "caption": "REVERSE — si queda neutral, 1 pasa a 4. No hacemos el lift ni el chase antes del catch.",
+      "seconds": 0.65,
+      "timeline": {
+        "start": 4.25,
+        "end": 4.9,
+        "logic": [
+          "1→4 PASS/CATCH"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 505,
+          "y": 450
         },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 520,
+          "y": 165
+        }
+      ],
+      "ball": {
+        "x": 854,
+        "y": 359,
+        "owner": "o4"
+      },
+      "lines": [
         {
           "type": "move",
           "sourceKey": "o3",
@@ -382,7 +544,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_weak_reverse",
+          "simultaneousGroup": "weakSecondPrep",
           "color": "#6b7280",
           "points": [
             {
@@ -398,7 +560,7 @@
               "y": 315
             }
           ],
-          "timingWeight": 0.5
+          "timingWeight": 0.7
         },
         {
           "type": "move",
@@ -407,7 +569,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": "g_weak_reverse",
+          "simultaneousGroup": "weakSecondPrep",
           "color": "#6b7280",
           "points": [
             {
@@ -427,17 +589,17 @@
               "y": 195
             }
           ],
-          "timingWeight": 0.48
+          "timingWeight": 0.7
         }
       ],
-      "caption": "SECOND-SIDE PREP — si el primer lado queda neutral, 1 revierte a 4. Después del catch, 3 levanta desde la esquina y 5 limpia bien ancho al short-corner/dunker débil para dejar libre el channel del próximo roller.",
-      "seconds": 1.4,
+      "caption": "SECOND-SIDE PREP — después del catch: 3 lift y 5 limpia el lane contrario.",
+      "seconds": 0.8,
       "timeline": {
-        "start": 4.1,
-        "end": 5.5,
+        "start": 4.9,
+        "end": 5.7,
         "logic": [
-          "If first side neutral: 1 PASS → 4 CATCH",
-          "After catch 3 lifts from corner to create working space"
+          "Trigger = 4 CATCH",
+          "3 LIFT + 5 CLEAR"
         ]
       }
     },
@@ -510,8 +672,65 @@
               "y": 315
             }
           ],
-          "timingWeight": 0.38
+          "timingWeight": 1
+        }
+      ],
+      "caption": "SECOND SIDE — PASS. 4 entrega a 3.",
+      "seconds": 0.45,
+      "timeline": {
+        "start": 5.7,
+        "end": 6.15,
+        "logic": [
+          "4→3 PASS/CATCH"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 505,
+          "y": 450
         },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 800,
+          "y": 315
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 820,
+          "y": 355
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 260,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 834,
+        "y": 319,
+        "owner": "o3"
+      },
+      "lines": [
         {
           "type": "screen",
           "sourceKey": "o4",
@@ -535,10 +754,68 @@
               "y": 330
             }
           ],
-          "timingWeight": 0.68,
+          "timingWeight": 1,
           "screenAngleLocked": true,
-          "screenAngle": 82.6
+          "screenAngle": 83
+        }
+      ],
+      "caption": "SECOND SIDE — CHASE/SET. 4 persigue y se planta; 3 espera.",
+      "seconds": 0.65,
+      "timeline": {
+        "start": 6.15,
+        "end": 6.8,
+        "logic": [
+          "4 CHASE → SET",
+          "3 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 505,
+          "y": 450
         },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 800,
+          "y": 315
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 765,
+          "y": 330
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 260,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 834,
+        "y": 319,
+        "owner": "o3"
+      },
+      "lines": [
         {
           "type": "dribble",
           "sourceKey": "o3",
@@ -570,8 +847,66 @@
               "y": 300
             }
           ],
-          "timingWeight": 0.9
+          "timingWeight": 1
+        }
+      ],
+      "caption": "SECOND SIDE — USE. 3 ataca el middle; 4 sostiene hasta que 3 limpia la pantalla.",
+      "seconds": 1.05,
+      "timeline": {
+        "start": 6.8,
+        "end": 7.85,
+        "logic": [
+          "3 USE",
+          "4 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 505,
+          "y": 450
         },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 205
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 615,
+          "y": 300
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 765,
+          "y": 330
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 260,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 649,
+        "y": 304,
+        "owner": "o3"
+      },
+      "lines": [
         {
           "type": "move",
           "sourceKey": "o4",
@@ -599,17 +934,17 @@
               "y": 160
             }
           ],
-          "timingWeight": 0.84
+          "timingWeight": 1
         }
       ],
-      "caption": "WING P&R — 4 pasa a 3 y persigue el pase. 4 se establece antes del cambio de dirección; 3 usa hacia el medio y 4 rola después del uso. Flow continúa desde aquí según la ventaja creada.",
-      "seconds": 2.6,
+      "caption": "SECOND SIDE — RELEASE. 4 rola después del uso. Desde aquí seguimos según la ventaja, no por memoria.",
+      "seconds": 1.1,
       "timeline": {
-        "start": 5.5,
-        "end": 8.1,
+        "start": 7.85,
+        "end": 8.95,
         "logic": [
-          "SECOND SIDE",
-          "4 PASS→3 CATCH → 4 CHASE/SET → 3 USE → 4 ROLL"
+          "4 ROLL",
+          "Team reaction next"
         ]
       }
     }
