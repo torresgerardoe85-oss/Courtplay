@@ -1,0 +1,637 @@
+{
+  "version": 3,
+  "name": "BARTZOKAS — Stagger → Ghost → PnR",
+  "description": "Stagger para liberar el receptor, Ghost que obliga a comunicar/cambiar sin contacto y ball screen real inmediatamente después. Construido para que Ghost y PnR no ocurran a la vez.",
+  "status": "Research / Testing — source-based reconstruction",
+  "system": "Bartzokas / Olympiacos Modern Flow",
+  "categories": [
+    "flow",
+    "pnr",
+    "ghost",
+    "quick"
+  ],
+  "authoringProfile": "assistant",
+  "source": {
+    "title": "Breaking down EuroLeague's best offense | Giorgos Bartzokas' playbook",
+    "channel": "BasketHead",
+    "published": "2026-02-23",
+    "chapter": "37:35 — Stagger Ghost Pick & Roll",
+    "note": "Reconstrucción/adaptación de CourtPlay basada en el concepto y capítulo del video; no pretende ser una copia exacta de coordenadas."
+  },
+  "animationStandard": {
+    "sequence": "APPROACH → SET → USE → RELEASE → NEXT ACTION",
+    "assistantGeometry": "Para jugadas creadas por ChatGPT, la ruta táctica OVER se codifica internamente como under porque CourtPlay interpreta ese lado de forma invertida.",
+    "simultaneousRule": "Solo movimientos que nacen del mismo trigger se agrupan."
+  },
+  "teachingReads": [
+    "STAGGER CATCH",
+    "GHOST READ",
+    "TURN CORNER",
+    "ROLL",
+    "SHAKE/LIFT"
+  ],
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 700
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 685,
+          "y": 350
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 610,
+          "y": 430
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 704,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 685,
+              "y": 350
+            },
+            {
+              "x": 735,
+              "y": 315
+            },
+            {
+              "x": 770,
+              "y": 285
+            }
+          ],
+          "screenAngleLocked": true,
+          "screenAngle": 98
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 610,
+              "y": 430
+            },
+            {
+              "x": 675,
+              "y": 390
+            },
+            {
+              "x": 720,
+              "y": 350
+            }
+          ],
+          "screenAngleLocked": true,
+          "screenAngle": 100
+        }
+      ],
+      "caption": "STAGGER SET — 4 y 5 establecen la salida para 2. 1 espera arriba.",
+      "seconds": 0.8
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 700
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 770,
+          "y": 285
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 720,
+          "y": 350
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 704,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 850,
+              "y": 190
+            },
+            {
+              "x": 805,
+              "y": 270
+            },
+            {
+              "x": 755,
+              "y": 345
+            },
+            {
+              "x": 700,
+              "y": 415
+            }
+          ],
+          "assistantAuthored": true,
+          "usesScreenKeys": [
+            "o4",
+            "o5"
+          ],
+          "screenUseSide": "under",
+          "screenUseClearance": 58
+        }
+      ],
+      "caption": "STAGGER USE — 2 sale a wing. Los screeners esperan hasta que 2 limpie.",
+      "seconds": 1.1
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 700
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 700,
+          "y": 415
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 770,
+          "y": 285
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 720,
+          "y": 350
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 704,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 500,
+              "y": 700
+            },
+            {
+              "x": 600,
+              "y": 555
+            },
+            {
+              "x": 700,
+              "y": 415
+            }
+          ]
+        }
+      ],
+      "caption": "CATCH — recepción completa antes del Ghost.",
+      "seconds": 0.6
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 700
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 700,
+          "y": 415
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 770,
+          "y": 285
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 720,
+          "y": 350
+        }
+      ],
+      "ball": {
+        "x": 734,
+        "y": 419,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#7c3aed",
+          "points": [
+            {
+              "x": 770,
+              "y": 285
+            },
+            {
+              "x": 735,
+              "y": 355
+            },
+            {
+              "x": 700,
+              "y": 410
+            },
+            {
+              "x": 805,
+              "y": 455
+            }
+          ]
+        }
+      ],
+      "caption": "GHOST — 4 amenaza pantalla sobre 2 pero NO hace contacto: llega al hombro y se abre. La defensa debe comunicar sin que la posesión se detenga.",
+      "seconds": 0.95
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 700
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 700,
+          "y": 415
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 805,
+          "y": 455
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 720,
+          "y": 350
+        }
+      ],
+      "ball": {
+        "x": 734,
+        "y": 419,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 720,
+              "y": 350
+            },
+            {
+              "x": 700,
+              "y": 390
+            },
+            {
+              "x": 680,
+              "y": 425
+            }
+          ],
+          "screenAngleLocked": true,
+          "screenAngle": 72
+        }
+      ],
+      "caption": "REAL SCREEN — inmediatamente después del Ghost, 5 entra al PnR y se planta. 2 espera.",
+      "seconds": 0.65
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 700
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 700,
+          "y": 415
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 805,
+          "y": 455
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 680,
+          "y": 425
+        }
+      ],
+      "ball": {
+        "x": 734,
+        "y": 419,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 700,
+              "y": 415
+            },
+            {
+              "x": 665,
+              "y": 420
+            },
+            {
+              "x": 625,
+              "y": 400
+            },
+            {
+              "x": 585,
+              "y": 370
+            }
+          ],
+          "assistantAuthored": true,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "under",
+          "screenUseClearance": 58
+        }
+      ],
+      "caption": "USE — 2 gira al medio después del Ghost. La defensa ya tuvo que resolver una acción falsa antes del contacto real.",
+      "seconds": 1
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 700
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 585,
+          "y": 370
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 805,
+          "y": 455
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 680,
+          "y": 425
+        }
+      ],
+      "ball": {
+        "x": 619,
+        "y": 374,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "pnrReaction",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 680,
+              "y": 425
+            },
+            {
+              "x": 625,
+              "y": 325
+            },
+            {
+              "x": 560,
+              "y": 235
+            },
+            {
+              "x": 510,
+              "y": 160
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "pnrReaction",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 150,
+              "y": 190
+            },
+            {
+              "x": 170,
+              "y": 255
+            },
+            {
+              "x": 195,
+              "y": 315
+            }
+          ]
+        }
+      ],
+      "caption": "RELEASE — 5 rola y el weak side hace lift solo porque el PnR creó la reacción. 4 mantiene spacing tras el Ghost.",
+      "seconds": 1.15
+    }
+  ],
+  "totalSeconds": 6.25
+}
