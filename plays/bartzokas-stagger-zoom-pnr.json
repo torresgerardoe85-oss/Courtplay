@@ -1,7 +1,7 @@
 {
-  "version": 9,
+  "version": 10,
   "name": "BARTZOKAS — Stagger Entry → Zoom → Roll/Pop",
-  "description": "Continuación final bajada al slot: Zoom DHO bajo → 4 SET → 5 SET → 3 usa ambas POR DEBAJO con clearance real → 4 ROLL / 5 POP.",
+  "description": "COMPACTADA PARA EDICIÓN: 5 fases tácticas — Stagger · Entry/Clear · Zoom/DHO · Spacing+Tandem Set · Use+Roll/Pop.",
   "status": "Research / Testing — spacing rebuild",
   "system": "Bartzokas / Olympiacos Modern Flow",
   "categories": [
@@ -138,57 +138,7 @@
           ],
           "screenAngleLocked": true,
           "screenAngle": 100
-        }
-      ],
-      "caption": "STAGGER SET — 4 y 5 se plantan para 2. 1 con balón arriba; 3 mantiene corner contrario. Nadie más se mueve.",
-      "seconds": 0.8
-    },
-    {
-      "phaseStartVersion": 26,
-      "phaseOwnershipVersion": 26,
-      "players": [
-        {
-          "key": "o1",
-          "label": "1",
-          "team": "offense",
-          "x": 500,
-          "y": 700
         },
-        {
-          "key": "o2",
-          "label": "2",
-          "team": "offense",
-          "x": 850,
-          "y": 190
-        },
-        {
-          "key": "o3",
-          "label": "3",
-          "team": "offense",
-          "x": 150,
-          "y": 190
-        },
-        {
-          "key": "o4",
-          "label": "4",
-          "team": "offense",
-          "x": 770,
-          "y": 285
-        },
-        {
-          "key": "o5",
-          "label": "5",
-          "team": "offense",
-          "x": 705,
-          "y": 350
-        }
-      ],
-      "ball": {
-        "x": 534,
-        "y": 704,
-        "owner": "o1"
-      },
-      "lines": [
         {
           "type": "move",
           "sourceKey": "o2",
@@ -225,8 +175,8 @@
           "screenUseClearance": 58
         }
       ],
-      "caption": "STAGGER USE — 2 sale pegado a ambos screens. 4 y 5 sostienen hasta que 2 limpia.",
-      "seconds": 1.05
+      "caption": "STAGGER — 4 y 5 llegan y se plantan; después 2 usa las dos pantallas. 1 mantiene balón y 3 conserva el corner opuesto.",
+      "seconds": 1.85
     },
     {
       "phaseStartVersion": 26,
@@ -297,57 +247,7 @@
               "y": 420
             }
           ]
-        }
-      ],
-      "caption": "CATCH — 1 pasa a 2. El próximo movimiento no empieza hasta que 2 tiene control.",
-      "seconds": 0.55
-    },
-    {
-      "phaseStartVersion": 26,
-      "phaseOwnershipVersion": 26,
-      "players": [
-        {
-          "key": "o1",
-          "label": "1",
-          "team": "offense",
-          "x": 500,
-          "y": 700
         },
-        {
-          "key": "o2",
-          "label": "2",
-          "team": "offense",
-          "x": 700,
-          "y": 420
-        },
-        {
-          "key": "o3",
-          "label": "3",
-          "team": "offense",
-          "x": 150,
-          "y": 190
-        },
-        {
-          "key": "o4",
-          "label": "4",
-          "team": "offense",
-          "x": 770,
-          "y": 285
-        },
-        {
-          "key": "o5",
-          "label": "5",
-          "team": "offense",
-          "x": 705,
-          "y": 350
-        }
-      ],
-      "ball": {
-        "x": 734,
-        "y": 424,
-        "owner": "o2"
-      },
-      "lines": [
         {
           "type": "move",
           "sourceKey": "o1",
@@ -377,8 +277,8 @@
           ]
         }
       ],
-      "caption": "CLEAR/FILL — después del pase, 1 ocupa el corner que 2 dejó. 3 sigue en el corner opuesto. Ya tenemos dos esquinas fijas.",
-      "seconds": 0.85
+      "caption": "ENTRY / CLEAR — 1 pasa a 2 y después limpia al corner que 2 dejó. La recepción ocurre primero; el clear viene después.",
+      "seconds": 1.4
     },
     {
       "phaseStartVersion": 26,
@@ -451,57 +351,7 @@
           ],
           "screenAngleLocked": true,
           "screenAngle": 92
-        }
-      ],
-      "caption": "ZOOM SET — 4 cruza y se planta para el pindown de 3. 2 mantiene el balón; 5 no se acerca al DHO todavía.",
-      "seconds": 0.9
-    },
-    {
-      "phaseStartVersion": 26,
-      "phaseOwnershipVersion": 26,
-      "players": [
-        {
-          "key": "o1",
-          "label": "1",
-          "team": "offense",
-          "x": 850,
-          "y": 190
         },
-        {
-          "key": "o2",
-          "label": "2",
-          "team": "offense",
-          "x": 700,
-          "y": 420
-        },
-        {
-          "key": "o3",
-          "label": "3",
-          "team": "offense",
-          "x": 150,
-          "y": 190
-        },
-        {
-          "key": "o4",
-          "label": "4",
-          "team": "offense",
-          "x": 300,
-          "y": 285
-        },
-        {
-          "key": "o5",
-          "label": "5",
-          "team": "offense",
-          "x": 705,
-          "y": 350
-        }
-      ],
-      "ball": {
-        "x": 734,
-        "y": 424,
-        "owner": "o2"
-      },
-      "lines": [
         {
           "type": "move",
           "sourceKey": "o3",
@@ -563,57 +413,7 @@
               "y": 405
             }
           ]
-        }
-      ],
-      "caption": "ZOOM MEET — con 4 ya plantado, 3 usa el pindown mientras 2 dribla al punto de entrega. Solo estos dos se mueven.",
-      "seconds": 1.05
-    },
-    {
-      "phaseStartVersion": 26,
-      "phaseOwnershipVersion": 26,
-      "players": [
-        {
-          "key": "o1",
-          "label": "1",
-          "team": "offense",
-          "x": 850,
-          "y": 190
         },
-        {
-          "key": "o2",
-          "label": "2",
-          "team": "offense",
-          "x": 460,
-          "y": 405
-        },
-        {
-          "key": "o3",
-          "label": "3",
-          "team": "offense",
-          "x": 345,
-          "y": 405
-        },
-        {
-          "key": "o4",
-          "label": "4",
-          "team": "offense",
-          "x": 300,
-          "y": 285
-        },
-        {
-          "key": "o5",
-          "label": "5",
-          "team": "offense",
-          "x": 705,
-          "y": 350
-        }
-      ],
-      "ball": {
-        "x": 494,
-        "y": 409,
-        "owner": "o2"
-      },
-      "lines": [
         {
           "type": "handoff",
           "sourceKey": "o2",
@@ -650,8 +450,8 @@
           "handoffGeometryAuto": false
         }
       ],
-      "caption": "ZOOM DHO — 3 recibe más abajo, cerca del slot. La continuación no nace pegada al aro.",
-      "seconds": 0.95
+      "caption": "ZOOM / DHO — 4 pone el pindown; 3 usa mientras 2 dribla al punto de entrega; después ocurre el DHO y 3 sale al slot.",
+      "seconds": 2.9
     },
     {
       "phaseStartVersion": 26,
@@ -726,57 +526,7 @@
               "y": 190
             }
           ]
-        }
-      ],
-      "caption": "POST-DHO SPACING — 2 limpia al corner; 3 queda en slot con cancha por delante. 1 y 2 siguen fijando las esquinas.",
-      "seconds": 0.8
-    },
-    {
-      "phaseStartVersion": 26,
-      "phaseOwnershipVersion": 26,
-      "players": [
-        {
-          "key": "o1",
-          "label": "1",
-          "team": "offense",
-          "x": 850,
-          "y": 190
         },
-        {
-          "key": "o2",
-          "label": "2",
-          "team": "offense",
-          "x": 150,
-          "y": 190
-        },
-        {
-          "key": "o3",
-          "label": "3",
-          "team": "offense",
-          "x": 560,
-          "y": 430
-        },
-        {
-          "key": "o4",
-          "label": "4",
-          "team": "offense",
-          "x": 300,
-          "y": 285
-        },
-        {
-          "key": "o5",
-          "label": "5",
-          "team": "offense",
-          "x": 705,
-          "y": 350
-        }
-      ],
-      "ball": {
-        "x": 594,
-        "y": 434,
-        "owner": "o3"
-      },
-      "lines": [
         {
           "type": "screen",
           "sourceKey": "o4",
@@ -806,57 +556,7 @@
           ],
           "screenAngleLocked": true,
           "screenAngle": 112
-        }
-      ],
-      "caption": "4 SET — 4 baja hasta el slot y se planta bastante más lejos del aro. Hay profundidad para atacar y para el roll.",
-      "seconds": 0.7
-    },
-    {
-      "phaseStartVersion": 26,
-      "phaseOwnershipVersion": 26,
-      "players": [
-        {
-          "key": "o1",
-          "label": "1",
-          "team": "offense",
-          "x": 850,
-          "y": 190
         },
-        {
-          "key": "o2",
-          "label": "2",
-          "team": "offense",
-          "x": 150,
-          "y": 190
-        },
-        {
-          "key": "o3",
-          "label": "3",
-          "team": "offense",
-          "x": 560,
-          "y": 430
-        },
-        {
-          "key": "o4",
-          "label": "4",
-          "team": "offense",
-          "x": 610,
-          "y": 495
-        },
-        {
-          "key": "o5",
-          "label": "5",
-          "team": "offense",
-          "x": 705,
-          "y": 350
-        }
-      ],
-      "ball": {
-        "x": 594,
-        "y": 334,
-        "owner": "o3"
-      },
-      "lines": [
         {
           "type": "screen",
           "sourceKey": "o5",
@@ -888,8 +588,8 @@
           "screenAngle": 120
         }
       ],
-      "caption": "5 SET — 5 llega segundo y más profundo. Los dos grandes quedan escalonados, no amontonados cerca del aro.",
-      "seconds": 0.65
+      "caption": "SPACING + TANDEM SET — 2 limpia al corner; después 4 baja y se planta; luego 5 llega como segundo screener más profundo.",
+      "seconds": 2.15
     },
     {
       "phaseStartVersion": 26,
@@ -971,57 +671,7 @@
           "assistantAuthored": true,
           "manualScreenRoute": true,
           "screenRouteSide": "below"
-        }
-      ],
-      "caption": "USE — 3 pasa POR DEBAJO de 4 y 5 con separación real de los cuerpos. La ruta ocurre más abajo y no obliga al manejador a subir hacia el aro.",
-      "seconds": 1
-    },
-    {
-      "phaseStartVersion": 26,
-      "phaseOwnershipVersion": 26,
-      "players": [
-        {
-          "key": "o1",
-          "label": "1",
-          "team": "offense",
-          "x": 850,
-          "y": 190
         },
-        {
-          "key": "o2",
-          "label": "2",
-          "team": "offense",
-          "x": 150,
-          "y": 190
-        },
-        {
-          "key": "o3",
-          "label": "3",
-          "team": "offense",
-          "x": 760,
-          "y": 590
-        },
-        {
-          "key": "o4",
-          "label": "4",
-          "team": "offense",
-          "x": 610,
-          "y": 495
-        },
-        {
-          "key": "o5",
-          "label": "5",
-          "team": "offense",
-          "x": 710,
-          "y": 540
-        }
-      ],
-      "ball": {
-        "x": 794,
-        "y": 594,
-        "owner": "o3"
-      },
-      "lines": [
         {
           "type": "move",
           "sourceKey": "o4",
@@ -1079,15 +729,28 @@
           ]
         }
       ],
-      "caption": "ROLL / POP — 4 ROLL con una pista larga hacia el aro; 5 POP fuera del tráfico; 3 queda con ángulo y espacio. 1 y 2 sostienen corners.",
-      "seconds": 1.15
+      "caption": "USE + ROLL/POP — 3 pasa POR DEBAJO de 4 y 5; después 4 ROLL al aro y 5 POP. 1 y 2 mantienen corners.",
+      "seconds": 2.15
     }
   ],
   "totalSeconds": 10.450000000000001,
   "reviewNotes": [
-    "La continuación se bajó todavía más respecto a la versión anterior.",
-    "4 screen en y≈495; 5 screen en y≈540.",
-    "3 pasa por debajo con ~56 px de separación respecto a cada screener.",
-    "El roll de 4 gana profundidad y el pop de 5 queda fuera del tráfico."
-  ]
+    "Compactada de 12 a 5 fases para facilitar edición.",
+    "Las acciones secuenciales permanecen en orden dentro de cada fase.",
+    "Zoom Meet conserva simultaneousGroup.",
+    "Roll/Pop conserva simultaneousGroup.",
+    "3 continúa usando 4 y 5 POR DEBAJO con ruta manual.",
+    "Spacing final se mantiene: corners 1/2, 4 roll, 5 pop."
+  ],
+  "editingStructure": {
+    "phaseCount": 5,
+    "phases": [
+      "1 — Stagger",
+      "2 — Entry / Clear",
+      "3 — Zoom / DHO",
+      "4 — Spacing + Tandem Set",
+      "5 — Use + Roll / Pop"
+    ],
+    "principle": "Agrupar acciones relacionadas dentro de una fase; mantener secuencia interna y grupos simultáneos."
+  }
 }
