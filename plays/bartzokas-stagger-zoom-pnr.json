@@ -1,7 +1,7 @@
 {
   "version": 3,
   "name": "BARTZOKAS — Stagger Entry → Zoom → PnR",
-  "description": "Stagger entry para liberar un guard, recepción, preparación de Zoom (pindown + DHO) y continuación inmediata a PnR. Las dependencias se muestran separadas para enseñanza.",
+  "description": "Orientación corregida para coincidir con el lado real del video: Stagger Entry → recepción → Zoom (pindown + DHO) → PnR. Research/Testing.",
   "status": "Research / Testing — source-based reconstruction",
   "system": "Bartzokas / Olympiacos Modern Flow",
   "categories": [
@@ -17,7 +17,8 @@
     "channel": "BasketHead",
     "published": "2026-02-23",
     "chapter": "40:30 — Stagger Entry Zoom",
-    "note": "Reconstrucción/adaptación de CourtPlay basada en el concepto y capítulo del video; no pretende ser una copia exacta de coordenadas."
+    "note": "Reconstrucción/adaptación de CourtPlay basada en el concepto y capítulo del video; no pretende ser una copia exacta de coordenadas.",
+    "orientation": "Corregida tras revisión visual del lado de ejecución; se eliminó la versión espejada."
   },
   "animationStandard": {
     "sequence": "APPROACH → SET → USE → RELEASE → NEXT ACTION",
@@ -47,33 +48,33 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 150,
+          "x": 850,
           "y": 190
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 850,
+          "x": 150,
           "y": 190
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 315,
+          "x": 685,
           "y": 360
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 410,
+          "x": 590,
           "y": 440
         }
       ],
       "ball": {
-        "x": 534,
+        "x": 466,
         "y": 704,
         "owner": "o1"
       },
@@ -89,20 +90,20 @@
           "color": "#f97316",
           "points": [
             {
-              "x": 315,
+              "x": 685,
               "y": 360
             },
             {
-              "x": 275,
+              "x": 725,
               "y": 315
             },
             {
-              "x": 235,
+              "x": 765,
               "y": 280
             }
           ],
           "screenAngleLocked": true,
-          "screenAngle": 80
+          "screenAngle": 100
         },
         {
           "type": "screen",
@@ -115,20 +116,20 @@
           "color": "#f97316",
           "points": [
             {
-              "x": 410,
+              "x": 590,
               "y": 440
             },
             {
-              "x": 355,
+              "x": 645,
               "y": 395
             },
             {
-              "x": 300,
+              "x": 700,
               "y": 345
             }
           ],
           "screenAngleLocked": true,
-          "screenAngle": 82
+          "screenAngle": 98
         }
       ],
       "caption": "STAGGER SET — 4 y 5 llegan y se plantan. 2 espera en corner; 1 mantiene el balón arriba.",
@@ -149,33 +150,33 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 150,
+          "x": 850,
           "y": 190
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 850,
+          "x": 150,
           "y": 190
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 235,
+          "x": 765,
           "y": 280
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 300,
+          "x": 700,
           "y": 345
         }
       ],
       "ball": {
-        "x": 534,
+        "x": 466,
         "y": 704,
         "owner": "o1"
       },
@@ -191,19 +192,19 @@
           "color": "#ef4444",
           "points": [
             {
-              "x": 150,
+              "x": 850,
               "y": 190
             },
             {
-              "x": 215,
+              "x": 785,
               "y": 260
             },
             {
-              "x": 285,
+              "x": 715,
               "y": 335
             },
             {
-              "x": 330,
+              "x": 670,
               "y": 410
             }
           ],
@@ -234,33 +235,33 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 330,
+          "x": 670,
           "y": 410
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 850,
+          "x": 150,
           "y": 190
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 235,
+          "x": 765,
           "y": 280
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 300,
+          "x": 700,
           "y": 345
         }
       ],
       "ball": {
-        "x": 534,
+        "x": 466,
         "y": 704,
         "owner": "o1"
       },
@@ -280,11 +281,11 @@
               "y": 700
             },
             {
-              "x": 415,
+              "x": 585,
               "y": 555
             },
             {
-              "x": 330,
+              "x": 670,
               "y": 410
             }
           ]
@@ -308,33 +309,33 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 330,
+          "x": 670,
           "y": 410
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 850,
+          "x": 150,
           "y": 190
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 235,
+          "x": 765,
           "y": 280
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 300,
+          "x": 700,
           "y": 345
         }
       ],
       "ball": {
-        "x": 364,
+        "x": 636,
         "y": 414,
         "owner": "o2"
       },
@@ -350,15 +351,15 @@
           "color": "#6b7280",
           "points": [
             {
-              "x": 300,
+              "x": 700,
               "y": 345
             },
             {
-              "x": 455,
+              "x": 545,
               "y": 400
             },
             {
-              "x": 590,
+              "x": 410,
               "y": 450
             }
           ]
@@ -374,20 +375,20 @@
           "color": "#f97316",
           "points": [
             {
-              "x": 235,
+              "x": 765,
               "y": 280
             },
             {
-              "x": 530,
+              "x": 470,
               "y": 275
             },
             {
-              "x": 750,
+              "x": 250,
               "y": 285
             }
           ],
           "screenAngleLocked": true,
-          "screenAngle": 88
+          "screenAngle": 92
         }
       ],
       "caption": "ZOOM PREP — después del catch, 5 se posiciona para el PnR posterior y 4 llega al pindown del lado débil.",
@@ -408,33 +409,33 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 330,
+          "x": 670,
           "y": 410
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 850,
+          "x": 150,
           "y": 190
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 750,
+          "x": 250,
           "y": 285
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 590,
+          "x": 410,
           "y": 450
         }
       ],
       "ball": {
-        "x": 364,
+        "x": 636,
         "y": 414,
         "owner": "o2"
       },
@@ -450,19 +451,19 @@
           "color": "#ef4444",
           "points": [
             {
-              "x": 850,
+              "x": 150,
               "y": 190
             },
             {
-              "x": 800,
+              "x": 200,
               "y": 270
             },
             {
-              "x": 745,
+              "x": 255,
               "y": 340
             },
             {
-              "x": 700,
+              "x": 300,
               "y": 385
             }
           ],
@@ -484,19 +485,19 @@
           "color": "#172033",
           "points": [
             {
-              "x": 330,
+              "x": 670,
               "y": 410
             },
             {
-              "x": 430,
+              "x": 570,
               "y": 410
             },
             {
-              "x": 520,
+              "x": 480,
               "y": 405
             },
             {
-              "x": 610,
+              "x": 390,
               "y": 395
             }
           ]
@@ -520,33 +521,33 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 610,
+          "x": 390,
           "y": 395
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 700,
+          "x": 300,
           "y": 385
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 750,
+          "x": 250,
           "y": 285
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 590,
+          "x": 410,
           "y": 450
         }
       ],
       "ball": {
-        "x": 644,
+        "x": 356,
         "y": 399,
         "owner": "o2"
       },
@@ -562,15 +563,15 @@
           "color": "#38bdf8",
           "points": [
             {
-              "x": 610,
+              "x": 390,
               "y": 395
             },
             {
-              "x": 630,
+              "x": 370,
               "y": 390
             },
             {
-              "x": 650,
+              "x": 350,
               "y": 385
             }
           ],
@@ -581,7 +582,7 @@
           "handoffExitDistance": 118,
           "handoffGiverUnderDistance": 82,
           "handoffExitPoint": {
-            "x": 560,
+            "x": 440,
             "y": 320
           },
           "handoffGeometryAuto": false
@@ -605,33 +606,33 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 650.36,
+          "x": 349.64,
           "y": 460.55
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 560,
+          "x": 440,
           "y": 320
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 750,
+          "x": 250,
           "y": 285
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 590,
+          "x": 410,
           "y": 450
         }
       ],
       "ball": {
-        "x": 594,
+        "x": 406,
         "y": 324,
         "owner": "o3"
       },
@@ -647,20 +648,20 @@
           "color": "#f97316",
           "points": [
             {
-              "x": 590,
+              "x": 410,
               "y": 450
             },
             {
-              "x": 595,
+              "x": 405,
               "y": 400
             },
             {
-              "x": 600,
+              "x": 400,
               "y": 350
             }
           ],
           "screenAngleLocked": true,
-          "screenAngle": 125
+          "screenAngle": 55
         }
       ],
       "caption": "PNR SET — 5 entra después del DHO y se planta. 3 no cambia dirección hasta que 5 esté establecido.",
@@ -681,33 +682,33 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 650.36,
+          "x": 349.64,
           "y": 460.55
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 560,
+          "x": 440,
           "y": 320
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 750,
+          "x": 250,
           "y": 285
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 600,
+          "x": 400,
           "y": 350
         }
       ],
       "ball": {
-        "x": 594,
+        "x": 406,
         "y": 324,
         "owner": "o3"
       },
@@ -723,19 +724,19 @@
           "color": "#172033",
           "points": [
             {
-              "x": 560,
+              "x": 440,
               "y": 320
             },
             {
-              "x": 605,
+              "x": 395,
               "y": 335
             },
             {
-              "x": 650,
+              "x": 350,
               "y": 335
             },
             {
-              "x": 695,
+              "x": 305,
               "y": 310
             }
           ],
@@ -765,33 +766,33 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 650.36,
+          "x": 349.64,
           "y": 460.55
         },
         {
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 695,
+          "x": 305,
           "y": 310
         },
         {
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 750,
+          "x": 250,
           "y": 285
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 600,
+          "x": 400,
           "y": 350
         }
       ],
       "ball": {
-        "x": 729,
+        "x": 271,
         "y": 314,
         "owner": "o3"
       },
@@ -807,15 +808,15 @@
           "color": "#16a34a",
           "points": [
             {
-              "x": 600,
+              "x": 400,
               "y": 350
             },
             {
-              "x": 565,
+              "x": 435,
               "y": 270
             },
             {
-              "x": 525,
+              "x": 475,
               "y": 205
             },
             {
@@ -829,5 +830,10 @@
       "seconds": 1
     }
   ],
-  "totalSeconds": 8.35
+  "totalSeconds": 8.35,
+  "reviewNotes": [
+    "Orientación horizontal corregida respecto al video.",
+    "No se cambió la secuencia táctica ni el timing.",
+    "Convención assistantAuthored/under se mantiene solamente para las rutas creadas por ChatGPT."
+  ]
 }
