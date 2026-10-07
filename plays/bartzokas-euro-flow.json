@@ -1,0 +1,1072 @@
+{
+  "version": 3,
+  "name": "BARTZOKAS — Euro Flow",
+  "description": "Adaptación continua inspirada en el capítulo Euro Flow: entry pass → cut-through → Zoom → PnR → reversal → second-side Zoom. La posición final de una acción crea la siguiente sin reset.",
+  "status": "Research / Testing — source-based reconstruction",
+  "system": "Bartzokas / Olympiacos Modern Flow",
+  "categories": [
+    "flow",
+    "zoom",
+    "dho",
+    "pnr",
+    "quick"
+  ],
+  "authoringProfile": "assistant",
+  "source": {
+    "title": "Breaking down EuroLeague's best offense | Giorgos Bartzokas' playbook",
+    "channel": "BasketHead",
+    "published": "2026-02-23",
+    "chapter": "41:38 — Euro Flow Offense",
+    "note": "Reconstrucción/adaptación de CourtPlay basada en el concepto y capítulo del video; no pretende ser una copia exacta de coordenadas."
+  },
+  "animationStandard": {
+    "sequence": "APPROACH → SET → USE → RELEASE → NEXT ACTION",
+    "assistantGeometry": "Para jugadas creadas por ChatGPT, la ruta táctica OVER se codifica internamente como under porque CourtPlay interpreta ese lado de forma invertida.",
+    "simultaneousRule": "Solo movimientos que nacen del mismo trigger se agrupan."
+  },
+  "teachingReads": [
+    "ENTRY",
+    "ZOOM",
+    "PNR",
+    "ROLL",
+    "REVERSE",
+    "SECOND-SIDE ZOOM"
+  ],
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 700
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 420
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 330,
+          "y": 450
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 300
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 704,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 500,
+              "y": 700
+            },
+            {
+              "x": 410,
+              "y": 575
+            },
+            {
+              "x": 330,
+              "y": 450
+            }
+          ]
+        }
+      ],
+      "caption": "ENTRY — 1 entra a 4. No hay reset; la siguiente acción nace del nuevo lado.",
+      "seconds": 0.55
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 700
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 420
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 330,
+          "y": 450
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 300
+        }
+      ],
+      "ball": {
+        "x": 364,
+        "y": 454,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 500,
+              "y": 700
+            },
+            {
+              "x": 650,
+              "y": 525
+            },
+            {
+              "x": 780,
+              "y": 330
+            },
+            {
+              "x": 850,
+              "y": 190
+            }
+          ]
+        }
+      ],
+      "caption": "CUT-THROUGH — después del pase, 1 limpia hasta corner. 4 mantiene el balón; 2 y 5 preparan Zoom.",
+      "seconds": 0.9
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 420
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 330,
+          "y": 450
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 300
+        }
+      ],
+      "ball": {
+        "x": 364,
+        "y": 454,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 500,
+              "y": 300
+            },
+            {
+              "x": 385,
+              "y": 280
+            },
+            {
+              "x": 265,
+              "y": 285
+            }
+          ],
+          "screenAngleLocked": true,
+          "screenAngle": 88
+        }
+      ],
+      "caption": "ZOOM SET — 5 llega al pindown para 2. 2 espera.",
+      "seconds": 0.65
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 420
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 330,
+          "y": 450
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 265,
+          "y": 285
+        }
+      ],
+      "ball": {
+        "x": 364,
+        "y": 454,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "zoomMeet",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 150,
+              "y": 190
+            },
+            {
+              "x": 210,
+              "y": 270
+            },
+            {
+              "x": 280,
+              "y": 350
+            },
+            {
+              "x": 335,
+              "y": 410
+            }
+          ],
+          "assistantAuthored": true,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "under",
+          "screenUseClearance": 58
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "zoomMeet",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 330,
+              "y": 450
+            },
+            {
+              "x": 360,
+              "y": 440
+            },
+            {
+              "x": 395,
+              "y": 430
+            },
+            {
+              "x": 430,
+              "y": 420
+            }
+          ]
+        }
+      ],
+      "caption": "ZOOM MEET — con 5 establecido, 2 usa el pindown mientras 4 llega al punto de DHO. Mismo trigger, por eso sí van juntos.",
+      "seconds": 1
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 335,
+          "y": 410
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 420
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 430,
+          "y": 420
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 265,
+          "y": 285
+        }
+      ],
+      "ball": {
+        "x": 464,
+        "y": 424,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "handoff",
+          "sourceKey": "o4",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 430,
+              "y": 420
+            },
+            {
+              "x": 445,
+              "y": 415
+            },
+            {
+              "x": 460,
+              "y": 410
+            }
+          ],
+          "assistantAuthored": true,
+          "handoffReceiverSide": "under",
+          "handoffVersion": 6,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 118,
+          "handoffGiverUnderDistance": 80,
+          "handoffExitPoint": {
+            "x": 520,
+            "y": 345
+          },
+          "handoffGeometryAuto": false
+        }
+      ],
+      "caption": "ZOOM DHO — 2 recibe y continúa. 4 limpia después del intercambio.",
+      "seconds": 0.95
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 520,
+          "y": 345
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 420
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 390,
+          "y": 480
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 265,
+          "y": 285
+        }
+      ],
+      "ball": {
+        "x": 554,
+        "y": 349,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 265,
+              "y": 285
+            },
+            {
+              "x": 395,
+              "y": 330
+            },
+            {
+              "x": 500,
+              "y": 355
+            }
+          ],
+          "screenAngleLocked": true,
+          "screenAngle": 125
+        }
+      ],
+      "caption": "PNR SET — 5 transforma su pindown anterior en ball screen. Esa conexión es el corazón del Flow.",
+      "seconds": 0.8
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 520,
+          "y": 345
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 420
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 390,
+          "y": 480
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 355
+        }
+      ],
+      "ball": {
+        "x": 554,
+        "y": 349,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 520,
+              "y": 345
+            },
+            {
+              "x": 555,
+              "y": 355
+            },
+            {
+              "x": 600,
+              "y": 345
+            },
+            {
+              "x": 645,
+              "y": 320
+            }
+          ],
+          "assistantAuthored": true,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "under",
+          "screenUseClearance": 58
+        }
+      ],
+      "caption": "PNR USE — 2 usa 5. Nadie más corta sin trigger.",
+      "seconds": 0.95
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 645,
+          "y": 320
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 420
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 390,
+          "y": 480
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 355
+        }
+      ],
+      "ball": {
+        "x": 679,
+        "y": 324,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "pnrReaction",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 500,
+              "y": 355
+            },
+            {
+              "x": 500,
+              "y": 280
+            },
+            {
+              "x": 500,
+              "y": 215
+            },
+            {
+              "x": 500,
+              "y": 155
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "pnrReaction",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 850,
+              "y": 420
+            },
+            {
+              "x": 825,
+              "y": 390
+            },
+            {
+              "x": 800,
+              "y": 360
+            }
+          ]
+        }
+      ],
+      "caption": "PNR REACTION — 5 rola y 3 hace lift porque su defensor puede ser la ayuda. Si hay ventaja, atacar aquí.",
+      "seconds": 1
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 645,
+          "y": 320
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 800,
+          "y": 360
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 390,
+          "y": 480
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 155
+        }
+      ],
+      "ball": {
+        "x": 679,
+        "y": 324,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o2",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 645,
+              "y": 320
+            },
+            {
+              "x": 720,
+              "y": 340
+            },
+            {
+              "x": 800,
+              "y": 360
+            }
+          ]
+        }
+      ],
+      "caption": "REVERSE — si el primer PnR queda neutral, 2 revierte a 3. La ofensiva no vuelve al inicio.",
+      "seconds": 0.55
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 645,
+          "y": 320
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 800,
+          "y": 360
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 390,
+          "y": 480
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 155
+        }
+      ],
+      "ball": {
+        "x": 834,
+        "y": 364,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 390,
+              "y": 480
+            },
+            {
+              "x": 600,
+              "y": 370
+            },
+            {
+              "x": 780,
+              "y": 285
+            }
+          ],
+          "screenAngleLocked": true,
+          "screenAngle": 88
+        }
+      ],
+      "caption": "SECOND-SIDE ZOOM SET — después del catch, 4 cruza y se planta para 1. 1 espera en corner.",
+      "seconds": 0.9
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 645,
+          "y": 320
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 800,
+          "y": 360
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 780,
+          "y": 285
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 155
+        }
+      ],
+      "ball": {
+        "x": 834,
+        "y": 364,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "secondZoomMeet",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 850,
+              "y": 190
+            },
+            {
+              "x": 815,
+              "y": 265
+            },
+            {
+              "x": 770,
+              "y": 340
+            },
+            {
+              "x": 720,
+              "y": 395
+            }
+          ],
+          "assistantAuthored": true,
+          "usesScreenKeys": [
+            "o4"
+          ],
+          "screenUseSide": "under",
+          "screenUseClearance": 58
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "secondZoomMeet",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 800,
+              "y": 360
+            },
+            {
+              "x": 780,
+              "y": 375
+            },
+            {
+              "x": 755,
+              "y": 390
+            },
+            {
+              "x": 735,
+              "y": 400
+            }
+          ]
+        }
+      ],
+      "caption": "SECOND-SIDE MEET — 1 usa el pindown y 3 llega al DHO. La defensa tiene que resolver otra acción inmediatamente.",
+      "seconds": 1
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 720,
+          "y": 395
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 645,
+          "y": 320
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 735,
+          "y": 400
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 780,
+          "y": 285
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 155
+        }
+      ],
+      "ball": {
+        "x": 769,
+        "y": 404,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "handoff",
+          "sourceKey": "o3",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 735,
+              "y": 400
+            },
+            {
+              "x": 720,
+              "y": 395
+            },
+            {
+              "x": 705,
+              "y": 390
+            }
+          ],
+          "assistantAuthored": true,
+          "handoffReceiverSide": "under",
+          "handoffVersion": 6,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 118,
+          "handoffGiverUnderDistance": 80,
+          "handoffExitPoint": {
+            "x": 620,
+            "y": 330
+          },
+          "handoffGeometryAuto": false
+        }
+      ],
+      "caption": "SECOND-SIDE DHO — termina la muestra con otra ventaja naciendo del lado contrario. Desde aquí puede seguir PnR, drive o extra pass.",
+      "seconds": 0.95
+    }
+  ],
+  "totalSeconds": 10.2
+}
