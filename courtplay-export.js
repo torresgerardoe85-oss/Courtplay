@@ -280,9 +280,33 @@ function actionPlaybackProgress(action,t){
   const end=Number.isFinite(action._playbackEnd)?action._playbackEnd:1;
   return clamp((t-start)/Math.max(.001,end-start),0,1);
 }
+function quadraticPoint(a,c,b,t){
+  const u=1-clamp(t,0,1),tt=clamp(t,0,1);
+  return{x:u*u*a.x+2*u*tt*c.x+tt*tt*b.x,y:u*u*a.y+2*u*tt*c.y+tt*tt*b.y};
+}
+function handoffReceiverPoint(geom,pathT){
+  if(!geom||!geom.receiverStart||!geom.receiverContact||!geom.receiverEnd)return null;
+  const start=geom.receiverStart,contact=geom.receiverContact,end=geom.receiverEnd;
+  let tx=end.x-start.x,ty=end.y-start.y,tlen=Math.hypot(tx,ty);
+  if(tlen<1){tx=end.x-contact.x;ty=end.y-contact.y;tlen=Math.hypot(tx,ty)||1;}
+  const vx=tx/tlen,vy=ty/tlen;
+  const d1=Math.max(24,Math.hypot(contact.x-start.x,contact.y-start.y));
+  const d2=Math.max(24,Math.hypot(end.x-contact.x,end.y-contact.y));
+  const c1={x:contact.x-vx*d1*.42,y:contact.y-vy*d1*.42};
+  const c2={x:contact.x+vx*d2*.42,y:contact.y+vy*d2*.42};
+  const pt=clamp(pathT,0,1);
+  if(pt<=.5)return quadraticPoint(start,c1,contact,pt*2);
+  return quadraticPoint(contact,c2,end,(pt-.5)*2);
+}
 function sceneDuringActions(base,rawActions,t){
   const scene=copy(base);
   const actions=rawActions.map(a=>actionForCurrentState(a,base));
+  for(const a of actions){
+    if(CourtPlayEngine.screenUserGeometry){
+      const sg=CourtPlayEngine.screenUserGeometry(base,a);
+      if(sg&&Array.isArray(sg.points)&&sg.points.length>=3)a._screenUserPath=sg.points;
+    }
+  }
   let ballHandled=false;
 
   // Movement pass. Handoff v2 moves BOTH players: receiver approach → contact
@@ -304,7 +328,8 @@ function sceneDuringActions(base,rawActions,t){
           src.x=clamp(giverP.x,30,W-30);src.y=clamp(giverP.y,30,H-30);
         }else{
           const present=geom.giverPresentation||catmullPoint(pts,1);
-          const q=clamp((lt-transferAt)/Math.max(.001,1-transferAt),0,1);
+          const rawQ=clamp((lt-transferAt)/Math.max(.001,1-transferAt),0,1);
+          const q=clamp((rawQ-.22)/.78,0,1);
           const eased=.5-.5*Math.cos(Math.PI*q);
           src.x=clamp(present.x+(geom.giverEnd.x-present.x)*eased,30,W-30);
           src.y=clamp(present.y+(geom.giverEnd.y-present.y)*eased,30,H-30);
@@ -328,15 +353,16 @@ function sceneDuringActions(base,rawActions,t){
               const q=clamp((lt-transferAt)/Math.max(.001,1-transferAt),0,1);
               pathT=.5+.5*q;
             }
-            const rp=catmullPoint([geom.receiverStart,geom.receiverContact,geom.receiverEnd],clamp(pathT,0,1));
-            target.x=clamp(rp.x,30,W-30);target.y=clamp(rp.y,30,H-30);
+            const rp=handoffReceiverPoint(geom,clamp(pathT,0,1));
+            if(rp){target.x=clamp(rp.x,30,W-30);target.y=clamp(rp.y,30,H-30);}
           }
         }
       }
       continue;
     }
 
-    const p=catmullPoint(pts,lt);
+    const motionPts=(Array.isArray(l._screenUserPath)&&l._screenUserPath.length>=2)?l._screenUserPath:pts;
+    const p=catmullPoint(motionPts,lt);
     if(src&&['move','dribble','screen'].includes(l.type)){
       src.x=clamp(p.x,30,W-30);src.y=clamp(p.y,30,H-30);
     }
