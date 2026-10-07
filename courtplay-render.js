@@ -131,6 +131,18 @@ function drawAnimationScene(scene,c=ctx,activeAction=null,progress=0){
   drawCourt(c);
   if(activeAction)drawActionProgress(c,activeAction,progress);
   const owner=scene.ball&&scene.ball.owner;
-  (scene.players||[]).forEach(p=>drawAnimationPlayer(c,p,p.key===owner));
+  const actions=Array.isArray(activeAction)?activeAction:(activeAction?[activeAction]:[]);
+  const h=actions.find(a=>a&&a.type==='handoff'&&a.targetKey);
+  const players=[...(scene.players||[])];
+  if(h){
+    players.sort((a,b)=>{
+      if(a.key===h.targetKey)return 1;
+      if(b.key===h.targetKey)return -1;
+      if(a.key===h.sourceKey)return -1;
+      if(b.key===h.sourceKey)return 1;
+      return 0;
+    });
+  }
+  players.forEach(p=>drawAnimationPlayer(c,p,p.key===owner));
   if(scene.ball)drawBall(c,scene.ball);
 }
