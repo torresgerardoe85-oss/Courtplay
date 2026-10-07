@@ -1,5 +1,5 @@
 {
-  "version": 19,
+  "version": 20,
   "plays": [
     {
       "slug": "handoff-v6-correct-cross-test",
@@ -172,7 +172,7 @@
     {
       "slug": "iisalo-early-wide-drag",
       "name": "IISALO EARLY — Wide Lanes → Drag",
-      "description": "Llegar jugando: guard lane advance + wide lanes + 5 Drag cuando no existe rim-run advantage. Adaptado al roster: 5 siempre roll; 4 trail/second-side, sin pop obligatorio.",
+      "description": "Llegada moderna: cinco lanes → 5 planta Drag → 1 usa → 5 roll + lift → reverse si neutral. Timing dividido en SET→USE→RELEASE.",
       "categories": [
         "transition",
         "flow",
@@ -182,7 +182,7 @@
     {
       "slug": "iisalo-flow-spread-wing-top",
       "name": "IISALO FLOW — Spread → Wing → Top",
-      "description": "Core de tres lados: first-side Spread/Angle P&R → reverse → second-side throw-and-chase Wing/Empty P&R → reverse → third-side Top P&R.",
+      "description": "Three-Side Flow legible: Angle PnR → reverse/catch → throw-and-chase Empty PnR → reverse/catch → Top PnR. Cada acción empieza solo cuando termina la anterior.",
       "categories": [
         "transition",
         "flow",
@@ -192,7 +192,7 @@
     {
       "slug": "iisalo-iverson-follow-empty",
       "name": "IISALO ENTRY — Iverson Follow Empty",
-      "description": "Entrada moderna: baseline clear + Iverson cut → catch on empty side → screener follows into Empty P&R. Flex queda como wrinkle aparte, no como base.",
+      "description": "Baseline clear → Iverson → catch → 5 follow/set → Empty PnR. El follow no comienza antes del catch y el roll ocurre después del uso.",
       "categories": [
         "flow",
         "pnr",
@@ -203,7 +203,7 @@
     {
       "slug": "iisalo-flow-weak-entry",
       "name": "IISALO ENTRY — Flow Weak",
-      "description": "Cuando no se llega en las cinco lanes ideales: weak cut through → Spread P&R trigger → reverse into second-side Wing P&R. Misma estructura, diferente entrada.",
+      "description": "Weak clear → Spread PnR → reverse/catch → second-side Wing PnR. El corte limpia primero y cada screen respeta SET→USE→RELEASE.",
       "categories": [
         "transition",
         "flow",
