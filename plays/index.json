@@ -1,5 +1,5 @@
 {
-  "version": 21,
+  "version": 22,
   "plays": [
     {
       "slug": "handoff-v6-correct-cross-test",
@@ -208,6 +208,52 @@
         "transition",
         "flow",
         "pnr"
+      ]
+    },
+    {
+      "slug": "bartzokas-stagger-zoom-pnr",
+      "name": "BARTZOKAS — Stagger Entry → Zoom → PnR",
+      "description": "40:30. Stagger entry → recepción → Zoom (pindown + DHO) → PnR. Reconstrucción para enseñanza, con SET→USE→RELEASE y sin movimientos innecesarios.",
+      "categories": [
+        "flow",
+        "zoom",
+        "dho",
+        "pnr",
+        "quick"
+      ]
+    },
+    {
+      "slug": "bartzokas-stagger-ghost-pnr",
+      "name": "BARTZOKAS — Stagger → Ghost → PnR",
+      "description": "37:35. Stagger → Ghost sin contacto → ball screen real → roll/lift. El Ghost y el PnR están separados para que la lectura sea clara.",
+      "categories": [
+        "flow",
+        "pnr",
+        "ghost",
+        "quick"
+      ]
+    },
+    {
+      "slug": "bartzokas-rub-spain",
+      "name": "BARTZOKAS — Rub → Spain PnR",
+      "description": "15:31. Rub → catch → follow PnR → Spain backscreen → release. La simultaneidad solo aparece en la ventana real del Spain.",
+      "categories": [
+        "flow",
+        "pnr",
+        "spain",
+        "quick"
+      ]
+    },
+    {
+      "slug": "bartzokas-euro-flow",
+      "name": "BARTZOKAS — Euro Flow",
+      "description": "41:38. Adaptación continua: entry → cut-through → Zoom → PnR → reverse → second-side Zoom. Una acción crea la siguiente sin reset.",
+      "categories": [
+        "flow",
+        "zoom",
+        "dho",
+        "pnr",
+        "quick"
       ]
     }
   ]
