@@ -309,3 +309,22 @@ canvas#court{width:100%;height:auto;max-width:100%}
   .categoryPickChip{min-height:29px;font-size:10px}
   .categorySuggestBtn{min-height:31px}
 }
+
+.courtplayBuildBadge{
+  position:fixed;
+  right:max(8px,env(safe-area-inset-right));
+  bottom:max(8px,env(safe-area-inset-bottom));
+  z-index:99999;
+  pointer-events:none;
+  padding:5px 9px;
+  border-radius:999px;
+  background:rgba(7,44,105,.92);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.55);
+  box-shadow:0 3px 12px rgba(3,16,40,.22);
+  font:800 11px/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.02em;
+}
+@media(max-width:900px){
+  .courtplayBuildBadge{display:block!important;}
+}
