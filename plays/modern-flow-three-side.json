@@ -197,9 +197,10 @@
           "usesScreenKeys": [
             "o5"
           ],
-          "screenUseSide": "over",
+          "screenUseSide": "under",
           "screenUseClearance": 58,
-          "screenUseVersion": 1
+          "screenUseVersion": 1,
+          "assistantAuthored": true
         }
       ],
       "caption": "FIRST SIDE — USE. 1 usa la pantalla; 5 todavía sostiene su posición.",
@@ -763,9 +764,10 @@
           "usesScreenKeys": [
             "o4"
           ],
-          "screenUseSide": "over",
+          "screenUseSide": "under",
           "screenUseClearance": 58,
-          "screenUseVersion": 1
+          "screenUseVersion": 1,
+          "assistantAuthored": true
         }
       ],
       "caption": "SECOND SIDE — USE. 2 ataca middle. 4 sigue plantado hasta que el balón supera su nivel.",
@@ -1222,9 +1224,10 @@
           "usesScreenKeys": [
             "o5"
           ],
-          "screenUseSide": "over",
+          "screenUseSide": "under",
           "screenUseClearance": 58,
-          "screenUseVersion": 1
+          "screenUseVersion": 1,
+          "assistantAuthored": true
         }
       ],
       "caption": "THIRD SIDE — USE. 1 vuelve a atacar, ahora desde otro ángulo y contra una defensa que ya cambió de lado dos veces.",
@@ -1325,5 +1328,6 @@
         ]
       }
     }
-  ]
+  ],
+  "authoringProfile": "assistant"
 }
