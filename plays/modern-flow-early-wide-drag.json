@@ -397,9 +397,10 @@
           "usesScreenKeys": [
             "o5"
           ],
-          "screenUseSide": "over",
+          "screenUseSide": "under",
           "screenUseClearance": 58,
-          "screenUseVersion": 1
+          "screenUseVersion": 1,
+          "assistantAuthored": true
         }
       ],
       "caption": "USE — 1 pasa hombro con cadera y ataca el middle. 5 permanece quieto hasta que 1 supera su nivel.",
@@ -636,5 +637,6 @@
         ]
       }
     }
-  ]
+  ],
+  "authoringProfile": "assistant"
 }
