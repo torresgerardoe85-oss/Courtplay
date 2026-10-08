@@ -375,11 +375,13 @@ function sceneDuringActions(base,rawActions,t){
   return {scene,actions};
 }
 function drawAnimationStep(scene,actions,t,c=ctx){
+  beginCourtViewport(c);
   drawCourt(c);
   actions.forEach(a=>drawActionProgress(c,a,actionPlaybackProgress(a,t)));
   const owner=scene.ball&&scene.ball.owner;
   (scene.players||[]).forEach(p=>drawAnimationPlayer(c,p,p.key===owner));
   if(scene.ball)drawBall(c,scene.ball);
+  endCourtViewport(c);
 }
 function easePlayback(t){
   const u=clamp(t,0,1);
