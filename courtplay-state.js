@@ -7,6 +7,7 @@ const selectBtn=document.getElementById('selectBtn'),deleteObjectBtn=document.ge
 const addPointBtn=document.getElementById('addPointBtn'),removePointBtn=document.getElementById('removePointBtn'),reverseLineBtn=document.getElementById('reverseLineBtn'),deleteLineBtn=document.getElementById('deleteLineBtn');
 const W=1000,H=860,PLAYER_R=29;
 const COURT_VIEW_SCALE=.88;
+const COURT_OUTSIDE_PLAYER=14;
 const COURT_VIEW_X=(W-W*COURT_VIEW_SCALE)/2;
 const COURT_VIEW_Y=(H-H*COURT_VIEW_SCALE)/2;
 function beginCourtViewport(c=ctx){
