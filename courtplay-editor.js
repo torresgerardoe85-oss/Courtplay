@@ -1,4 +1,8 @@
-function point(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*(W/r.width),y:(e.clientY-r.top)*(H/r.height)}}
+function point(e){
+  const r=canvas.getBoundingClientRect();
+  const vx=(e.clientX-r.left)*(W/r.width),vy=(e.clientY-r.top)*(H/r.height);
+  return viewportToCourtPoint(vx,vy);
+}
 function hitPlayer(p){for(let i=frame().players.length-1;i>=0;i--){const pl=frame().players[i];if(Math.hypot(pl.x-p.x,pl.y-p.y)<=PLAYER_R+10)return pl}return null}
 function hitReceiver(p,sourceKey=null){
   let best=null,bestD=Infinity;
@@ -86,7 +90,7 @@ function transferVisualEnd(l,target){
   return CourtPlayEngine.handoffGiverEnd(src,target,pathPoints(l),exit);
 }
 canvas.addEventListener('pointerdown',e=>{e.preventDefault();canvas.setPointerCapture?.(e.pointerId);const p=point(e);
-  if(tool==='token'&&pendingToken){const key=(pendingToken.team==='defense'?'d':'o')+pendingToken.label.toLowerCase();let pl=frame().players.find(x=>x.key===key);if(pl){pl.x=p.x;pl.y=p.y}else{pl={key,label:pendingToken.label,team:pendingToken.team,x:p.x,y:p.y};frame().players.push(pl);}pendingToken=null;selectedPlayer=key;document.querySelectorAll('.tokenBtn').forEach(x=>x.classList.remove('active'));setTool('select');return;}
+  if(tool==='token'&&pendingToken){const key=(pendingToken.team==='defense'?'d':'o')+pendingToken.label.toLowerCase();const px=clamp(p.x,0,W),py=clamp(p.y,0,H);let pl=frame().players.find(x=>x.key===key);if(pl){pl.x=px;pl.y=py}else{pl={key,label:pendingToken.label,team:pendingToken.team,x:px,y:py};frame().players.push(pl);}pendingToken=null;selectedPlayer=key;document.querySelectorAll('.tokenBtn').forEach(x=>x.classList.remove('active'));setTool('select');return;}
   if(tool==='ballAssign'){const pl=hitPlayer(p);if(pl){frame().ball.owner=pl.key;selectedPlayer=pl.key;syncBallOwner();setStatus(`Balón asignado a ${pl.team==='defense'?'x':''}${pl.label}.`);setTool('select')}return;}
   if(tool==='select'){
     if(selectedLine>=0&&frame().lines[selectedLine]){
@@ -133,7 +137,7 @@ canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefau
     else if(isCurve){l.manualCurve=true;}
     else if(isEnd){recenterCurve(l);}
   }
-  else if(drag?.type==='player'){const pl=frame().players.find(x=>x.key===drag.key);if(pl){pl.x=clamp(p.x-drag.dx,30,W-30);pl.y=clamp(p.y-drag.dy,30,H-30);frame().phaseStartVersion=26;frame().manualStart=true;syncBallOwner();syncActionSources(pl.key);}}
+  else if(drag?.type==='player'){const pl=frame().players.find(x=>x.key===drag.key);if(pl){pl.x=clamp(p.x-drag.dx,0,W);pl.y=clamp(p.y-drag.dy,0,H);frame().phaseStartVersion=26;frame().manualStart=true;syncBallOwner();syncActionSources(pl.key);}}
   else if(drag?.type==='ball'){frame().ball.x=clamp(p.x-drag.dx,16,W-16);frame().ball.y=clamp(p.y-drag.dy,16,H-16);frame().phaseStartVersion=26;frame().manualStart=true;}
   ctx.clearRect(0,0,W,H);drawScene();
 });
