@@ -6,6 +6,20 @@ const prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById
 const selectBtn=document.getElementById('selectBtn'),deleteObjectBtn=document.getElementById('deleteObjectBtn'),giveBallBtn=document.getElementById('giveBallBtn');
 const addPointBtn=document.getElementById('addPointBtn'),removePointBtn=document.getElementById('removePointBtn'),reverseLineBtn=document.getElementById('reverseLineBtn'),deleteLineBtn=document.getElementById('deleteLineBtn');
 const W=1000,H=860,PLAYER_R=29;
+const COURT_VIEW_SCALE=.88;
+const COURT_VIEW_X=(W-W*COURT_VIEW_SCALE)/2;
+const COURT_VIEW_Y=(H-H*COURT_VIEW_SCALE)/2;
+function beginCourtViewport(c=ctx){
+  c.fillStyle='#c99a5d';
+  c.fillRect(0,0,W,H);
+  c.save();
+  c.translate(COURT_VIEW_X,COURT_VIEW_Y);
+  c.scale(COURT_VIEW_SCALE,COURT_VIEW_SCALE);
+}
+function endCourtViewport(c=ctx){c.restore();}
+function viewportToCourtPoint(x,y){
+  return{x:(x-COURT_VIEW_X)/COURT_VIEW_SCALE,y:(y-COURT_VIEW_Y)/COURT_VIEW_SCALE};
+}
 let tool='select',current=0,selectedLine=-1,selectedPlayer=null,drag=null,draft=null,playing=false,pendingToken=null,assignBall=false;
 
 function starterPhase(){return{players:[
