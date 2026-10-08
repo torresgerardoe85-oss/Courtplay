@@ -48,7 +48,16 @@ function drawHandles(c,l){
   }
   c.restore();
 }
-function drawPlayer(c,p,scale=1){const r=PLAYER_R*scale;if(selectedPlayer===p.key&&scale===1){c.beginPath();c.strokeStyle='#0b56bd';c.lineWidth=7;c.arc(p.x,p.y,r+9,0,Math.PI*2);c.stroke();}c.beginPath();c.fillStyle=p.team==='defense'?'#d92c2c':'#fff';c.strokeStyle=p.team==='defense'?'#fff':'#0c1827';c.lineWidth=4*scale;c.arc(p.x,p.y,r,0,Math.PI*2);c.fill();c.stroke();c.fillStyle=p.team==='defense'?'#fff':'#0c1827';c.font=`900 ${24*scale}px system-ui`;c.textAlign='center';c.textBaseline='middle';c.fillText(p.team==='defense'?'x'+p.label:p.label,p.x,p.y+1)}
+function drawPlayer(c,p,scale=1){
+  const r=PLAYER_R*scale;
+  if(selectedPlayer===p.key&&scale===1){
+    c.beginPath();c.strokeStyle='#0b56bd';c.lineWidth=7;c.arc(p.x,p.y,r+9,0,Math.PI*2);c.stroke();
+  }
+  c.fillStyle=p.team==='defense'?'#d92c2c':'#0c1827';
+  c.font=`900 ${24*scale}px system-ui`;
+  c.textAlign='center';c.textBaseline='middle';
+  c.fillText(p.team==='defense'?'x'+p.label:p.label,p.x,p.y+1);
+}
 function drawBall(c,b){c.beginPath();c.fillStyle='#f47a20';c.strokeStyle='#7c2d12';c.lineWidth=2.5;c.arc(b.x,b.y,14,0,Math.PI*2);c.fill();c.stroke();c.beginPath();c.moveTo(b.x-13,b.y);c.lineTo(b.x+13,b.y);c.stroke();c.beginPath();c.arc(b.x,b.y,8,-Math.PI/2,Math.PI/2);c.stroke()}
 function drawScene(f=frame(),c=ctx,opts={}){
   beginCourtViewport(c);
