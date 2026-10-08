@@ -3,7 +3,7 @@
   const clone=v=>JSON.parse(JSON.stringify(v));
   const transferTypes=new Set(['pass','handoff']);
   const movingTypes=new Set(['move','dribble','screen','handoff']);
-  const COURT_BOUNDS={minX:0,maxX:1000,minY:0,maxY:860};
+  const COURT_BOUNDS={minX:-14,maxX:1014,minY:-14,maxY:874};
   const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 
   function points(action){
