@@ -54,7 +54,7 @@ function drawPlayer(c,p,scale=1){
     c.beginPath();c.strokeStyle='#0b56bd';c.lineWidth=7;c.arc(p.x,p.y,r+9,0,Math.PI*2);c.stroke();
   }
   c.fillStyle=p.team==='defense'?'#d92c2c':'#0c1827';
-  c.font=`900 ${24*scale}px system-ui`;
+  c.font=`900 ${32*scale}px system-ui`;
   c.textAlign='center';c.textBaseline='middle';
   c.fillText(p.team==='defense'?'x'+p.label:p.label,p.x,p.y+1);
 }
@@ -95,7 +95,7 @@ giveBallBtn.addEventListener('click',()=>{tool='ballAssign';assignBall=true;pend
 function drawAnimationPlayer(c,p,hasBall=false){
   c.save();
   c.textAlign='center';c.textBaseline='middle';
-  c.font='800 34px system-ui';
+  c.font='900 38px system-ui';
   c.fillStyle='#172033';c.strokeStyle='#172033';
   const label=p.team==='defense'?'x'+p.label:String(p.label);
   if(hasBall){
