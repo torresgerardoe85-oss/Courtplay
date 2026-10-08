@@ -416,6 +416,7 @@ function buildPlaybackPlan(){
   });
   return{segments,total:cursor,finalScene};
 }
+const PLAYBACK_RATE=.90;
 const playbackSeek=document.getElementById('playbackSeek');
 const playbackTimeEl=document.getElementById('playbackTime');
 const playbackPhaseEl=document.getElementById('playbackPhase');
@@ -472,7 +473,7 @@ function pausePlayback(){
 }
 function playbackTick(now){
   if(!playing||!playbackPlanCache)return;
-  const pos=playbackAnchorPosition+(now-playbackAnchorTime)/1000;
+  const pos=playbackAnchorPosition+((now-playbackAnchorTime)/1000)*PLAYBACK_RATE;
   if(pos>=playbackPlanCache.total){
     playbackPosition=playbackPlanCache.total;
     drawPlaybackAt(playbackPosition,playbackPlanCache);
@@ -486,7 +487,7 @@ function startPlayback(){
   if(!plan.total)return;
   if(playbackPosition>=plan.total-.01)playbackPosition=0;
   playing=true;playbackAnchorPosition=playbackPosition;playbackAnchorTime=performance.now();
-  updatePlaybackButtons();setStatus('Reproduciendo. Usa la barra, −1 s o +1 s para revisar cualquier momento.');
+  updatePlaybackButtons();setStatus('Reproduciendo a 0.90x. Usa la barra, −1 s o +1 s para revisar cualquier momento.');
   playbackRaf=requestAnimationFrame(playbackTick);
 }
 function togglePlayback(){
@@ -504,7 +505,7 @@ async function animateCanvas(target,exportMode=false){
   if(!exportMode){startPlayback();return;}
   for(const seg of plan.segments){
     const started=performance.now();
-    const ms=Math.max(1,seg.duration*1000);
+    const ms=Math.max(1,(seg.duration*1000)/PLAYBACK_RATE);
     while(performance.now()-started<ms){
       const linear=clamp((performance.now()-started)/ms,0,1),progress=easePlayback(linear);
       const pack=sceneDuringActions(seg.base,seg.actions,progress);
