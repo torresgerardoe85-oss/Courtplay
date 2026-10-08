@@ -50,10 +50,23 @@ function drawHandles(c,l){
 }
 function drawPlayer(c,p,scale=1){const r=PLAYER_R*scale;if(selectedPlayer===p.key&&scale===1){c.beginPath();c.strokeStyle='#0b56bd';c.lineWidth=7;c.arc(p.x,p.y,r+9,0,Math.PI*2);c.stroke();}c.beginPath();c.fillStyle=p.team==='defense'?'#d92c2c':'#fff';c.strokeStyle=p.team==='defense'?'#fff':'#0c1827';c.lineWidth=4*scale;c.arc(p.x,p.y,r,0,Math.PI*2);c.fill();c.stroke();c.fillStyle=p.team==='defense'?'#fff':'#0c1827';c.font=`900 ${24*scale}px system-ui`;c.textAlign='center';c.textBaseline='middle';c.fillText(p.team==='defense'?'x'+p.label:p.label,p.x,p.y+1)}
 function drawBall(c,b){c.beginPath();c.fillStyle='#f47a20';c.strokeStyle='#7c2d12';c.lineWidth=2.5;c.arc(b.x,b.y,14,0,Math.PI*2);c.fill();c.stroke();c.beginPath();c.moveTo(b.x-13,b.y);c.lineTo(b.x+13,b.y);c.stroke();c.beginPath();c.arc(b.x,b.y,8,-Math.PI/2,Math.PI/2);c.stroke()}
-function drawScene(f=frame(),c=ctx,opts={}){drawCourt(c);(f.lines||[]).forEach((l,i)=>drawAction(c,l));if(!opts.hideHandles&&tool==='select'&&selectedLine>=0&&f.lines[selectedLine])drawHandles(c,f.lines[selectedLine]);(f.players||[]).forEach(p=>drawPlayer(c,p));drawBall(c,f.ball);if(draft)drawAction(c,{type:tool,points:draft.points},.65)}
+function drawScene(f=frame(),c=ctx,opts={}){
+  beginCourtViewport(c);
+  drawCourt(c);
+  (f.lines||[]).forEach((l,i)=>drawAction(c,l));
+  if(!opts.hideHandles&&tool==='select'&&selectedLine>=0&&f.lines[selectedLine])drawHandles(c,f.lines[selectedLine]);
+  (f.players||[]).forEach(p=>drawPlayer(c,p));
+  drawBall(c,f.ball);
+  if(draft)drawAction(c,{type:tool,points:draft.points},.65);
+  endCourtViewport(c);
+}
 function render(){data.name=playNameEl.value.trim()||'Jugada sin nombre';ctx.clearRect(0,0,W,H);drawScene();captionEl.value=frame().caption||'';secondsEl.value=frame().seconds||2.4;renderPhases();updateInspector();updateNav();}
 function renderPhases(){phaseList.innerHTML='';data.frames.forEach((f,i)=>{const card=document.createElement('button');card.className='phaseCard'+(i===current?' active':'');card.type='button';const mini=document.createElement('canvas');mini.width=220;mini.height=190;mini.className='phaseCanvas';const meta=document.createElement('div');meta.className='phaseMeta';meta.innerHTML=`<strong>Fase ${i+1}</strong><small>${(f.caption||'Sin explicación').slice(0,22)}</small>`;card.append(mini,meta);card.addEventListener('click',()=>{commit();CourtPlayEngine.reflow(data.frames,0);current=i;selectedLine=-1;selectedPlayer=null;render()});phaseList.appendChild(card);drawMini(mini,f);});}
-function drawMini(mini,f){const c=mini.getContext('2d'),sx=mini.width/W,sy=mini.height/H;c.clearRect(0,0,mini.width,mini.height);drawCourt(c,mini.width,mini.height);c.save();c.scale(sx,sy);(f.lines||[]).forEach(l=>drawAction(c,l));(f.players||[]).forEach(p=>drawPlayer(c,p,.7));drawBall(c,f.ball);c.restore();}
+function drawMini(mini,f){
+  const c=mini.getContext('2d'),sx=mini.width/W,sy=mini.height/H;
+  c.clearRect(0,0,mini.width,mini.height);
+  c.save();c.scale(sx,sy);drawScene(f,c,{hideHandles:true});c.restore();
+}
 function updateNav(){prevBtn.disabled=current===0;nextBtn.disabled=current===data.frames.length-1;deleteBtn.disabled=data.frames.length===1;}
 function updateInspector(){const has=selectedLine>=0&&frame().lines[selectedLine];inspector.classList.toggle('hidden',!has);inspectorEmpty.style.display=has?'none':'block';if(has){const l=frame().lines[selectedLine],src=l.sourceKey&&frame().players.find(p=>p.key===l.sourceKey),tgt=l.targetKey&&frame().players.find(p=>p.key===l.targetKey);lineTypeEl.value=l.type||'move';if(selectionSummary)selectionSummary.textContent=`${actionName(l.type)}${src?' · '+(src.team==='defense'?'x':'')+src.label:''}${tgt?' → '+(tgt.team==='defense'?'x':'')+tgt.label:''}${l.type==='handoff'&&tgt?' · violeta = salida receptor':''}`;}else if(selectedPlayer){const p=frame().players.find(x=>x.key===selectedPlayer);inspectorEmpty.textContent=p?`Jugador ${p.team==='defense'?'x':''}${p.label} seleccionado. Elige Pase, Corte, Drible, Screen, Handoff o Tiro.`:'Selecciona un jugador.';}else inspectorEmpty.textContent='Selecciona un jugador o una acción anterior. Puedes encadenar una nueva acción desde donde termina la anterior.';}
 function actionName(type){return({move:'Corte',pass:'Pase',dribble:'Drible',screen:'Screen',handoff:'Handoff',shot:'Tiro'})[type]||'Movimiento';}
@@ -128,9 +141,11 @@ function drawActionProgress(c,l,t){
   c.restore();
 }
 function drawAnimationScene(scene,c=ctx,activeAction=null,progress=0){
+  beginCourtViewport(c);
   drawCourt(c);
   if(activeAction)drawActionProgress(c,activeAction,progress);
   const owner=scene.ball&&scene.ball.owner;
   (scene.players||[]).forEach(p=>drawAnimationPlayer(c,p,p.key===owner));
   if(scene.ball)drawBall(c,scene.ball);
+  endCourtViewport(c);
 }
