@@ -1,0 +1,1060 @@
+{
+  "version": 2,
+  "name": "Caja 2 — Reconstrucción del video",
+  "description": "Reconstrucción editable del video Caja 2: formación Box, screen de 5 para 2, stagger de 3 y 4 para 5, limpieza y opciones de saque antes del pase final a 3.",
+  "source": {
+    "type": "user-video",
+    "fileName": "Caja 2.mp4",
+    "durationSeconds": 18.6
+  },
+  "categories": [
+    "blob",
+    "quick"
+  ],
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": -8
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 365,
+          "y": 270
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 635,
+          "y": 130
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 365,
+          "y": 130
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 635,
+          "y": 270
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": -4,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "screenAngle": 90,
+          "timingWeight": 0.9,
+          "points": [
+            {
+              "x": 635,
+              "y": 270
+            },
+            {
+              "x": 570,
+              "y": 270
+            },
+            {
+              "x": 500,
+              "y": 270
+            },
+            {
+              "x": 435,
+              "y": 270
+            }
+          ]
+        }
+      ],
+      "caption": "5 cruza de derecha a izquierda y establece la primera pantalla para 2. 2 espera hasta que 5 esté colocado.",
+      "seconds": 1.1
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": -8
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 365,
+          "y": 270
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 635,
+          "y": 130
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 365,
+          "y": 130
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 435,
+          "y": 270
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": -4,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "timingWeight": 1.6,
+          "points": [
+            {
+              "x": 365,
+              "y": 270
+            },
+            {
+              "x": 390,
+              "y": 315
+            },
+            {
+              "x": 470,
+              "y": 350
+            },
+            {
+              "x": 610,
+              "y": 355
+            },
+            {
+              "x": 760,
+              "y": 345
+            },
+            {
+              "x": 875,
+              "y": 335
+            }
+          ]
+        }
+      ],
+      "caption": "2 usa la pantalla de 5, curva por debajo y continúa hasta abrirse al lado derecho. 5 mantiene la pantalla mientras 2 la utiliza.",
+      "seconds": 2.9
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": -8
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 875,
+          "y": 335
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 635,
+          "y": 130
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 365,
+          "y": 130
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 435,
+          "y": 270
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": -4,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "screenAngle": 90,
+          "timingWeight": 0.9,
+          "points": [
+            {
+              "x": 635,
+              "y": 130
+            },
+            {
+              "x": 600,
+              "y": 165
+            },
+            {
+              "x": 560,
+              "y": 205
+            },
+            {
+              "x": 520,
+              "y": 235
+            },
+            {
+              "x": 485,
+              "y": 245
+            }
+          ]
+        }
+      ],
+      "caption": "3 baja desde el lado derecho y se coloca como primer screener para liberar a 5. 5 permanece esperando en su spot.",
+      "seconds": 1
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": -8
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 875,
+          "y": 335
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 485,
+          "y": 245
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 365,
+          "y": 130
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 435,
+          "y": 270
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": -4,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#7c3aed",
+          "timingWeight": 0.8,
+          "points": [
+            {
+              "x": 500,
+              "y": -8
+            },
+            {
+              "x": 690,
+              "y": 145
+            },
+            {
+              "x": 875,
+              "y": 335
+            }
+          ]
+        }
+      ],
+      "caption": "OPCIÓN 1 — 1 puede sacar directamente a 2 en el lado derecho. Al terminar de mostrar la lectura, CourtPlay regresa el balón a 1 para continuar la jugada.",
+      "seconds": 1.8
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": -8
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 875,
+          "y": 335
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 485,
+          "y": 245
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 365,
+          "y": 130
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 435,
+          "y": 270
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": -4,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "screenAngle": 15,
+          "timingWeight": 0.85,
+          "points": [
+            {
+              "x": 365,
+              "y": 130
+            },
+            {
+              "x": 405,
+              "y": 145
+            },
+            {
+              "x": 455,
+              "y": 165
+            },
+            {
+              "x": 500,
+              "y": 175
+            }
+          ]
+        }
+      ],
+      "caption": "4 baja y establece la segunda pantalla. Ahora 3 y 4 forman el stagger que va a utilizar 5.",
+      "seconds": 1
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": -8
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 875,
+          "y": 335
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 485,
+          "y": 245
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 500,
+          "y": 175
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 435,
+          "y": 270
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": -4,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "timingWeight": 1.45,
+          "points": [
+            {
+              "x": 435,
+              "y": 270
+            },
+            {
+              "x": 455,
+              "y": 315
+            },
+            {
+              "x": 515,
+              "y": 310
+            },
+            {
+              "x": 540,
+              "y": 260
+            },
+            {
+              "x": 550,
+              "y": 215
+            },
+            {
+              "x": 560,
+              "y": 175
+            },
+            {
+              "x": 625,
+              "y": 130
+            },
+            {
+              "x": 700,
+              "y": 105
+            }
+          ]
+        }
+      ],
+      "caption": "5 usa las dos pantallas en secuencia: primero pasa cerca de 3 y después de 4, curvando hacia el lado derecho de la línea de fondo.",
+      "seconds": 1.7
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": -8
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 875,
+          "y": 335
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 485,
+          "y": 245
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 500,
+          "y": 175
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 700,
+          "y": 105
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": -4,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o5",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#7c3aed",
+          "timingWeight": 0.65,
+          "points": [
+            {
+              "x": 500,
+              "y": -8
+            },
+            {
+              "x": 600,
+              "y": 55
+            },
+            {
+              "x": 700,
+              "y": 105
+            }
+          ]
+        }
+      ],
+      "caption": "OPCIÓN 2 — cuando 5 sale de las pantallas, 1 puede pasarle. Después de mostrar la opción, el balón vuelve a 1.",
+      "seconds": 0.8
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": -8
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 875,
+          "y": 335
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 485,
+          "y": 245
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 500,
+          "y": 175
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 700,
+          "y": 105
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": -4,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "timingWeight": 0.55,
+          "points": [
+            {
+              "x": 700,
+              "y": 105
+            },
+            {
+              "x": 760,
+              "y": 105
+            },
+            {
+              "x": 825,
+              "y": 105
+            }
+          ]
+        }
+      ],
+      "caption": "Si 5 no recibe, continúa limpiando hacia la esquina/lado derecho para abrir el centro.",
+      "seconds": 0.6
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": -8
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 875,
+          "y": 335
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 485,
+          "y": 245
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 500,
+          "y": 175
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 825,
+          "y": 105
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": -4,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "timingWeight": 1.35,
+          "points": [
+            {
+              "x": 485,
+              "y": 245
+            },
+            {
+              "x": 445,
+              "y": 250
+            },
+            {
+              "x": 380,
+              "y": 230
+            },
+            {
+              "x": 300,
+              "y": 190
+            },
+            {
+              "x": 215,
+              "y": 140
+            },
+            {
+              "x": 135,
+              "y": 105
+            }
+          ]
+        }
+      ],
+      "caption": "3 sale de la zona interior y corta largo hacia la esquina izquierda, manteniendo separación de 4 y 5.",
+      "seconds": 1.6
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": -8
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 875,
+          "y": 335
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 135,
+          "y": 105
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 500,
+          "y": 175
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 825,
+          "y": 105
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": -4,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "timingWeight": 0.75,
+          "points": [
+            {
+              "x": 500,
+              "y": 175
+            },
+            {
+              "x": 500,
+              "y": 155
+            },
+            {
+              "x": 500,
+              "y": 135
+            },
+            {
+              "x": 500,
+              "y": 120
+            }
+          ]
+        }
+      ],
+      "caption": "4 corta al aro y ocupa la ventana central de pase. 2, 3 y 5 mantienen el spacing exterior.",
+      "seconds": 1
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": -8
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 875,
+          "y": 335
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 135,
+          "y": 105
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 500,
+          "y": 120
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 825,
+          "y": 105
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": -4,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#7c3aed",
+          "timingWeight": 0.9,
+          "points": [
+            {
+              "x": 500,
+              "y": -8
+            },
+            {
+              "x": 330,
+              "y": 45
+            },
+            {
+              "x": 135,
+              "y": 105
+            }
+          ]
+        }
+      ],
+      "caption": "OPCIÓN 3 — 1 puede pasar a 3 en la esquina izquierda. Al terminar la lectura, el balón vuelve a 1.",
+      "seconds": 1.8
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": -8
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 875,
+          "y": 335
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 135,
+          "y": 105
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 500,
+          "y": 120
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 825,
+          "y": 105
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": -4,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#7c3aed",
+          "timingWeight": 0.65,
+          "points": [
+            {
+              "x": 500,
+              "y": -8
+            },
+            {
+              "x": 500,
+              "y": 55
+            },
+            {
+              "x": 500,
+              "y": 120
+            }
+          ]
+        }
+      ],
+      "caption": "OPCIÓN 4 — 1 puede pasar a 4 en el aro. Al terminar la lectura, el balón vuelve a 1.",
+      "seconds": 1.2
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": -8
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 875,
+          "y": 335
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 135,
+          "y": 105
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 500,
+          "y": 120
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 825,
+          "y": 105
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": -4,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "timingWeight": 0.95,
+          "points": [
+            {
+              "x": 500,
+              "y": -8
+            },
+            {
+              "x": 335,
+              "y": 45
+            },
+            {
+              "x": 135,
+              "y": 105
+            }
+          ]
+        }
+      ],
+      "caption": "FINAL DEL VIDEO — 1 completa el saque con pase a 3 en la esquina izquierda. La posesión termina con 3.",
+      "seconds": 2.1
+    }
+  ],
+  "authoringProfile": "assistant",
+  "importStatus": "video-reconstructed-reviewed"
+}
