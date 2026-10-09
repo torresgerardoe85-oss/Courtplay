@@ -351,3 +351,22 @@ canvas#court{width:100%;height:auto;max-width:100%}
   .shapeBtn{width:40px;height:40px}
   .playbackBtn{min-height:40px;padding:0 9px}
 }
+
+
+/* v81 unified library */
+.libraryBackupNote{
+  margin:0 0 10px;
+  padding:8px 10px;
+  border:1px solid #dbe4ee;
+  border-radius:10px;
+  background:#f8fafc;
+  color:#475569;
+  font-size:11px;
+  line-height:1.35;
+}
+.topbar .libraryBtn{
+  white-space:nowrap;
+}
+@media(max-width:640px){
+  .topbar .libraryBtn{font-size:12px}
+}
