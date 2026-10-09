@@ -53,6 +53,7 @@
     {id:'other',label:'Otras'}
   ];
   let activeCategory='all';
+  let libraryCloudSyncing=false;
 
   function validCategoryIds(){return new Set(CATEGORY_DEFS.map(x=>x.id))}
   function normalizeCategories(value){
@@ -651,8 +652,16 @@
 
     if(window.CourtPlayCloud){
       withTimeout(window.CourtPlayCloud.renderAuth(auth,()=>renderLibraryContents()),5000,null).catch(()=>{});
-      if(window.CourtPlayCloud.isSignedIn?.()&&navigator.onLine!==false){
-        withTimeout(window.CourtPlayCloud.flushOutbox({reason:'library-open'}),6500,null).catch(()=>{});
+      if(window.CourtPlayCloud.isSignedIn?.()&&navigator.onLine!==false&&!libraryCloudSyncing){
+        libraryCloudSyncing=true;
+        withTimeout(window.CourtPlayCloud.syncLocalToCloud(),6500,null)
+          .then(result=>{
+            libraryCloudSyncing=false;
+            if(result&&(result.uploaded||result.pulled)&&document.getElementById('courtplayLibraryPanel')){
+              renderLibraryContents();
+            }
+          })
+          .catch(()=>{libraryCloudSyncing=false;});
       }
     }else{
       if(auth)auth.innerHTML='<div class="libraryMessage">Cloud no disponible; usando almacenamiento local.</div>';
