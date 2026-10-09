@@ -1,7 +1,7 @@
 {
   "version": 2,
   "name": "Caja 2 — Reconstrucción del video",
-  "description": "Reconstrucción editable del video Caja 2: formación Box, screen de 5 para 2, stagger de 3 y 4 para 5, limpieza y opciones de saque antes del pase final a 3.",
+  "description": "Reconstrucción editable del video Caja 2: formación Box, screen de 5 para 2, 3 pone screen a 5, después 4 pone screen a 3 y rolea, con las opciones de saque del video.",
   "source": {
     "type": "user-video",
     "fileName": "Caja 2.mp4",
@@ -260,7 +260,7 @@
           ]
         }
       ],
-      "caption": "3 baja desde el lado derecho y se coloca como primer screener para liberar a 5. 5 permanece esperando en su spot.",
+      "caption": "3 baja y establece la pantalla PARA 5. 4 todavía NO se mueve; espera hasta que 5 haya utilizado esta pantalla.",
       "seconds": 1
     },
     {
@@ -335,7 +335,7 @@
           ]
         }
       ],
-      "caption": "OPCIÓN 1 — 1 puede sacar directamente a 2 en el lado derecho. Al terminar de mostrar la lectura, CourtPlay regresa el balón a 1 para continuar la jugada.",
+      "caption": "OPCIÓN 1 — 1 puede sacar directamente a 2 en el lado derecho. Después de mostrar la lectura, el balón vuelve a 1.",
       "seconds": 1.8
     },
     {
@@ -385,37 +385,127 @@
       },
       "lines": [
         {
-          "type": "screen",
-          "sourceKey": "o4",
+          "type": "move",
+          "sourceKey": "o5",
           "targetKey": null,
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
           "simultaneousGroup": null,
-          "color": "#f97316",
-          "screenAngle": 15,
-          "timingWeight": 0.85,
+          "color": "#172033",
+          "timingWeight": 1.55,
           "points": [
             {
-              "x": 365,
-              "y": 130
+              "x": 435,
+              "y": 270
             },
             {
-              "x": 405,
-              "y": 145
+              "x": 445,
+              "y": 300
             },
             {
-              "x": 455,
-              "y": 165
+              "x": 485,
+              "y": 305
             },
             {
-              "x": 500,
-              "y": 175
+              "x": 525,
+              "y": 275
+            },
+            {
+              "x": 555,
+              "y": 235
+            },
+            {
+              "x": 590,
+              "y": 195
+            },
+            {
+              "x": 650,
+              "y": 150
+            },
+            {
+              "x": 735,
+              "y": 120
             }
           ]
         }
       ],
-      "caption": "4 baja y establece la segunda pantalla. Ahora 3 y 4 forman el stagger que va a utilizar 5.",
+      "caption": "5 USA la pantalla de 3 y sale hacia el lado derecho. 4 continúa quieto durante toda esta acción: todavía no coloca su pantalla.",
+      "seconds": 2.1
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": -8
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 875,
+          "y": 335
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 485,
+          "y": 245
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 365,
+          "y": 130
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 735,
+          "y": 120
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": -4,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o5",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#7c3aed",
+          "timingWeight": 0.7,
+          "points": [
+            {
+              "x": 500,
+              "y": -8
+            },
+            {
+              "x": 610,
+              "y": 55
+            },
+            {
+              "x": 735,
+              "y": 120
+            }
+          ]
+        }
+      ],
+      "caption": "OPCIÓN 2 — al salir 5 de la pantalla de 3, 1 puede pasarle. Después de mostrar la opción, el balón vuelve a 1.",
       "seconds": 1
     },
     {
@@ -447,15 +537,15 @@
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 500,
-          "y": 175
+          "x": 365,
+          "y": 130
         },
         {
           "key": "o5",
           "label": "5",
           "team": "offense",
-          "x": 435,
-          "y": 270
+          "x": 735,
+          "y": 120
         }
       ],
       "ball": {
@@ -465,175 +555,35 @@
       },
       "lines": [
         {
-          "type": "move",
-          "sourceKey": "o5",
+          "type": "screen",
+          "sourceKey": "o4",
           "targetKey": null,
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": null,
-          "color": "#172033",
-          "timingWeight": 1.45,
+          "simultaneousGroup": "g_screen3",
+          "color": "#f97316",
+          "screenAngle": 45,
+          "timingWeight": 0.85,
           "points": [
             {
-              "x": 435,
-              "y": 270
-            },
-            {
-              "x": 455,
-              "y": 315
-            },
-            {
-              "x": 515,
-              "y": 310
-            },
-            {
-              "x": 540,
-              "y": 260
-            },
-            {
-              "x": 550,
-              "y": 215
-            },
-            {
-              "x": 560,
-              "y": 175
-            },
-            {
-              "x": 625,
+              "x": 365,
               "y": 130
             },
             {
-              "x": 700,
-              "y": 105
-            }
-          ]
-        }
-      ],
-      "caption": "5 usa las dos pantallas en secuencia: primero pasa cerca de 3 y después de 4, curvando hacia el lado derecho de la línea de fondo.",
-      "seconds": 1.7
-    },
-    {
-      "phaseStartVersion": 26,
-      "phaseOwnershipVersion": 26,
-      "players": [
-        {
-          "key": "o1",
-          "label": "1",
-          "team": "offense",
-          "x": 500,
-          "y": -8
-        },
-        {
-          "key": "o2",
-          "label": "2",
-          "team": "offense",
-          "x": 875,
-          "y": 335
-        },
-        {
-          "key": "o3",
-          "label": "3",
-          "team": "offense",
-          "x": 485,
-          "y": 245
-        },
-        {
-          "key": "o4",
-          "label": "4",
-          "team": "offense",
-          "x": 500,
-          "y": 175
-        },
-        {
-          "key": "o5",
-          "label": "5",
-          "team": "offense",
-          "x": 700,
-          "y": 105
-        }
-      ],
-      "ball": {
-        "x": 534,
-        "y": -4,
-        "owner": "o1"
-      },
-      "lines": [
-        {
-          "type": "pass",
-          "sourceKey": "o1",
-          "targetKey": "o5",
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": true,
-          "simultaneousGroup": null,
-          "color": "#7c3aed",
-          "timingWeight": 0.65,
-          "points": [
-            {
-              "x": 500,
-              "y": -8
+              "x": 395,
+              "y": 160
             },
             {
-              "x": 600,
-              "y": 55
+              "x": 425,
+              "y": 190
             },
             {
-              "x": 700,
-              "y": 105
+              "x": 455,
+              "y": 215
             }
           ]
-        }
-      ],
-      "caption": "OPCIÓN 2 — cuando 5 sale de las pantallas, 1 puede pasarle. Después de mostrar la opción, el balón vuelve a 1.",
-      "seconds": 0.8
-    },
-    {
-      "phaseStartVersion": 26,
-      "phaseOwnershipVersion": 26,
-      "players": [
-        {
-          "key": "o1",
-          "label": "1",
-          "team": "offense",
-          "x": 500,
-          "y": -8
         },
-        {
-          "key": "o2",
-          "label": "2",
-          "team": "offense",
-          "x": 875,
-          "y": 335
-        },
-        {
-          "key": "o3",
-          "label": "3",
-          "team": "offense",
-          "x": 485,
-          "y": 245
-        },
-        {
-          "key": "o4",
-          "label": "4",
-          "team": "offense",
-          "x": 500,
-          "y": 175
-        },
-        {
-          "key": "o5",
-          "label": "5",
-          "team": "offense",
-          "x": 700,
-          "y": 105
-        }
-      ],
-      "ball": {
-        "x": 534,
-        "y": -4,
-        "owner": "o1"
-      },
-      "lines": [
         {
           "type": "move",
           "sourceKey": "o5",
@@ -641,17 +591,17 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": null,
+          "simultaneousGroup": "g_screen3",
           "color": "#172033",
           "timingWeight": 0.55,
           "points": [
             {
-              "x": 700,
-              "y": 105
+              "x": 735,
+              "y": 120
             },
             {
-              "x": 760,
-              "y": 105
+              "x": 780,
+              "y": 110
             },
             {
               "x": 825,
@@ -660,8 +610,8 @@
           ]
         }
       ],
-      "caption": "Si 5 no recibe, continúa limpiando hacia la esquina/lado derecho para abrir el centro.",
-      "seconds": 0.6
+      "caption": "DESPUÉS de que 5 usa la pantalla de 3, 4 se mueve y establece la pantalla PARA 3. Al mismo tiempo 5 termina de limpiar hacia el lado derecho.",
+      "seconds": 1
     },
     {
       "phaseStartVersion": 26,
@@ -692,8 +642,8 @@
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 500,
-          "y": 175
+          "x": 455,
+          "y": 215
         },
         {
           "key": "o5",
@@ -718,27 +668,35 @@
           "isOption": false,
           "simultaneousGroup": null,
           "color": "#172033",
-          "timingWeight": 1.35,
+          "timingWeight": 1.4,
           "points": [
             {
               "x": 485,
               "y": 245
             },
             {
-              "x": 445,
+              "x": 485,
+              "y": 270
+            },
+            {
+              "x": 455,
+              "y": 275
+            },
+            {
+              "x": 420,
               "y": 250
             },
             {
-              "x": 380,
-              "y": 230
+              "x": 375,
+              "y": 215
             },
             {
               "x": 300,
-              "y": 190
+              "y": 170
             },
             {
               "x": 215,
-              "y": 140
+              "y": 130
             },
             {
               "x": 135,
@@ -747,7 +705,7 @@
           ]
         }
       ],
-      "caption": "3 sale de la zona interior y corta largo hacia la esquina izquierda, manteniendo separación de 4 y 5.",
+      "caption": "3 usa la pantalla de 4 y sale hacia la esquina izquierda. 4 mantiene la pantalla hasta que 3 la haya utilizado.",
       "seconds": 1.6
     },
     {
@@ -779,8 +737,8 @@
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 500,
-          "y": 175
+          "x": 455,
+          "y": 215
         },
         {
           "key": "o5",
@@ -805,19 +763,19 @@
           "isOption": false,
           "simultaneousGroup": null,
           "color": "#172033",
-          "timingWeight": 0.75,
+          "timingWeight": 0.8,
           "points": [
             {
-              "x": 500,
-              "y": 175
+              "x": 455,
+              "y": 215
             },
             {
-              "x": 500,
-              "y": 155
+              "x": 465,
+              "y": 185
             },
             {
-              "x": 500,
-              "y": 135
+              "x": 485,
+              "y": 150
             },
             {
               "x": 500,
@@ -826,7 +784,7 @@
           ]
         }
       ],
-      "caption": "4 corta al aro y ocupa la ventana central de pase. 2, 3 y 5 mantienen el spacing exterior.",
+      "caption": "DESPUÉS de que 3 utiliza la pantalla, 4 rolea al aro. Este roll no comienza antes del uso de la pantalla.",
       "seconds": 1
     },
     {
@@ -976,7 +934,7 @@
           ]
         }
       ],
-      "caption": "OPCIÓN 4 — 1 puede pasar a 4 en el aro. Al terminar la lectura, el balón vuelve a 1.",
+      "caption": "OPCIÓN 4 — 1 puede pasar a 4 en el roll al aro. Al terminar la lectura, el balón vuelve a 1.",
       "seconds": 1.2
     },
     {
@@ -1056,5 +1014,5 @@
     }
   ],
   "authoringProfile": "assistant",
-  "importStatus": "video-reconstructed-reviewed"
+  "importStatus": "video-reconstructed-corrected-screen-the-screener"
 }
