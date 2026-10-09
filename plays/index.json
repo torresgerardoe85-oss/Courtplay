@@ -221,6 +221,17 @@
         "pnr",
         "quick"
       ]
+    },
+    {
+      "slug": "uni-transition-zoom-source",
+      "name": "UNI — Transition Zoom (Source Reconstruction)",
+      "description": "Fuente exacta 9:12: entry a 5 → fake handoff → downscreen → Zoom DHO → attack/roll + kickback + backside flare.",
+      "categories": [
+        "transition",
+        "zoom",
+        "dho",
+        "flow"
+      ]
     }
   ]
 }
