@@ -1,0 +1,560 @@
+{
+  "version": 1,
+  "name": "UNI — Transition Zoom (Source Reconstruction)",
+  "description": "Reconstrucción basada en la secuencia publicada de Northern Iowa: 1 entra a 5 → fake handoff → 1 downscreen para 3 → 5 dribla hacia 3 → Zoom DHO → 3 ataca → 5 roll → 1 lift/kickback → 4 flare para 2.",
+  "status": "Research / Testing — source reconstruction",
+  "system": "Northern Iowa / Transition Zoom",
+  "categories": [
+    "transition",
+    "zoom",
+    "dho",
+    "flow"
+  ],
+  "authoringProfile": "assistant",
+  "source": {
+    "title": "The ZOOM Offense Action - Improve Any Basketball Offense or Set Play",
+    "chapter": "9:12 — Using the Zoom in Transition",
+    "youtube": "https://www.youtube.com/watch?v=5Sjv8P8xAQY",
+    "note": "CourtPlay reconstruction follows the published UNI Transition Zoom diagrams and written sequence; no adaptation to the user's system has been added."
+  },
+  "teachingReads": [
+    "3 turns the corner and attacks paint",
+    "5 rolls after handoff",
+    "1 fills up for kickback",
+    "4 flare screens for 2 on backside"
+  ],
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 260,
+          "y": 760
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 260,
+          "y": 390
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 600
+        }
+      ],
+      "ball": {
+        "x": 294,
+        "y": 764,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 260,
+              "y": 760
+            },
+            {
+              "x": 275,
+              "y": 700
+            },
+            {
+              "x": 300,
+              "y": 620
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o5",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 300,
+              "y": 620
+            },
+            {
+              "x": 400,
+              "y": 610
+            },
+            {
+              "x": 500,
+              "y": 600
+            }
+          ]
+        }
+      ],
+      "caption": "ARRIVAL / ENTRY — 1 sube por el lado izquierdo y entra a 5 arriba. 4 ocupa el wing del lado del balón; 2 y 3 están en las esquinas.",
+      "seconds": 1.5
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 300,
+          "y": 620
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 260,
+          "y": 390
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 600
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 604,
+        "owner": "o5"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "fakeSetup",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 300,
+              "y": 620
+            },
+            {
+              "x": 420,
+              "y": 590
+            },
+            {
+              "x": 520,
+              "y": 555
+            },
+            {
+              "x": 630,
+              "y": 500
+            },
+            {
+              "x": 720,
+              "y": 420
+            },
+            {
+              "x": 770,
+              "y": 300
+            }
+          ],
+          "screenAngleLocked": true,
+          "screenAngle": 48
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "fakeSetup",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 500,
+              "y": 600
+            },
+            {
+              "x": 530,
+              "y": 560
+            },
+            {
+              "x": 590,
+              "y": 500
+            },
+            {
+              "x": 650,
+              "y": 405
+            }
+          ]
+        }
+      ],
+      "caption": "FAKE + DOWNSCREEN — 1 sigue su pase por encima de 5 para amagar el handoff y continúa hasta poner downscreen a 3. 5 sigue la ruta de 1 con drible hacia el lado derecho.",
+      "seconds": 1.8
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 770,
+          "y": 300
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 260,
+          "y": 390
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 650,
+          "y": 405
+        }
+      ],
+      "ball": {
+        "x": 684,
+        "y": 409,
+        "owner": "o5"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 850,
+              "y": 190
+            },
+            {
+              "x": 840,
+              "y": 245
+            },
+            {
+              "x": 810,
+              "y": 340
+            },
+            {
+              "x": 760,
+              "y": 385
+            },
+            {
+              "x": 715,
+              "y": 390
+            }
+          ],
+          "assistantAuthored": true,
+          "manualScreenRoute": true,
+          "screenRouteSide": "below"
+        },
+        {
+          "type": "handoff",
+          "sourceKey": "o5",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 650,
+              "y": 405
+            },
+            {
+              "x": 650,
+              "y": 405
+            }
+          ],
+          "assistantAuthored": true,
+          "handoffReceiverSide": "under",
+          "handoffVersion": 6,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 118,
+          "handoffGiverUnderDistance": 82,
+          "handoffExitPoint": {
+            "x": 610,
+            "y": 320
+          },
+          "handoffGeometryAuto": false
+        }
+      ],
+      "caption": "ZOOM DHO — con 1 ya plantado, 3 usa el downscreen y llega al handoff de 5. 3 recibe en movimiento y sale hacia el medio.",
+      "seconds": 1.8
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 770,
+          "y": 300
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 610,
+          "y": 320
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 260,
+          "y": 390
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 677.72,
+          "y": 475.28
+        }
+      ],
+      "ball": {
+        "x": 644,
+        "y": 324,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "attackFlow",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 610,
+              "y": 320
+            },
+            {
+              "x": 600,
+              "y": 285
+            },
+            {
+              "x": 600,
+              "y": 255
+            },
+            {
+              "x": 600,
+              "y": 235
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "attackFlow",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 677.72,
+              "y": 475.28
+            },
+            {
+              "x": 630,
+              "y": 390
+            },
+            {
+              "x": 570,
+              "y": 280
+            },
+            {
+              "x": 510,
+              "y": 175
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "attackFlow",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 770,
+              "y": 300
+            },
+            {
+              "x": 760,
+              "y": 350
+            },
+            {
+              "x": 740,
+              "y": 400
+            },
+            {
+              "x": 710,
+              "y": 455
+            }
+          ]
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "attackFlow",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 260,
+              "y": 390
+            },
+            {
+              "x": 258,
+              "y": 355
+            },
+            {
+              "x": 255,
+              "y": 325
+            }
+          ],
+          "screenAngleLocked": true,
+          "screenAngle": 143
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "attackFlow",
+          "color": "#7c3aed",
+          "points": [
+            {
+              "x": 150,
+              "y": 190
+            },
+            {
+              "x": 160,
+              "y": 250
+            },
+            {
+              "x": 175,
+              "y": 310
+            },
+            {
+              "x": 235,
+              "y": 390
+            },
+            {
+              "x": 320,
+              "y": 445
+            }
+          ]
+        }
+      ],
+      "caption": "ATTACK / ROLL / FLARE — 3 ataca el centro de la pintura sin invadir el carril de 5; 5 rolla; 1 llena arriba como kickback; en el backside 4 pone flare para 2.",
+      "seconds": 2
+    }
+  ],
+  "totalSeconds": 7.1,
+  "reviewNotes": [
+    "Fuente exacta: UNI Transition Zoom, capítulo 9:12.",
+    "No se añadieron counters propios ni adaptación al sistema del usuario.",
+    "Downscreen de 1: ángulo manual 48°; ruta de 3 con clearance aproximado de 50 px.",
+    "Flare de 4: ángulo manual 143°; ruta de 2 con clearance aproximado de 55 px.",
+    "4 fases tácticas para facilitar edición.",
+    "Spacing final corregido: 3 y 5 terminan en carriles distintos, con 108 px entre ambos.",
+    "Validado con CourtPlayEngine: 0 px de salto entre fases."
+  ]
+}
