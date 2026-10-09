@@ -1,10 +1,10 @@
 {
-  "version": 29,
+  "version": 30,
   "plays": [
     {
       "slug": "caja-2-video-rebuild",
       "name": "Caja 2 — Reconstrucción del video",
-      "description": "BLOB reconstruido desde Caja 2.mp4: screen de 5 para 2, stagger 3+4 para 5, limpieza, cuatro lecturas de saque y pase final a 3.",
+      "description": "BLOB corregido desde Caja 2.mp4: 5 libera a 2; 3 pone screen a 5; después 4 pone screen a 3 y rolea. Incluye las opciones de saque y pase final a 3.",
       "categories": [
         "blob",
         "quick"
