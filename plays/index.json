@@ -1,6 +1,15 @@
 {
-  "version": 26,
+  "version": 27,
   "plays": [
+    {
+      "slug": "caja-2-video-import-test",
+      "name": "Caja 2 — Importación de video",
+      "description": "Prueba de conversión de video a jugada CourtPlay editable: BLOB en caja con pantallas, cortes y opciones de saque.",
+      "categories": [
+        "blob",
+        "quick"
+      ]
+    },
     {
       "slug": "handoff-v6-correct-cross-test",
       "name": "TEST DHO v6 — Cruce Correcto",
