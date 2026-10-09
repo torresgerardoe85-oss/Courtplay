@@ -1,6 +1,15 @@
 {
-  "version": 28,
+  "version": 29,
   "plays": [
+    {
+      "slug": "caja-2-video-rebuild",
+      "name": "Caja 2 — Reconstrucción del video",
+      "description": "BLOB reconstruido desde Caja 2.mp4: screen de 5 para 2, stagger 3+4 para 5, limpieza, cuatro lecturas de saque y pase final a 3.",
+      "categories": [
+        "blob",
+        "quick"
+      ]
+    },
     {
       "slug": "handoff-v6-correct-cross-test",
       "name": "TEST DHO v6 — Cruce Correcto",
