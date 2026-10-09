@@ -416,7 +416,7 @@ function buildPlaybackPlan(){
   });
   return{segments,total:cursor,finalScene};
 }
-const PLAYBACK_RATE=.90;
+const PLAYBACK_RATE=.85;
 const playbackSeek=document.getElementById('playbackSeek');
 const playbackTimeEl=document.getElementById('playbackTime');
 const playbackPhaseEl=document.getElementById('playbackPhase');
@@ -487,7 +487,7 @@ function startPlayback(){
   if(!plan.total)return;
   if(playbackPosition>=plan.total-.01)playbackPosition=0;
   playing=true;playbackAnchorPosition=playbackPosition;playbackAnchorTime=performance.now();
-  updatePlaybackButtons();setStatus('Reproduciendo a 0.90x. Usa la barra, −1 s o +1 s para revisar cualquier momento.');
+  updatePlaybackButtons();setStatus('Reproduciendo a 0.85x. Usa la barra, −1 s o +1 s para revisar cualquier momento.');
   playbackRaf=requestAnimationFrame(playbackTick);
 }
 function togglePlayback(){
