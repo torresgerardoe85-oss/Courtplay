@@ -328,3 +328,26 @@ canvas#court{width:100%;height:auto;max-width:100%}
 @media(max-width:900px){
   .courtplayBuildBadge{display:block!important;}
 }
+
+
+/* v80 compact controls — smaller visual footprint, still touch-friendly */
+@media(min-width:641px){
+  .topbtn{height:40px;min-height:40px;padding:0 11px;border-radius:11px;font-size:14px}
+  .smallBtn{min-height:38px;border-radius:10px;font-size:13px}
+  .tool{min-height:42px;border-radius:11px;font-size:14px}
+  .giveBall{min-height:40px;border-radius:11px;font-size:14px}
+  .shapeBtn{width:38px;height:38px}
+  .inspectorActions button{min-height:36px;font-size:12px}
+  .sequenceButtons button{min-height:36px}
+  .playbackBtn{min-height:38px;padding:0 10px}
+  .playbackBtn.primary{min-width:42px}
+  .libraryClose{width:38px;height:38px;font-size:22px}
+}
+@media(max-width:640px){
+  .topbtn{min-height:42px;height:42px;font-size:13px;padding:0 6px}
+  .tool{min-height:44px;font-size:14px}
+  .giveBall{min-height:42px;font-size:14px}
+  .smallBtn{min-height:40px;font-size:13px}
+  .shapeBtn{width:40px;height:40px}
+  .playbackBtn{min-height:40px;padding:0 9px}
+}
