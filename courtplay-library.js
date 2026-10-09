@@ -204,11 +204,29 @@
     }
   }
 
-  function deleteLocalPlay(id){
+  async function deleteLocalPlay(id){
     const items=readLocal(),item=items.find(x=>x.id===id);
     if(!item)return;
     if(!confirm('¿Eliminar "'+(item.name||'esta jugada')+'" de Mi Biblioteca?'))return;
     writeLocal(items.filter(x=>x.id!==id));
+    if(window.CourtPlayCloud){
+      window.CourtPlayCloud.queueDelete(id);
+      if(window.CourtPlayCloud.isSignedIn()){
+        if(navigator.onLine===false){
+          notify('Jugada eliminada de este dispositivo. La eliminación se sincronizará cuando vuelva el internet.');
+        }else{
+          try{
+            const result=await window.CourtPlayCloud.flushOutbox({reason:'delete'});
+            if(result&&result.error)notify('Jugada eliminada localmente. La eliminación en Cloud quedó pendiente.','error');
+            else notify('Jugada eliminada de Mi Biblioteca.');
+          }catch(e){
+            notify('Jugada eliminada localmente. La eliminación en Cloud quedó pendiente.','error');
+          }
+        }
+      }else{
+        notify('Jugada eliminada de este dispositivo.');
+      }
+    }
     renderLibraryContents();
   }
 
@@ -343,7 +361,7 @@
 
     const head=document.createElement('div');head.className='libraryHead';
     const title=document.createElement('div');
-    title.innerHTML='<strong>Biblioteca CourtPlay</strong><small>Tu biblioteca y las jugadas que yo construya para ti.</small>';
+    title.innerHTML='<strong>Biblioteca</strong><small>Mi Biblioteca + jugadas nuevas publicadas para ti.</small>';
     const close=document.createElement('button');close.type='button';close.textContent='×';close.className='libraryClose';
     close.addEventListener('click',()=>wrap.remove());
     head.append(title,close);
@@ -357,6 +375,9 @@
     ask.addEventListener('click',toggleAskHelp);
     actions.append(saveNow,ask);
 
+    const backup=document.createElement('div');backup.className='libraryBackupNote';
+    backup.textContent='📱 Respaldo local activo: las jugadas de Mi Biblioteca quedan disponibles offline en este dispositivo.';
+
     const help=document.createElement('div');help.id='courtplayAskHelp';help.className='libraryAskHelp';
     help.hidden=true;
     const h=document.createElement('strong');h.textContent='Pídemela en nuestro chat de CourtPlay';
@@ -367,7 +388,7 @@
 
     const tabs=document.createElement('div');tabs.id='courtplayCategoryTabs';tabs.className='libraryCategoryTabs';tabs.setAttribute('role','tablist');
     const content=document.createElement('div');content.id='courtplayLibraryContents';
-    panel.append(head,cloudAuth,actions,help,tabs,content);wrap.append(panel);document.body.append(wrap);
+    panel.append(head,cloudAuth,actions,backup,help,tabs,content);wrap.append(panel);document.body.append(wrap);
     wrap.addEventListener('click',e=>{if(e.target===wrap)wrap.remove();});
     return wrap;
   }
@@ -411,11 +432,19 @@
   }
 
   function localRows(container){
-    container.append(sectionTitle(window.CourtPlayCloud?.isSignedIn()?'Respaldo local':'Mi Biblioteca local',window.CourtPlayCloud?.isSignedIn()?'Copia disponible en este navegador/dispositivo.':'Guardada solo en este navegador/dispositivo hasta que inicies sesión.'));
+    const signedIn=!!window.CourtPlayCloud?.isSignedIn?.();
+    container.append(sectionTitle(
+      'Mi Biblioteca',
+      signedIn
+        ?'Una sola lista. Tus jugadas quedan disponibles offline en este dispositivo y se sincronizan con Cloud.'
+        :'Tus jugadas quedan disponibles offline en este dispositivo. Inicia sesión para sincronizarlas entre dispositivos.'
+    ));
     const items=readLocal().filter(matchesCategory);
     if(!items.length){
       const p=document.createElement('p');p.className='libraryMessage';
-      p.textContent=activeCategory==='all'?'Aún no has guardado jugadas en Mi Biblioteca.':'No hay jugadas de '+categoryLabel(activeCategory)+' en esta sección.';
+      p.textContent=activeCategory==='all'
+        ?(signedIn?'Sincronizando Mi Biblioteca… si tienes jugadas en Cloud aparecerán aquí.':'Aún no has guardado jugadas en Mi Biblioteca.')
+        :'No hay jugadas de '+categoryLabel(activeCategory)+' en Mi Biblioteca.';
       container.append(p);return;
     }
     items.forEach(item=>{
@@ -423,7 +452,8 @@
       const info=document.createElement('div');
       const strong=document.createElement('strong');strong.textContent=item.name||'Jugada';
       const small=document.createElement('small');
-      small.textContent=item.updatedAt?'Actualizada '+new Date(item.updatedAt).toLocaleString():'Guardada en este dispositivo';
+      const updated=item.updatedAt?' · '+new Date(item.updatedAt).toLocaleString():'';
+      small.textContent=(signedIn?'📱 Disponible offline · ☁ sincronización automática':'📱 Disponible offline')+updated;
       info.append(strong,small);
       appendCategoryBadges(info,item);
       const actions=document.createElement('div');actions.className='libraryRowActions';
@@ -533,8 +563,23 @@
     }
   }
 
+  function publishedNameKey(value){
+    return String(value||'').trim().toLowerCase().replace(/\s+/g,' ');
+  }
+  function savedPublishedIdentity(){
+    const slugs=new Set(),names=new Set();
+    readLocal().forEach(item=>{
+      const play=item&&item.play;
+      const slug=play&&play.sourcePublishedSlug;
+      if(slug)slugs.add(String(slug));
+      const name=publishedNameKey((item&&item.name)||(play&&play.name));
+      if(name)names.add(name);
+    });
+    return{slugs,names};
+  }
+
   async function remoteRows(container){
-    container.append(sectionTitle('Biblioteca CourtPlay','Jugadas que yo publique para ti desde nuestro chat.'));
+    container.append(sectionTitle('Publicadas para mí','Jugadas nuevas que yo publique para ti desde nuestro chat. Si las guardas en Mi Biblioteca, dejan de repetirse aquí.'));
     const loading=document.createElement('p');loading.className='libraryMessage';loading.textContent='Buscando jugadas publicadas…';container.append(loading);
     try{
       const payload=await fetchJsonWithTimeout(base+'index.json?ts='+Date.now(),7000);
@@ -556,7 +601,13 @@
       }
 
       const hiddenSet=new Set(hidden);
-      const visible=plays.filter(item=>item&&item.slug&&!hiddenSet.has(item.slug)&&matchesCategory(item));
+      const saved=savedPublishedIdentity();
+      const visible=plays.filter(item=>{
+        if(!item||!item.slug||hiddenSet.has(item.slug)||!matchesCategory(item))return false;
+        if(saved.slugs.has(String(item.slug)))return false;
+        const name=publishedNameKey(item.name||item.slug);
+        return !name||!saved.names.has(name);
+      });
       loading.remove();
       if(!visible.length){
         const p=document.createElement('p');p.className='libraryMessage';
@@ -591,21 +642,18 @@
 
     // Cada fuente carga de forma independiente. Un CDN/Supabase lento no puede
     // bloquear "Biblioteca CourtPlay" ni las copias locales.
-    const cloudHost=document.createElement('div');
     const localHost=document.createElement('div');
     const remoteHost=document.createElement('div');
-    content.append(cloudHost,localHost,remoteHost);
+    content.append(localHost,remoteHost);
 
     localRows(localHost);
     remoteRows(remoteHost);
 
     if(window.CourtPlayCloud){
       withTimeout(window.CourtPlayCloud.renderAuth(auth,()=>renderLibraryContents()),5000,null).catch(()=>{});
-      withTimeout(cloudRows(cloudHost),6500,null).catch(()=>{
-        cloudHost.innerHTML='';
-        const p=document.createElement('p');p.className='libraryMessage';p.textContent='Cloud tardó demasiado. Tus jugadas locales y las publicadas siguen disponibles.';
-        cloudHost.append(p);
-      });
+      if(window.CourtPlayCloud.isSignedIn?.()&&navigator.onLine!==false){
+        withTimeout(window.CourtPlayCloud.flushOutbox({reason:'library-open'}),6500,null).catch(()=>{});
+      }
     }else{
       if(auth)auth.innerHTML='<div class="libraryMessage">Cloud no disponible; usando almacenamiento local.</div>';
     }
@@ -621,6 +669,8 @@
       if(!loaded||!Array.isArray(loaded.frames)||!loaded.frames.length)throw new Error('invalid play');
       data=loaded;data.version=2;
       delete data.libraryId;
+      data.sourcePublishedSlug=slug;
+      data.sourcePublishedName=data.name||slug;
       CourtPlayEngine.reflow(data.frames,0);
       current=0;selectedLine=-1;selectedPlayer=null;
       playNameEl.value=data.name||slug;
