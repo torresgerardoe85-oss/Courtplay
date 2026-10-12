@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "name": "41 FLOW — Early Drag Core v3",
-  "description": "V3: el 1 USA EFECTIVAMENTE por el hombro del lado del aro la primera cortina del 4 mediante screen-linked basketball geometry, después 4 short roll. Continúa Motion→reverso→5 second side PnR→pocket/finish.",
-  "status": "Research — USE OVER vinculado al 4 / espera revisión visual",
+  "name": "41 FLOW — Early Drag Core v4",
+  "description": "v4: 4 TRAIL DRAG rehecho con geometría EXACTA relativa del CORTINA TEST OVER y 41 FLOW MOTION Capa 2 validada (SET 55° → USE OVER → CLEAR → ROLL), seguido de reverso → Motion → 5 second-side PnR → finalización.",
+  "status": "Research — primera cortina restaurada desde test validado / pendiente revisión en iPad",
   "system": "41 FLOW",
   "family": "Early Drag → Motion → Second-Side PnR",
   "categories": [
@@ -308,26 +308,26 @@
               "y": 565
             },
             {
-              "x": 609,
-              "y": 540
+              "x": 615,
+              "y": 556
             },
             {
-              "x": 642,
-              "y": 520
+              "x": 645,
+              "y": 545
             }
           ],
           "timingWeight": 0.9,
           "assistantAuthored": true,
           "screenAngleLocked": true,
-          "screenAngle": 125
+          "screenAngle": 55
         }
       ],
-      "caption": "4 TRAIL DRAG · SET CORREGIDO — 4 llega con ángulo perpendicular al camino de 1 y se PLANTA en (642,520). Su cuerpo bloquea la trayectoria de la defensa, no la del balón. 1 espera y se prepara para cruzar por el hombro superior (lado del aro).",
-      "seconds": 0.9,
+      "caption": "DRAG 4 — SET VALIDADO: misma geometría relativa de 41 FLOW MOTION Capa 2 CORREGIDA. 4 llega desde trail y PLANTA en (645,545), 65 px a la izquierda de 1; ángulo 55°. 1 aguarda para usar el bloqueo.",
+      "seconds": 1.15,
       "timeline": {
         "logic": [
-          "SET: 4 llega hasta (642,520), orientado ~125° y queda quieto",
-          "1 todavía no cambia su dirección ni cruza el bloqueo"
+          "4 SET con ángulo 55°, igual al screen de Capa 2 validada",
+          "4 quieto antes del USE; diferencia 65px con ball handler"
         ]
       }
     },
@@ -360,8 +360,8 @@
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 642,
-          "y": 520
+          "x": 645,
+          "y": 545
         },
         {
           "key": "o5",
@@ -392,32 +392,24 @@
               "y": 545
             },
             {
-              "x": 708,
-              "y": 530
+              "x": 693,
+              "y": 528
             },
             {
-              "x": 698,
-              "y": 505
+              "x": 675,
+              "y": 508
             },
             {
-              "x": 684,
-              "y": 479
+              "x": 650,
+              "y": 488
             },
             {
-              "x": 661,
-              "y": 461
+              "x": 615,
+              "y": 462
             },
             {
-              "x": 636,
-              "y": 458
-            },
-            {
-              "x": 602,
-              "y": 429
-            },
-            {
-              "x": 560,
-              "y": 395
+              "x": 580,
+              "y": 440
             }
           ],
           "timingWeight": 1.18,
@@ -427,19 +419,17 @@
           "usesScreenKeys": [
             "o4"
           ],
-          "screenSideConvention": "basket-relative",
-          "screenRoutePolicy": "auto-through-screen-shoulder",
           "notes": "Explicit o4 screen link. Basket-relative OVER approaches hoop-side shoulder (smaller Y) and curves into middle."
         }
       ],
-      "caption": "DRAG USE OVER v3 — 1 utiliza la cortina 4 vinculada al motor: se aproxima al hombro de 4 DEL LADO DEL ARO y sale al medio. Ruta generada alrededor del cuerpo real del 4; no UNDER. 4 permanece PLANTADO hasta terminar USE.",
-      "seconds": 1.7,
+      "caption": "DRAG 4 — USE OVER VALIDADO (Capa 2): 1 UTILIZA de verdad la pantalla de 4, hombro con cadera. El motor usa la misma convención OVER que funcionó en CORTINA TEST y Capa 2. El 4 permanece inmóvil hasta que 1 haya limpiado completamente el bloqueo.",
+      "seconds": 1.25,
       "timeline": {
         "logic": [
-          "APPROACH de 1 al 4 tras SET de fase 2",
-          "SCREEN LINK: usesScreenKeys=['o4']; screenSideConvention=basket-relative; screenUseSide=over",
-          "Contacto efectivo al hombro del lado del aro, ~58px de centro a centro",
-          "TURN CORNER hacia el medio; 4 fijo hasta RELEASE en fase 4"
+          "USE OVER probado en CourtPlay v82",
+          "misma geometría de SCREEN TEST/Capa 2 desplazada -45px horizontal y +90px vertical",
+          "1 usa hombro con cadera, 4 NO se mueve",
+          "no utilizar la convención experimental basket-relative de v85"
         ]
       }
     },
@@ -451,8 +441,8 @@
           "key": "o1",
           "label": "1",
           "team": "offense",
-          "x": 560,
-          "y": 395
+          "x": 580,
+          "y": 440
         },
         {
           "key": "o2",
@@ -472,8 +462,8 @@
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 642,
-          "y": 520
+          "x": 645,
+          "y": 545
         },
         {
           "key": "o5",
@@ -484,8 +474,8 @@
         }
       ],
       "ball": {
-        "x": 594,
-        "y": 399,
+        "x": 614,
+        "y": 444,
         "owner": "o1"
       },
       "lines": [
@@ -500,16 +490,16 @@
           "color": "#172033",
           "points": [
             {
-              "x": 560,
-              "y": 395
+              "x": 580,
+              "y": 440
             },
             {
-              "x": 535,
-              "y": 357
+              "x": 552,
+              "y": 394
             },
             {
-              "x": 508,
-              "y": 321
+              "x": 516,
+              "y": 344
             },
             {
               "x": 483,
@@ -529,16 +519,16 @@
           "color": "#ef4444",
           "points": [
             {
-              "x": 642,
-              "y": 520
+              "x": 645,
+              "y": 545
             },
             {
-              "x": 658,
-              "y": 475
+              "x": 660,
+              "y": 473
             },
             {
-              "x": 657,
-              "y": 401
+              "x": 652,
+              "y": 403
             },
             {
               "x": 635,
@@ -577,12 +567,13 @@
           "timingWeight": 0.76
         }
       ],
-      "caption": "RELEASE · CORREGIDO — SOLO tras el USE OVER, 1 gira a la pintura; 4 hace short roll a espacio libre; 5 mantiene su dunker opuesto. Las rutas 1 y 4 no se cruzan ni se amontonan.",
-      "seconds": 2,
+      "caption": "CLEAR SCREEN → TURN CORNER + 4 SHORT ROLL: 1 ya superó la cortina, gira hacia pintura y 4 ROLA a carril distinto; 5 mantiene espacio en weak dunker. No screen/roll simultáneos.",
+      "seconds": 2.2,
       "timeline": {
         "logic": [
-          "RELEASE después de USE",
-          "4 short roll, 1 turn corner, 5 clear al dunker contrario"
+          "CLEAR SCREEN",
+          "1 TURN CORNER + 4 SHORT ROLL por carriles separados",
+          "No realizar roll antes de que termine USE"
         ]
       }
     },
@@ -1180,6 +1171,8 @@
     "Ruta del 1 continúa con curva de shoulder-to-hip y distancia de contacto ~57 px.",
     "4 permanece plantado durante USE y hace SHORT ROLL únicamente en la fase siguiente.",
     "No se alteran las 9 fases ni la terminación del segundo lado.",
-    "v3: solución funcional del motor, no solo coordenadas. Acción de 1 referencia o4 con usesScreenKeys y convención basket-relative OVER para generar contacto real por lado del aro. Se preservan otros sistemas por opt-in."
+    "v3: solución funcional del motor, no solo coordenadas. Acción de 1 referencia o4 con usesScreenKeys y convención basket-relative OVER para generar contacto real por lado del aro. Se preservan otros sistemas por opt-in.",
+    "v4: restaurado SCREEN TEST OVER v1 y Capa 2 CORREGIDA con misma geometría relativa, ángulo 55°, screenUseSide OVER sin selector experimental basket-relative.",
+    "v4: tiempos SET 1.15s, USE 1.25s, CLEAR/ROLL 2.2s; primeras tres posiciones re-sincronizadas, sin tocar los demás conceptos."
   ]
 }
