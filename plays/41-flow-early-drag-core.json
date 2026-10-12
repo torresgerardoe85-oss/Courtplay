@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "name": "41 FLOW — Early Drag Core v2",
-  "description": "Versión v2: corregida primera cortina 4 TRAIL DRAG (ángulo 125°, 1 utiliza OVER pegado al hombro, 4 SET→USE→SHORT ROLL), manteniendo el resto: REVERSAL → MOTION → 5 SECOND-SIDE PnR → POCKET FINISH.",
-  "status": "Research — cortina 4→1 corregida; pendiente revisión visual del entrenador",
+  "name": "41 FLOW — Early Drag Core v3",
+  "description": "V3: el 1 USA EFECTIVAMENTE por el hombro del lado del aro la primera cortina del 4 mediante screen-linked basketball geometry, después 4 short roll. Continúa Motion→reverso→5 second side PnR→pocket/finish.",
+  "status": "Research — USE OVER vinculado al 4 / espera revisión visual",
   "system": "41 FLOW",
   "family": "Early Drag → Motion → Second-Side PnR",
   "categories": [
@@ -23,7 +23,8 @@
       "Cinco jugadores mantienen spacing",
       "Pases al receptor real, no al origen",
       "Una sola posesión hasta el tiro"
-    ]
+    ],
+    "screenConvention": "basket-relative OVER (opt-in v85)"
   },
   "teachingReads": [
     "RIM RUN / EARLY SEAL",
@@ -421,17 +422,24 @@
           ],
           "timingWeight": 1.18,
           "screenUseSide": "over",
-          "screenTurnCorner": false
+          "screenTurnCorner": true,
+          "assistantAuthored": true,
+          "usesScreenKeys": [
+            "o4"
+          ],
+          "screenSideConvention": "basket-relative",
+          "screenRoutePolicy": "auto-through-screen-shoulder",
+          "notes": "Explicit o4 screen link. Basket-relative OVER approaches hoop-side shoulder (smaller Y) and curves into middle."
         }
       ],
-      "caption": "4 TRAIL DRAG · USE OVER CORREGIDO — 1 llega desde la derecha, se pega al hombro de 4 por el lado del aro (y menor), rodea la pantalla con curva sin cruzar su cuerpo y sale hacia el CENTRO. 4 mantiene el SET durante toda esta fase; NO hace short roll todavía.",
+      "caption": "DRAG USE OVER v3 — 1 utiliza la cortina 4 vinculada al motor: se aproxima al hombro de 4 DEL LADO DEL ARO y sale al medio. Ruta generada alrededor del cuerpo real del 4; no UNDER. 4 permanece PLANTADO hasta terminar USE.",
       "seconds": 1.7,
       "timeline": {
         "logic": [
-          "USE: 1 se acerca desde la derecha en (710,545)",
-          "Contacto técnico arriba del bloqueo: (698,505) → (684,479) → (661,461)",
-          "1 limpia por el lado del aro, luego gira al centro; 4 permanece (642,520)",
-          "Centro a centro mínimo aprox. 57 px para radios de 29 px"
+          "APPROACH de 1 al 4 tras SET de fase 2",
+          "SCREEN LINK: usesScreenKeys=['o4']; screenSideConvention=basket-relative; screenUseSide=over",
+          "Contacto efectivo al hombro del lado del aro, ~58px de centro a centro",
+          "TURN CORNER hacia el medio; 4 fijo hasta RELEASE en fase 4"
         ]
       }
     },
@@ -1171,6 +1179,7 @@
     "v2 · Primera cortina 4→1: 4 SET a (642,520), orientación 125°; 1 utiliza por encima hacia el medio sin irse UNDER.",
     "Ruta del 1 continúa con curva de shoulder-to-hip y distancia de contacto ~57 px.",
     "4 permanece plantado durante USE y hace SHORT ROLL únicamente en la fase siguiente.",
-    "No se alteran las 9 fases ni la terminación del segundo lado."
+    "No se alteran las 9 fases ni la terminación del segundo lado.",
+    "v3: solución funcional del motor, no solo coordenadas. Acción de 1 referencia o4 con usesScreenKeys y convención basket-relative OVER para generar contacto real por lado del aro. Se preservan otros sistemas por opt-in."
   ]
 }
