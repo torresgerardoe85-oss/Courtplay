@@ -1,5 +1,5 @@
 {
-  "version": 33,
+  "version": 34,
   "plays": [
     {
       "slug": "caja-2-video-rebuild",
@@ -257,7 +257,7 @@
     {
       "slug": "41-flow-motion-layer-2",
       "name": "41 FLOW MOTION — Capa 2: 2 Neutral → Angle PnR",
-      "description": "CORREGIDA: 2 Neutral → ACTION → 4 SET → 2 USE POR ENCIMA/basket-side → 4 ROLL después de liberar. 5 weakside. Sin Zoom.",
+      "description": "v3 CORREGIDA con geometría del Early Drag aprobado: 2 Neutral → 4 SET (135°) → 2 cruza basket-side/hombro-cadera → 4 ROLL después.",
       "categories": [
         "flow",
         "motion",
