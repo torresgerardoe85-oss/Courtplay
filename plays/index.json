@@ -1,5 +1,5 @@
 {
-  "version": 31,
+  "version": 32,
   "plays": [
     {
       "slug": "caja-2-video-rebuild",
@@ -250,6 +250,18 @@
         "flow",
         "motion",
         "transition",
+        "4-out-1-in",
+        "teaching"
+      ]
+    },
+    {
+      "slug": "41-flow-motion-layer-2",
+      "name": "41 FLOW MOTION — Capa 2: 2 Neutral → Angle PnR",
+      "description": "Teaching layer: dos pases neutrales activan ACTION → 4 SET Angle Screen → 5 cambia weakside → 2 USE → 4 ROLL. Sin Zoom.",
+      "categories": [
+        "flow",
+        "motion",
+        "pnr",
         "4-out-1-in",
         "teaching"
       ]
