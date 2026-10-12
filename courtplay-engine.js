@@ -437,8 +437,12 @@
       let dx=end.x-prev.x,dy=end.y-prev.y,len=Math.hypot(dx,dy)||1;
       const vx=dx/len,vy=dy/len,n1={x:-vy,y:vx},n2={x:vy,y:-vx};
       const a={x:s.x+n1.x*clearance,y:s.y+n1.y*clearance},b={x:s.x+n2.x*clearance,y:s.y+n2.y*clearance};
-      // Coach-validated CourtPlay convention after v82.
-      const q=side==='under'?(a.y<=b.y?a:b):(a.y>=b.y?a:b);
+      // Explicit basket-relative convention for coach-authored pick-and-roll.
+      // Smaller Y means closer to the basket on CourtPlay's half court.
+      // Opt-in to preserve all existing published animations that use legacy semantics.
+      const basketRelative=action.screenSideConvention==='basket-relative';
+      const takeBasketSide=basketRelative?(side==='over'):(side==='under');
+      const q=takeBasketSide?(a.y<=b.y?a:b):(a.y>=b.y?a:b);
       const c={x:clamp(q.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),y:clamp(q.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)};
       contacts.push(c); prev=c;
     }
