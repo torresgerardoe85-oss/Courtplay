@@ -1,5 +1,5 @@
 {
-  "version": 41,
+  "version": 42,
   "plays": [
     {
       "slug": "caja-2-video-rebuild",
@@ -284,6 +284,19 @@
         "motion",
         "zoom",
         "dho",
+        "4-out-1-in",
+        "teaching"
+      ]
+    },
+    {
+      "slug": "41-flow-motion-layer-4-second-side",
+      "name": "41 FLOW MOTION — Capa 4: Second Side",
+      "description": "Zoom neutral → Reverse + re-spacing → 5 SET → 1 USE OVER → TURN CORNER + 5 ROLL por carriles separados. 3 fases editables.",
+      "categories": [
+        "flow",
+        "motion",
+        "pnr",
+        "second-side",
         "4-out-1-in",
         "teaching"
       ]
