@@ -1,21 +1,21 @@
-const CACHE='courtplay-v84';
+const CACHE='courtplay-v85';
 const ASSETS=[
   './',
-  './index.html?v=84',
-  './v2.html?v=84',
+  './index.html?v=85',
+  './v2.html?v=85',
   './manifest-v43.json',
   './courtplay-icon-192-v43.png',
   './courtplay-icon-512-v43.png',
   './apple-touch-icon-v43.png',
-  './courtplay.css?v=84',
-  './courtplay-engine.js?v=84',
-  './courtplay-state.js?v=84',
-  './courtplay-render.js?v=84',
-  './courtplay-editor.js?v=84',
-  './courtplay-timeline.js?v=84',
-  './courtplay-cloud.js?v=84',
-  './courtplay-library.js?v=84',
-  './courtplay-export.js?v=84',
+  './courtplay.css?v=85',
+  './courtplay-engine.js?v=85',
+  './courtplay-state.js?v=85',
+  './courtplay-render.js?v=85',
+  './courtplay-editor.js?v=85',
+  './courtplay-timeline.js?v=85',
+  './courtplay-cloud.js?v=85',
+  './courtplay-library.js?v=85',
+  './courtplay-export.js?v=85',
   './plays/index.json'
 ];
 
@@ -73,7 +73,7 @@ self.addEventListener('fetch',e=>{
       }catch(err){
         const cache=await caches.open(CACHE);
         return (await cache.match(e.request)) ||
-               (await cache.match('./index.html?v=84')) ||
+               (await cache.match('./index.html?v=85')) ||
                new Response('CourtPlay no disponible sin conexión.',{status:503});
       }
     })());
