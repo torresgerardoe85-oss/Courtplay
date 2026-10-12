@@ -1,5 +1,5 @@
 {
-  "version": 40,
+  "version": 41,
   "plays": [
     {
       "slug": "caja-2-video-rebuild",
@@ -278,7 +278,7 @@
     {
       "slug": "41-flow-motion-layer-3-zoom",
       "name": "41 FLOW MOTION — Capa 3: Zoom",
-      "description": "Teaching layer: 1→4 → 3 SET pindown → 2 USE OVER → 4 DHO → TURN CORNER + 4 ROLL por carriles separados. Second Side queda para Capa 4.",
+      "description": "EDITABLE: 3 fases. Entry; Pindown SET+USE juntos; DHO+CLEAR+TURN CORNER+ROLL juntos con grupos 'misma vez' para corregir rutas, timing y ángulos.",
       "categories": [
         "flow",
         "motion",
