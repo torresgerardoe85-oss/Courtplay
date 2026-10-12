@@ -2,6 +2,20 @@
   "version": 44,
   "plays": [
     {
+      "slug": "41-flow-pistol-core",
+      "name": "41 FLOW — Pistol Core",
+      "description": "Una posesión completa de transición a Motion 4-Out 1-In: ARRIVAL → ADVANCE → PISTOL GET → REVERSAL → PASS/CUT/FILL → 5 ANGLE PnR → ROLL/POCKET FINISH. Timing SET→USE→RELEASE, DHO over/under y pase al receptor. Research, no Playbook Approved.",
+      "categories": [
+        "transition",
+        "flow",
+        "motion",
+        "pistol",
+        "dho",
+        "pnr",
+        "4-out-1-in"
+      ]
+    },
+    {
       "slug": "caja-2-video-rebuild",
       "name": "Caja 2 — Reconstrucción del video",
       "description": "BLOB corregido desde Caja 2.mp4: 5 libera a 2; 3 pone screen a 5; después 4 pone screen a 3 y rolea. Incluye las opciones de saque y pase final a 3.",
