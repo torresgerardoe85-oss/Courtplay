@@ -1,0 +1,194 @@
+{
+  "version": 1,
+  "name": "CORTINA TEST — OVER v1",
+  "description": "Prueba aislada CourtPlay: 4 planta Side Screen y 2 debe usarlo por OVER. Solo sirve para validar visualmente el lado correcto de la cortina.",
+  "status": "Diagnostic Test",
+  "categories": [
+    "pnr",
+    "other"
+  ],
+  "authoringProfile": "assistant",
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 180,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 790,
+          "y": 455
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 180,
+          "y": 360
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 560,
+          "y": 520
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        }
+      ],
+      "ball": {
+        "x": 824,
+        "y": 459,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 560,
+              "y": 520
+            },
+            {
+              "x": 620,
+              "y": 500
+            },
+            {
+              "x": 675,
+              "y": 470
+            },
+            {
+              "x": 715,
+              "y": 455
+            }
+          ],
+          "screenAngleLocked": true,
+          "screenAngle": 55,
+          "timingWeight": 1
+        }
+      ],
+      "caption": "SET — 4 planta la cortina. Mira solamente la orientación de la T.",
+      "seconds": 1.2
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 180,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 790,
+          "y": 455
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 180,
+          "y": 360
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 715,
+          "y": 455
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        }
+      ],
+      "ball": {
+        "x": 824,
+        "y": 459,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 790,
+              "y": 455
+            },
+            {
+              "x": 775,
+              "y": 435
+            },
+            {
+              "x": 755,
+              "y": 415
+            },
+            {
+              "x": 730,
+              "y": 392
+            },
+            {
+              "x": 700,
+              "y": 365
+            },
+            {
+              "x": 660,
+              "y": 330
+            }
+          ],
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o4"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "assistantAuthored": true
+        }
+      ],
+      "caption": "OVER TEST — 2 debe pasar por el lado OVER de la cortina y continuar hacia el aro. 4 NO SE MUEVE.",
+      "seconds": 2
+    }
+  ],
+  "totalSeconds": 3.2,
+  "reviewNotes": [
+    "No guardar como sistema; es diagnóstico.",
+    "Nombre único para evitar abrir una copia vieja de Mi Biblioteca.",
+    "Si visualmente el lado es incorrecto, se invierte la definición en el motor o la geometría."
+  ]
+}
