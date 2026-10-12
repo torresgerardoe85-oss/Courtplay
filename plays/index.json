@@ -1,5 +1,5 @@
 {
-  "version": 32,
+  "version": 33,
   "plays": [
     {
       "slug": "caja-2-video-rebuild",
@@ -257,7 +257,7 @@
     {
       "slug": "41-flow-motion-layer-2",
       "name": "41 FLOW MOTION — Capa 2: 2 Neutral → Angle PnR",
-      "description": "Teaching layer: dos pases neutrales activan ACTION → 4 SET Angle Screen → 5 cambia weakside → 2 USE → 4 ROLL. Sin Zoom.",
+      "description": "CORREGIDA: 2 Neutral → ACTION → 4 SET → 2 USE POR ENCIMA/basket-side → 4 ROLL después de liberar. 5 weakside. Sin Zoom.",
       "categories": [
         "flow",
         "motion",
