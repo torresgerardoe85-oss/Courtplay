@@ -359,6 +359,21 @@
         "short-roll",
         "teaching"
       ]
+    },
+    {
+      "slug": "41-flow-motion-layer-8-pnr-offball-reactions",
+      "name": "41 FLOW MOTION — Capa 8: PnR Off-Ball Reactions",
+      "description": "STUNT → LIFT; CORNER TAG → SHAKE; LOW MAN → DUNKER DRIFT. Solo reacciona el jugador cuyo defensor ayuda.",
+      "categories": [
+        "flow",
+        "motion",
+        "pnr",
+        "off-ball",
+        "shake",
+        "lift",
+        "drift",
+        "teaching"
+      ]
     }
   ]
 }
