@@ -1,0 +1,471 @@
+{
+  "version": 1,
+  "name": "41 FLOW MOTION — Capa 5: Third Side — Chicago",
+  "description": "Teaching layer: Second Side neutral → kickout a 2 → 4 pindown para 3 → 2 DHO con 3 → TURN CORNER + 4 SHORT ROLL. Tercera acción distinta al PnR para atacar una defensa ya desplazada.",
+  "status": "Research / Testing",
+  "system": "41 FLOW Motion",
+  "categories": [
+    "flow",
+    "motion",
+    "third-side",
+    "chicago",
+    "dho",
+    "4-out-1-in",
+    "teaching"
+  ],
+  "authoringProfile": "assistant",
+  "teachingLayer": 5,
+  "teachingGoal": "FIRST SIDE → SECOND SIDE → THIRD SIDE CHICAGO",
+  "teachingRules": [
+    "Si el Second Side ya crea ventaja, atacamos; Third Side solo existe si la defensa vuelve a neutral.",
+    "1 kickout a 2 y sale del centro para abrir el lado débil.",
+    "4, desde dunker/right low, es el screener natural del pindown para 3.",
+    "3 no se mueve hasta que 4 esté SET.",
+    "3 usa OVER, hombro con cadera, y llega al DHO de 2.",
+    "2 espera al receptor; no adelanta la entrega.",
+    "En el DHO, 3 pasa por encima del cuerpo de 2 y 2 cruza por debajo.",
+    "Después del DHO: 3 TURN CORNER; 4 SHORT ROLL por carril separado; 2 reemplaza corner.",
+    "5 permanece weakside dunker para preservar una sola referencia interior fija.",
+    "VENTAJA > CONTINUIDAD."
+  ],
+  "animationStandard": {
+    "editingRule": "Pocas fases con múltiples acciones editables.",
+    "thirdSideSequence": "KICKOUT → PIN DOWN → USE → DHO → TURN CORNER + SHORT ROLL",
+    "screenUserRule": "OVER / hombro con cadera",
+    "handoffRule": "Receiver arriba; giver debajo",
+    "spacingRule": "3 y 4 salen por carriles diferentes; 2 repone corner; 5 no cruza la pintura."
+  },
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 545,
+          "y": 220
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 720,
+          "y": 420
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 665,
+          "y": 185
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 455,
+          "y": 170
+        }
+      ],
+      "ball": {
+        "x": 579,
+        "y": 224,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 545,
+              "y": 220
+            },
+            {
+              "x": 625,
+              "y": 310
+            },
+            {
+              "x": 720,
+              "y": 420
+            }
+          ],
+          "timingWeight": 0.5
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "third_setup",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 545,
+              "y": 220
+            },
+            {
+              "x": 445,
+              "y": 300
+            },
+            {
+              "x": 340,
+              "y": 390
+            },
+            {
+              "x": 285,
+              "y": 455
+            }
+          ],
+          "timingWeight": 0.8
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "third_setup",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 665,
+              "y": 185
+            },
+            {
+              "x": 710,
+              "y": 205
+            },
+            {
+              "x": 760,
+              "y": 230
+            },
+            {
+              "x": 800,
+              "y": 255
+            }
+          ],
+          "timingWeight": 0.75,
+          "screenAngleLocked": true,
+          "screenAngle": 42
+        }
+      ],
+      "caption": "KICKOUT + SETUP — Second Side quedó neutral. 1 mueve a 2 y, después del catch, despeja al slot izquierdo mientras 4 sube a plantar el pindown para 3. 5 permanece weakside dunker.",
+      "seconds": 1.9,
+      "timeline": {
+        "logic": [
+          "1→2 KICKOUT",
+          "después 1 CLEAR + 4 SET = MISMA VEZ",
+          "3 HOLD",
+          "5 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 285,
+          "y": 455
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 720,
+          "y": 420
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 800,
+          "y": 255
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 455,
+          "y": 170
+        }
+      ],
+      "ball": {
+        "x": 754,
+        "y": 424,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 850,
+              "y": 190
+            },
+            {
+              "x": 830,
+              "y": 225
+            },
+            {
+              "x": 800,
+              "y": 265
+            },
+            {
+              "x": 770,
+              "y": 310
+            },
+            {
+              "x": 745,
+              "y": 350
+            }
+          ],
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o4"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "assistantAuthored": true
+        },
+        {
+          "type": "handoff",
+          "sourceKey": "o2",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 720,
+              "y": 420
+            },
+            {
+              "x": 705,
+              "y": 395
+            },
+            {
+              "x": 690,
+              "y": 370
+            }
+          ],
+          "timingWeight": 1,
+          "handoffVersion": 6,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 118,
+          "handoffGiverUnderDistance": 82,
+          "handoffExitPoint": {
+            "x": 610,
+            "y": 300
+          },
+          "handoffGeometryAuto": false,
+          "assistantAuthored": true,
+          "handoffReceiverSide": "under"
+        }
+      ],
+      "caption": "CHICAGO — primero 3 usa el pindown OVER, hombro con cadera. Cuando llega, 2 presenta el DHO. 3 recibe por encima del cuerpo de 2 y continúa; 2 cruza por debajo.",
+      "seconds": 2.25,
+      "timeline": {
+        "logic": [
+          "3 USE OVER",
+          "después 2 DHO → 3",
+          "4 HOLD SCREEN hasta liberar",
+          "1/5 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 285,
+          "y": 455
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 760,
+          "y": 385
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 610,
+          "y": 300
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 800,
+          "y": 255
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 455,
+          "y": 170
+        }
+      ],
+      "ball": {
+        "x": 644,
+        "y": 304,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "third_finish",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 610,
+              "y": 300
+            },
+            {
+              "x": 575,
+              "y": 285
+            },
+            {
+              "x": 545,
+              "y": 260
+            },
+            {
+              "x": 520,
+              "y": 225
+            }
+          ],
+          "timingWeight": 1.05
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "third_finish",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 800,
+              "y": 255
+            },
+            {
+              "x": 755,
+              "y": 260
+            },
+            {
+              "x": 705,
+              "y": 270
+            },
+            {
+              "x": 650,
+              "y": 265
+            }
+          ],
+          "timingWeight": 0.9
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "third_finish",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 760,
+              "y": 385
+            },
+            {
+              "x": 795,
+              "y": 320
+            },
+            {
+              "x": 825,
+              "y": 250
+            },
+            {
+              "x": 850,
+              "y": 190
+            }
+          ],
+          "timingWeight": 0.75
+        }
+      ],
+      "caption": "TURN CORNER + SHORT ROLL — 3 gira la esquina hacia el aro. 4 libera el pindown y entra al short roll por un carril separado. 2 repone el corner. Lecturas: RIM → SHORT ROLL → CORNER/ONE MORE.",
+      "seconds": 1.55,
+      "timeline": {
+        "logic": [
+          "3 TURN CORNER + 4 SHORT ROLL + 2 CORNER = MISMA VEZ",
+          "1 HOLD",
+          "5 weakside dunker HOLD",
+          "VENTAJA termina la continuidad"
+        ]
+      }
+    }
+  ],
+  "totalSeconds": 5.7,
+  "reviewNotes": [
+    "Capa 5 usa Chicago como Third Side para variar el tipo de ventaja después de dos lados de PnR/DHO.",
+    "Fase 1: kickout + setup editables.",
+    "Fase 2: pindown + DHO editables en la misma fase.",
+    "Fase 3: turn corner + short roll + corner replacement simultáneos.",
+    "5 permanece weakside dunker; no se cruzan dos interiores por la misma ruta.",
+    "Top-lock, switch y under se añadirán como counters después de instalar el core."
+  ]
+}
