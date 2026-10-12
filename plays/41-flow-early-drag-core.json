@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "name": "41 FLOW — Early Drag Core",
-  "description": "Una posesión completa: TRANSICIÓN → 4 TRAIL DRAG (SET→USE→SHORT ROLL) → 1→4→3 REVERSO → MOTION SHALLOW CUT/FILL → 5 SECOND-SIDE ANGLE PnR (SET→USE→ROLL) → POCKET PASS + FINISH. Adaptada al 4-Out 1-In, 4/5 no tiradores.",
-  "status": "Research — revisión del entrenador; no Playbook Approved",
+  "name": "41 FLOW — Early Drag Core v2",
+  "description": "Versión v2: corregida primera cortina 4 TRAIL DRAG (ángulo 125°, 1 utiliza OVER pegado al hombro, 4 SET→USE→SHORT ROLL), manteniendo el resto: REVERSAL → MOTION → 5 SECOND-SIDE PnR → POCKET FINISH.",
+  "status": "Research — cortina 4→1 corregida; pendiente revisión visual del entrenador",
   "system": "41 FLOW",
   "family": "Early Drag → Motion → Second-Side PnR",
   "categories": [
@@ -307,26 +307,26 @@
               "y": 565
             },
             {
-              "x": 604,
-              "y": 543
+              "x": 609,
+              "y": 540
             },
             {
-              "x": 630,
-              "y": 515
+              "x": 642,
+              "y": 520
             }
           ],
           "timingWeight": 0.9,
           "assistantAuthored": true,
           "screenAngleLocked": true,
-          "screenAngle": 46
+          "screenAngle": 125
         }
       ],
-      "caption": "4 TRAIL DRAG — SET. 4 llega y planta ambos pies en (630,515) con el ángulo orientado a liberar el camino de 1 hacia el centro. 1 conserva su línea sin atacar la pantalla antes del SET. 5 sostiene su amenaza interior.",
+      "caption": "4 TRAIL DRAG · SET CORREGIDO — 4 llega con ángulo perpendicular al camino de 1 y se PLANTA en (642,520). Su cuerpo bloquea la trayectoria de la defensa, no la del balón. 1 espera y se prepara para cruzar por el hombro superior (lado del aro).",
       "seconds": 0.9,
       "timeline": {
         "logic": [
-          "SET antes que USE",
-          "4 queda estable; 5 se mantiene en la pintura, no pone una segunda cortina"
+          "SET: 4 llega hasta (642,520), orientado ~125° y queda quieto",
+          "1 todavía no cambia su dirección ni cruza el bloqueo"
         ]
       }
     },
@@ -359,8 +359,8 @@
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 630,
-          "y": 515
+          "x": 642,
+          "y": 520
         },
         {
           "key": "o5",
@@ -391,35 +391,47 @@
               "y": 545
             },
             {
-              "x": 701,
-              "y": 518
+              "x": 708,
+              "y": 530
+            },
+            {
+              "x": 698,
+              "y": 505
             },
             {
               "x": 684,
-              "y": 490
+              "y": 479
             },
             {
               "x": 661,
-              "y": 465
+              "y": 461
             },
             {
-              "x": 603,
-              "y": 415
+              "x": 636,
+              "y": 458
+            },
+            {
+              "x": 602,
+              "y": 429
             },
             {
               "x": 560,
               "y": 395
             }
           ],
-          "timingWeight": 1.18
+          "timingWeight": 1.18,
+          "screenUseSide": "over",
+          "screenTurnCorner": false
         }
       ],
-      "caption": "4 TRAIL DRAG — USE. 1 rodea la pantalla pegado al hombro de 4 usando una curva real (sin trayectoria recta a través del bloqueador). 4 no rueda hasta que 1 supera la pantalla.",
+      "caption": "4 TRAIL DRAG · USE OVER CORREGIDO — 1 llega desde la derecha, se pega al hombro de 4 por el lado del aro (y menor), rodea la pantalla con curva sin cruzar su cuerpo y sale hacia el CENTRO. 4 mantiene el SET durante toda esta fase; NO hace short roll todavía.",
       "seconds": 1.7,
       "timeline": {
         "logic": [
-          "HANDLER: usar cortina antes de girar la esquina",
-          "SCREENER: 4 permanece quieto durante el uso"
+          "USE: 1 se acerca desde la derecha en (710,545)",
+          "Contacto técnico arriba del bloqueo: (698,505) → (684,479) → (661,461)",
+          "1 limpia por el lado del aro, luego gira al centro; 4 permanece (642,520)",
+          "Centro a centro mínimo aprox. 57 px para radios de 29 px"
         ]
       }
     },
@@ -452,8 +464,8 @@
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 630,
-          "y": 515
+          "x": 642,
+          "y": 520
         },
         {
           "key": "o5",
@@ -509,16 +521,16 @@
           "color": "#ef4444",
           "points": [
             {
-              "x": 630,
-              "y": 515
+              "x": 642,
+              "y": 520
+            },
+            {
+              "x": 658,
+              "y": 475
             },
             {
               "x": 657,
-              "y": 452
-            },
-            {
-              "x": 654,
-              "y": 392
+              "y": 401
             },
             {
               "x": 635,
@@ -557,12 +569,12 @@
           "timingWeight": 0.76
         }
       ],
-      "caption": "RELEASE + REACCIÓN — 1 amenaza la pintura. 4 hace SHORT ROLL al codo libre, no se amontona con 5. 5 se abre al dunker débil para dejar carril de penetración y preparar una segunda pantalla.",
+      "caption": "RELEASE · CORREGIDO — SOLO tras el USE OVER, 1 gira a la pintura; 4 hace short roll a espacio libre; 5 mantiene su dunker opuesto. Las rutas 1 y 4 no se cruzan ni se amontonan.",
       "seconds": 2,
       "timeline": {
         "logic": [
-          "RELEASE solo DESPUÉS de USE",
-          "4 short roll como conector; 5 a dunker opuesto"
+          "RELEASE después de USE",
+          "4 short roll, 1 turn corner, 5 clear al dunker contrario"
         ]
       }
     },
@@ -1154,5 +1166,11 @@
     }
   ],
   "animationTotalSeconds": 18.6,
-  "totalSeconds": 18.6
+  "totalSeconds": 18.6,
+  "revisionNotes": [
+    "v2 · Primera cortina 4→1: 4 SET a (642,520), orientación 125°; 1 utiliza por encima hacia el medio sin irse UNDER.",
+    "Ruta del 1 continúa con curva de shoulder-to-hip y distancia de contacto ~57 px.",
+    "4 permanece plantado durante USE y hace SHORT ROLL únicamente en la fase siguiente.",
+    "No se alteran las 9 fases ni la terminación del segundo lado."
+  ]
 }
