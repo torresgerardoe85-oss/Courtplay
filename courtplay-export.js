@@ -273,6 +273,22 @@ function assignNaturalStepTiming(actions){
     a._playbackStart=start;
     a._playbackEnd=Math.max(start+.15,end);
   });
+
+  // Lead-pass timing: if the receiver is moving in the SAME simultaneous
+  // group, make him arrive at his reception point exactly when the pass arrives.
+  for(const pass of list){
+    if(pass.type!=='pass'||!pass.targetKey||pass.passLeadTarget===false||!pass.simultaneousGroup)continue;
+    const mover=list.find(a=>
+      a!==pass&&
+      a.simultaneousGroup===pass.simultaneousGroup&&
+      a.sourceKey===pass.targetKey&&
+      ['move','dribble'].includes(a.type)
+    );
+    if(mover){
+      mover._playbackEnd=pass._playbackEnd;
+      if(mover._playbackStart>=mover._playbackEnd-.15)mover._playbackStart=Math.max(0,mover._playbackEnd-.15);
+    }
+  }
   return list;
 }
 function actionPlaybackProgress(action,t){
