@@ -1,5 +1,5 @@
 {
-  "version": 43,
+  "version": 44,
   "plays": [
     {
       "slug": "caja-2-video-rebuild",
@@ -311,6 +311,23 @@
         "third-side",
         "chicago",
         "dho",
+        "4-out-1-in",
+        "teaching"
+      ]
+    },
+    {
+      "slug": "41-flow-motion-master-layers-1-5",
+      "name": "41 FLOW MOTION — MASTER · Capas 1–5",
+      "description": "Una sola jugada editable: Arrival → Pass/Cut/Fill → Opción A Angle PnR → Opción B Zoom → Second Side → Third Side Chicago. 9 fases, múltiples movimientos por fase.",
+      "categories": [
+        "flow",
+        "motion",
+        "transition",
+        "pnr",
+        "zoom",
+        "second-side",
+        "third-side",
+        "chicago",
         "4-out-1-in",
         "teaching"
       ]
