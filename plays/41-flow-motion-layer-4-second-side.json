@@ -1,0 +1,432 @@
+{
+  "version": 1,
+  "name": "41 FLOW MOTION — Capa 4: Second Side",
+  "description": "Teaching layer: Zoom neutral → Reverse → re-spacing → 5 sube desde weakside para Angle PnR con 1 → TURN CORNER + ROLL por carriles separados.",
+  "status": "Research / Testing",
+  "system": "41 FLOW Motion",
+  "categories": [
+    "flow",
+    "motion",
+    "pnr",
+    "second-side",
+    "4-out-1-in",
+    "teaching"
+  ],
+  "authoringProfile": "assistant",
+  "teachingLayer": 4,
+  "teachingGoal": "FIRST SIDE NEUTRAL → REVERSE → SECOND SIDE PnR",
+  "teachingRules": [
+    "La primera acción mueve la defensa; si no crea ventaja, no forzamos.",
+    "Zoom neutral = REVERSE inmediato.",
+    "4 sale del roll hacia el dunker opuesto; no vuelve a poner otra cortina.",
+    "5, que estaba weakside, es el screener natural del Second Side.",
+    "El balón debe llegar a 1 antes de que 5 termine de subir a la pantalla.",
+    "SET → USE OVER → TURN CORNER + ROLL.",
+    "2 repone el slot opuesto después de revertir; 3 mantiene corner.",
+    "VENTAJA > CONTINUIDAD: si aparece aro, roll, seal o closeout, se termina la secuencia y se ataca."
+  ],
+  "animationStandard": {
+    "editingRule": "Pocas fases con varias acciones relacionadas para que el coach pueda corregir rutas, timing, orden y simultaneidad.",
+    "secondSideSequence": "NEUTRAL → REVERSE → RE-SPACE → SET → USE → TURN CORNER + ROLL",
+    "screenUserRule": "OVER / hombro con cadera",
+    "rollerRule": "Roll por carril separado del manejador.",
+    "spacingRule": "No juntar 4 y 5 en la pintura; 4 despeja antes del PnR de 5."
+  },
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 300,
+          "y": 520
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 500,
+          "y": 300
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 590,
+          "y": 180
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 350,
+          "y": 180
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 304,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o2",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 500,
+              "y": 300
+            },
+            {
+              "x": 405,
+              "y": 405
+            },
+            {
+              "x": 300,
+              "y": 520
+            }
+          ],
+          "timingWeight": 0.5
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "second_reset",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 500,
+              "y": 300
+            },
+            {
+              "x": 610,
+              "y": 350
+            },
+            {
+              "x": 720,
+              "y": 420
+            }
+          ],
+          "timingWeight": 0.75
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "second_reset",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 590,
+              "y": 180
+            },
+            {
+              "x": 625,
+              "y": 175
+            },
+            {
+              "x": 665,
+              "y": 185
+            }
+          ],
+          "timingWeight": 0.55
+        }
+      ],
+      "caption": "REVERSE + RE-SPACE — el Zoom quedó neutral. 2 revierte a 1 y después repone el slot opuesto. 4 sale del roll al dunker derecho. 5 todavía espera weakside. No forzamos la primera acción.",
+      "seconds": 1.8,
+      "timeline": {
+        "logic": [
+          "2→1 REVERSE",
+          "después 2 FILL + 4 CLEAR = MISMA VEZ",
+          "5 HOLD",
+          "3 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 300,
+          "y": 520
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 720,
+          "y": 420
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 665,
+          "y": 185
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 350,
+          "y": 180
+        }
+      ],
+      "ball": {
+        "x": 334,
+        "y": 524,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 350,
+              "y": 180
+            },
+            {
+              "x": 350,
+              "y": 285
+            },
+            {
+              "x": 355,
+              "y": 385
+            },
+            {
+              "x": 365,
+              "y": 465
+            }
+          ],
+          "timingWeight": 0.85,
+          "screenAngleLocked": true,
+          "screenAngle": 118
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 300,
+              "y": 520
+            },
+            {
+              "x": 325,
+              "y": 485
+            },
+            {
+              "x": 355,
+              "y": 455
+            },
+            {
+              "x": 395,
+              "y": 420
+            },
+            {
+              "x": 435,
+              "y": 380
+            }
+          ],
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "screenTurnCorner": true,
+          "assistantAuthored": true
+        }
+      ],
+      "caption": "SECOND SIDE SET + USE — 5 sube desde weakside y se planta. Después 1 usa OVER, hombro con cadera, hacia el medio. 4 permanece en dunker derecho; 2 y 3 mantienen spacing.",
+      "seconds": 2.1,
+      "timeline": {
+        "logic": [
+          "5 SET",
+          "después 1 USE OVER",
+          "4/2/3 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 435,
+          "y": 380
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 720,
+          "y": 420
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 665,
+          "y": 185
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 365,
+          "y": 465
+        }
+      ],
+      "ball": {
+        "x": 469,
+        "y": 384,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "second_finish",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 435,
+              "y": 380
+            },
+            {
+              "x": 475,
+              "y": 345
+            },
+            {
+              "x": 510,
+              "y": 305
+            },
+            {
+              "x": 535,
+              "y": 260
+            },
+            {
+              "x": 545,
+              "y": 220
+            }
+          ],
+          "timingWeight": 1.05
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "second_finish",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 365,
+              "y": 465
+            },
+            {
+              "x": 380,
+              "y": 385
+            },
+            {
+              "x": 400,
+              "y": 305
+            },
+            {
+              "x": 425,
+              "y": 235
+            },
+            {
+              "x": 455,
+              "y": 170
+            }
+          ],
+          "timingWeight": 1
+        }
+      ],
+      "caption": "TURN CORNER + ROLL — 1 gira la esquina hacia el carril central-derecho. 5 rola por el carril izquierdo de la pintura. Lecturas: RIM → ROLL → ONE MORE. 4 mantiene dunker opuesto para no ocupar el mismo carril.",
+      "seconds": 1.45,
+      "timeline": {
+        "logic": [
+          "1 TURN CORNER + 5 ROLL = MISMA VEZ",
+          "Carriles separados",
+          "2/3/4 HOLD",
+          "VENTAJA termina la continuidad"
+        ]
+      }
+    }
+  ],
+  "totalSeconds": 5.35,
+  "reviewNotes": [
+    "Capa 4 enseña Second Side, no Third Side todavía.",
+    "5 es el screener del segundo lado; 4 despeja al dunker opuesto después del Zoom.",
+    "Fase 1 permite editar reverse + re-spacing.",
+    "Fase 2 permite editar SET + USE.",
+    "Fase 3 permite editar TURN CORNER + ROLL simultáneos.",
+    "No se anima SHAKE/LIFT sin reacción defensiva; esas lecturas se añadirán como opciones/counters."
+  ]
+}
