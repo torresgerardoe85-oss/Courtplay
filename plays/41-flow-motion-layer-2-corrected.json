@@ -1,7 +1,7 @@
 {
-  "version": 5,
+  "version": 6,
   "name": "41 FLOW MOTION — Capa 2 CORREGIDA: 2 Neutral → Angle PnR",
-  "description": "Capa 2 ajustada por instrucción del coach: 2 Neutral → ACTION → 4 SET a 55° → 2 PASA POR DEBAJO de la cortina → 4 ROLL después del uso.",
+  "description": "Capa 2 — prueba invertida solicitada por el coach: 2 Neutral → ACTION → 4 SET a 55° → 2 PASA POR ENCIMA / OVER de la cortina → 4 ROLL después del uso.",
   "status": "Research / Testing",
   "system": "41 FLOW Motion",
   "categories": [
@@ -23,9 +23,9 @@
     "1 y 3 HOLD para preservar spacing."
   ],
   "animationStandard": {
-    "screenSequence": "SET → USE UNDER → RELEASE/ROLL",
-    "screenUserRule": "Para esta prueba CourtPlay: el manejador pasa POR DEBAJO / non-basket side de la cortina.",
-    "screenUseSide": "under",
+    "screenSequence": "SET → USE OVER → RELEASE/ROLL",
+    "screenUserRule": "Para esta prueba CourtPlay: el manejador pasa POR ENCIMA / basket-side de la cortina.",
+    "screenUseSide": "over",
     "offBallRule": "5 weakside; 1 y 3 HOLD.",
     "triggerRule": "Segundo catch neutral = ACTION."
   },
@@ -371,45 +371,45 @@
               "y": 455
             },
             {
-              "x": 735,
-              "y": 468
+              "x": 738,
+              "y": 438
             },
             {
-              "x": 710,
-              "y": 482
+              "x": 718,
+              "y": 420
             },
             {
-              "x": 690,
-              "y": 495
+              "x": 695,
+              "y": 400
             },
             {
-              "x": 655,
-              "y": 485
+              "x": 665,
+              "y": 378
             },
             {
-              "x": 620,
-              "y": 455
+              "x": 630,
+              "y": 352
             },
             {
-              "x": 590,
-              "y": 415
+              "x": 595,
+              "y": 325
             }
           ],
           "timingWeight": 1.05,
           "usesScreenKeys": [
             "o4"
           ],
-          "screenUseSide": "under",
+          "screenUseSide": "over",
           "screenUseClearance": 58,
           "screenUseVersion": 1,
           "assistantAuthored": true
         }
       ],
-      "caption": "USE — 2 PASA POR DEBAJO de la cortina de 4 (non-basket side), hombro con cadera, y luego gira hacia el medio. 4 permanece SET durante todo el uso.",
+      "caption": "USE — PRUEBA INVERTIDA: 2 PASA POR ENCIMA / OVER de la cortina de 4, hombro con cadera, y sale hacia el medio. 4 permanece SET durante todo el uso.",
       "seconds": 1.35,
       "timeline": {
         "logic": [
-          "2 USE = UNDER / por debajo",
+          "2 USE = OVER / por encima",
           "4 HOLD",
           "1/3/5 HOLD"
         ]
@@ -430,8 +430,8 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 590,
-          "y": 415
+          "x": 595,
+          "y": 325
         },
         {
           "key": "o3",
@@ -456,8 +456,8 @@
         }
       ],
       "ball": {
-        "x": 624,
-        "y": 419,
+        "x": 629,
+        "y": 329,
         "owner": "o2"
       },
       "lines": [
@@ -495,11 +495,11 @@
           "timingWeight": 1
         }
       ],
-      "caption": "RELEASE / ROLL — después de que 2 ya pasó POR DEBAJO y liberó la cortina, 4 rola. 5 permanece weakside.",
+      "caption": "RELEASE / ROLL — después de que 2 ya pasó POR ENCIMA y liberó la cortina, 4 rola. 5 permanece weakside.",
       "seconds": 1.15,
       "timeline": {
         "logic": [
-          "2 ya pasó UNDER",
+          "2 ya pasó OVER",
           "4 RELEASE → ROLL",
           "1/3/5 HOLD"
         ]
@@ -508,9 +508,9 @@
   ],
   "totalSeconds": 5.25,
   "reviewNotes": [
-    "v5: instrucción explícita UNDER.",
-    "Ruta manual cruza por el extremo non-basket de la T de la cortina.",
-    "La acción también lleva usesScreenKeys=['o4'] + screenUseSide='under'.",
+    "v6: prueba invertida solicitada por el coach.",
+    "Ruta manual y metadata ahora dicen OVER / por encima.",
+    "usesScreenKeys=['o4'] + screenUseSide='over'.",
     "SET y ROLL permanecen separados."
   ]
 }
