@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36,
   "plays": [
     {
       "slug": "caja-2-video-rebuild",
@@ -257,7 +257,7 @@
     {
       "slug": "41-flow-motion-layer-2-corrected",
       "name": "41 FLOW MOTION — Capa 2 CORREGIDA: 2 Neutral → Angle PnR",
-      "description": "NUEVA publicación: Side/Angle PnR con screen a 55° y ruta corregida. Usa esta versión; la anterior queda retirada de Biblioteca CourtPlay.",
+      "description": "AJUSTADA: 2 Neutral → 4 SET 55° → 2 PASA POR DEBAJO/UNDER de la cortina → 4 ROLL después.",
       "categories": [
         "flow",
         "motion",
