@@ -1,0 +1,399 @@
+{
+  "version": 1,
+  "name": "41 FLOW MOTION — Capa 8: PnR Off-Ball Reactions",
+  "description": "Reacciones de los tres jugadores sin balón en el Angle PnR. Solo reacciona el jugador cuyo defensor ayuda: STUNT → LIFT, CORNER TAG → SHAKE, LOW MAN → DUNKER DRIFT.",
+  "status": "Research / Testing",
+  "system": "41 FLOW Motion",
+  "categories": [
+    "flow",
+    "motion",
+    "pnr",
+    "off-ball",
+    "shake",
+    "lift",
+    "drift",
+    "teaching"
+  ],
+  "authoringProfile": "assistant",
+  "teachingLayer": 8,
+  "teachingGoal": "IDENTIFICAR QUIÉN AYUDA → MOVER SOLO AL JUGADOR CASTIGADO",
+  "teachingRules": [
+    "No mover a los tres jugadores sin balón por costumbre.",
+    "El jugador cuyo defensor ayuda es el que reacciona.",
+    "STUNT desde el wing/nail → LIFT para abrir una ventana limpia detrás de la ayuda.",
+    "TAG desde el corner → SHAKE hacia arriba para crear ángulo de kickout.",
+    "LOW MAN abandona al dunker → 5 DRIFT detrás de la ayuda hacia espacio libre cercano al aro.",
+    "El passador debe lanzar al punto donde llega el receptor, no a su posición inicial.",
+    "4 continúa su roll; la reacción off-ball no sustituye la lectura RIM/ROLL.",
+    "Si la ayuda no llega, HOLD spacing.",
+    "VENTAJA > MOVIMIENTO."
+  ],
+  "animationStandard": {
+    "editingRule": "Una fase por fuente de ayuda; movimiento + pase agrupados para editar timing y recepción.",
+    "stuntRule": "STUNT → LIFT",
+    "cornerTagRule": "CORNER TAG → SHAKE",
+    "lowManRule": "LOW MAN → DUNKER DRIFT",
+    "passRule": "Lead pass al punto de recepción usando CourtPlay v84."
+  },
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 560,
+          "y": 290
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 250,
+          "y": 420
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 640,
+          "y": 300
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 350,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 594,
+        "y": 294,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "stunt_lift",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 250,
+              "y": 420
+            },
+            {
+              "x": 275,
+              "y": 445
+            },
+            {
+              "x": 305,
+              "y": 470
+            },
+            {
+              "x": 345,
+              "y": 490
+            }
+          ],
+          "timingWeight": 0.8
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o2",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "stunt_lift",
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 560,
+              "y": 290
+            },
+            {
+              "x": 475,
+              "y": 360
+            },
+            {
+              "x": 400,
+              "y": 430
+            },
+            {
+              "x": 345,
+              "y": 490
+            }
+          ],
+          "timingWeight": 0.55,
+          "passLeadTarget": true
+        }
+      ],
+      "caption": "STUNT → LIFT — si X3 abandona momentáneamente a 3 para meter mano en el nail, 3 se levanta detrás de la ayuda. 2 pasa al NUEVO punto de recepción. Si X3 no ayuda, 3 HOLD.",
+      "seconds": 1.55,
+      "timeline": {
+        "logic": [
+          "X3 STUNT",
+          "3 LIFT + 2 LEAD PASS = MISMA VEZ",
+          "4 ROLL sigue siendo lectura",
+          "1/5 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 560,
+          "y": 290
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 250,
+          "y": 420
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 640,
+          "y": 300
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 350,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 594,
+        "y": 294,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "corner_shake",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 150,
+              "y": 190
+            },
+            {
+              "x": 165,
+              "y": 245
+            },
+            {
+              "x": 185,
+              "y": 300
+            },
+            {
+              "x": 205,
+              "y": 345
+            }
+          ],
+          "timingWeight": 0.8
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o2",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "corner_shake",
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 560,
+              "y": 290
+            },
+            {
+              "x": 445,
+              "y": 305
+            },
+            {
+              "x": 320,
+              "y": 325
+            },
+            {
+              "x": 205,
+              "y": 345
+            }
+          ],
+          "timingWeight": 0.55,
+          "passLeadTarget": true
+        }
+      ],
+      "caption": "CORNER TAG → SHAKE — si X1 sale del corner para meter cuerpo al roll, 1 sube por la banda detrás de esa ayuda. 2 pasa hacia donde 1 llega, no hacia el corner viejo.",
+      "seconds": 1.55,
+      "timeline": {
+        "logic": [
+          "X1 TAG",
+          "1 SHAKE + 2 LEAD PASS = MISMA VEZ",
+          "3/5 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 560,
+          "y": 290
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 250,
+          "y": 420
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 640,
+          "y": 300
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 350,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 594,
+        "y": 294,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "dunker_drift",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 350,
+              "y": 195
+            },
+            {
+              "x": 395,
+              "y": 175
+            },
+            {
+              "x": 445,
+              "y": 160
+            },
+            {
+              "x": 500,
+              "y": 155
+            }
+          ],
+          "timingWeight": 0.8
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o2",
+          "targetKey": "o5",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "dunker_drift",
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 560,
+              "y": 290
+            },
+            {
+              "x": 545,
+              "y": 245
+            },
+            {
+              "x": 525,
+              "y": 195
+            },
+            {
+              "x": 500,
+              "y": 155
+            }
+          ],
+          "timingWeight": 0.5,
+          "passLeadTarget": true
+        }
+      ],
+      "caption": "LOW MAN → DUNKER DRIFT — si X5 deja a 5 para taggear al roller, 5 se mueve detrás de la ayuda hacia el espacio libre cerca del aro. 2 entrega al punto de llegada. No convertimos a 5 en tirador; lo mantenemos como amenaza interior.",
+      "seconds": 1.45,
+      "timeline": {
+        "logic": [
+          "X5 LOW MAN TAG",
+          "5 DRIFT + 2 LEAD PASS = MISMA VEZ",
+          "RIM window",
+          "1/3 HOLD"
+        ]
+      }
+    }
+  ],
+  "totalSeconds": 4.55,
+  "reviewNotes": [
+    "Capa 8 enseña reacciones off-ball, no una secuencia obligatoria.",
+    "Cada fase representa una fuente distinta de ayuda.",
+    "Solo reacciona el jugador castigado por la ayuda.",
+    "5 permanece interior; su drift es detrás de la ayuda, no hacia el perímetro.",
+    "Todos los pases a receptores móviles usan lead-pass v84.",
+    "Próxima progresión posible: 45 CUT / REPLACE cuando el defensor pierde visión."
+  ]
+}
