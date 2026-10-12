@@ -1,7 +1,7 @@
 {
-  "version": 1,
+  "version": 2,
   "name": "41 FLOW MOTION — Capa 3: Zoom",
-  "description": "Teaching layer de 41 FLOW Motion: balón a 4 con defensa organizada → 3 SET pindown → 2 USE → 4 DHO → 2 TURN CORNER + 4 ROLL. Second Side queda para la próxima capa.",
+  "description": "Capa 3 reorganizada para edición: 3 fases. Entry; Pindown SET+USE en una fase; DHO+CLEAR+TURN CORNER+ROLL en una sola fase con grupos simultáneos editables.",
   "status": "Research / Testing",
   "system": "41 FLOW Motion",
   "categories": [
@@ -31,7 +31,8 @@
     "finishSequence": "TURN CORNER + ROLL",
     "screenUserRule": "OVER / hombro con cadera",
     "handoffRule": "Receiver arriba; giver debajo",
-    "spacingRule": "Ballhandler y roller continúan por carriles distintos."
+    "spacingRule": "Ballhandler y roller continúan por carriles distintos.",
+    "editingRule": "Agrupar acciones relacionadas dentro de la misma fase para que el coach pueda corregir geometría, timing, simultaneidad y orden desde una sola lista."
   },
   "frames": [
     {
@@ -192,65 +193,7 @@
           "timingWeight": 0.75,
           "screenAngleLocked": true,
           "screenAngle": 38
-        }
-      ],
-      "caption": "PIN-DOWN — SET. 3 baja y se planta antes de que 2 se mueva. 4 espera con balón. El ángulo abre la subida de 2 hacia el DHO.",
-      "seconds": 0.9,
-      "timeline": {
-        "logic": [
-          "3 APPROACH → SET",
-          "2 HOLD",
-          "4 HOLD",
-          "1/5 HOLD"
-        ]
-      }
-    },
-    {
-      "phaseStartVersion": 26,
-      "phaseOwnershipVersion": 26,
-      "players": [
-        {
-          "key": "o1",
-          "label": "1",
-          "team": "offense",
-          "x": 300,
-          "y": 520
         },
-        {
-          "key": "o2",
-          "label": "2",
-          "team": "offense",
-          "x": 850,
-          "y": 190
-        },
-        {
-          "key": "o3",
-          "label": "3",
-          "team": "offense",
-          "x": 815,
-          "y": 245
-        },
-        {
-          "key": "o4",
-          "label": "4",
-          "team": "offense",
-          "x": 620,
-          "y": 500
-        },
-        {
-          "key": "o5",
-          "label": "5",
-          "team": "offense",
-          "x": 350,
-          "y": 180
-        }
-      ],
-      "ball": {
-        "x": 654,
-        "y": 504,
-        "owner": "o4"
-      },
-      "lines": [
         {
           "type": "move",
           "sourceKey": "o2",
@@ -292,13 +235,13 @@
           "assistantAuthored": true
         }
       ],
-      "caption": "USE — 2 usa el pindown OVER, hombro con cadera, y sube hacia 4. 3 sostiene la cortina hasta que 2 la libera. 4 todavía NO entrega.",
-      "seconds": 1.15,
+      "caption": "PIN-DOWN COMPLETO — dentro de esta misma fase puedes editar 3 SET y luego 2 USE. Primero 3 se planta; después 2 usa OVER, hombro con cadera, y sube hacia 4. 4 espera con balón.",
+      "seconds": 2.05,
       "timeline": {
         "logic": [
-          "2 USE OVER",
-          "3 HOLD SCREEN",
-          "4 WAITS",
+          "3 SET",
+          "después 2 USE OVER",
+          "4 HOLD",
           "1/5 HOLD"
         ]
       }
@@ -413,66 +356,7 @@
             }
           ],
           "timingWeight": 0.6
-        }
-      ],
-      "caption": "DHO — 2 llega al punto de entrega; entonces 4 presenta. 2 recibe pasando por ENCIMA del cuerpo de 4 y continúa. 4 cruza por debajo. 3 repone el corner que 2 dejó.",
-      "seconds": 1.55,
-      "timeline": {
-        "logic": [
-          "2 ARRIVE",
-          "4 PRESENT",
-          "CONTACT → TRANSFER",
-          "2 EXIT / 4 UNDER",
-          "3 CLEAR TO CORNER"
-        ]
-      }
-    },
-    {
-      "phaseStartVersion": 26,
-      "phaseOwnershipVersion": 26,
-      "players": [
-        {
-          "key": "o1",
-          "label": "1",
-          "team": "offense",
-          "x": 300,
-          "y": 520
         },
-        {
-          "key": "o2",
-          "label": "2",
-          "team": "offense",
-          "x": 565,
-          "y": 300
-        },
-        {
-          "key": "o3",
-          "label": "3",
-          "team": "offense",
-          "x": 850,
-          "y": 190
-        },
-        {
-          "key": "o4",
-          "label": "4",
-          "team": "offense",
-          "x": 671,
-          "y": 491
-        },
-        {
-          "key": "o5",
-          "label": "5",
-          "team": "offense",
-          "x": 350,
-          "y": 180
-        }
-      ],
-      "ball": {
-        "x": 599,
-        "y": 304,
-        "owner": "o2"
-      },
-      "lines": [
         {
           "type": "dribble",
           "sourceKey": "o2",
@@ -532,14 +416,13 @@
           "timingWeight": 1
         }
       ],
-      "caption": "TURN CORNER + ROLL — 2 gira la esquina hacia el carril central-izquierdo. 4 rola por el carril derecho, separado del balón. Lecturas: RIM → ROLL → ONE MORE. Si no hay ventaja: SECOND.",
-      "seconds": 1.4,
+      "caption": "ZOOM COMPLETO — misma fase para corregir todo el intercambio: 4 DHO + 3 CLEAR ocurren juntos; después 2 TURN CORNER + 4 ROLL ocurren juntos por carriles separados. Aquí puedes ajustar el cruce, salida, curva y roll sin cambiar de fase.",
+      "seconds": 2.95,
       "timeline": {
         "logic": [
-          "2 TURN CORNER",
-          "4 ROLL",
-          "Carriles separados",
-          "3/1/5 HOLD",
+          "DHO + 3 CLEAR = MISMA VEZ",
+          "después TURN CORNER + ROLL = MISMA VEZ",
+          "1/5 HOLD",
           "Neutral = SECOND"
         ]
       }
@@ -547,11 +430,11 @@
   ],
   "totalSeconds": 5.85,
   "reviewNotes": [
-    "Capa 3 enseña solamente la creación Zoom; no anima todavía la reversa de Second Side.",
-    "Pindown, DHO y continuación están separados por timing.",
-    "DHO usa la geometría validada del TEST DHO v6 — Cruce Correcto.",
-    "3 repone el corner después de liberar la cortina.",
-    "5 permanece weakside interior para no congestionar el roll.",
-    "Capa 4 conectará Zoom neutral → Reverse → Second Side."
+    "v2 reorganizada para edición del coach: menos fases, más movimientos por fase.",
+    "Fase 2 contiene 3 SET y 2 USE como acciones secuenciales editables.",
+    "Fase 3 contiene cuatro movimientos: DHO, 3 clear, 2 turn corner y 4 roll.",
+    "DHO + 3 clear comparten grupo zoom_dho.",
+    "Turn corner + roll comparten grupo zoom_finish.",
+    "Second Side sigue reservado para Capa 4."
   ]
 }
