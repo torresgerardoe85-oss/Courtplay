@@ -333,45 +333,17 @@
       ]
     },
     {
-      "slug": "41-flow-motion-layer-6-zoom-counters",
-      "name": "41 FLOW MOTION — Capa 6: Zoom Counters",
-      "description": "TOP-LOCK = 2 BACKDOOR; SWITCH = 3 SLIP/SEAL; si no aparece ninguna lectura, ejecutar Zoom normal. 2 fases editables con options.",
+      "slug": "41-flow-motion-module-2-reads-counters",
+      "name": "41 FLOW MOTION — MÓDULO 2: Reads & Counters",
+      "description": "ZOOM counters + Angle PnR coverages + off-ball reactions en una sola jugada CourtPlay. 8 fases editables, 15.95 s.",
       "categories": [
         "flow",
         "motion",
+        "reads",
+        "counters",
         "zoom",
-        "counters",
-        "backdoor",
-        "switch",
-        "teaching"
-      ]
-    },
-    {
-      "slug": "41-flow-motion-layer-7-angle-pnr-counters",
-      "name": "41 FLOW MOTION — Capa 7 CORREGIDA: Angle PnR Reads",
-      "description": "UNDER → FLIP/RE-SCREEN; SWITCH → attack mismatch o seal; BLITZ → SHORT ROLL; ICE/DOWN → CHASE al medio. REJECT queda como lectura temprana condicional.",
-      "categories": [
-        "flow",
-        "motion",
-        "pnr",
-        "angle-pnr",
-        "counters",
-        "short-roll",
-        "teaching"
-      ]
-    },
-    {
-      "slug": "41-flow-motion-layer-8-pnr-offball-reactions",
-      "name": "41 FLOW MOTION — Capa 8: PnR Off-Ball Reactions",
-      "description": "STUNT → LIFT; CORNER TAG → SHAKE; LOW MAN → DUNKER DRIFT. Solo reacciona el jugador cuyo defensor ayuda.",
-      "categories": [
-        "flow",
-        "motion",
         "pnr",
         "off-ball",
-        "shake",
-        "lift",
-        "drift",
         "teaching"
       ]
     }
