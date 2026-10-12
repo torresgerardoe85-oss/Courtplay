@@ -1,5 +1,5 @@
 {
-  "version": 39,
+  "version": 40,
   "plays": [
     {
       "slug": "caja-2-video-rebuild",
@@ -273,6 +273,19 @@
       "categories": [
         "pnr",
         "other"
+      ]
+    },
+    {
+      "slug": "41-flow-motion-layer-3-zoom",
+      "name": "41 FLOW MOTION — Capa 3: Zoom",
+      "description": "Teaching layer: 1→4 → 3 SET pindown → 2 USE OVER → 4 DHO → TURN CORNER + 4 ROLL por carriles separados. Second Side queda para Capa 4.",
+      "categories": [
+        "flow",
+        "motion",
+        "zoom",
+        "dho",
+        "4-out-1-in",
+        "teaching"
       ]
     }
   ]
