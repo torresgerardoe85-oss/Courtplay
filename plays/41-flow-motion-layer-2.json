@@ -1,7 +1,7 @@
 {
-  "version": 2,
+  "version": 3,
   "name": "41 FLOW MOTION — Capa 2: 2 Neutral → Angle PnR",
-  "description": "Teaching layer corregida: dos pases neutrales activan ACTION. 4 llega al Angle Screen, 5 cambia al dunker débil, 2 usa la pantalla POR ENCIMA/basket-side y 4 rola solamente después de que 2 libera la cortina.",
+  "description": "Teaching layer corregida con la geometría visual ya aprobada en GT FLOW Early Drag: dos pases neutrales → ACTION → 4 SET → 2 cruza basket-side hombro con cadera → 4 ROLL después del uso.",
   "status": "Research / Testing",
   "system": "41 FLOW Motion",
   "categories": [
@@ -23,10 +23,11 @@
     "1 y 3 HOLD para preservar spacing."
   ],
   "animationStandard": {
-    "screenSequence": "SET → USE (OVER / basket-side) → RELEASE/ROLL",
-    "screenUserRule": "El manejador pasa POR ENCIMA/basket-side del screener, hombro con cadera. Nunca por debajo.",
-    "offBallRule": "Solo 5 se reloca por cambio de lado; 1 y 3 HOLD.",
-    "triggerRule": "La acción empieza después del segundo catch neutral."
+    "screenSequence": "SET → USE → RELEASE",
+    "screenUserRule": "Usar la misma geometría visual del Early Drag aprobado: manejador cruza basket-side/hombro-cadera y sale hacia el aro.",
+    "geometryReference": "GT FLOW — Early Drag",
+    "offBallRule": "5 cambia weakside; 1 y 3 HOLD.",
+    "triggerRule": "Segundo catch neutral = ACTION."
   },
   "frames": [
     {
@@ -44,8 +45,8 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 760,
-          "y": 400
+          "x": 755,
+          "y": 440
         },
         {
           "key": "o3",
@@ -124,8 +125,8 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 760,
-          "y": 400
+          "x": 755,
+          "y": 440
         },
         {
           "key": "o3",
@@ -170,12 +171,12 @@
               "y": 520
             },
             {
-              "x": 630,
-              "y": 455
+              "x": 625,
+              "y": 475
             },
             {
-              "x": 760,
-              "y": 400
+              "x": 755,
+              "y": 440
             }
           ]
         }
@@ -205,8 +206,8 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 760,
-          "y": 400
+          "x": 755,
+          "y": 440
         },
         {
           "key": "o3",
@@ -231,8 +232,8 @@
         }
       ],
       "ball": {
-        "x": 794,
-        "y": 404,
+        "x": 789,
+        "y": 444,
         "owner": "o2"
       },
       "lines": [
@@ -251,12 +252,12 @@
               "y": 520
             },
             {
-              "x": 575,
-              "y": 500
+              "x": 585,
+              "y": 505
             },
             {
-              "x": 635,
-              "y": 475
+              "x": 645,
+              "y": 480
             },
             {
               "x": 690,
@@ -264,7 +265,7 @@
             }
           ],
           "screenAngleLocked": true,
-          "screenAngle": 102,
+          "screenAngle": 135,
           "timingWeight": 1
         },
         {
@@ -323,8 +324,8 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 760,
-          "y": 400
+          "x": 755,
+          "y": 440
         },
         {
           "key": "o3",
@@ -349,8 +350,8 @@
         }
       ],
       "ball": {
-        "x": 794,
-        "y": 404,
+        "x": 789,
+        "y": 444,
         "owner": "o2"
       },
       "lines": [
@@ -365,41 +366,39 @@
           "color": "#172033",
           "points": [
             {
-              "x": 760,
-              "y": 400
+              "x": 755,
+              "y": 440
+            },
+            {
+              "x": 740,
+              "y": 425
             },
             {
               "x": 720,
               "y": 405
             },
             {
-              "x": 675,
-              "y": 385
+              "x": 695,
+              "y": 380
             },
             {
-              "x": 625,
-              "y": 345
+              "x": 645,
+              "y": 350
             },
             {
-              "x": 585,
-              "y": 310
+              "x": 600,
+              "y": 335
             }
           ],
-          "timingWeight": 1,
-          "usesScreenKeys": [
-            "o4"
-          ],
-          "screenUseSide": "over",
-          "screenUseClearance": 58,
-          "screenUseVersion": 1,
-          "assistantAuthored": true
+          "timingWeight": 1.02
         }
       ],
-      "caption": "USE — 2 pasa POR ENCIMA / basket-side de 4, hombro con cadera. 4 permanece SET y no se mueve hasta que 2 haya liberado completamente la pantalla. 1, 3 y 5 HOLD.",
+      "caption": "USE — CORREGIDO con la misma geometría de Early Drag: 2 cruza POR EL LADO DEL ARO de 4, hombro con cadera, y continúa hacia la pintura. 4 se queda SET; no rola todavía.",
       "seconds": 1.35,
       "timeline": {
         "logic": [
-          "2 USE = OVER / basket-side",
+          "2 USE = basket-side",
+          "Ruta copiada por relación espacial de GT FLOW Early Drag",
           "4 HOLD",
           "1/3/5 HOLD"
         ]
@@ -420,8 +419,8 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 585,
-          "y": 310
+          "x": 600,
+          "y": 335
         },
         {
           "key": "o3",
@@ -446,8 +445,8 @@
         }
       ],
       "ball": {
-        "x": 619,
-        "y": 314,
+        "x": 634,
+        "y": 339,
         "owner": "o2"
       },
       "lines": [
@@ -485,11 +484,11 @@
           "timingWeight": 1
         }
       ],
-      "caption": "RELEASE / ROLL — solamente después de que 2 libera la cortina, 4 abre y rola fuerte al aro. 5 permanece weakside dunker para no ocupar el mismo carril.",
+      "caption": "RELEASE / ROLL — después de que 2 ya cruzó basket-side y liberó la pantalla, 4 rola. 5 se mantiene weakside dunker.",
       "seconds": 1.15,
       "timeline": {
         "logic": [
-          "2 ya liberó la pantalla",
+          "2 ya pasó por el lado del aro",
           "4 RELEASE → ROLL",
           "1/3/5 HOLD"
         ]
@@ -498,10 +497,10 @@
   ],
   "totalSeconds": 5.25,
   "reviewNotes": [
-    "CORRECCIÓN: la ruta de 2 usa usesScreenKeys=['o4'] y screenUseSide='over'.",
-    "En CourtPlay OVER = basket-side (menor y hacia el aro); no interpretar la etiqueta al revés.",
-    "SET, USE y ROLL están ahora separados visualmente.",
-    "4 permanece inmóvil durante USE y rola en la fase siguiente.",
-    "5 permanece weakside dunker para mantener libre el carril del roll."
+    "v3: eliminada la dependencia de screenUseSide para esta cortina.",
+    "La ruta de 2 reproduce los offsets visuales de la cortina aprobada GT FLOW — Early Drag.",
+    "Screen angle = 135°, igual que la referencia aprobada.",
+    "SET y USE están separados; 4 no se mueve durante el uso.",
+    "ROLL ocurre solamente en la fase siguiente."
   ]
 }
