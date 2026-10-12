@@ -1,0 +1,517 @@
+{
+  "version": 1,
+  "name": "41 FLOW MOTION — Capa 1: Arrival → Pass/Cut/Fill",
+  "description": "Instalación base de 41 FLOW Motion: llegada 4-Out 1-In, freeze de spacing, pase/corte y fill. Incluye BACKDOOR como lectura opcional ante denial. Sin PnR ni Zoom.",
+  "status": "Research / Testing",
+  "system": "41 FLOW Motion",
+  "categories": [
+    "flow",
+    "motion",
+    "transition",
+    "4-out-1-in",
+    "teaching"
+  ],
+  "authoringProfile": "assistant",
+  "teachingLayer": 1,
+  "teachingGoal": "LLEGAR → OCUPAR → REACCIONAR",
+  "teachingRules": [
+    "5 RIM RUN; 2/3 WIDE; 4 TRAIL; balón PUSH.",
+    "Primera mirada siempre al aro.",
+    "PASS → CUT.",
+    "El espacio vacío se llena; los demás HOLD.",
+    "DENY = BACKDOOR."
+  ],
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 770
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 760,
+          "y": 740
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 240,
+          "y": 740
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 650,
+          "y": 790
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 705
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 774,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 500,
+              "y": 770
+            },
+            {
+              "x": 500,
+              "y": 660
+            },
+            {
+              "x": 500,
+              "y": 565
+            },
+            {
+              "x": 500,
+              "y": 520
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 760,
+              "y": 740
+            },
+            {
+              "x": 815,
+              "y": 560
+            },
+            {
+              "x": 845,
+              "y": 350
+            },
+            {
+              "x": 850,
+              "y": 195
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 240,
+              "y": 740
+            },
+            {
+              "x": 205,
+              "y": 600
+            },
+            {
+              "x": 185,
+              "y": 465
+            },
+            {
+              "x": 180,
+              "y": 360
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 650,
+              "y": 790
+            },
+            {
+              "x": 690,
+              "y": 665
+            },
+            {
+              "x": 720,
+              "y": 545
+            },
+            {
+              "x": 740,
+              "y": 440
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 500,
+              "y": 705
+            },
+            {
+              "x": 500,
+              "y": 540
+            },
+            {
+              "x": 505,
+              "y": 360
+            },
+            {
+              "x": 540,
+              "y": 245
+            },
+            {
+              "x": 650,
+              "y": 195
+            }
+          ]
+        }
+      ],
+      "caption": "ARRIVAL — 1 PUSH. 2 sprint al corner derecho; 3 llega wide al wing izquierdo; 4 TRAIL al slot derecho; 5 RIM RUN y termina weakside dunker. Primero corremos al espacio, no a una jugada.",
+      "seconds": 2.3
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 520
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 850,
+          "y": 195
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 180,
+          "y": 360
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 740,
+          "y": 440
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 650,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 524,
+        "owner": "o1"
+      },
+      "lines": [],
+      "caption": "SPACING FREEZE — 4-Out 1-In. 1 top/slot; 3 wing izquierdo; 4 opposite slot; 2 corner; 5 weakside interior. Pregunta: ¿hay pintura libre y distancia entre los cinco?",
+      "seconds": 1
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 520
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 850,
+          "y": 195
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 180,
+          "y": 360
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 740,
+          "y": 440
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 650,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 524,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 500,
+              "y": 520
+            },
+            {
+              "x": 335,
+              "y": 445
+            },
+            {
+              "x": 180,
+              "y": 360
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 500,
+              "y": 520
+            },
+            {
+              "x": 505,
+              "y": 410
+            },
+            {
+              "x": 500,
+              "y": 305
+            },
+            {
+              "x": 440,
+              "y": 225
+            },
+            {
+              "x": 300,
+              "y": 185
+            },
+            {
+              "x": 150,
+              "y": 190
+            }
+          ]
+        }
+      ],
+      "caption": "PASS → CUT — 1 pasa a 3 y corta al aro. 3 mira primero el cutter. Si no recibe, 1 completa el corte y sale al corner izquierdo. 2, 4 y 5 HOLD.",
+      "seconds": 2.2
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 850,
+          "y": 195
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 180,
+          "y": 360
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 740,
+          "y": 440
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 650,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 214,
+        "y": 364,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 740,
+              "y": 440
+            },
+            {
+              "x": 650,
+              "y": 455
+            },
+            {
+              "x": 575,
+              "y": 485
+            },
+            {
+              "x": 500,
+              "y": 520
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 500,
+              "y": 520
+            },
+            {
+              "x": 500,
+              "y": 420
+            },
+            {
+              "x": 500,
+              "y": 320
+            },
+            {
+              "x": 500,
+              "y": 220
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o3",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 180,
+              "y": 360
+            },
+            {
+              "x": 335,
+              "y": 300
+            },
+            {
+              "x": 500,
+              "y": 220
+            }
+          ]
+        }
+      ],
+      "caption": "FILL + READ — 4 llena el espacio que dejó 1; los demás mantienen spacing. OPCIÓN: si X4 niega el fill/reversal, 4 BACKDOOR y 3 busca el pase al aro. DENY = BACKDOOR.",
+      "seconds": 2
+    }
+  ],
+  "totalSeconds": 7.5,
+  "reviewNotes": [
+    "4 fases tácticas; sin PnR ni Zoom.",
+    "Continuidad base comprobada entre fases: Arrival→Spacing→Pass/Cut→Fill.",
+    "Los jugadores sin responsabilidad permanecen HOLD.",
+    "Backdoor está marcado como opción y no altera la continuidad base.",
+    "Esta capa debe aprobarse visualmente antes de construir Capa 2."
+  ]
+}
