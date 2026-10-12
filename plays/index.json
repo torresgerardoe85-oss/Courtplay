@@ -1,5 +1,5 @@
 {
-  "version": 38,
+  "version": 39,
   "plays": [
     {
       "slug": "caja-2-video-rebuild",
@@ -257,7 +257,7 @@
     {
       "slug": "41-flow-motion-layer-2-corrected",
       "name": "41 FLOW MOTION — Capa 2 CORREGIDA: 2 Neutral → Angle PnR",
-      "description": "PRUEBA INVERTIDA: 2 Neutral → 4 SET 55° → 2 PASA POR ENCIMA / OVER de la cortina → 4 ROLL después.",
+      "description": "REFINADA: 2 Neutral → SET → USE OVER → TURN CORNER + ROLL por carriles separados. Ataque menos recto y separación ~112–126 px.",
       "categories": [
         "flow",
         "motion",
