@@ -31,6 +31,7 @@
     if(typeof action.isOption!=='boolean')action.isOption=false;
     if(typeof action.simultaneousGroup==='undefined')action.simultaneousGroup=null;
     if(typeof action.color!=='string'||!action.color)action.color='#172033';
+    if(action.type==='pass'&&typeof action.passLeadTarget!=='boolean')action.passLeadTarget=true;
     if(action.type==='handoff'){
       if(!Number.isFinite(action.handoffTransferAt))action.handoffTransferAt=.62;
       action.handoffTransferAt=clamp(action.handoffTransferAt,.48,.78);
@@ -305,6 +306,45 @@
     src.x=sep.x;src.y=sep.y;
     return state;
   }
+  function passReceiverMovement(phase,passAction){
+    if(!phase||!passAction||passAction.type!=='pass'||!passAction.targetKey||!passAction.simultaneousGroup||passAction.passLeadTarget===false)return null;
+    const lines=phase.lines||[];
+    let best=null;
+    for(let i=0;i<lines.length;i++){
+      const candidate=lines[i];
+      if(!candidate||candidate===passAction)continue;
+      if(candidate.simultaneousGroup!==passAction.simultaneousGroup)continue;
+      if(candidate.sourceKey!==passAction.targetKey)continue;
+      if(!['move','dribble'].includes(candidate.type))continue;
+      const pts=points(candidate);
+      if(pts.length<2)continue;
+      const end=pts[pts.length-1];
+      const distance=Math.hypot(end.x-pts[0].x,end.y-pts[0].y);
+      if(distance<8)continue;
+      if(!best||distance>best.distance)best={candidate,end:{x:end.x,y:end.y},distance};
+    }
+    return best;
+  }
+  function applyAutoPassTargets(phase){
+    if(!phase||!Array.isArray(phase.lines))return phase;
+    for(const action of phase.lines){
+      if(!action||action.type!=='pass')continue;
+      normalizeAction(action);
+      const lead=passReceiverMovement(phase,action);
+      if(lead){
+        action.passReceivePoint={
+          x:clamp(lead.end.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+          y:clamp(lead.end.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+        };
+        action.passLeadTargetAuto=true;
+      }else if(action.passLeadTargetAuto){
+        delete action.passReceivePoint;
+        delete action.passLeadTargetAuto;
+      }
+    }
+    return phase;
+  }
+
   function prepareAction(raw,state,{mutate=false,infer=true}={}){
     const action=mutate?raw:clone(raw);
     normalizeAction(action);
@@ -334,6 +374,10 @@
         if(action.type==='handoff'){
           // Handoff v4: DO NOT snap the giver to the receiver. The endpoint the
           // coach drew is the giver's presentation spot; the receiver approaches it.
+        }else if(action.type==='pass'&&action.passReceivePoint&&Number.isFinite(action.passReceivePoint.x)&&Number.isFinite(action.passReceivePoint.y)){
+          // Lead pass: when pass + receiver movement share a simultaneous group,
+          // throw to the receiver's catch point instead of his starting spot.
+          end.x=action.passReceivePoint.x;end.y=action.passReceivePoint.y;
         }else{
           end.x=tgt.x;end.y=tgt.y;
         }
@@ -497,6 +541,7 @@
   }
   function resolvePhase(phase,{mutateActions=true}={}){
     if(mutateActions){
+      applyAutoPassTargets(phase);
       applyAutoScreenAngles(phase);
       applyAutoHandoffGeometry(phase);
     }
@@ -573,6 +618,6 @@
   global.CourtPlayEngine={
     clone,points,captureLocalGeometry,invalidateLocalGeometry,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,
     handoffTransferAt,handoffExitVector,fallbackHandoffExit,handoffGiverEnd,handoffReceiverEnd,handoffReceiverContact,handoffGeometry,ensureHandoffSeparation,
-    assistantScreenUserGeometry,inferScreenAngle,applyAutoScreenAngles,inferHandoffExit,applyAutoHandoffGeometry,prepareAction,applyAction,bindLegacyPhase,resolvePhase,reflow,nextPhaseFrom,duplicatePhaseForContinuation
+    assistantScreenUserGeometry,inferScreenAngle,applyAutoScreenAngles,inferHandoffExit,applyAutoHandoffGeometry,passReceiverMovement,applyAutoPassTargets,prepareAction,applyAction,bindLegacyPhase,resolvePhase,reflow,nextPhaseFrom,duplicatePhaseForContinuation
   };
 })(typeof window!=='undefined'?window:globalThis);
