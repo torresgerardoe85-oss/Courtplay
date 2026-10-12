@@ -1,0 +1,1748 @@
+{
+  "version": 1,
+  "name": "41 FLOW MOTION — MASTER · Capas 1–5",
+  "description": "Jugada maestra editable del sistema 41 FLOW MOTION. Integra Arrival, Pass/Cut/Fill, el trigger 2 Neutral→Angle PnR como Opción A, y el flujo principal Zoom→Second Side→Third Side Chicago. Angle PnR y Zoom son triggers alternativos, no acciones obligatorias consecutivas.",
+  "status": "Research / Testing",
+  "system": "41 FLOW Motion",
+  "categories": [
+    "flow",
+    "motion",
+    "transition",
+    "pnr",
+    "zoom",
+    "second-side",
+    "third-side",
+    "chicago",
+    "4-out-1-in",
+    "teaching"
+  ],
+  "authoringProfile": "assistant",
+  "teachingLayer": "MASTER-1-5",
+  "teachingGoal": "LLEGAR → OCUPAR → REACCIONAR → CREAR VENTAJA → SECOND SIDE → THIRD SIDE",
+  "teachingRules": [
+    "VENTAJA > REGLA.",
+    "Arrival fluye a 4-Out 1-In sin detener la posesión.",
+    "Pass/Cut/Fill organiza el spacing y castiga denial con backdoor.",
+    "2 Neutral = Angle PnR como trigger automático.",
+    "Ball to 4 + defensa organizada = Zoom como trigger alternativo.",
+    "Angle PnR y Zoom son ramas: no tienen que ocurrir una detrás de la otra.",
+    "Zoom neutral → Second Side.",
+    "Second Side neutral → Third Side Chicago.",
+    "SET → USE OVER → TURN CORNER.",
+    "Rollers continúan por carriles separados del manejador.",
+    "Las fases agrupan varios movimientos para permitir corrección manual del coach."
+  ],
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 770
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 760,
+          "y": 740
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 240,
+          "y": 740
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 650,
+          "y": 790
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 500,
+          "y": 705
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 774,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 500,
+              "y": 770
+            },
+            {
+              "x": 500,
+              "y": 660
+            },
+            {
+              "x": 500,
+              "y": 565
+            },
+            {
+              "x": 500,
+              "y": 520
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 760,
+              "y": 740
+            },
+            {
+              "x": 815,
+              "y": 560
+            },
+            {
+              "x": 845,
+              "y": 350
+            },
+            {
+              "x": 850,
+              "y": 195
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 240,
+              "y": 740
+            },
+            {
+              "x": 205,
+              "y": 600
+            },
+            {
+              "x": 185,
+              "y": 465
+            },
+            {
+              "x": 180,
+              "y": 360
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 650,
+              "y": 790
+            },
+            {
+              "x": 690,
+              "y": 665
+            },
+            {
+              "x": 720,
+              "y": 545
+            },
+            {
+              "x": 740,
+              "y": 440
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "arrival",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 500,
+              "y": 705
+            },
+            {
+              "x": 500,
+              "y": 540
+            },
+            {
+              "x": 505,
+              "y": 360
+            },
+            {
+              "x": 540,
+              "y": 245
+            },
+            {
+              "x": 650,
+              "y": 195
+            }
+          ]
+        }
+      ],
+      "caption": "[CAPA 1 · ARRIVAL] ARRIVAL — 1 PUSH. 2 sprint al corner derecho; 3 llega wide al wing izquierdo; 4 TRAIL al slot derecho; 5 RIM RUN y termina weakside dunker. Primero corremos al espacio, no a una jugada.",
+      "seconds": 2.3,
+      "section": "Capa 1 — Arrival"
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 500,
+          "y": 520
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 850,
+          "y": 195
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 180,
+          "y": 360
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 740,
+          "y": 440
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 650,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 524,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 500,
+              "y": 520
+            },
+            {
+              "x": 335,
+              "y": 445
+            },
+            {
+              "x": 180,
+              "y": 360
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 500,
+              "y": 520
+            },
+            {
+              "x": 505,
+              "y": 410
+            },
+            {
+              "x": 500,
+              "y": 305
+            },
+            {
+              "x": 440,
+              "y": 225
+            },
+            {
+              "x": 300,
+              "y": 185
+            },
+            {
+              "x": 150,
+              "y": 190
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 740,
+              "y": 440
+            },
+            {
+              "x": 650,
+              "y": 455
+            },
+            {
+              "x": 575,
+              "y": 485
+            },
+            {
+              "x": 500,
+              "y": 520
+            }
+          ]
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 500,
+              "y": 520
+            },
+            {
+              "x": 500,
+              "y": 420
+            },
+            {
+              "x": 500,
+              "y": 320
+            },
+            {
+              "x": 500,
+              "y": 220
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o3",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": true,
+          "simultaneousGroup": null,
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 180,
+              "y": 360
+            },
+            {
+              "x": 335,
+              "y": 300
+            },
+            {
+              "x": 500,
+              "y": 220
+            }
+          ]
+        }
+      ],
+      "caption": "[CAPA 1 · MOTION BASE] PASS → CUT → FILL. 1 pasa a 3, corta y sale; 4 llena. Backdoor permanece como opción si niegan. Esta fase deja varias acciones editables juntas.",
+      "seconds": 4.2,
+      "section": "Capa 1 — Pass/Cut/Fill"
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 755,
+          "y": 440
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 250,
+          "y": 420
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 500,
+          "y": 520
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 650,
+          "y": 195
+        }
+      ],
+      "ball": {
+        "x": 284,
+        "y": 424,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o3",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 250,
+              "y": 420
+            },
+            {
+              "x": 370,
+              "y": 470
+            },
+            {
+              "x": 500,
+              "y": 520
+            }
+          ]
+        },
+        {
+          "type": "pass",
+          "sourceKey": "o4",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 500,
+              "y": 520
+            },
+            {
+              "x": 625,
+              "y": 475
+            },
+            {
+              "x": 755,
+              "y": 440
+            }
+          ]
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "actionSet",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 500,
+              "y": 520
+            },
+            {
+              "x": 575,
+              "y": 510
+            },
+            {
+              "x": 635,
+              "y": 485
+            },
+            {
+              "x": 690,
+              "y": 455
+            }
+          ],
+          "screenAngleLocked": true,
+          "screenAngle": 55,
+          "timingWeight": 1,
+          "screenAngleAuto": false
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "actionSet",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 650,
+              "y": 195
+            },
+            {
+              "x": 565,
+              "y": 180
+            },
+            {
+              "x": 455,
+              "y": 180
+            },
+            {
+              "x": 350,
+              "y": 195
+            }
+          ],
+          "timingWeight": 0.9
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 755,
+              "y": 455
+            },
+            {
+              "x": 738,
+              "y": 438
+            },
+            {
+              "x": 720,
+              "y": 418
+            },
+            {
+              "x": 695,
+              "y": 398
+            },
+            {
+              "x": 660,
+              "y": 372
+            },
+            {
+              "x": 625,
+              "y": 350
+            }
+          ],
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o4"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "screenTurnCorner": true,
+          "assistantAuthored": true
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "pnr_continue",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 625,
+              "y": 350
+            },
+            {
+              "x": 585,
+              "y": 330
+            },
+            {
+              "x": 545,
+              "y": 300
+            },
+            {
+              "x": 515,
+              "y": 260
+            },
+            {
+              "x": 500,
+              "y": 220
+            }
+          ],
+          "timingWeight": 1.05
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "pnr_continue",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 690,
+              "y": 455
+            },
+            {
+              "x": 680,
+              "y": 390
+            },
+            {
+              "x": 665,
+              "y": 320
+            },
+            {
+              "x": 640,
+              "y": 245
+            },
+            {
+              "x": 600,
+              "y": 165
+            }
+          ],
+          "timingWeight": 1
+        }
+      ],
+      "caption": "[CAPA 2 · OPCIÓN A] 2 NEUTRAL → ANGLE PnR. 3→4→2; 4 SET, 5 despeja weakside, 2 USE OVER y luego TURN CORNER + 4 ROLL. Este bloque demuestra el trigger Angle PnR completo.",
+      "seconds": 5.4,
+      "timeline": {
+        "logic": [
+          "3→4 PASS/CATCH",
+          "Sin ventaja = cuenta 1 neutral"
+        ]
+      },
+      "section": "Capa 2 — Opción A Angle PnR"
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 300,
+          "y": 520
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 790,
+          "y": 340
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 620,
+          "y": 500
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 350,
+          "y": 180
+        }
+      ],
+      "ball": {
+        "x": 334,
+        "y": 524,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 300,
+              "y": 520
+            },
+            {
+              "x": 455,
+              "y": 510
+            },
+            {
+              "x": 620,
+              "y": 500
+            }
+          ],
+          "timingWeight": 0.5
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 790,
+              "y": 340
+            },
+            {
+              "x": 800,
+              "y": 300
+            },
+            {
+              "x": 810,
+              "y": 265
+            },
+            {
+              "x": 815,
+              "y": 245
+            }
+          ],
+          "timingWeight": 0.75,
+          "screenAngleLocked": true,
+          "screenAngle": 38
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 850,
+              "y": 190
+            },
+            {
+              "x": 830,
+              "y": 225
+            },
+            {
+              "x": 800,
+              "y": 270
+            },
+            {
+              "x": 765,
+              "y": 315
+            },
+            {
+              "x": 735,
+              "y": 365
+            }
+          ],
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o3"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "assistantAuthored": true
+        }
+      ],
+      "caption": "[CAPA 3 · OPCIÓN B / RESET DE TRIGGER] ZOOM. Esta fase reinicia al trigger Ball to 4: 1→4, 3 SET pindown y 2 USE OVER. Es alternativa al Angle PnR, no continuación obligatoria de la fase anterior.",
+      "seconds": 2.9,
+      "timeline": {
+        "logic": [
+          "1→4 PASS/CATCH",
+          "Sin ventaja = ZOOM trigger",
+          "2/3/5 HOLD hasta el catch"
+        ]
+      },
+      "section": "Capa 3 — Zoom Setup"
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 300,
+          "y": 520
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 735,
+          "y": 365
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 815,
+          "y": 245
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 620,
+          "y": 500
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 350,
+          "y": 180
+        }
+      ],
+      "ball": {
+        "x": 654,
+        "y": 504,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "handoff",
+          "sourceKey": "o4",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "zoom_dho",
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 620,
+              "y": 500
+            },
+            {
+              "x": 645,
+              "y": 455
+            },
+            {
+              "x": 675,
+              "y": 415
+            }
+          ],
+          "timingWeight": 1,
+          "handoffVersion": 6,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 118,
+          "handoffGiverUnderDistance": 82,
+          "handoffExitPoint": {
+            "x": 565,
+            "y": 300
+          },
+          "handoffGeometryAuto": false,
+          "assistantAuthored": true,
+          "handoffReceiverSide": "under"
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "zoom_dho",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 815,
+              "y": 245
+            },
+            {
+              "x": 830,
+              "y": 225
+            },
+            {
+              "x": 842,
+              "y": 205
+            },
+            {
+              "x": 850,
+              "y": 190
+            }
+          ],
+          "timingWeight": 0.6
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "zoom_finish",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 565,
+              "y": 300
+            },
+            {
+              "x": 535,
+              "y": 280
+            },
+            {
+              "x": 505,
+              "y": 250
+            },
+            {
+              "x": 480,
+              "y": 220
+            }
+          ],
+          "timingWeight": 1.05
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "zoom_finish",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 671,
+              "y": 491
+            },
+            {
+              "x": 650,
+              "y": 385
+            },
+            {
+              "x": 620,
+              "y": 285
+            },
+            {
+              "x": 590,
+              "y": 180
+            }
+          ],
+          "timingWeight": 1
+        }
+      ],
+      "caption": "[CAPA 3 · ZOOM FINISH] ZOOM COMPLETO — misma fase para corregir todo el intercambio: 4 DHO + 3 CLEAR ocurren juntos; después 2 TURN CORNER + 4 ROLL ocurren juntos por carriles separados. Aquí puedes ajustar el cruce, salida, curva y roll sin cambiar de fase.",
+      "seconds": 2.95,
+      "timeline": {
+        "logic": [
+          "DHO + 3 CLEAR = MISMA VEZ",
+          "después TURN CORNER + ROLL = MISMA VEZ",
+          "1/5 HOLD",
+          "Neutral = SECOND"
+        ]
+      },
+      "section": "Capa 3 — Zoom DHO"
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 300,
+          "y": 520
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 500,
+          "y": 300
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 590,
+          "y": 180
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 350,
+          "y": 180
+        }
+      ],
+      "ball": {
+        "x": 534,
+        "y": 304,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o2",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 500,
+              "y": 300
+            },
+            {
+              "x": 405,
+              "y": 405
+            },
+            {
+              "x": 300,
+              "y": 520
+            }
+          ],
+          "timingWeight": 0.5
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "second_reset",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 500,
+              "y": 300
+            },
+            {
+              "x": 610,
+              "y": 350
+            },
+            {
+              "x": 720,
+              "y": 420
+            }
+          ],
+          "timingWeight": 0.75
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "second_reset",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 590,
+              "y": 180
+            },
+            {
+              "x": 625,
+              "y": 175
+            },
+            {
+              "x": 665,
+              "y": 185
+            }
+          ],
+          "timingWeight": 0.55
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 350,
+              "y": 180
+            },
+            {
+              "x": 350,
+              "y": 285
+            },
+            {
+              "x": 355,
+              "y": 385
+            },
+            {
+              "x": 365,
+              "y": 465
+            }
+          ],
+          "timingWeight": 0.85,
+          "screenAngleLocked": true,
+          "screenAngle": 118
+        },
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 300,
+              "y": 520
+            },
+            {
+              "x": 325,
+              "y": 485
+            },
+            {
+              "x": 355,
+              "y": 455
+            },
+            {
+              "x": 395,
+              "y": 420
+            },
+            {
+              "x": 435,
+              "y": 380
+            }
+          ],
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "screenTurnCorner": true,
+          "assistantAuthored": true
+        }
+      ],
+      "caption": "[CAPA 4 · SECOND SIDE] Zoom neutral → REVERSE + RE-SPACE → 5 SET → 1 USE OVER. 4 despeja al dunker opuesto para no chocar con el nuevo roller.",
+      "seconds": 3.9,
+      "timeline": {
+        "logic": [
+          "2→1 REVERSE",
+          "después 2 FILL + 4 CLEAR = MISMA VEZ",
+          "5 HOLD",
+          "3 HOLD"
+        ]
+      },
+      "section": "Capa 4 — Second Side Setup"
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 435,
+          "y": 380
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 720,
+          "y": 420
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 665,
+          "y": 185
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 365,
+          "y": 465
+        }
+      ],
+      "ball": {
+        "x": 469,
+        "y": 384,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "second_finish",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 435,
+              "y": 380
+            },
+            {
+              "x": 475,
+              "y": 345
+            },
+            {
+              "x": 510,
+              "y": 305
+            },
+            {
+              "x": 535,
+              "y": 260
+            },
+            {
+              "x": 545,
+              "y": 220
+            }
+          ],
+          "timingWeight": 1.05
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "second_finish",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 365,
+              "y": 465
+            },
+            {
+              "x": 380,
+              "y": 385
+            },
+            {
+              "x": 400,
+              "y": 305
+            },
+            {
+              "x": 425,
+              "y": 235
+            },
+            {
+              "x": 455,
+              "y": 170
+            }
+          ],
+          "timingWeight": 1
+        }
+      ],
+      "caption": "[CAPA 4 · SECOND SIDE FINISH] TURN CORNER + ROLL — 1 gira la esquina hacia el carril central-derecho. 5 rola por el carril izquierdo de la pintura. Lecturas: RIM → ROLL → ONE MORE. 4 mantiene dunker opuesto para no ocupar el mismo carril.",
+      "seconds": 1.45,
+      "timeline": {
+        "logic": [
+          "1 TURN CORNER + 5 ROLL = MISMA VEZ",
+          "Carriles separados",
+          "2/3/4 HOLD",
+          "VENTAJA termina la continuidad"
+        ]
+      },
+      "section": "Capa 4 — Second Side Finish"
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 545,
+          "y": 220
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 720,
+          "y": 420
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 665,
+          "y": 185
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 455,
+          "y": 170
+        }
+      ],
+      "ball": {
+        "x": 579,
+        "y": 224,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 545,
+              "y": 220
+            },
+            {
+              "x": 625,
+              "y": 310
+            },
+            {
+              "x": 720,
+              "y": 420
+            }
+          ],
+          "timingWeight": 0.5
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "third_setup",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 545,
+              "y": 220
+            },
+            {
+              "x": 445,
+              "y": 300
+            },
+            {
+              "x": 340,
+              "y": 390
+            },
+            {
+              "x": 285,
+              "y": 455
+            }
+          ],
+          "timingWeight": 0.8
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "third_setup",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 665,
+              "y": 185
+            },
+            {
+              "x": 710,
+              "y": 205
+            },
+            {
+              "x": 760,
+              "y": 230
+            },
+            {
+              "x": 800,
+              "y": 255
+            }
+          ],
+          "timingWeight": 0.75,
+          "screenAngleLocked": true,
+          "screenAngle": 42
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 850,
+              "y": 190
+            },
+            {
+              "x": 830,
+              "y": 225
+            },
+            {
+              "x": 800,
+              "y": 265
+            },
+            {
+              "x": 770,
+              "y": 310
+            },
+            {
+              "x": 745,
+              "y": 350
+            }
+          ],
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o4"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "assistantAuthored": true
+        },
+        {
+          "type": "handoff",
+          "sourceKey": "o2",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 720,
+              "y": 420
+            },
+            {
+              "x": 705,
+              "y": 395
+            },
+            {
+              "x": 690,
+              "y": 370
+            }
+          ],
+          "timingWeight": 1,
+          "handoffVersion": 6,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 118,
+          "handoffGiverUnderDistance": 82,
+          "handoffExitPoint": {
+            "x": 610,
+            "y": 300
+          },
+          "handoffGeometryAuto": false,
+          "assistantAuthored": true,
+          "handoffReceiverSide": "under"
+        }
+      ],
+      "caption": "[CAPA 5 · THIRD SIDE CHICAGO] Second Side neutral → kickout → 4 SET pindown → 3 USE OVER → 2 DHO con 3. Cambiamos el tipo de ventaja en el tercer lado.",
+      "seconds": 4.15,
+      "timeline": {
+        "logic": [
+          "1→2 KICKOUT",
+          "después 1 CLEAR + 4 SET = MISMA VEZ",
+          "3 HOLD",
+          "5 HOLD"
+        ]
+      },
+      "section": "Capa 5 — Third Side Chicago Setup"
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 285,
+          "y": 455
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 760,
+          "y": 385
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 610,
+          "y": 300
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 800,
+          "y": 255
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 455,
+          "y": 170
+        }
+      ],
+      "ball": {
+        "x": 644,
+        "y": 304,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "third_finish",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 610,
+              "y": 300
+            },
+            {
+              "x": 575,
+              "y": 285
+            },
+            {
+              "x": 545,
+              "y": 260
+            },
+            {
+              "x": 520,
+              "y": 225
+            }
+          ],
+          "timingWeight": 1.05
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "third_finish",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 800,
+              "y": 255
+            },
+            {
+              "x": 755,
+              "y": 260
+            },
+            {
+              "x": 705,
+              "y": 270
+            },
+            {
+              "x": 650,
+              "y": 265
+            }
+          ],
+          "timingWeight": 0.9
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "third_finish",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 760,
+              "y": 385
+            },
+            {
+              "x": 795,
+              "y": 320
+            },
+            {
+              "x": 825,
+              "y": 250
+            },
+            {
+              "x": 850,
+              "y": 190
+            }
+          ],
+          "timingWeight": 0.75
+        }
+      ],
+      "caption": "[CAPA 5 · THIRD SIDE FINISH] TURN CORNER + SHORT ROLL — 3 gira la esquina hacia el aro. 4 libera el pindown y entra al short roll por un carril separado. 2 repone el corner. Lecturas: RIM → SHORT ROLL → CORNER/ONE MORE.",
+      "seconds": 1.55,
+      "timeline": {
+        "logic": [
+          "3 TURN CORNER + 4 SHORT ROLL + 2 CORNER = MISMA VEZ",
+          "1 HOLD",
+          "5 weakside dunker HOLD",
+          "VENTAJA termina la continuidad"
+        ]
+      },
+      "section": "Capa 5 — Third Side Finish"
+    }
+  ],
+  "masterSections": [
+    "Capa 1 — Arrival / Pass-Cut-Fill",
+    "Capa 2 — Opción A: 2 Neutral → Angle PnR",
+    "Capa 3 — Opción B: Zoom",
+    "Capa 4 — Second Side",
+    "Capa 5 — Third Side Chicago"
+  ],
+  "totalSeconds": 28.8,
+  "reviewNotes": [
+    "MASTER de enseñanza: contiene las cinco capas en un solo archivo CourtPlay.",
+    "Angle PnR (Capa 2) y Zoom (Capa 3) se presentan como triggers alternativos; por eso existe un reset visual entre esos bloques.",
+    "Las continuidades Zoom→Second Side→Third Side sí forman una cadena conceptual.",
+    "Cada fase contiene múltiples movimientos cuando eso mejora la edición manual.",
+    "Mantener CourtPlay v83 o superior para la lógica OVER/UNDER y turn-corner corregida."
+  ]
+}
