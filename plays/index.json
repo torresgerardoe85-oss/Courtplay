@@ -2,6 +2,18 @@
   "version": 44,
   "plays": [
     {
+      "slug": "41-flow-early-drag-core",
+      "name": "41 FLOW — Early Drag Core",
+      "description": "Una posesión completa: TRANSICIÓN → 4 TRAIL DRAG (SET→USE→SHORT ROLL) → 1→4→3 REVERSO → MOTION SHALLOW CUT/FILL → 5 SECOND-SIDE ANGLE PnR (SET→USE→ROLL) → POCKET PASS + FINISH. Adaptada al 4-Out 1-In, 4/5 no tiradores.",
+      "categories": [
+        "transition",
+        "flow",
+        "motion",
+        "pnr",
+        "4-out-1-in"
+      ]
+    },
+    {
       "slug": "41-flow-pistol-core",
       "name": "41 FLOW — Pistol Core",
       "description": "Una posesión completa de transición a Motion 4-Out 1-In: ARRIVAL → ADVANCE → PISTOL GET → REVERSAL → PASS/CUT/FILL → 5 ANGLE PnR → ROLL/POCKET FINISH. Timing SET→USE→RELEASE, DHO over/under y pase al receptor. Research, no Playbook Approved.",
