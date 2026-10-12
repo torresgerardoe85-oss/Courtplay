@@ -1,5 +1,5 @@
 {
-  "version": 34,
+  "version": 35,
   "plays": [
     {
       "slug": "caja-2-video-rebuild",
@@ -255,9 +255,9 @@
       ]
     },
     {
-      "slug": "41-flow-motion-layer-2",
-      "name": "41 FLOW MOTION — Capa 2: 2 Neutral → Angle PnR",
-      "description": "v3 CORREGIDA con geometría del Early Drag aprobado: 2 Neutral → 4 SET (135°) → 2 cruza basket-side/hombro-cadera → 4 ROLL después.",
+      "slug": "41-flow-motion-layer-2-corrected",
+      "name": "41 FLOW MOTION — Capa 2 CORREGIDA: 2 Neutral → Angle PnR",
+      "description": "NUEVA publicación: Side/Angle PnR con screen a 55° y ruta corregida. Usa esta versión; la anterior queda retirada de Biblioteca CourtPlay.",
       "categories": [
         "flow",
         "motion",
