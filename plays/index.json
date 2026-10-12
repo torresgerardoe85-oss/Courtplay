@@ -348,8 +348,8 @@
     },
     {
       "slug": "41-flow-motion-layer-7-angle-pnr-counters",
-      "name": "41 FLOW MOTION — Capa 7: Angle PnR Counters",
-      "description": "REJECT + SLIP; UNDER → FLIP/RE-SCREEN; BLITZ/SHOW → SHORT ROLL con lead pass. 3 fases editables.",
+      "name": "41 FLOW MOTION — Capa 7 CORREGIDA: Angle PnR Reads",
+      "description": "UNDER → FLIP/RE-SCREEN; SWITCH → attack mismatch o seal; BLITZ → SHORT ROLL; ICE/DOWN → CHASE al medio. REJECT queda como lectura temprana condicional.",
       "categories": [
         "flow",
         "motion",
