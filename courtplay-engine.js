@@ -393,13 +393,34 @@
       let dx=end.x-prev.x,dy=end.y-prev.y,len=Math.hypot(dx,dy)||1;
       const vx=dx/len,vy=dy/len,n1={x:-vy,y:vx},n2={x:vy,y:-vx};
       const a={x:s.x+n1.x*clearance,y:s.y+n1.y*clearance},b={x:s.x+n2.x*clearance,y:s.y+n2.y*clearance};
-      // CourtPlay screen-side convention: OVER uses the opposite shoulder from the previous mapping.
-      // Coach-validated behavior: previous mapping rendered OVER visually as UNDER.
+      // Coach-validated CourtPlay convention after v82.
       const q=side==='under'?(a.y<=b.y?a:b):(a.y>=b.y?a:b);
       const c={x:clamp(q.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),y:clamp(q.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)};
       contacts.push(c); prev=c;
     }
     if(!contacts.length)return null;
+
+    // v83 — TURN CORNER geometry for assistant-authored screen attacks.
+    // After clearing the last screener, bend the path toward the rim instead of
+    // drawing a straight contact→destination line. User/manual plays are untouched.
+    if(action.type==='dribble'&&action.screenTurnCorner!==false){
+      const last=contacts[contacts.length-1];
+      const toEndX=end.x-last.x,toEndY=end.y-last.y,toEndLen=Math.hypot(toEndX,toEndY);
+      if(toEndLen>82){
+        const ex=toEndX/toEndLen,ey=toEndY/toEndLen;
+        const basketX=500,basketY=112;
+        const bx0=basketX-last.x,by0=basketY-last.y,bLen=Math.hypot(bx0,by0)||1;
+        const bx=bx0/bLen,by=by0/bLen;
+        const forward=Math.min(48,toEndLen*.32),rimBias=Math.min(58,toEndLen*.38);
+        const turn={
+          x:clamp(last.x+ex*forward+bx*rimBias,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+          y:clamp(last.y+ey*forward+by*rimBias,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+        };
+        if(Math.hypot(turn.x-last.x,turn.y-last.y)>24&&Math.hypot(end.x-turn.x,end.y-turn.y)>24){
+          return [start,...contacts,turn,end];
+        }
+      }
+    }
     return [start,...contacts,end];
   }
   function normalizeScreenAngle(deg){
