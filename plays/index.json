@@ -3,8 +3,8 @@
   "plays": [
     {
       "slug": "41-flow-early-drag-core",
-      "name": "41 FLOW — Early Drag Core",
-      "description": "Una posesión completa: TRANSICIÓN → 4 TRAIL DRAG (SET→USE→SHORT ROLL) → 1→4→3 REVERSO → MOTION SHALLOW CUT/FILL → 5 SECOND-SIDE ANGLE PnR (SET→USE→ROLL) → POCKET PASS + FINISH. Adaptada al 4-Out 1-In, 4/5 no tiradores.",
+      "name": "41 FLOW — Early Drag Core v2",
+      "description": "Versión v2: corregida primera cortina 4 TRAIL DRAG (ángulo 125°, 1 utiliza OVER pegado al hombro, 4 SET→USE→SHORT ROLL), manteniendo el resto: REVERSAL → MOTION → 5 SECOND-SIDE PnR → POCKET FINISH.",
       "categories": [
         "transition",
         "flow",
