@@ -331,6 +331,20 @@
         "4-out-1-in",
         "teaching"
       ]
+    },
+    {
+      "slug": "41-flow-motion-layer-6-zoom-counters",
+      "name": "41 FLOW MOTION — Capa 6: Zoom Counters",
+      "description": "TOP-LOCK = 2 BACKDOOR; SWITCH = 3 SLIP/SEAL; si no aparece ninguna lectura, ejecutar Zoom normal. 2 fases editables con options.",
+      "categories": [
+        "flow",
+        "motion",
+        "zoom",
+        "counters",
+        "backdoor",
+        "switch",
+        "teaching"
+      ]
     }
   ]
 }
