@@ -1,5 +1,5 @@
 {
-  "version": 42,
+  "version": 43,
   "plays": [
     {
       "slug": "caja-2-video-rebuild",
@@ -297,6 +297,20 @@
         "motion",
         "pnr",
         "second-side",
+        "4-out-1-in",
+        "teaching"
+      ]
+    },
+    {
+      "slug": "41-flow-motion-layer-5-third-side-chicago",
+      "name": "41 FLOW MOTION — Capa 5: Third Side — Chicago",
+      "description": "Second Side neutral → kickout → 4 pindown para 3 → 2 DHO con 3 → TURN CORNER + 4 SHORT ROLL + 2 corner replacement. 3 fases editables.",
+      "categories": [
+        "flow",
+        "motion",
+        "third-side",
+        "chicago",
+        "dho",
         "4-out-1-in",
         "teaching"
       ]
