@@ -1,7 +1,7 @@
 {
-  "version": 6,
+  "version": 7,
   "name": "41 FLOW MOTION — Capa 2 CORREGIDA: 2 Neutral → Angle PnR",
-  "description": "Capa 2 — prueba invertida solicitada por el coach: 2 Neutral → ACTION → 4 SET a 55° → 2 PASA POR ENCIMA / OVER de la cortina → 4 ROLL después del uso.",
+  "description": "Capa 2 refinada: 2 Neutral → ACTION → 4 SET → 2 usa OVER y limpia la pantalla → 2 TURN CORNER mientras 4 ROLL por carril separado. Mejor separación y ataque menos recto.",
   "status": "Research / Testing",
   "system": "41 FLOW Motion",
   "categories": [
@@ -23,9 +23,10 @@
     "1 y 3 HOLD para preservar spacing."
   ],
   "animationStandard": {
-    "screenSequence": "SET → USE OVER → RELEASE/ROLL",
-    "screenUserRule": "Para esta prueba CourtPlay: el manejador pasa POR ENCIMA / basket-side de la cortina.",
-    "screenUseSide": "over",
+    "screenSequence": "SET → USE OVER → TURN CORNER + ROLL",
+    "screenUserRule": "El manejador usa OVER, hombro con cadera, limpia la pantalla y luego gira la esquina hacia el aro.",
+    "rollerRule": "El screener rola por un carril separado; no persigue la espalda del manejador.",
+    "spacingTarget": "Mantener ~90–120 px visibles entre ballhandler y roller durante la continuación.",
     "offBallRule": "5 weakside; 1 y 3 HOLD.",
     "triggerRule": "Segundo catch neutral = ACTION."
   },
@@ -375,41 +376,39 @@
               "y": 438
             },
             {
-              "x": 718,
-              "y": 420
+              "x": 720,
+              "y": 418
             },
             {
               "x": 695,
-              "y": 400
+              "y": 398
             },
             {
-              "x": 665,
-              "y": 378
+              "x": 660,
+              "y": 372
             },
             {
-              "x": 630,
-              "y": 352
-            },
-            {
-              "x": 595,
-              "y": 325
+              "x": 625,
+              "y": 350
             }
           ],
-          "timingWeight": 1.05,
+          "timingWeight": 1,
           "usesScreenKeys": [
             "o4"
           ],
           "screenUseSide": "over",
           "screenUseClearance": 58,
           "screenUseVersion": 1,
+          "screenTurnCorner": true,
           "assistantAuthored": true
         }
       ],
-      "caption": "USE — PRUEBA INVERTIDA: 2 PASA POR ENCIMA / OVER de la cortina de 4, hombro con cadera, y sale hacia el medio. 4 permanece SET durante todo el uso.",
-      "seconds": 1.35,
+      "caption": "USE — 2 toma la cortina OVER, hombro con cadera, y LIMPIA el cuerpo de 4. Aquí todavía no ataca recto al aro; prepara el TURN CORNER.",
+      "seconds": 1.25,
       "timeline": {
         "logic": [
-          "2 USE = OVER / por encima",
+          "2 USE OVER",
+          "2 CLEAR SCREEN",
           "4 HOLD",
           "1/3/5 HOLD"
         ]
@@ -430,8 +429,8 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 595,
-          "y": 325
+          "x": 625,
+          "y": 350
         },
         {
           "key": "o3",
@@ -456,11 +455,44 @@
         }
       ],
       "ball": {
-        "x": 629,
-        "y": 329,
+        "x": 659,
+        "y": 354,
         "owner": "o2"
       },
       "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "pnr_continue",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 625,
+              "y": 350
+            },
+            {
+              "x": 585,
+              "y": 330
+            },
+            {
+              "x": 545,
+              "y": 300
+            },
+            {
+              "x": 515,
+              "y": 260
+            },
+            {
+              "x": 500,
+              "y": 220
+            }
+          ],
+          "timingWeight": 1.05
+        },
         {
           "type": "move",
           "sourceKey": "o4",
@@ -468,7 +500,7 @@
           "sourceDetached": false,
           "manualCurve": true,
           "isOption": false,
-          "simultaneousGroup": null,
+          "simultaneousGroup": "pnr_continue",
           "color": "#16a34a",
           "points": [
             {
@@ -476,41 +508,43 @@
               "y": 455
             },
             {
-              "x": 655,
-              "y": 385
+              "x": 680,
+              "y": 390
             },
             {
-              "x": 610,
-              "y": 300
+              "x": 665,
+              "y": 320
             },
             {
-              "x": 560,
-              "y": 220
+              "x": 640,
+              "y": 245
             },
             {
-              "x": 515,
+              "x": 600,
               "y": 165
             }
           ],
           "timingWeight": 1
         }
       ],
-      "caption": "RELEASE / ROLL — después de que 2 ya pasó POR ENCIMA y liberó la cortina, 4 rola. 5 permanece weakside.",
-      "seconds": 1.15,
+      "caption": "TURN CORNER + ROLL — 2 gira la esquina y ataca por el carril central-izquierdo. Al mismo tiempo, 4 rola por el carril derecho de la pintura. Ya no viajan uno encima del otro.",
+      "seconds": 1.4,
       "timeline": {
         "logic": [
-          "2 ya pasó OVER",
+          "2 TURN CORNER",
           "4 RELEASE → ROLL",
+          "Carriles separados",
           "1/3/5 HOLD"
         ]
       }
     }
   ],
-  "totalSeconds": 5.25,
+  "totalSeconds": 5.4,
   "reviewNotes": [
-    "v6: prueba invertida solicitada por el coach.",
-    "Ruta manual y metadata ahora dicen OVER / por encima.",
-    "usesScreenKeys=['o4'] + screenUseSide='over'.",
-    "SET y ROLL permanecen separados."
+    "v7: el manejo ya no continúa recto después de la pantalla.",
+    "La continuación del PnR ahora es simultánea: TURN CORNER + ROLL.",
+    "2 ataca central-izquierdo; 4 rola por lane derecho.",
+    "Objetivo visual de separación durante la continuación: ~90–120 px.",
+    "Las jugadas manuales del usuario no cambian; el ajuste de motor solo aplica a acciones assistantAuthored con usesScreenKeys."
   ]
 }
