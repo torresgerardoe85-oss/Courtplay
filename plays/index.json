@@ -1,5 +1,5 @@
 {
-  "version": 30,
+  "version": 31,
   "plays": [
     {
       "slug": "caja-2-video-rebuild",
@@ -240,6 +240,18 @@
         "zoom",
         "dho",
         "flow"
+      ]
+    },
+    {
+      "slug": "41-flow-motion-layer-1",
+      "name": "41 FLOW MOTION — Capa 1: Arrival → Pass/Cut/Fill",
+      "description": "Teaching layer: llegada 4-Out 1-In → spacing freeze → pass/cut → fill; BACKDOOR como lectura ante denial. Sin PnR ni Zoom.",
+      "categories": [
+        "flow",
+        "motion",
+        "transition",
+        "4-out-1-in",
+        "teaching"
       ]
     }
   ]
