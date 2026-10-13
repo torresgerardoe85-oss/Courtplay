@@ -2,6 +2,18 @@
   "version": 44,
   "plays": [
     {
+      "slug": "41-flow-motion-continuity-core",
+      "name": "41 FLOW — Motion Continuity Core",
+      "description": "Una posesión 4-Out 1-In de continuidad que recibe las DOS entradas aprobadas (Pistol o Early Drag, rutas alternativas): 3 WING → 4 TOP → PASS/CUT/FILL → 4 ANGLE SET 55° + 1 USE OVER validado → TURN CORNER/ROLL → SKIP al LIFT del 3 → RE-SPACE → 5 POST SEAL + FINISH. Sin detener para llamar jugada.",
+      "categories": [
+        "transition",
+        "flow",
+        "motion",
+        "pnr",
+        "4-out-1-in"
+      ]
+    },
+    {
       "slug": "41-flow-early-drag-core",
       "name": "41 FLOW — Early Drag Core v4",
       "description": "v4: 4 TRAIL DRAG rehecho con geometría EXACTA relativa del CORTINA TEST OVER y 41 FLOW MOTION Capa 2 validada (SET 55° → USE OVER → CLEAR → ROLL), seguido de reverso → Motion → 5 second-side PnR → finalización.",
