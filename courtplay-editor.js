@@ -104,6 +104,24 @@ function createActionFromSelectedAction(type){
   setStatus(`${actionName(type)} creado para ${branchLabel} desde su posición real después del intercambio.`);
   render();
 }
+const handoffGiverBtn=document.getElementById('handoffGiverBtn');
+const handoffReceiverBtn=document.getElementById('handoffReceiverBtn');
+function selectHandoffContinuationBranch(branch){
+  if(selectedLine<0)return;
+  const l=frame().lines[selectedLine];
+  if(!l||l.type!=='handoff'||!l.sourceKey||!l.targetKey)return;
+  const geom=handoffContinuationGeometry(l);
+  if(!geom)return;
+  selectedHandoffBranch=branch;
+  selectedPlayer=branch==='giver'?l.sourceKey:l.targetKey;
+  setStatus(branch==='giver'
+    ?'Quien entregó el handoff seleccionado. Ahora elige Screen, Corte u otra acción.'
+    :'Quien recibió el handoff seleccionado en la salida violeta. Ahora elige su próxima acción.');
+  render();
+}
+handoffGiverBtn?.addEventListener('click',()=>selectHandoffContinuationBranch('giver'));
+handoffReceiverBtn?.addEventListener('click',()=>selectHandoffContinuationBranch('receiver'));
+
 function applyBallTransfer(l){
   if(!l||!['pass','handoff'].includes(l.type))return;
   const pts=pathPoints(l),end=pts[pts.length-1];
@@ -133,8 +151,8 @@ function transferVisualEnd(l,target){
   return CourtPlayEngine.handoffGiverEnd(src,target,pathPoints(l),exit);
 }
 canvas.addEventListener('pointerdown',e=>{e.preventDefault();canvas.setPointerCapture?.(e.pointerId);const p=point(e);
-  if(tool==='token'&&pendingToken){const key=(pendingToken.team==='defense'?'d':'o')+pendingToken.label.toLowerCase();const px=clamp(p.x,-COURT_OUTSIDE_PLAYER,W+COURT_OUTSIDE_PLAYER),py=clamp(p.y,-COURT_OUTSIDE_PLAYER,H+COURT_OUTSIDE_PLAYER);let pl=frame().players.find(x=>x.key===key);if(pl){pl.x=px;pl.y=py}else{pl={key,label:pendingToken.label,team:pendingToken.team,x:px,y:py};frame().players.push(pl);}pendingToken=null;selectedPlayer=key;document.querySelectorAll('.tokenBtn').forEach(x=>x.classList.remove('active'));setTool('select');return;}
-  if(tool==='ballAssign'){const pl=hitPlayer(p);if(pl){frame().ball.owner=pl.key;selectedPlayer=pl.key;syncBallOwner();setStatus(`Balón asignado a ${pl.team==='defense'?'x':''}${pl.label}.`);setTool('select')}return;}
+  if(tool==='token'&&pendingToken){const key=(pendingToken.team==='defense'?'d':'o')+pendingToken.label.toLowerCase();const px=clamp(p.x,-COURT_OUTSIDE_PLAYER,W+COURT_OUTSIDE_PLAYER),py=clamp(p.y,-COURT_OUTSIDE_PLAYER,H+COURT_OUTSIDE_PLAYER);let pl=frame().players.find(x=>x.key===key);if(pl){pl.x=px;pl.y=py}else{pl={key,label:pendingToken.label,team:pendingToken.team,x:px,y:py};frame().players.push(pl);}pendingToken=null;selectedPlayer=key;selectedHandoffBranch=null;document.querySelectorAll('.tokenBtn').forEach(x=>x.classList.remove('active'));setTool('select');return;}
+  if(tool==='ballAssign'){const pl=hitPlayer(p);if(pl){frame().ball.owner=pl.key;selectedPlayer=pl.key;selectedHandoffBranch=null;syncBallOwner();setStatus(`Balón asignado a ${pl.team==='defense'?'x':''}${pl.label}.`);setTool('select')}return;}
   if(tool==='select'){
     if(selectedLine>=0&&frame().lines[selectedLine]){
       const active=frame().lines[selectedLine];
@@ -145,9 +163,21 @@ canvas.addEventListener('pointerdown',e=>{e.preventDefault();canvas.setPointerCa
       }
       const hi=hitHandle(p,active);if(hi>=0){drag={type:'handle',line:selectedLine,point:hi};return;}
     }
-    const pl=hitPlayer(p);if(pl){selectedLine=-1;selectedPlayer=pl.key;drag={type:'player',key:pl.key,dx:p.x-pl.x,dy:p.y-pl.y};render();return;}
-    if(hitBall(p)){selectedLine=-1;selectedPlayer=null;drag={type:'ball',dx:p.x-frame().ball.x,dy:p.y-frame().ball.y};frame().ball.owner=null;return;}
-    const li=hitLine(p);selectedLine=li;selectedPlayer=li>=0?(frame().lines[li].sourceKey||null):null;render();return;
+
+    const continuation=hitHandoffContinuationEndpoint(p);
+    if(continuation){
+      selectedLine=continuation.line;
+      selectedHandoffBranch=continuation.branch;
+      selectedPlayer=continuation.key||null;
+      setStatus(continuation.branch==='receiver'
+        ?'Receptor del handoff seleccionado en su salida violeta. Elige la próxima acción.'
+        :'Jugador que entregó el handoff seleccionado en su posición final. Elige la próxima acción.');
+      render();return;
+    }
+
+    const pl=hitPlayer(p);if(pl){selectedLine=-1;selectedPlayer=pl.key;selectedHandoffBranch=null;drag={type:'player',key:pl.key,dx:p.x-pl.x,dy:p.y-pl.y};render();return;}
+    if(hitBall(p)){selectedLine=-1;selectedPlayer=null;selectedHandoffBranch=null;drag={type:'ball',dx:p.x-frame().ball.x,dy:p.y-frame().ball.y};frame().ball.owner=null;return;}
+    const li=hitLine(p);selectedLine=li;selectedHandoffBranch=null;selectedPlayer=li>=0?(frame().lines[li].sourceKey||null):null;render();return;
   }
 });
 canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefault();const p=point(e);
@@ -213,6 +243,7 @@ canvas.addEventListener('pointercancel',()=>finishPointer(null));
 lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){
   const l=frame().lines[selectedLine];l.type=lineTypeEl.value;
   if(!['pass','handoff'].includes(l.type))l.targetKey=null;
+  if(l.type!=='handoff')selectedHandoffBranch=null;
   if(l.type!=='handoff'){
     delete l.handoffExitPoint;delete l.handoffReceiverExit;delete l.handoffGeometryAuto;delete l.handoffVersion;delete l.handoffTransferAt;delete l.handoffExitDistance;
   }
@@ -223,8 +254,8 @@ lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){
 addPointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const l=frame().lines[selectedLine],pts=pathPoints(l);let best=0,bestLen=-1;for(let i=0;i<pts.length-1;i++){const d=Math.hypot(pts[i+1].x-pts[i].x,pts[i+1].y-pts[i].y);if(d>bestLen){best=i;bestLen=d}}pts.splice(best+1,0,{x:(pts[best].x+pts[best+1].x)/2,y:(pts[best].y+pts[best+1].y)/2});l.manualCurve=true;CourtPlayEngine.invalidateLocalGeometry(l);reflowPhasesAfter(current);render();});
 removePointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const l=frame().lines[selectedLine],pts=pathPoints(l);if(pts.length<=2){setStatus('Una trayectoria necesita al menos inicio y final.');return}pts.splice(Math.max(1,pts.length-2),1);CourtPlayEngine.invalidateLocalGeometry(l);reflowPhasesAfter(current);render();});
 reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){const l=frame().lines[selectedLine];l.points.reverse();l.sourceKey=null;l.targetKey=null;l.sourceDetached=true;delete l.handoffExitPoint;delete l.handoffReceiverExit;delete l.handoffGeometryAuto;CourtPlayEngine.invalidateLocalGeometry(l);selectedPlayer=null;setStatus('Trayectoria invertida. Ya no está anclada a un jugador.');reflowPhasesAfter(current);render();}});
-deleteLineBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1;reflowPhasesAfter(current);render();}});
-deleteObjectBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1}else if(selectedPlayer){const key=selectedPlayer,i=frame().players.findIndex(x=>x.key===key);if(i>=0){if(frame().ball.owner===key)frame().ball.owner=null;frame().players.splice(i,1);frame().lines=frame().lines.filter(l=>l.sourceKey!==key);}selectedPlayer=null}reflowPhasesAfter(current);render();});
+deleteLineBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1;selectedHandoffBranch=null;reflowPhasesAfter(current);render();}});
+deleteObjectBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1;selectedHandoffBranch=null}else if(selectedPlayer){const key=selectedPlayer,i=frame().players.findIndex(x=>x.key===key);if(i>=0){if(frame().ball.owner===key)frame().ball.owner=null;frame().players.splice(i,1);frame().lines=frame().lines.filter(l=>l.sourceKey!==key);}selectedPlayer=null}reflowPhasesAfter(current);render();});
 
 function resolvePhaseEndState(phase){
   return CourtPlayEngine.resolvePhase(phase,{mutateActions:true});
