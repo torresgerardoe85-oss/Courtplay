@@ -337,10 +337,10 @@ function makeNextPhaseFromCurrent(){
     phaseOwnershipVersion:14
   };
 }
-addBtn.addEventListener('click',()=>{commit();const f=makeNextPhaseFromCurrent();f.lines=[];data.frames.splice(current+1,0,f);current++;selectedLine=-1;selectedPlayer=null;setStatus('Nueva fase creada desde el resultado final de la fase anterior.');reflowPhasesAfter(current);render();});
-duplicateBtn.addEventListener('click',()=>{commit();const f=CourtPlayEngine.duplicatePhaseForContinuation(frame());data.frames.splice(current+1,0,f);current++;selectedLine=-1;selectedPlayer=null;CourtPlayEngine.reflow(data.frames,current);setStatus('Fase duplicada desde el estado final real de la anterior.');render();});
-prevBtn.addEventListener('click',()=>{commit();reflowPhasesAfter(0);if(current>0)current--;selectedLine=-1;selectedPlayer=null;render();});nextBtn.addEventListener('click',()=>{commit();reflowPhasesAfter(0);if(current<data.frames.length-1)current++;selectedLine=-1;selectedPlayer=null;render();});
-deleteBtn.addEventListener('click',()=>{if(data.frames.length<=1)return;data.frames.splice(current,1);current=Math.min(current,data.frames.length-1);selectedLine=-1;reflowPhasesAfter(Math.max(0,current-1));render();});
+addBtn.addEventListener('click',()=>{commit();const f=makeNextPhaseFromCurrent();f.lines=[];data.frames.splice(current+1,0,f);current++;selectedLine=-1;selectedPlayer=null;selectedHandoffBranch=null;setStatus('Nueva fase creada desde el resultado final de la fase anterior.');reflowPhasesAfter(current);render();});
+duplicateBtn.addEventListener('click',()=>{commit();const f=CourtPlayEngine.duplicatePhaseForContinuation(frame());data.frames.splice(current+1,0,f);current++;selectedLine=-1;selectedPlayer=null;selectedHandoffBranch=null;CourtPlayEngine.reflow(data.frames,current);setStatus('Fase duplicada desde el estado final real de la anterior.');render();});
+prevBtn.addEventListener('click',()=>{commit();reflowPhasesAfter(0);if(current>0)current--;selectedLine=-1;selectedPlayer=null;selectedHandoffBranch=null;render();});nextBtn.addEventListener('click',()=>{commit();reflowPhasesAfter(0);if(current<data.frames.length-1)current++;selectedLine=-1;selectedPlayer=null;selectedHandoffBranch=null;render();});
+deleteBtn.addEventListener('click',()=>{if(data.frames.length<=1)return;data.frames.splice(current,1);current=Math.min(current,data.frames.length-1);selectedLine=-1;selectedHandoffBranch=null;reflowPhasesAfter(Math.max(0,current-1));render();});
 document.getElementById('clearPhaseBtn')?.addEventListener('click',()=>{
   if(!confirm('¿Limpiar esta fase? Se borrará toda su secuencia: movimientos, pases, tiros, screens, opciones y grupos “Misma vez”.'))return;
   const seconds=frame().seconds||2.4;
@@ -357,7 +357,7 @@ document.getElementById('clearPhaseBtn')?.addEventListener('click',()=>{
     phaseOwnershipVersion:26
   };
   data.frames[current]=clean;
-  selectedLine=-1;selectedPlayer=null;tool='select';drag=null;draft=null;pendingToken=null;assignBall=false;
+  selectedLine=-1;selectedPlayer=null;selectedHandoffBranch=null;tool='select';drag=null;draft=null;pendingToken=null;assignBall=false;
   if(current<data.frames.length-1)CourtPlayEngine.reflow(data.frames,current);
   setStatus('Fase completamente limpia. Toda la secuencia de esta fase fue eliminada.');
   document.dispatchEvent(new CustomEvent('courtplay:phase-cleared'));
@@ -366,7 +366,7 @@ document.getElementById('clearPhaseBtn')?.addEventListener('click',()=>{
 document.getElementById('newPlayBtn')?.addEventListener('click',()=>{
   if(!confirm('¿Crear una jugada nueva? Los cambios no guardados de la jugada actual se perderán.'))return;
   data={version:2,name:'Nueva jugada',frames:[starterPhase()]};
-  current=0;selectedLine=-1;selectedPlayer=null;drag=null;draft=null;pendingToken=null;assignBall=false;tool='select';
+  current=0;selectedLine=-1;selectedPlayer=null;selectedHandoffBranch=null;drag=null;draft=null;pendingToken=null;assignBall=false;tool='select';
   playNameEl.value='Nueva jugada';
   try{localStorage.removeItem('courtplay_v2');}catch(err){}
   document.querySelectorAll('.tool,.tokenBtn').forEach(x=>x.classList.remove('active'));
