@@ -108,7 +108,39 @@ function drawMini(mini,f){
   c.save();c.scale(sx,sy);drawScene(f,c,{hideHandles:true,playerScale:.7});c.restore();
 }
 function updateNav(){prevBtn.disabled=current===0;nextBtn.disabled=current===data.frames.length-1;deleteBtn.disabled=data.frames.length===1;}
-function updateInspector(){const has=selectedLine>=0&&frame().lines[selectedLine];inspector.classList.toggle('hidden',!has);inspectorEmpty.style.display=has?'none':'block';if(has){const l=frame().lines[selectedLine],src=l.sourceKey&&frame().players.find(p=>p.key===l.sourceKey),tgt=l.targetKey&&frame().players.find(p=>p.key===l.targetKey);lineTypeEl.value=l.type||'move';if(selectionSummary)selectionSummary.textContent=`${actionName(l.type)}${src?' · '+(src.team==='defense'?'x':'')+src.label:''}${tgt?' → '+(tgt.team==='defense'?'x':'')+tgt.label:''}${l.type==='handoff'&&tgt?' · violeta = salida receptor':''}`;}else if(selectedPlayer){const p=frame().players.find(x=>x.key===selectedPlayer);inspectorEmpty.textContent=p?`Jugador ${p.team==='defense'?'x':''}${p.label} seleccionado. Elige Pase, Corte, Drible, Screen, Handoff o Tiro.`:'Selecciona un jugador.';}else inspectorEmpty.textContent='Selecciona un jugador o una acción anterior. Puedes encadenar una nueva acción desde donde termina la anterior.';}
+function updateInspector(){
+  const has=selectedLine>=0&&frame().lines[selectedLine];
+  const handoffBox=document.getElementById('handoffContinuation');
+  const giverBtn=document.getElementById('handoffGiverBtn');
+  const receiverBtn=document.getElementById('handoffReceiverBtn');
+  inspector.classList.toggle('hidden',!has);
+  inspectorEmpty.style.display=has?'none':'block';
+
+  if(has){
+    const l=frame().lines[selectedLine];
+    const src=l.sourceKey&&frame().players.find(p=>p.key===l.sourceKey);
+    const tgt=l.targetKey&&frame().players.find(p=>p.key===l.targetKey);
+    lineTypeEl.value=l.type||'move';
+    const validHandoff=l.type==='handoff'&&!!src&&!!tgt;
+    if(handoffBox)handoffBox.classList.toggle('hidden',!validHandoff);
+    if(giverBtn)giverBtn.classList.toggle('active',validHandoff&&selectedHandoffBranch==='giver');
+    if(receiverBtn)receiverBtn.classList.toggle('active',validHandoff&&selectedHandoffBranch==='receiver');
+    if(selectionSummary){
+      selectionSummary.textContent=
+        `${actionName(l.type)}${src?' · '+(src.team==='defense'?'x':'')+src.label:''}${tgt?' → '+(tgt.team==='defense'?'x':'')+tgt.label:''}${validHandoff?' · violeta = recibe · naranja = entrega':''}`;
+    }
+  }else{
+    if(handoffBox)handoffBox.classList.add('hidden');
+    if(giverBtn)giverBtn.classList.remove('active');
+    if(receiverBtn)receiverBtn.classList.remove('active');
+    if(selectedPlayer){
+      const p=frame().players.find(x=>x.key===selectedPlayer);
+      inspectorEmpty.textContent=p?`Jugador ${p.team==='defense'?'x':''}${p.label} seleccionado. Elige Pase, Corte, Drible, Screen, Handoff o Tiro.`:'Selecciona un jugador.';
+    }else{
+      inspectorEmpty.textContent='Selecciona un jugador o una acción anterior. Puedes encadenar una nueva acción desde donde termina la anterior.';
+    }
+  }
+}
 function actionName(type){return({move:'Corte',pass:'Pase',dribble:'Drible',screen:'Screen',handoff:'Handoff',shot:'Tiro'})[type]||'Movimiento';}
 function commit(){if(!data.frames[current])return;frame().caption=captionEl.value;frame().seconds=clamp(parseFloat(secondsEl.value)||2.4,.5,8);data.name=playNameEl.value.trim()||'Jugada sin nombre';}
 captionEl.addEventListener('input',()=>{frame().caption=captionEl.value;renderPhases()});secondsEl.addEventListener('input',()=>frame().seconds=clamp(parseFloat(secondsEl.value)||2.4,.5,8));playNameEl.addEventListener('input',()=>data.name=playNameEl.value);
