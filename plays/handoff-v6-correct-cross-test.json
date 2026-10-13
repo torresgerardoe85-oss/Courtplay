@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "name": "TEST DHO v6 — Cruce Correcto",
+  "name": "TEST DHO — Cruce Correcto",
   "description": "Prueba limpia del handoff: 5 entrega y cruza POR DEBAJO; 2 pasa POR ENCIMA, recibe en el cruce y continúa su ruta hacia el aro sin detenerse ni devolverse.",
-  "status": "VALIDATION — Handoff v6",
+  "status": "VALIDATION — receiver OVER / giver UNDER",
   "system": "CourtPlay Handoff Validation",
   "categories": [
     "dho",
@@ -17,7 +17,7 @@
     "handoffSequence": "APPROACH → PRESENT → CONTACT/TRANSFER → RECEIVER CONTINUES / GIVER UNDER",
     "rules": [
       "5 presenta el balón en el punto de intercambio.",
-      "2 llega por encima del cuerpo de 5.",
+      "2 llega y cruza POR ENCIMA del cuerpo de 5.",
       "La transferencia ocurre solamente en el contacto.",
       "Después del contacto 2 continúa su misma ruta.",
       "5 cruza por debajo y detrás de la ruta de 2.",
@@ -106,7 +106,7 @@
             }
           ],
           "assistantAuthored": true,
-          "handoffReceiverSide": "under"
+          "handoffReceiverSide": "over"
         },
         {
           "type": "dribble",
