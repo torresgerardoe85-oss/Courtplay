@@ -17,10 +17,30 @@ function hitReceiver(p,sourceKey=null){
 function distSeg(px,py,a,b){const vx=b.x-a.x,vy=b.y-a.y,wx=px-a.x,wy=py-a.y,d=vx*vx+vy*vy||1,t=clamp((wx*vx+wy*vy)/d,0,1),x=a.x+t*vx,y=a.y+t*vy;return Math.hypot(px-x,py-y)}
 function hitLine(p){for(let i=frame().lines.length-1;i>=0;i--){const pts=pathPoints(frame().lines[i]);let prev=catmullPoint(pts,0);for(let s=1;s<=50;s++){const cur=catmullPoint(pts,s/50);if(distSeg(p.x,p.y,prev,cur)<18)return i;prev=cur}}return-1}
 function hitHandle(p,l){const pts=pathPoints(l);for(let i=0;i<pts.length;i++){if(Math.hypot(p.x-pts[i].x,p.y-pts[i].y)<=26)return i;}return-1}
+function handoffContinuationGeometry(l){
+  if(!l||l.type!=='handoff'||!l.targetKey)return null;
+  if(CourtPlayEngine.handoffGeometryForAction)return CourtPlayEngine.handoffGeometryForAction(frame(),l);
+  if(CourtPlayEngine.handoffGeometry)return CourtPlayEngine.handoffGeometry(frame(),l);
+  return null;
+}
 function hitHandoffExitHandle(p,l){
-  if(!l||l.type!=='handoff'||!l.targetKey||!CourtPlayEngine.handoffGeometry)return false;
-  const geom=CourtPlayEngine.handoffGeometry(frame(),l);
+  const geom=handoffContinuationGeometry(l);
   return !!(geom&&geom.receiverEnd&&Math.hypot(p.x-geom.receiverEnd.x,p.y-geom.receiverEnd.y)<=32);
+}
+function hitHandoffContinuationEndpoint(p){
+  for(let i=frame().lines.length-1;i>=0;i--){
+    const l=frame().lines[i];
+    if(!l||l.type!=='handoff'||!l.targetKey)continue;
+    const geom=handoffContinuationGeometry(l);
+    if(!geom)continue;
+    if(geom.receiverEnd&&Math.hypot(p.x-geom.receiverEnd.x,p.y-geom.receiverEnd.y)<=34){
+      return{line:i,branch:'receiver',key:l.targetKey,point:geom.receiverEnd};
+    }
+    if(geom.giverEnd&&Math.hypot(p.x-geom.giverEnd.x,p.y-geom.giverEnd.y)<=32){
+      return{line:i,branch:'giver',key:l.sourceKey,point:geom.giverEnd};
+    }
+  }
+  return null;
 }
 function hitBall(p){return Math.hypot(frame().ball.x-p.x,frame().ball.y-p.y)<=25}
 function syncBallOwner(){if(!frame().ball.owner)return;const owner=frame().players.find(p=>p.key===frame().ball.owner);if(owner){frame().ball.x=owner.x+34;frame().ball.y=owner.y+4}else frame().ball.owner=null}
@@ -54,11 +74,34 @@ function createActionFromSelectedPlayer(type){
 function createActionFromSelectedAction(type){
   const prev=frame().lines[selectedLine];
   if(!prev)return;
-  const pts=pathPoints(prev),last=pts[pts.length-1],source=prev.targetKey||prev.sourceKey||selectedPlayer||null;
-  const action=makeAction(type,{x:last.x,y:last.y},source);
-  frame().lines.push(action);selectedLine=frame().lines.length-1;selectedPlayer=source;tool='select';reflowPhasesAfter(current);
+  const pts=pathPoints(prev),last=pts[pts.length-1];
+  let source=prev.targetKey||prev.sourceKey||selectedPlayer||null;
+  let start={x:last.x,y:last.y};
+  let branchLabel='la acción anterior';
+
+  if(prev.type==='handoff'&&prev.targetKey&&prev.sourceKey){
+    const geom=handoffContinuationGeometry(prev);
+    const branch=selectedHandoffBranch||'receiver';
+    if(branch==='giver'){
+      source=prev.sourceKey;
+      if(geom&&geom.giverEnd)start={x:geom.giverEnd.x,y:geom.giverEnd.y};
+      branchLabel='quien entregó el handoff';
+    }else{
+      source=prev.targetKey;
+      if(geom&&geom.receiverEnd)start={x:geom.receiverEnd.x,y:geom.receiverEnd.y};
+      branchLabel='quien recibió el handoff';
+    }
+  }
+
+  const action=makeAction(type,start,source);
+  frame().lines.push(action);
+  selectedLine=frame().lines.length-1;
+  selectedPlayer=source;
+  selectedHandoffBranch=null;
+  tool='select';
+  reflowPhasesAfter(current);
   document.querySelectorAll('.tool').forEach(b=>b.classList.remove('active'));
-  setStatus(`${actionName(type)} comienza donde terminó la acción anterior.`);
+  setStatus(`${actionName(type)} creado para ${branchLabel} desde su posición real después del intercambio.`);
   render();
 }
 function applyBallTransfer(l){
@@ -184,28 +227,7 @@ deleteLineBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.sp
 deleteObjectBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1}else if(selectedPlayer){const key=selectedPlayer,i=frame().players.findIndex(x=>x.key===key);if(i>=0){if(frame().ball.owner===key)frame().ball.owner=null;frame().players.splice(i,1);frame().lines=frame().lines.filter(l=>l.sourceKey!==key);}selectedPlayer=null}reflowPhasesAfter(current);render();});
 
 function resolvePhaseEndState(phase){
-  const out=copy(phase);
-  out.players=copy(phase.players||[]);
-  out.ball=copy(phase.ball||{x:535,y:755,owner:null});
-  const byKey=key=>out.players.find(p=>p.key===key)||null;
-  (phase.lines||[]).forEach(raw=>{
-    const l=copy(raw),pts=pathPoints(l),end=pts[pts.length-1],src=byKey(l.sourceKey);
-    if(src&&['move','dribble','screen','handoff'].includes(l.type)){
-      src.x=end.x;src.y=end.y;
-    }
-    if(l.type==='dribble'&&src){
-      out.ball.owner=src.key;out.ball.x=src.x+34;out.ball.y=src.y+4;
-    }else if(['pass','handoff'].includes(l.type)){
-      const tgt=byKey(l.targetKey);
-      if(tgt){out.ball.owner=tgt.key;out.ball.x=tgt.x+34;out.ball.y=tgt.y+4;}
-      else{out.ball.owner=null;out.ball.x=end.x;out.ball.y=end.y;}
-    }
-  });
-  if(out.ball.owner){
-    const owner=byKey(out.ball.owner);
-    if(owner){out.ball.x=owner.x+34;out.ball.y=owner.y+4;}
-  }
-  return out;
+  return CourtPlayEngine.resolvePhase(phase,{mutateActions:true});
 }
 function applyActionToResolvedState(state,l){
   const pts=pathPoints(l),end=pts[pts.length-1];
