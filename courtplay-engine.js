@@ -132,27 +132,21 @@
       y:clamp(tgt.y+ev.vy*distance,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
     };
   }
-  function handoffReceiverContact(tgt,giverPresentation,receiverExit=null,side='over'){
+  function handoffReceiverContact(tgt,giverPresentation,receiverExit=null){
     if(!tgt||!giverPresentation)return null;
-    const gap=56;
-    let ev=handoffExitVector(giverPresentation,receiverExit);
-    if(!ev){
-      const dx=giverPresentation.x-tgt.x,dy=giverPresentation.y-tgt.y,len=Math.hypot(dx,dy)||1;
-      ev={vx:dx/len,vy:dy/len};
-    }
 
-    // "OVER" is defined relative to the receiver's route, not as a fixed
-    // vertical offset. Of the two shoulders perpendicular to the exit path,
-    // choose the basket-side shoulder (smaller y on CourtPlay's half-court).
-    const n1={x:-ev.vy,y:ev.vx},n2={x:ev.vy,y:-ev.vx};
-    const a={x:giverPresentation.x+n1.x*gap,y:giverPresentation.y+n1.y*gap};
-    const b={x:giverPresentation.x+n2.x*gap,y:giverPresentation.y+n2.y*gap};
-    const chosen=side==='under'?(a.y>=b.y?a:b):(a.y<=b.y?a:b);
+    // CourtPlay DHO invariant:
+    // RECEIVER crosses OVER the giver = basket-side / visually above on the half court.
+    // This must not invert based on route direction or legacy metadata.
+    const gap=56;
+    const ev=handoffExitVector(giverPresentation,receiverExit);
+    const horizontalBias=ev?clamp(ev.vx*18,-18,18):0;
     return{
-      x:clamp(chosen.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
-      y:clamp(chosen.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+      x:clamp(giverPresentation.x+horizontalBias,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+      y:clamp(giverPresentation.y-gap,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
     };
   }
+
   function handoffGeometry(state,action){
     if(!state||!action||action.type!=='handoff')return null;
     const src=player(state,action.sourceKey),tgt=player(state,action.targetKey);
@@ -174,9 +168,8 @@
       exitSpec={dx:(dx/len)*118,dy:(dy/len)*118};
     }
 
-    // RECEIVER goes OVER the giver.
-    const receiverSide=(action.assistantAuthored&&action.handoffReceiverSide==='under')?'under':'over';
-    const receiverContact=handoffReceiverContact(tgt,giverPresentation,exitSpec,receiverSide);
+    // RECEIVER always goes OVER the giver. Legacy side flags are ignored.
+    const receiverContact=handoffReceiverContact(tgt,giverPresentation,exitSpec);
 
     let exitVector=handoffExitVector(receiverContact,exitSpec);
     const ax=receiverContact.x-tgt.x,ay=receiverContact.y-tgt.y,alen=Math.hypot(ax,ay);
@@ -201,18 +194,14 @@
       };
     }
 
-    // GIVER goes UNDER RELATIVE TO THE RECEIVER'S ROUTE.
-    // He continues behind/opposite the receiver's exit direction and toward
-    // the non-basket side. This creates the visible crossing the coach expects:
-    // giver underneath, receiver over the top and continuing forward.
+    // GIVER always goes UNDER after the exchange = away from the basket /
+    // visually below the receiver path. Keep lanes separated and deterministic.
     const under=Number(action.handoffGiverUnderDistance)||72;
     const routeEv=exitVector||handoffExitVector(giverPresentation,exitSpec)||{vx:0,vy:-1};
-    const n1={x:-routeEv.vy,y:routeEv.vx},n2={x:routeEv.vy,y:-routeEv.vx};
-    const underNormal=n1.y>=n2.y?n1:n2; // away from basket = larger y
-    const back=.82*under,side=.42*under;
+    const horizontalCarry=clamp(-routeEv.vx*under*.26,-24,24);
     const giverEnd={
-      x:clamp(giverPresentation.x-routeEv.vx*back+underNormal.x*side,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
-      y:clamp(giverPresentation.y-routeEv.vy*back+underNormal.y*side,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+      x:clamp(giverPresentation.x+horizontalCarry,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+      y:clamp(giverPresentation.y+under,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
     };
 
     return{
