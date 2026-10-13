@@ -135,15 +135,15 @@
   function handoffReceiverContact(tgt,giverPresentation,receiverExit=null){
     if(!tgt||!giverPresentation)return null;
 
-    // CourtPlay DHO invariant:
-    // RECEIVER crosses OVER the giver = basket-side / visually above on the half court.
-    // This must not invert based on route direction or legacy metadata.
+    // CourtPlay coach convention:
+    // "POR ENCIMA" in the DHO means the receiver crosses on the perimeter/top side
+    // of the exchange. On this half-court that is the larger-Y side.
     const gap=56;
     const ev=handoffExitVector(giverPresentation,receiverExit);
     const horizontalBias=ev?clamp(ev.vx*18,-18,18):0;
     return{
       x:clamp(giverPresentation.x+horizontalBias,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
-      y:clamp(giverPresentation.y-gap,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+      y:clamp(giverPresentation.y+gap,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
     };
   }
 
@@ -194,14 +194,14 @@
       };
     }
 
-    // GIVER always goes UNDER after the exchange = away from the basket /
-    // visually below the receiver path. Keep lanes separated and deterministic.
+    // Coach convention: giver goes POR DEBAJO = basket-side / smaller-Y lane
+    // after the exchange, opposite the receiver's perimeter-side route.
     const under=Number(action.handoffGiverUnderDistance)||72;
     const routeEv=exitVector||handoffExitVector(giverPresentation,exitSpec)||{vx:0,vy:-1};
     const horizontalCarry=clamp(-routeEv.vx*under*.26,-24,24);
     const giverEnd={
       x:clamp(giverPresentation.x+horizontalCarry,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
-      y:clamp(giverPresentation.y+under,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+      y:clamp(giverPresentation.y-under,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
     };
 
     return{
