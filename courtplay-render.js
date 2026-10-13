@@ -21,7 +21,50 @@ function drawAction(c,l,alpha=1){const pts=pathPoints(l);c.save();c.globalAlpha=
   }else arrow(c,pts,18);
   c.restore();
 }
-function drawHandles(c,l){
+function handoffEditorGeometry(f,l){
+  if(!l||l.type!=='handoff'||!l.targetKey)return null;
+  if(CourtPlayEngine.handoffGeometryForAction)return CourtPlayEngine.handoffGeometryForAction(f,l);
+  if(CourtPlayEngine.handoffGeometry)return CourtPlayEngine.handoffGeometry(f,l);
+  return null;
+}
+function drawHandoffContinuationGuide(c,l,f=frame(),active=false){
+  const geom=handoffEditorGeometry(f,l);
+  if(!geom)return;
+  c.save();
+
+  // Receiver continuation stays visible in violet even after another action is selected.
+  if(geom.receiverStart&&geom.receiverContact&&geom.receiverEnd){
+    const receiverActive=active&&selectedHandoffBranch==='receiver';
+    c.strokeStyle=receiverActive?'#6d28d9':'rgba(124,58,237,.72)';
+    c.lineWidth=receiverActive?4:3;
+    c.setLineDash([8,7]);
+    c.beginPath();c.moveTo(geom.receiverStart.x,geom.receiverStart.y);
+    c.lineTo(geom.receiverContact.x,geom.receiverContact.y);
+    c.lineTo(geom.receiverEnd.x,geom.receiverEnd.y);c.stroke();c.setLineDash([]);
+    c.beginPath();c.fillStyle='#fff';c.strokeStyle='#7c3aed';c.lineWidth=3;
+    c.arc(geom.receiverContact.x,geom.receiverContact.y,8,0,Math.PI*2);c.fill();c.stroke();
+    c.beginPath();c.fillStyle=receiverActive?'#6d28d9':'#7c3aed';c.strokeStyle='#fff';c.lineWidth=4;
+    c.arc(geom.receiverEnd.x,geom.receiverEnd.y,16,0,Math.PI*2);c.fill();c.stroke();
+    c.fillStyle='#6d28d9';c.font='800 13px system-ui';c.textAlign='center';c.textBaseline='bottom';
+    c.fillText('RECIBE',geom.receiverEnd.x,geom.receiverEnd.y-20);
+  }
+
+  // The giver also remains a valid continuation after the exchange.
+  if(geom.giverPresentation&&geom.giverEnd){
+    const giverActive=active&&selectedHandoffBranch==='giver';
+    c.strokeStyle=giverActive?'#c2410c':'rgba(234,88,12,.62)';
+    c.lineWidth=giverActive?4:3;
+    c.setLineDash([6,6]);
+    c.beginPath();c.moveTo(geom.giverPresentation.x,geom.giverPresentation.y);
+    c.lineTo(geom.giverEnd.x,geom.giverEnd.y);c.stroke();c.setLineDash([]);
+    c.beginPath();c.fillStyle=giverActive?'#c2410c':'#ea580c';c.strokeStyle='#fff';c.lineWidth=4;
+    c.arc(geom.giverEnd.x,geom.giverEnd.y,14,0,Math.PI*2);c.fill();c.stroke();
+    c.fillStyle='#c2410c';c.font='800 12px system-ui';c.textAlign='center';c.textBaseline='bottom';
+    c.fillText('ENTREGA',geom.giverEnd.x,geom.giverEnd.y-18);
+  }
+  c.restore();
+}
+function drawHandles(c,l,f=frame()){
   const pts=pathPoints(l);c.save();
   c.strokeStyle='rgba(8,45,114,.45)';c.lineWidth=2;c.setLineDash([6,7]);
   c.beginPath();pts.forEach((p,i)=>{if(i===0)c.moveTo(p.x,p.y);else c.lineTo(p.x,p.y)});c.stroke();
@@ -31,21 +74,6 @@ function drawHandles(c,l){
     c.fillStyle=isStart?'#0b56bd':(isEnd?'#22c55e':'#f47a20');c.strokeStyle='#fff';c.lineWidth=4;
     c.arc(p.x,p.y,isEnd?15:(isStart?10:12),0,Math.PI*2);c.fill();c.stroke();
   });
-  if(l.type==='handoff'&&l.targetKey&&CourtPlayEngine.handoffGeometry){
-    const geom=CourtPlayEngine.handoffGeometry(frame(),l);
-    if(geom&&geom.receiverStart&&geom.receiverContact&&geom.receiverEnd){
-      c.strokeStyle='rgba(124,58,237,.72)';c.lineWidth=3;c.setLineDash([8,7]);
-      c.beginPath();c.moveTo(geom.receiverStart.x,geom.receiverStart.y);
-      c.lineTo(geom.receiverContact.x,geom.receiverContact.y);
-      c.lineTo(geom.receiverEnd.x,geom.receiverEnd.y);c.stroke();c.setLineDash([]);
-      c.beginPath();c.fillStyle='#fff';c.strokeStyle='#7c3aed';c.lineWidth=4;
-      c.arc(geom.receiverContact.x,geom.receiverContact.y,9,0,Math.PI*2);c.fill();c.stroke();
-      c.beginPath();c.fillStyle='#7c3aed';c.strokeStyle='#fff';c.lineWidth=4;
-      c.arc(geom.receiverEnd.x,geom.receiverEnd.y,17,0,Math.PI*2);c.fill();c.stroke();
-      c.fillStyle='#7c3aed';c.font='800 20px system-ui';c.textAlign='center';c.textBaseline='bottom';
-      c.fillText('SALIDA',geom.receiverEnd.x,geom.receiverEnd.y-22);
-    }
-  }
   c.restore();
 }
 function drawPlayer(c,p,scale=1){
@@ -63,7 +91,10 @@ function drawScene(f=frame(),c=ctx,opts={}){
   beginCourtViewport(c);
   drawCourt(c);
   (f.lines||[]).forEach((l,i)=>drawAction(c,l));
-  if(!opts.hideHandles&&tool==='select'&&selectedLine>=0&&f.lines[selectedLine])drawHandles(c,f.lines[selectedLine]);
+  if(!opts.hideHandles){
+    (f.lines||[]).forEach((l,i)=>{if(l&&l.type==='handoff'&&l.targetKey)drawHandoffContinuationGuide(c,l,f,i===selectedLine);});
+    if(tool==='select'&&selectedLine>=0&&f.lines[selectedLine])drawHandles(c,f.lines[selectedLine],f);
+  }
   (f.players||[]).forEach(p=>drawPlayer(c,p,opts.playerScale||1));
   drawBall(c,f.ball);
   if(draft)drawAction(c,{type:tool,points:draft.points},.65);
