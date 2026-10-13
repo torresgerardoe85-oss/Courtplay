@@ -543,6 +543,26 @@
     }
     return phase;
   }
+  function stateBeforeAction(phase,targetAction){
+    if(!phase)return null;
+    const state={players:clone(phase.players||[]),ball:clone(phase.ball||{x:535,y:755,owner:null})};
+    syncBall(state);
+    for(const raw of phase.lines||[]){
+      if(raw===targetAction)break;
+      const prepared=prepareAction(raw,state,{mutate:false,infer:true});
+      if(!prepared.isOption)applyAction(state,prepared,{mutate:true});
+      if(state.terminalShot)break;
+    }
+    return state;
+  }
+  function handoffGeometryForAction(phase,handoffAction){
+    if(!phase||!handoffAction||handoffAction.type!=='handoff')return null;
+    const state=stateBeforeAction(phase,handoffAction);
+    if(!state)return null;
+    const prepared=prepareAction(handoffAction,state,{mutate:false,infer:true});
+    return handoffGeometry(state,prepared);
+  }
+
   function resolvePhase(phase,{mutateActions=true}={}){
     if(mutateActions){
       applyAutoPassTargets(phase);
@@ -621,7 +641,7 @@
 
   global.CourtPlayEngine={
     clone,points,captureLocalGeometry,invalidateLocalGeometry,normalizeAction,nearestPlayer,syncBall,recenterStraight,fitActionToCourt,
-    handoffTransferAt,handoffExitVector,fallbackHandoffExit,handoffGiverEnd,handoffReceiverEnd,handoffReceiverContact,handoffGeometry,ensureHandoffSeparation,
+    handoffTransferAt,handoffExitVector,fallbackHandoffExit,handoffGiverEnd,handoffReceiverEnd,handoffReceiverContact,handoffGeometry,handoffGeometryForAction,stateBeforeAction,ensureHandoffSeparation,
     assistantScreenUserGeometry,inferScreenAngle,applyAutoScreenAngles,inferHandoffExit,applyAutoHandoffGeometry,passReceiverMovement,applyAutoPassTargets,prepareAction,applyAction,bindLegacyPhase,resolvePhase,reflow,nextPhaseFrom,duplicatePhaseForContinuation
   };
 })(typeof window!=='undefined'?window:globalThis);
