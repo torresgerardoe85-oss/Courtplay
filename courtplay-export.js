@@ -244,6 +244,19 @@ function actionTimingWeight(action){
 function stepTimingWeight(step){
   return Math.max(.2,...step.map(actionTimingWeight));
 }
+function actionNaturalMinimumDuration(action){
+  if(Number.isFinite(action.minDurationSeconds))return Math.max(.2,action.minDurationSeconds);
+  const d=actionPathLength(action);
+  if(action.type==='pass')return Math.max(.48,.30+d/1200);
+  if(action.type==='shot')return Math.max(.62,.38+d/900);
+  if(action.type==='screen')return Math.max(.85,.45+d/380);
+  if(action.type==='handoff')return Math.max(1.05,.55+d/330);
+  if(action.type==='dribble')return Math.max(.85,.35+d/330);
+  return Math.max(.75,.30+d/360);
+}
+function stepNaturalMinimumDuration(step){
+  return Math.max(.2,...step.map(actionNaturalMinimumDuration));
+}
 function assignNaturalStepTiming(actions){
   const list=actions||[];
   if(list.length<=1){
@@ -416,8 +429,12 @@ function buildPlaybackPlan(){
       cursor+=phaseDuration;finalScene=copy(base);return;
     }
     const weights=steps.map(stepTimingWeight),weightTotal=weights.reduce((a,b)=>a+b,0)||1;
+    const minimums=steps.map(stepNaturalMinimumDuration);
+    const minimumTotal=minimums.reduce((a,b)=>a+b,0);
+    const effectivePhaseDuration=Math.max(phaseDuration,minimumTotal);
+    const extra=Math.max(0,effectivePhaseDuration-minimumTotal);
     steps.forEach((rawStep,stepIndex)=>{
-      const duration=phaseDuration*(weights[stepIndex]/weightTotal);
+      const duration=minimums[stepIndex]+extra*(weights[stepIndex]/weightTotal);
       const prepared=assignNaturalStepTiming(rawStep.map(a=>actionForCurrentState(a,base)));
       segments.push({phaseIndex,start:cursor,end:cursor+duration,duration,base:copy(base),actions:prepared});
       for(const a of prepared){
@@ -503,7 +520,7 @@ function startPlayback(){
   if(!plan.total)return;
   if(playbackPosition>=plan.total-.01)playbackPosition=0;
   playing=true;playbackAnchorPosition=playbackPosition;playbackAnchorTime=performance.now();
-  updatePlaybackButtons();setStatus('Reproduciendo a 0.85x. Usa la barra, −1 s o +1 s para revisar cualquier momento.');
+  updatePlaybackButtons();setStatus('Reproduciendo a 0.85x con ritmo natural protegido. Usa la barra, −1 s o +1 s para revisar cualquier momento.');
   playbackRaf=requestAnimationFrame(playbackTick);
 }
 function togglePlayback(){
