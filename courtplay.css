@@ -370,3 +370,49 @@ canvas#court{width:100%;height:auto;max-width:100%}
 @media(max-width:640px){
   .topbar .libraryBtn{font-size:12px}
 }
+
+
+/* v87 handoff continuation controls */
+.handoffContinuation{
+  margin-top:9px;
+  padding:9px;
+  border:1px solid #ddd6fe;
+  border-radius:11px;
+  background:#faf8ff;
+}
+.handoffContinuation.hidden{display:none}
+.handoffContinuationLabel{
+  margin-bottom:7px;
+  color:#5b21b6;
+  font-size:11px;
+  font-weight:900;
+}
+.handoffContinuationButtons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+.handoffContinuationButtons button{
+  min-height:38px;
+  border:1px solid #cbd5e1;
+  border-radius:9px;
+  background:#fff;
+  color:#334155;
+  font-size:12px;
+  font-weight:900;
+}
+.handoffContinuationButtons button.active{
+  border-color:#7c3aed;
+  background:#f3e8ff;
+  color:#6d28d9;
+  box-shadow:inset 0 0 0 1px #7c3aed;
+}
+#handoffGiverBtn.active{
+  border-color:#ea580c;
+  background:#fff7ed;
+  color:#c2410c;
+  box-shadow:inset 0 0 0 1px #ea580c;
+}
+@media(max-width:520px){
+  .handoffContinuationButtons{grid-template-columns:1fr}
+}
