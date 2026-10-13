@@ -21,7 +21,7 @@ function endCourtViewport(c=ctx){c.restore();}
 function viewportToCourtPoint(x,y){
   return{x:(x-COURT_VIEW_X)/COURT_VIEW_SCALE,y:(y-COURT_VIEW_Y)/COURT_VIEW_SCALE};
 }
-let tool='select',current=0,selectedLine=-1,selectedPlayer=null,drag=null,draft=null,playing=false,pendingToken=null,assignBall=false;
+let tool='select',current=0,selectedLine=-1,selectedPlayer=null,selectedHandoffBranch=null,drag=null,draft=null,playing=false,pendingToken=null,assignBall=false;
 
 function starterPhase(){return{players:[
   {key:'o1',label:'1',team:'offense',x:500,y:755},{key:'o2',label:'2',team:'offense',x:220,y:620},{key:'o3',label:'3',team:'offense',x:780,y:620},{key:'o4',label:'4',team:'offense',x:325,y:330},{key:'o5',label:'5',team:'offense',x:675,y:330}
