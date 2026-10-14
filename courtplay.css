@@ -416,3 +416,37 @@ canvas#court{width:100%;height:auto;max-width:100%}
 @media(max-width:520px){
   .handoffContinuationButtons{grid-template-columns:1fr}
 }
+
+
+/* v90 practice folder */
+.libraryPracticeBadge{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  margin-top:7px;
+  padding:4px 8px;
+  border:1px solid #f4c48e;
+  border-radius:999px;
+  background:#fff8ef;
+  color:#9a4b08;
+  font-size:11px;
+  font-weight:900;
+}
+.libraryRowActions .practiceFolderBtn{
+  border-color:#e7b06f;
+  background:#fffaf4;
+  color:#9a4b08;
+}
+.libraryRowActions .practiceFolderBtn[aria-pressed="true"]{
+  border-color:#d97706;
+  background:#fff3df;
+  color:#92400e;
+}
+.libraryCategoryTab[data-category="practice"]{
+  border-color:#e7b06f;
+}
+.libraryCategoryTab[data-category="practice"].active{
+  background:#fff3df;
+  color:#92400e;
+  border-color:#d97706;
+}
