@@ -402,7 +402,7 @@
 
     const head=document.createElement('div');head.className='libraryHead';
     const title=document.createElement('div');
-    title.innerHTML='<strong>Biblioteca</strong><small>Mi Biblioteca + jugadas nuevas publicadas para ti.</small>';
+    title.innerHTML='<strong>Biblioteca</strong><small>Mi Biblioteca + carpeta Para practicar + jugadas nuevas publicadas para ti.</small>';
     const close=document.createElement('button');close.type='button';close.textContent='×';close.className='libraryClose';
     close.addEventListener('click',()=>wrap.remove());
     head.append(title,close);
@@ -637,6 +637,7 @@
   }
 
   async function remoteRows(container){
+    if(activeCategory==='practice')return;
     container.append(sectionTitle('Publicadas para mí','Jugadas nuevas que yo publique para ti desde nuestro chat. Si las guardas en Mi Biblioteca, dejan de repetirse aquí.'));
     const loading=document.createElement('p');loading.className='libraryMessage';loading.textContent='Buscando jugadas publicadas…';container.append(loading);
     try{
