@@ -105,10 +105,15 @@
     const desc=(item&&item.description)||(play&&play.description)||'';
     return inferCategoriesFromText(name+' '+desc);
   }
+  function isPracticeItem(item){
+    return !!(item&&((item.play&&item.play.practiceFolder===true)||item.practiceFolder===true));
+  }
   function matchesCategory(item){
+    if(activeCategory==='practice')return isPracticeItem(item);
     return activeCategory==='all'||categoriesFor(item).includes(activeCategory);
   }
   function categoryLabel(id){
+    if(id==='practice')return 'Para practicar';
     return CATEGORY_DEFS.find(x=>x.id===id)?.label||'Otras';
   }
   function suggestCategoriesFromCurrentPlay(){
@@ -154,6 +159,7 @@
         id:data.libraryId,
         name:data.name||playNameEl.value||'Jugada sin nombre',
         categories:normalizeCategories(data.categories),
+        practiceFolder:data.practiceFolder===true,
         updatedAt:data.savedAt,
         play:clone(data)
       };
@@ -227,6 +233,40 @@
       }else{
         notify('Jugada eliminada de este dispositivo.');
       }
+    }
+    renderLibraryContents();
+  }
+
+  async function setPracticeFolder(id,enabled){
+    const items=readLocal();
+    const at=items.findIndex(x=>x.id===id);
+    if(at<0)return;
+    const item=items[at];
+    const stamp=new Date().toISOString();
+    item.practiceFolder=!!enabled;
+    item.updatedAt=stamp;
+    if(item.play){
+      item.play.practiceFolder=!!enabled;
+      item.play.savedAt=stamp;
+    }
+    writeLocal(items);
+    if(data&&data.libraryId===id)data.practiceFolder=!!enabled;
+
+    if(window.CourtPlayCloud){
+      window.CourtPlayCloud.queueUpsert(id);
+      if(window.CourtPlayCloud.isSignedIn?.()&&navigator.onLine!==false){
+        try{
+          const result=await window.CourtPlayCloud.flushOutbox({reason:'practice-folder'});
+          if(result&&result.error)notify('Cambio guardado localmente. La carpeta se sincronizará automáticamente.','error');
+          else notify(enabled?'Añadida a Para practicar.':'Quitada de Para practicar.');
+        }catch(e){
+          notify('Cambio guardado localmente. La carpeta se sincronizará automáticamente.','error');
+        }
+      }else{
+        notify(enabled?'Añadida a Para practicar.':'Quitada de Para practicar.');
+      }
+    }else{
+      notify(enabled?'Añadida a Para practicar.':'Quitada de Para practicar.');
     }
     renderLibraryContents();
   }
@@ -409,7 +449,7 @@
   function renderCategoryTabs(host){
     if(!host)return;
     host.innerHTML='';
-    const defs=[{id:'all',label:'Todas'},...CATEGORY_DEFS];
+    const defs=[{id:'all',label:'Todas'},{id:'practice',label:'📁 Para practicar'},...CATEGORY_DEFS];
     defs.forEach(cat=>{
       const b=document.createElement('button');b.type='button';b.className='libraryCategoryTab';b.dataset.category=cat.id;b.textContent=cat.label;
       b.setAttribute('role','tab');b.setAttribute('aria-selected',String(activeCategory===cat.id));
@@ -432,6 +472,14 @@
     info.append(row);
   }
 
+  function appendPracticeBadge(info,item){
+    if(!isPracticeItem(item))return;
+    const badge=document.createElement('div');
+    badge.className='libraryPracticeBadge';
+    badge.textContent='📁 Para practicar';
+    info.append(badge);
+  }
+
   function localRows(container){
     const signedIn=!!window.CourtPlayCloud?.isSignedIn?.();
     container.append(sectionTitle(
@@ -445,7 +493,9 @@
       const p=document.createElement('p');p.className='libraryMessage';
       p.textContent=activeCategory==='all'
         ?(signedIn?'Sincronizando Mi Biblioteca… si tienes jugadas en Cloud aparecerán aquí.':'Aún no has guardado jugadas en Mi Biblioteca.')
-        :'No hay jugadas de '+categoryLabel(activeCategory)+' en Mi Biblioteca.';
+        :(activeCategory==='practice'
+          ?'Tu carpeta Para practicar está vacía. En Mi Biblioteca toca “Practicar” en las jugadas que quieras trabajar.'
+          :'No hay jugadas de '+categoryLabel(activeCategory)+' en Mi Biblioteca.');
       container.append(p);return;
     }
     items.forEach(item=>{
@@ -457,10 +507,16 @@
       small.textContent=(signedIn?'📱 Disponible offline · ☁ sincronización automática':'📱 Disponible offline')+updated;
       info.append(strong,small);
       appendCategoryBadges(info,item);
+      appendPracticeBadge(info,item);
       const actions=document.createElement('div');actions.className='libraryRowActions';
       const open=document.createElement('button');open.type='button';open.textContent='Abrir';open.addEventListener('click',()=>loadLocalPlay(item.id));
+      const practice=document.createElement('button');practice.type='button';practice.className='practiceFolderBtn';
+      const inPractice=isPracticeItem(item);
+      practice.textContent=inPractice?'✓ Practicar':'＋ Practicar';
+      practice.setAttribute('aria-pressed',String(inPractice));
+      practice.addEventListener('click',()=>setPracticeFolder(item.id,!inPractice));
       const del=document.createElement('button');del.type='button';del.className='danger';del.textContent='Eliminar';del.addEventListener('click',()=>deleteLocalPlay(item.id));
-      actions.append(open,del);row.append(info,actions);container.append(row);
+      actions.append(open,practice,del);row.append(info,actions);container.append(row);
     });
   }
 
@@ -477,6 +533,7 @@
         id:data.libraryId,
         name:data.name||item.name||'Jugada',
         categories:normalizeCategories(data.categories||categoriesFor(item)),
+        practiceFolder:data.practiceFolder===true,
         updatedAt:item.updated_at||data.savedAt||new Date().toISOString(),
         play:clone(data)
       };
@@ -708,5 +765,5 @@
   button?.addEventListener('click',openLibrary);
   const slug=new URLSearchParams(location.search).get('play');
   if(slug)loadPlay(slug,{closePanel:false});
-  window.CourtPlayLibrary={loadPlay,openLibrary,openSaveMenu,openLibrarySaveChoices,saveCurrentToMyLibrary,loadLocalPlay,categories:CATEGORY_DEFS,categoryLabel,suggestCategoriesFromCurrentPlay};
+  window.CourtPlayLibrary={loadPlay,openLibrary,openSaveMenu,openLibrarySaveChoices,saveCurrentToMyLibrary,loadLocalPlay,setPracticeFolder,categories:CATEGORY_DEFS,categoryLabel,suggestCategoriesFromCurrentPlay};
 })();
