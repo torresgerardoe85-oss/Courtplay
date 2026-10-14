@@ -169,21 +169,23 @@
       items.unshift(item);writeLocal(items);
       if(window.CourtPlayCloud){
         window.CourtPlayCloud.queueUpsert(item.id);
-        if(window.CourtPlayCloud.isSignedIn()){
-          if(navigator.onLine===false){
-            notify('Jugada guardada en este dispositivo. Quedó pendiente y se sincronizará automáticamente cuando vuelva el internet.');
-          }else{
-            window.CourtPlayCloud.flushOutbox({reason:'save'}).then(result=>{
-              if(result&&result.error){
-                notify('Jugada guardada localmente. La sincronización se reintentará automáticamente.','error');
-              }else{
-                notify('Jugada guardada y sincronizada en Mi Biblioteca ☁.');
-              }
-            }).catch(()=>notify('Jugada guardada localmente. La sincronización se reintentará automáticamente.','error'));
+        Promise.resolve(window.CourtPlayCloud.ensureReady?.()).then(()=>{
+          if(!window.CourtPlayCloud.isSignedIn()){
+            notify('Jugada guardada en Mi Biblioteca local. Inicia sesión para sincronizarla entre dispositivos.');
+            return;
           }
-        }else{
-          notify('Jugada guardada en este dispositivo. Inicia sesión para sincronizarla.');
-        }
+          if(navigator.onLine===false){
+            notify('Jugada guardada en Mi Biblioteca. Quedó pendiente y se sincronizará automáticamente cuando vuelva el internet.');
+            return;
+          }
+          return window.CourtPlayCloud.flushOutbox({reason:'save'}).then(result=>{
+            if(result&&result.error){
+              notify('Jugada guardada localmente. La sincronización se reintentará automáticamente.','error');
+            }else{
+              notify('Jugada guardada y sincronizada en Mi Biblioteca ☁.');
+            }
+          });
+        }).catch(()=>notify('Jugada guardada localmente. La sincronización se reintentará automáticamente.','error'));
       }else{
         notify('Jugada guardada en este dispositivo.');
       }
