@@ -353,12 +353,12 @@
     const panel=document.createElement('div');panel.className='savePanel';
     const title=document.createElement('strong');title.textContent='Guardar jugada';
     const desc=document.createElement('p');desc.textContent='Elige dónde quieres guardar esta jugada.';
-    const device=document.createElement('button');device.type='button';device.className='saveChoice';
-    device.innerHTML='<strong>En este dispositivo</strong><small>Guarda la jugada actual para continuar después.</small>';
     const library=document.createElement('button');library.type='button';library.className='saveChoice primary';
     library.innerHTML=data.libraryId
-      ?'<strong>En Mi Biblioteca</strong><small>Elige si quieres actualizar esta jugada o guardarla como una nueva.</small>'
-      :'<strong>En Mi Biblioteca</strong><small>La añade como una jugada nueva dentro de CourtPlay.</small>';
+      ?'<strong>Mi Biblioteca · sincroniza</strong><small>Actualiza esta jugada, conserva copia offline y la sincroniza entre tus dispositivos.</small>'
+      :'<strong>Mi Biblioteca · sincroniza</strong><small>Guarda copia offline y la sincroniza entre iPad, teléfono y computadora.</small>';
+    const device=document.createElement('button');device.type='button';device.className='saveChoice';
+    device.innerHTML='<strong>Solo este dispositivo</strong><small>No se sincroniza con tus otros dispositivos.</small>';
     const exportPlay=document.createElement('button');exportPlay.type='button';exportPlay.className='saveChoice';
     exportPlay.innerHTML='<strong>Exportar jugada (.json)</strong><small>Descarga los datos exactos de esta jugada para compartirlos, respaldarlos o diagnosticar errores.</small>';
     const cancel=document.createElement('button');cancel.type='button';cancel.className='saveCancel';cancel.textContent='Cancelar';
@@ -391,7 +391,7 @@
     });
     cancel.addEventListener('click',()=>wrap.remove());
     wrap.addEventListener('click',e=>{if(e.target===wrap)wrap.remove();});
-    panel.append(title,desc,device,library,exportPlay,cancel);wrap.append(panel);document.body.append(wrap);
+    panel.append(title,desc,library,device,exportPlay,cancel);wrap.append(panel);document.body.append(wrap);
   }
 
   function ensurePanel(){
@@ -412,12 +412,35 @@
     const actions=document.createElement('div');actions.className='libraryTopActions';
     const saveNow=document.createElement('button');saveNow.type='button';saveNow.textContent='＋ Guardar jugada actual';
     saveNow.addEventListener('click',()=>openLibrarySaveChoices({onDone:()=>renderLibraryContents()}));
+    const syncNow=document.createElement('button');syncNow.type='button';syncNow.id='courtplaySyncNowBtn';syncNow.textContent='☁ Sincronizar ahora';
+    syncNow.addEventListener('click',async()=>{
+      if(!window.CourtPlayCloud){notify('Cloud no está disponible ahora mismo.','error');return;}
+      syncNow.disabled=true;syncNow.textContent='☁ Sincronizando…';
+      try{
+        await window.CourtPlayCloud.ensureReady();
+        if(!window.CourtPlayCloud.isSignedIn()){
+          notify('Inicia sesión en CourtPlay Cloud para sincronizar tus jugadas.','error');
+        }else if(navigator.onLine===false){
+          notify('Sin internet. Tus cambios quedan guardados y se sincronizarán cuando vuelva la conexión.');
+        }else{
+          const queued=await window.CourtPlayCloud.flushOutbox({reason:'manual'});
+          const merged=await window.CourtPlayCloud.syncLocalToCloud();
+          const changed=(queued?.uploaded||0)+(queued?.pulled||0)+(merged?.uploaded||0)+(merged?.pulled||0);
+          notify(changed?'Sincronización completada.':'Mi Biblioteca ya está sincronizada.');
+        }
+      }catch(e){
+        notify('No pude completar la sincronización. Tus copias locales siguen guardadas.','error');
+      }finally{
+        syncNow.disabled=false;syncNow.textContent='☁ Sincronizar ahora';
+        renderLibraryContents();
+      }
+    });
     const ask=document.createElement('button');ask.type='button';ask.textContent='Cómo pedirme una jugada';
     ask.addEventListener('click',toggleAskHelp);
-    actions.append(saveNow,ask);
+    actions.append(saveNow,syncNow,ask);
 
     const backup=document.createElement('div');backup.className='libraryBackupNote';
-    backup.textContent='📱 Respaldo local activo: las jugadas de Mi Biblioteca quedan disponibles offline en este dispositivo.';
+    backup.textContent='📱 Mi Biblioteca guarda copia offline. ☁ Con sesión iniciada, también se sincroniza entre tus dispositivos.';
 
     const help=document.createElement('div');help.id='courtplayAskHelp';help.className='libraryAskHelp';
     help.hidden=true;
