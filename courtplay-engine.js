@@ -39,6 +39,8 @@
       action.handoffExitDistance=clamp(action.handoffExitDistance,88,190);
       if(!Number.isFinite(action.handoffGiverUnderDistance))action.handoffGiverUnderDistance=72;
       action.handoffGiverUnderDistance=clamp(action.handoffGiverUnderDistance,54,110);
+      if(action.handoffReceiverApproachPoint&&(!Number.isFinite(action.handoffReceiverApproachPoint.x)||!Number.isFinite(action.handoffReceiverApproachPoint.y)))delete action.handoffReceiverApproachPoint;
+      if(action.handoffReceiverContactPoint&&(!Number.isFinite(action.handoffReceiverContactPoint.x)||!Number.isFinite(action.handoffReceiverContactPoint.y)))delete action.handoffReceiverContactPoint;
       if(!Number.isFinite(action.handoffVersion)||action.handoffVersion<6)action.handoffVersion=6;
     }
     return action;
@@ -168,8 +170,29 @@
       exitSpec={dx:(dx/len)*118,dy:(dy/len)*118};
     }
 
-    // RECEIVER always goes OVER the giver. Legacy side flags are ignored.
-    const receiverContact=handoffReceiverContact(tgt,giverPresentation,exitSpec);
+    // RECEIVER always goes OVER the giver by default. The editor can refine
+    // the violet receiver route without changing possession/timing semantics.
+    const autoReceiverContact=handoffReceiverContact(tgt,giverPresentation,exitSpec);
+    const receiverContact=(action.handoffReceiverContactPoint&&
+      Number.isFinite(action.handoffReceiverContactPoint.x)&&
+      Number.isFinite(action.handoffReceiverContactPoint.y))
+      ?{
+        x:clamp(action.handoffReceiverContactPoint.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+        y:clamp(action.handoffReceiverContactPoint.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+      }
+      :autoReceiverContact;
+
+    const receiverApproach=(action.handoffReceiverApproachPoint&&
+      Number.isFinite(action.handoffReceiverApproachPoint.x)&&
+      Number.isFinite(action.handoffReceiverApproachPoint.y))
+      ?{
+        x:clamp(action.handoffReceiverApproachPoint.x,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+        y:clamp(action.handoffReceiverApproachPoint.y,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+      }
+      :{
+        x:clamp(tgt.x+(receiverContact.x-tgt.x)*.52,COURT_BOUNDS.minX,COURT_BOUNDS.maxX),
+        y:clamp(tgt.y+(receiverContact.y-tgt.y)*.52,COURT_BOUNDS.minY,COURT_BOUNDS.maxY)
+      };
 
     let exitVector=handoffExitVector(receiverContact,exitSpec);
     const ax=receiverContact.x-tgt.x,ay=receiverContact.y-tgt.y,alen=Math.hypot(ax,ay);
@@ -207,10 +230,18 @@
     return{
       sourceStart:{x:src.x,y:src.y},
       receiverStart:{x:tgt.x,y:tgt.y},
+      receiverApproach,
       giverPresentation,
       giverEnd,
       receiverContact,
       receiverEnd,
+      receiverPath:receiverEnd?[
+        {x:tgt.x,y:tgt.y},
+        {x:receiverApproach.x,y:receiverApproach.y},
+        {x:receiverContact.x,y:receiverContact.y},
+        {x:receiverEnd.x,y:receiverEnd.y}
+      ]:null,
+      receiverContactT:2/3,
       transferAt:handoffTransferAt(action),
       exitSpec
     };
