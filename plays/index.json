@@ -1,6 +1,18 @@
 {
-  "version": 44,
+  "version": 45,
   "plays": [
+    {
+      "slug": "virtus-double-drag-side-dho-rev-step-up",
+      "name": "VIRTUS — Double Drag → Side DHO → Reverse → Step-Up",
+      "description": "Virtus Bologna p.29: Double Drag → 5 roll / 4 open → Side DHO 4→3 → reverse 3→1 → 5 Step-Up PnR. Screens y DHO usan geometría/timing validados; pendiente de revisión visual.",
+      "categories": [
+        "transition",
+        "flow",
+        "pnr",
+        "dho",
+        "quick"
+      ]
+    },
     {
       "slug": "41-flow-motion-continuity-core",
       "name": "41 FLOW — Motion Continuity COMPLETA",
