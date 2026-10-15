@@ -79,6 +79,71 @@ function catmullPoint(points,t){
   return{x:.5*((2*p1.x)+(-p0.x+p2.x)*u+(2*p0.x-5*p1.x+4*p2.x-p3.x)*u2+(-p0.x+3*p1.x-3*p2.x+p3.x)*u3),y:.5*((2*p1.y)+(-p0.y+p2.y)*u+(2*p0.y-5*p1.y+4*p2.y-p3.y)*u2+(-p0.y+3*p1.y-3*p2.y+p3.y)*u3)};
 }
 function tangent(points,t){const a=catmullPoint(points,clamp(t-.01,0,1)),b=catmullPoint(points,clamp(t+.01,0,1));return{x:b.x-a.x,y:b.y-a.y}}
+function cubicBezierPoint(points,t){
+  if(!Array.isArray(points)||points.length!==4)return catmullPoint(points,t);
+  const u=1-clamp(t,0,1),tt=clamp(t,0,1),u2=u*u,tt2=tt*tt;
+  const p0=points[0],p1=points[1],p2=points[2],p3=points[3];
+  return{
+    x:u2*u*p0.x+3*u2*tt*p1.x+3*u*tt2*p2.x+tt2*tt*p3.x,
+    y:u2*u*p0.y+3*u2*tt*p1.y+3*u*tt2*p2.y+tt2*tt*p3.y
+  };
+}
+function cubicBezierTangent(points,t){
+  if(!Array.isArray(points)||points.length!==4)return tangent(points,t);
+  const tt=clamp(t,0,1),u=1-tt,p0=points[0],p1=points[1],p2=points[2],p3=points[3];
+  return{
+    x:3*u*u*(p1.x-p0.x)+6*u*tt*(p2.x-p1.x)+3*tt*tt*(p3.x-p2.x),
+    y:3*u*u*(p1.y-p0.y)+6*u*tt*(p2.y-p1.y)+3*tt*tt*(p3.y-p2.y)
+  };
+}
+function actionPathPoint(action,points,t){
+  return action&&action.type==='dribble'&&Number(action.dribbleCurveVersion)>=2&&Array.isArray(points)&&points.length===4
+    ?cubicBezierPoint(points,t)
+    :catmullPoint(points,t);
+}
+function actionPathTangent(action,points,t){
+  return action&&action.type==='dribble'&&Number(action.dribbleCurveVersion)>=2&&Array.isArray(points)&&points.length===4
+    ?cubicBezierTangent(points,t)
+    :tangent(points,t);
+}
+function actionPathLengthFor(action,points,steps=36){
+  const pts=points||[],n=Math.max(8,steps);let total=0,prev=actionPathPoint(action,pts,0);
+  for(let i=1;i<=n;i++){
+    const cur=actionPathPoint(action,pts,i/n);
+    total+=Math.hypot(cur.x-prev.x,cur.y-prev.y);
+    prev=cur;
+  }
+  return total;
+}
+function drawDribbleV2(c,action,pts,progress=1){
+  const tt=clamp(progress,0,1);
+  if(tt<=0)return;
+  const steps=Math.max(28,Math.ceil(72*tt));
+  const wavelength=38,amp=7;
+  let distance=0,prevCenter=actionPathPoint(action,pts,0);
+  c.beginPath();
+  for(let i=0;i<=steps;i++){
+    const u=(i/steps)*tt;
+    const center=actionPathPoint(action,pts,u);
+    if(i>0)distance+=Math.hypot(center.x-prevCenter.x,center.y-prevCenter.y);
+    const tan=actionPathTangent(action,pts,u),len=Math.hypot(tan.x,tan.y)||1;
+    const nx=-tan.y/len,ny=tan.x/len;
+    const off=Math.sin((distance/wavelength)*Math.PI*2)*amp;
+    const x=center.x+nx*off,y=center.y+ny*off;
+    if(i===0)c.moveTo(x,y);else c.lineTo(x,y);
+    prevCenter=center;
+  }
+  c.stroke();
+  if(tt>.08){
+    const b=actionPathPoint(action,pts,tt),a=actionPathPoint(action,pts,Math.max(0,tt-.045));
+    const ang=Math.atan2(b.y-a.y,b.x-a.x),size=17;
+    c.beginPath();c.moveTo(b.x,b.y);
+    c.lineTo(b.x-size*Math.cos(ang-.45),b.y-size*Math.sin(ang-.45));
+    c.moveTo(b.x,b.y);
+    c.lineTo(b.x-size*Math.cos(ang+.45),b.y-size*Math.sin(ang+.45));
+    c.stroke();
+  }
+}
 function strokeSmooth(c,pts){c.beginPath();const steps=Math.max(28,(pts.length-1)*22);for(let i=0;i<=steps;i++){const p=catmullPoint(pts,i/steps);if(i===0)c.moveTo(p.x,p.y);else c.lineTo(p.x,p.y)}c.stroke()}
 function arrow(c,pts,size=18){const b=catmullPoint(pts,1),a=catmullPoint(pts,.965),ang=Math.atan2(b.y-a.y,b.x-a.x);c.beginPath();c.moveTo(b.x,b.y);c.lineTo(b.x-size*Math.cos(ang-.45),b.y-size*Math.sin(ang-.45));c.moveTo(b.x,b.y);c.lineTo(b.x-size*Math.cos(ang+.45),b.y-size*Math.sin(ang+.45));c.stroke()}
 function dribbleWaveCount(pts){
