@@ -225,7 +225,9 @@ function phaseSteps(phase){
   return steps;
 }
 function actionPathLength(action){
-  const pts=pathPoints(action);let total=0,prev=catmullPoint(pts,0);
+  const pts=pathPoints(action);
+  if(typeof actionPathLengthFor==='function')return actionPathLengthFor(action,pts,36);
+  let total=0,prev=catmullPoint(pts,0);
   for(let i=1;i<=18;i++){
     const p=catmullPoint(pts,i/18);total+=Math.hypot(p.x-prev.x,p.y-prev.y);prev=p;
   }
@@ -375,7 +377,7 @@ function sceneDuringActions(base,rawActions,t){
     }
 
     const motionPts=(l.assistantAuthored&&Array.isArray(l._assistantScreenPath)&&l._assistantScreenPath.length>=2)?l._assistantScreenPath:pts;
-    const p=catmullPoint(motionPts,lt);
+    const p=(typeof actionPathPoint==='function')?actionPathPoint(l,motionPts,lt):catmullPoint(motionPts,lt);
     if(src&&['move','dribble','screen'].includes(l.type)){
       src.x=clamp(p.x,30,W-30);src.y=clamp(p.y,30,H-30);
     }
@@ -384,7 +386,7 @@ function sceneDuringActions(base,rawActions,t){
   // Ball-state pass. The ball remains with the giver until the exact exchange,
   // then attaches to the receiver while the receiver continues through the DHO.
   for(const l of actions){
-    const lt=actionPlaybackProgress(l,t),pts=pathPoints(l),src=playerByKey(scene,l.sourceKey),p=catmullPoint(pts,lt);
+    const lt=actionPlaybackProgress(l,t),pts=pathPoints(l),src=playerByKey(scene,l.sourceKey),p=(typeof actionPathPoint==='function')?actionPathPoint(l,pts,lt):catmullPoint(pts,lt);
     if(l.type==='dribble'&&src&&!ballHandled&&lt>0){
       scene.ball.owner=src.key;syncSceneBall(scene);ballHandled=true;
     }else if(l.type==='pass'&&!ballHandled&&lt>0){
