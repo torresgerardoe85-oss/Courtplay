@@ -81,4 +81,16 @@ function catmullPoint(points,t){
 function tangent(points,t){const a=catmullPoint(points,clamp(t-.01,0,1)),b=catmullPoint(points,clamp(t+.01,0,1));return{x:b.x-a.x,y:b.y-a.y}}
 function strokeSmooth(c,pts){c.beginPath();const steps=Math.max(28,(pts.length-1)*22);for(let i=0;i<=steps;i++){const p=catmullPoint(pts,i/steps);if(i===0)c.moveTo(p.x,p.y);else c.lineTo(p.x,p.y)}c.stroke()}
 function arrow(c,pts,size=18){const b=catmullPoint(pts,1),a=catmullPoint(pts,.965),ang=Math.atan2(b.y-a.y,b.x-a.x);c.beginPath();c.moveTo(b.x,b.y);c.lineTo(b.x-size*Math.cos(ang-.45),b.y-size*Math.sin(ang-.45));c.moveTo(b.x,b.y);c.lineTo(b.x-size*Math.cos(ang+.45),b.y-size*Math.sin(ang+.45));c.stroke()}
-function drawDribble(c,pts){const steps=Math.max(42,(pts.length-1)*30),amp=8,waves=Math.max(7,pts.length*4);c.beginPath();for(let i=0;i<=steps;i++){const t=i/steps,p=catmullPoint(pts,t),tan=tangent(pts,t),len=Math.hypot(tan.x,tan.y)||1,nx=-tan.y/len,ny=tan.x/len,off=Math.sin(t*Math.PI*2*waves)*amp,x=p.x+nx*off,y=p.y+ny*off;if(i===0)c.moveTo(x,y);else c.lineTo(x,y)}c.stroke();arrow(c,pts,17)}
+function dribbleWaveCount(pts){
+  const list=Array.isArray(pts)?pts:[];
+  if(list.length<2)return 7;
+  const steps=Math.max(24,(list.length-1)*18);
+  let length=0,prev=catmullPoint(list,0);
+  for(let i=1;i<=steps;i++){
+    const cur=catmullPoint(list,i/steps);
+    length+=Math.hypot(cur.x-prev.x,cur.y-prev.y);
+    prev=cur;
+  }
+  return clamp(Math.round(length/38),7,14);
+}
+function drawDribble(c,pts){const steps=Math.max(42,(pts.length-1)*30),amp=8,waves=dribbleWaveCount(pts);c.beginPath();for(let i=0;i<=steps;i++){const t=i/steps,p=catmullPoint(pts,t),tan=tangent(pts,t),len=Math.hypot(tan.x,tan.y)||1,nx=-tan.y/len,ny=tan.x/len,off=Math.sin(t*Math.PI*2*waves)*amp,x=p.x+nx*off,y=p.y+ny*off;if(i===0)c.moveTo(x,y);else c.lineTo(x,y)}c.stroke();arrow(c,pts,17)}
