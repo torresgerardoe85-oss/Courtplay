@@ -23,9 +23,18 @@ function handoffContinuationGeometry(l){
   if(CourtPlayEngine.handoffGeometry)return CourtPlayEngine.handoffGeometry(frame(),l);
   return null;
 }
-function hitHandoffExitHandle(p,l){
+function hitHandoffReceiverRouteHandle(p,l){
   const geom=handoffContinuationGeometry(l);
-  return !!(geom&&geom.receiverEnd&&Math.hypot(p.x-geom.receiverEnd.x,p.y-geom.receiverEnd.y)<=32);
+  if(!geom)return null;
+  const handles=[
+    {kind:'approach',point:geom.receiverApproach,r:24},
+    {kind:'contact',point:geom.receiverContact,r:26},
+    {kind:'end',point:geom.receiverEnd,r:32}
+  ].filter(h=>h.point);
+  for(const h of handles){
+    if(Math.hypot(p.x-h.point.x,p.y-h.point.y)<=h.r)return h;
+  }
+  return null;
 }
 function hitHandoffContinuationEndpoint(p){
   for(let i=frame().lines.length-1;i>=0;i--){
@@ -61,7 +70,7 @@ function defaultActionEnd(start,type){
 function dribbleControlPoints(points){
   const pts=(points||[]).map(p=>({x:p.x,y:p.y}));
   if(pts.length<2)return pts;
-  if(pts.length>=5)return pts;
+  if(pts.length>=4)return pts;
   const sample=t=>{
     if(typeof catmullPoint==='function')return catmullPoint(pts,t);
     const a=pts[0],b=pts[pts.length-1];
@@ -69,9 +78,8 @@ function dribbleControlPoints(points){
   };
   return[
     {x:pts[0].x,y:pts[0].y},
-    sample(.25),
-    sample(.50),
-    sample(.75),
+    sample(1/3),
+    sample(2/3),
     {x:pts[pts.length-1].x,y:pts[pts.length-1].y}
   ];
 }
@@ -90,7 +98,7 @@ function createActionFromSelectedPlayer(type){
   const action=makeAction(type,{x:pl.x,y:pl.y},pl.key);
   frame().lines.push(action);selectedLine=frame().lines.length-1;tool='select';reflowPhasesAfter(current);
   document.querySelectorAll('.tool').forEach(b=>b.classList.remove('active'));
-  setStatus(type==='dribble'?`Drible creado desde jugador ${pl.label} con 3 puntos naranjas de control. Puedes moverlos o añadir más.`:`${actionName(type)} creado desde jugador ${pl.label}. Verde = final. Naranja = curva. Azul = inicio.`);
+  setStatus(type==='dribble'?`Drible creado desde jugador ${pl.label} con 2 puntos naranjas de control. Puedes moverlos o añadir más.`:`${actionName(type)} creado desde jugador ${pl.label}. Verde = final. Naranja = curva. Azul = inicio.`);
   render();
 }
 function createActionFromSelectedAction(type){
@@ -162,7 +170,18 @@ function applyBallTransfer(l){
 function updateTransferTarget(l,p){
   if(!l||!['pass','handoff'].includes(l.type))return null;
   const target=hitReceiver(p,l.sourceKey);
-  if(target){l.targetKey=target.key;CourtPlayEngine.invalidateLocalGeometry(l);return target;}
+  const previous=l.targetKey||null;
+  if(target){
+    l.targetKey=target.key;
+    if(l.type==='handoff'&&previous&&previous!==target.key){
+      delete l.handoffReceiverApproachPoint;
+      delete l.handoffReceiverContactPoint;
+      delete l.handoffExitPoint;
+      delete l.handoffReceiverExit;
+      l.handoffGeometryAuto=true;
+    }
+    CourtPlayEngine.invalidateLocalGeometry(l);return target;
+  }
   l.targetKey=null;CourtPlayEngine.invalidateLocalGeometry(l);return null;
 }
 function transferVisualEnd(l,target){
@@ -178,9 +197,14 @@ canvas.addEventListener('pointerdown',e=>{e.preventDefault();canvas.setPointerCa
   if(tool==='select'){
     if(selectedLine>=0&&frame().lines[selectedLine]){
       const active=frame().lines[selectedLine];
-      if(hitHandoffExitHandle(p,active)){
-        drag={type:'handoffExit',line:selectedLine};
-        setStatus('Arrastra el punto violeta para definir por dónde sale el receptor del handoff.');
+      const violet=hitHandoffReceiverRouteHandle(p,active);
+      if(violet){
+        drag={type:'handoffReceiverPoint',line:selectedLine,kind:violet.kind};
+        setStatus(violet.kind==='end'
+          ?'Salida violeta: mueve el final del receptor.'
+          :(violet.kind==='contact'
+            ?'Contacto violeta: ajusta dónde ocurre el intercambio sin cruzar por debajo.'
+            :'Control violeta: ajusta la entrada del receptor al handoff.'));
         return;
       }
       const hi=hitHandle(p,active);
@@ -221,13 +245,27 @@ canvas.addEventListener('pointerdown',e=>{e.preventDefault();canvas.setPointerCa
 });
 canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefault();const p=point(e);
   if(draft){draft.points[draft.points.length-1]={x:clamp(p.x,20,W-20),y:clamp(p.y,20,H-20)};}
-  else if(drag?.type==='handoffExit'){
+  else if(drag?.type==='handoffReceiverPoint'){
     const l=frame().lines[drag.line],tgt=l&&l.targetKey&&frame().players.find(x=>x.key===l.targetKey);
-    if(l&&tgt){
-      const x=clamp(p.x,30,W-30),y=clamp(p.y,30,H-30);
-      l.handoffExitPoint={x,y};
-      l.handoffReceiverExit={dx:x-tgt.x,dy:y-tgt.y};
+    const geom=l?handoffContinuationGeometry(l):null;
+    if(l&&tgt&&geom){
+      const x=clamp(p.x,30,W-30);
+      if(drag.kind==='approach'){
+        const y=clamp(p.y,30,H-30);
+        l.handoffReceiverApproachPoint={x,y};
+      }else if(drag.kind==='contact'){
+        // Preserve the approved CourtPlay DHO rule: receiver crosses OVER
+        // on the perimeter side of the giver; user still controls the exact point.
+        const minY=Math.min(H-30,(geom.giverPresentation?.y||0)+34);
+        const y=clamp(p.y,minY,H-30);
+        l.handoffReceiverContactPoint={x,y};
+      }else{
+        const y=clamp(p.y,30,H-30);
+        l.handoffExitPoint={x,y};
+        l.handoffReceiverExit={dx:x-tgt.x,dy:y-tgt.y};
+      }
       l.handoffGeometryAuto=false;l.handoffVersion=6;
+      CourtPlayEngine.invalidateLocalGeometry(l);
     }
   }
   else if(drag?.type==='dribbleRouteEnd'){
@@ -273,9 +311,9 @@ canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefau
   ctx.clearRect(0,0,W,H);drawScene();
 });
 function finishPointer(e){
-  if(drag?.type==='handoffExit'){
+  if(drag?.type==='handoffReceiverPoint'){
     const l=frame().lines[drag.line];
-    if(l)setStatus('Salida del receptor guardada. El handoff continuará desde ese punto.');
+    if(l)setStatus('Ruta violeta ajustada. Puedes mover entrada, contacto y salida individualmente.');
   }
   if(drag?.type==='dribbleRouteEnd'){
     const l=frame().lines[drag.line];
@@ -304,7 +342,7 @@ canvas.addEventListener('pointercancel',()=>finishPointer(null));
 
 lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){
   const l=frame().lines[selectedLine];l.type=lineTypeEl.value;
-  if(l.type==='dribble'&&pathPoints(l).length<5){
+  if(l.type==='dribble'&&pathPoints(l).length<4){
     l.points=dribbleControlPoints(pathPoints(l));
     l.manualCurve=true;
     CourtPlayEngine.invalidateLocalGeometry(l);
@@ -312,7 +350,7 @@ lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){
   if(!['pass','handoff'].includes(l.type))l.targetKey=null;
   if(l.type!=='handoff')selectedHandoffBranch=null;
   if(l.type!=='handoff'){
-    delete l.handoffExitPoint;delete l.handoffReceiverExit;delete l.handoffGeometryAuto;delete l.handoffVersion;delete l.handoffTransferAt;delete l.handoffExitDistance;
+    delete l.handoffExitPoint;delete l.handoffReceiverExit;delete l.handoffReceiverApproachPoint;delete l.handoffReceiverContactPoint;delete l.handoffGeometryAuto;delete l.handoffVersion;delete l.handoffTransferAt;delete l.handoffExitDistance;
   }
   else{l.handoffVersion=6;if(!Number.isFinite(l.handoffTransferAt))l.handoffTransferAt=.62;}
   if(['pass','handoff'].includes(l.type))applyBallTransfer(l);
@@ -320,7 +358,7 @@ lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){
 }});
 addPointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const l=frame().lines[selectedLine],pts=pathPoints(l);let best=0,bestLen=-1;for(let i=0;i<pts.length-1;i++){const d=Math.hypot(pts[i+1].x-pts[i].x,pts[i+1].y-pts[i].y);if(d>bestLen){best=i;bestLen=d}}pts.splice(best+1,0,{x:(pts[best].x+pts[best+1].x)/2,y:(pts[best].y+pts[best+1].y)/2});l.manualCurve=true;CourtPlayEngine.invalidateLocalGeometry(l);reflowPhasesAfter(current);render();});
 removePointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const l=frame().lines[selectedLine],pts=pathPoints(l);if(pts.length<=2){setStatus('Una trayectoria necesita al menos inicio y final.');return}pts.splice(Math.max(1,pts.length-2),1);CourtPlayEngine.invalidateLocalGeometry(l);reflowPhasesAfter(current);render();});
-reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){const l=frame().lines[selectedLine];l.points.reverse();l.sourceKey=null;l.targetKey=null;l.sourceDetached=true;delete l.handoffExitPoint;delete l.handoffReceiverExit;delete l.handoffGeometryAuto;CourtPlayEngine.invalidateLocalGeometry(l);selectedPlayer=null;setStatus('Trayectoria invertida. Ya no está anclada a un jugador.');reflowPhasesAfter(current);render();}});
+reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){const l=frame().lines[selectedLine];l.points.reverse();l.sourceKey=null;l.targetKey=null;l.sourceDetached=true;delete l.handoffExitPoint;delete l.handoffReceiverExit;delete l.handoffReceiverApproachPoint;delete l.handoffReceiverContactPoint;delete l.handoffGeometryAuto;CourtPlayEngine.invalidateLocalGeometry(l);selectedPlayer=null;setStatus('Trayectoria invertida. Ya no está anclada a un jugador.');reflowPhasesAfter(current);render();}});
 deleteLineBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1;selectedHandoffBranch=null;reflowPhasesAfter(current);render();}});
 deleteObjectBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1;selectedHandoffBranch=null}else if(selectedPlayer){const key=selectedPlayer,i=frame().players.findIndex(x=>x.key===key);if(i>=0){if(frame().ball.owner===key)frame().ball.owner=null;frame().players.splice(i,1);frame().lines=frame().lines.filter(l=>l.sourceKey!==key);}selectedPlayer=null}reflowPhasesAfter(current);render();});
 
