@@ -58,9 +58,31 @@ function defaultActionEnd(start,type){
   if(type==='shot')end={x:500,y:112};
   return end;
 }
+function dribbleControlPoints(points){
+  const pts=(points||[]).map(p=>({x:p.x,y:p.y}));
+  if(pts.length<2)return pts;
+  if(pts.length>=5)return pts;
+  const sample=t=>{
+    if(typeof catmullPoint==='function')return catmullPoint(pts,t);
+    const a=pts[0],b=pts[pts.length-1];
+    return{x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t};
+  };
+  return[
+    {x:pts[0].x,y:pts[0].y},
+    sample(.25),
+    sample(.50),
+    sample(.75),
+    {x:pts[pts.length-1].x,y:pts[pts.length-1].y}
+  ];
+}
 function makeAction(type,start,sourceKey=null){
   const end=defaultActionEnd(start,type),mid={x:(start.x+end.x)/2,y:(start.y+end.y)/2};
-  return{type,sourceKey,targetKey:null,sourceDetached:false,manualCurve:false,isOption:false,simultaneousGroup:null,color:'#172033',points:[{x:start.x,y:start.y},mid,end]};
+  let points=[{x:start.x,y:start.y},mid,end],manualCurve=false;
+  if(type==='dribble'){
+    points=dribbleControlPoints(points);
+    manualCurve=true;
+  }
+  return{type,sourceKey,targetKey:null,sourceDetached:false,manualCurve,isOption:false,simultaneousGroup:null,color:'#172033',points};
 }
 function createActionFromSelectedPlayer(type){
   const pl=frame().players.find(p=>p.key===selectedPlayer);
@@ -68,7 +90,7 @@ function createActionFromSelectedPlayer(type){
   const action=makeAction(type,{x:pl.x,y:pl.y},pl.key);
   frame().lines.push(action);selectedLine=frame().lines.length-1;tool='select';reflowPhasesAfter(current);
   document.querySelectorAll('.tool').forEach(b=>b.classList.remove('active'));
-  setStatus(`${actionName(type)} creado desde jugador ${pl.label}. Verde = final. Naranja = curva. Azul = inicio.`);
+  setStatus(type==='dribble'?`Drible creado desde jugador ${pl.label} con 3 puntos naranjas de control. Puedes moverlos o añadir más.`:`${actionName(type)} creado desde jugador ${pl.label}. Verde = final. Naranja = curva. Azul = inicio.`);
   render();
 }
 function createActionFromSelectedAction(type){
@@ -242,6 +264,11 @@ canvas.addEventListener('pointercancel',()=>finishPointer(null));
 
 lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){
   const l=frame().lines[selectedLine];l.type=lineTypeEl.value;
+  if(l.type==='dribble'&&pathPoints(l).length<5){
+    l.points=dribbleControlPoints(pathPoints(l));
+    l.manualCurve=true;
+    CourtPlayEngine.invalidateLocalGeometry(l);
+  }
   if(!['pass','handoff'].includes(l.type))l.targetKey=null;
   if(l.type!=='handoff')selectedHandoffBranch=null;
   if(l.type!=='handoff'){
