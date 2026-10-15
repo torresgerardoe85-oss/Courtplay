@@ -90,7 +90,9 @@ function makeAction(type,start,sourceKey=null){
     points=dribbleControlPoints(points);
     manualCurve=true;
   }
-  return{type,sourceKey,targetKey:null,sourceDetached:false,manualCurve,isOption:false,simultaneousGroup:null,color:'#172033',points};
+  const action={type,sourceKey,targetKey:null,sourceDetached:false,manualCurve,isOption:false,simultaneousGroup:null,color:'#172033',points};
+  if(type==='dribble')action.dribbleCurveVersion=2;
+  return action;
 }
 function createActionFromSelectedPlayer(type){
   const pl=frame().players.find(p=>p.key===selectedPlayer);
@@ -98,7 +100,7 @@ function createActionFromSelectedPlayer(type){
   const action=makeAction(type,{x:pl.x,y:pl.y},pl.key);
   frame().lines.push(action);selectedLine=frame().lines.length-1;tool='select';reflowPhasesAfter(current);
   document.querySelectorAll('.tool').forEach(b=>b.classList.remove('active'));
-  setStatus(type==='dribble'?`Drible creado desde jugador ${pl.label} con 2 puntos naranjas de control. Puedes moverlos o añadir más.`:`${actionName(type)} creado desde jugador ${pl.label}. Verde = final. Naranja = curva. Azul = inicio.`);
+  setStatus(type==='dribble'?`Drible de prueba creado desde jugador ${pl.label}: 2 controles naranjas, curva suave y verde proporcional.`:`${actionName(type)} creado desde jugador ${pl.label}. Verde = final. Naranja = curva. Azul = inicio.`);
   render();
 }
 function createActionFromSelectedAction(type){
@@ -271,18 +273,33 @@ canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefau
   else if(drag?.type==='dribbleRouteEnd'){
     const l=frame().lines[drag.line];
     if(l&&l.type==='dribble'&&Array.isArray(drag.originalPoints)&&drag.originalPoints.length===l.points.length){
-      const original=drag.originalPoints,end0=original[original.length-1];
-      const desiredX=p.x-(drag.grabDx||0),desiredY=p.y-(drag.grabDy||0);
-      let dx=desiredX-end0.x,dy=desiredY-end0.y;
+      const original=drag.originalPoints,start=original[0],end0=original[original.length-1];
+      const desiredX=clamp(p.x-(drag.grabDx||0),20,W-20);
+      const desiredY=clamp(p.y-(drag.grabDy||0),20,H-20);
 
-      // Move every orange control + green end together; blue start remains anchored to the ball handler.
-      const movable=original.slice(1);
-      const minX=Math.min(...movable.map(pt=>pt.x)),maxX=Math.max(...movable.map(pt=>pt.x));
-      const minY=Math.min(...movable.map(pt=>pt.y)),maxY=Math.max(...movable.map(pt=>pt.y));
-      dx=clamp(dx,20-minX,(W-20)-maxX);
-      dy=clamp(dy,20-minY,(H-20)-maxY);
+      if(Number(l.dribbleCurveVersion)>=2&&original.length===4){
+        // Preserve the authored curve shape when the green endpoint moves:
+        // rotate + scale the two orange controls proportionally around the blue start.
+        const v0x=end0.x-start.x,v0y=end0.y-start.y,len0=Math.hypot(v0x,v0y)||1;
+        const v1x=desiredX-start.x,v1y=desiredY-start.y,len1=Math.max(24,Math.hypot(v1x,v1y));
+        const e0x=v0x/len0,e0y=v0y/len0,n0x=-e0y,n0y=e0x;
+        const e1x=v1x/len1,e1y=v1y/len1,n1x=-e1y,n1y=e1x;
 
-      l.points=original.map((pt,i)=>i===0?{x:pt.x,y:pt.y}:{x:pt.x+dx,y:pt.y+dy});
+        l.points=original.map((pt,i)=>{
+          if(i===0)return{x:start.x,y:start.y};
+          if(i===original.length-1)return{x:desiredX,y:desiredY};
+          const rx=pt.x-start.x,ry=pt.y-start.y;
+          const along=(rx*e0x+ry*e0y)/len0;
+          const side=(rx*n0x+ry*n0y)/len0;
+          return{
+            x:clamp(start.x+e1x*(along*len1)+n1x*(side*len1),20,W-20),
+            y:clamp(start.y+e1y*(along*len1)+n1y*(side*len1),20,H-20)
+          };
+        });
+      }else{
+        const dx=desiredX-end0.x,dy=desiredY-end0.y;
+        l.points=original.map((pt,i)=>i===0?{x:pt.x,y:pt.y}:{x:pt.x+dx,y:pt.y+dy});
+      }
       l.manualCurve=true;
       CourtPlayEngine.invalidateLocalGeometry(l);
     }
@@ -317,7 +334,7 @@ function finishPointer(e){
   }
   if(drag?.type==='dribbleRouteEnd'){
     const l=frame().lines[drag.line];
-    if(l)setStatus('Drible ajustado. Verde mueve la forma completa; cada naranja sigue siendo un control individual.');
+    if(l)setStatus(Number(l.dribbleCurveVersion)>=2?'Prueba de drible ajustada: verde conserva la forma proporcional y los naranjas afinan la curva.':'Drible ajustado. Verde mueve la forma completa; cada naranja sigue siendo un control individual.');
   }
   if(drag?.type==='handle'){
     const l=frame().lines[drag.line];
@@ -342,10 +359,13 @@ canvas.addEventListener('pointercancel',()=>finishPointer(null));
 
 lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){
   const l=frame().lines[selectedLine];l.type=lineTypeEl.value;
-  if(l.type==='dribble'&&pathPoints(l).length<4){
-    l.points=dribbleControlPoints(pathPoints(l));
+  if(l.type==='dribble'){
+    if(pathPoints(l).length<4)l.points=dribbleControlPoints(pathPoints(l));
+    if(pathPoints(l).length===4)l.dribbleCurveVersion=2;
     l.manualCurve=true;
     CourtPlayEngine.invalidateLocalGeometry(l);
+  }else{
+    delete l.dribbleCurveVersion;
   }
   if(!['pass','handoff'].includes(l.type))l.targetKey=null;
   if(l.type!=='handoff')selectedHandoffBranch=null;
@@ -356,8 +376,8 @@ lineTypeEl.addEventListener('change',()=>{if(selectedLine>=0){
   if(['pass','handoff'].includes(l.type))applyBallTransfer(l);
   reflowPhasesAfter(current);render();
 }});
-addPointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const l=frame().lines[selectedLine],pts=pathPoints(l);let best=0,bestLen=-1;for(let i=0;i<pts.length-1;i++){const d=Math.hypot(pts[i+1].x-pts[i].x,pts[i+1].y-pts[i].y);if(d>bestLen){best=i;bestLen=d}}pts.splice(best+1,0,{x:(pts[best].x+pts[best+1].x)/2,y:(pts[best].y+pts[best+1].y)/2});l.manualCurve=true;CourtPlayEngine.invalidateLocalGeometry(l);reflowPhasesAfter(current);render();});
-removePointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const l=frame().lines[selectedLine],pts=pathPoints(l);if(pts.length<=2){setStatus('Una trayectoria necesita al menos inicio y final.');return}pts.splice(Math.max(1,pts.length-2),1);CourtPlayEngine.invalidateLocalGeometry(l);reflowPhasesAfter(current);render();});
+addPointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const l=frame().lines[selectedLine],pts=pathPoints(l);if(l.type==='dribble'&&Number(l.dribbleCurveVersion)>=2){setStatus('Esta prueba de drible usa exactamente 2 controles naranjas.');return}let best=0,bestLen=-1;for(let i=0;i<pts.length-1;i++){const d=Math.hypot(pts[i+1].x-pts[i].x,pts[i+1].y-pts[i].y);if(d>bestLen){best=i;bestLen=d}}pts.splice(best+1,0,{x:(pts[best].x+pts[best+1].x)/2,y:(pts[best].y+pts[best+1].y)/2});l.manualCurve=true;CourtPlayEngine.invalidateLocalGeometry(l);reflowPhasesAfter(current);render();});
+removePointBtn.addEventListener('click',()=>{if(selectedLine<0)return;const l=frame().lines[selectedLine],pts=pathPoints(l);if(l.type==='dribble'&&Number(l.dribbleCurveVersion)>=2){setStatus('Esta prueba de drible mantiene 2 controles naranjas para conservar una curva estable.');return}if(pts.length<=2){setStatus('Una trayectoria necesita al menos inicio y final.');return}pts.splice(Math.max(1,pts.length-2),1);CourtPlayEngine.invalidateLocalGeometry(l);reflowPhasesAfter(current);render();});
 reverseLineBtn.addEventListener('click',()=>{if(selectedLine>=0){const l=frame().lines[selectedLine];l.points.reverse();l.sourceKey=null;l.targetKey=null;l.sourceDetached=true;delete l.handoffExitPoint;delete l.handoffReceiverExit;delete l.handoffReceiverApproachPoint;delete l.handoffReceiverContactPoint;delete l.handoffGeometryAuto;CourtPlayEngine.invalidateLocalGeometry(l);selectedPlayer=null;setStatus('Trayectoria invertida. Ya no está anclada a un jugador.');reflowPhasesAfter(current);render();}});
 deleteLineBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1;selectedHandoffBranch=null;reflowPhasesAfter(current);render();}});
 deleteObjectBtn.addEventListener('click',()=>{if(selectedLine>=0){frame().lines.splice(selectedLine,1);selectedLine=-1;selectedHandoffBranch=null}else if(selectedPlayer){const key=selectedPlayer,i=frame().players.findIndex(x=>x.key===key);if(i>=0){if(frame().ball.owner===key)frame().ball.owner=null;frame().players.splice(i,1);frame().lines=frame().lines.filter(l=>l.sourceKey!==key);}selectedPlayer=null}reflowPhasesAfter(current);render();});
