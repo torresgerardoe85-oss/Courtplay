@@ -1,6 +1,10 @@
 function drawAction(c,l,alpha=1){const pts=pathPoints(l);c.save();c.globalAlpha=alpha;const actionColor=l.color||(l.type==='shot'?'#df6813':'#172033');c.strokeStyle=actionColor;c.fillStyle=actionColor;c.lineWidth=6;c.lineCap='round';c.lineJoin='round';c.setLineDash([]);
   if(l.type==='pass')c.setLineDash([16,11]);
-  if(l.type==='dribble'){drawDribble(c,pts);c.restore();return;}
+  if(l.type==='dribble'){
+    if(Number(l.dribbleCurveVersion)>=2&&pts.length===4)drawDribbleV2(c,l,pts,1);
+    else drawDribble(c,pts);
+    c.restore();return;
+  }
   if(l.type==='handoff'){
     drawDribble(c,pts);
     const hp=catmullPoint(pts,.92);
@@ -200,7 +204,23 @@ function drawActionProgress(c,l,t){
     }
     c.restore();return;
   }
-  if(l.type==='dribble'||l.type==='handoff'){
+  if(l.type==='dribble'){
+    if(Number(l.dribbleCurveVersion)>=2&&pts.length===4){
+      drawDribbleV2(c,l,pts,tt);
+    }else{
+      const steps=Math.max(10,Math.ceil(45*tt)),amp=8,waves=typeof dribbleWaveCount==='function'?dribbleWaveCount(pts):Math.max(7,Math.min(14,pts.length*3));
+      c.beginPath();
+      for(let i=0;i<=steps;i++){
+        const u=(i/steps)*tt,p=catmullPoint(pts,u),tan=tangent(pts,u),len=Math.hypot(tan.x,tan.y)||1,nx=-tan.y/len,ny=tan.x/len,off=Math.sin(u*Math.PI*2*waves)*amp;
+        const x=p.x+nx*off,y=p.y+ny*off;
+        if(i===0)c.moveTo(x,y);else c.lineTo(x,y);
+      }
+      c.stroke();
+      if(tt>.08){const a=catmullPoint(pts,Math.max(0,tt-.05)),b=catmullPoint(pts,tt);arrow(c,[a,b],17);}
+    }
+    c.restore();return;
+  }
+  if(l.type==='handoff'){
     const steps=Math.max(10,Math.ceil(45*tt)),amp=8,waves=typeof dribbleWaveCount==='function'?dribbleWaveCount(pts):Math.max(7,Math.min(14,pts.length*3));
     c.beginPath();
     for(let i=0;i<=steps;i++){
@@ -210,7 +230,7 @@ function drawActionProgress(c,l,t){
     }
     c.stroke();
     if(tt>.08){const a=catmullPoint(pts,Math.max(0,tt-.05)),b=catmullPoint(pts,tt);arrow(c,[a,b],17);}
-    if(l.type==='handoff'&&tt>.35){
+    if(tt>.35){
       const hAt=CourtPlayEngine.handoffTransferAt?CourtPlayEngine.handoffTransferAt(l):.62;
       const hp=catmullPoint(pts,Math.min(.96,Math.max(.82,hAt+.28)));
       c.save();
