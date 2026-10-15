@@ -1,0 +1,1287 @@
+{
+  "version": 1,
+  "name": "VIRTUS — Double Drag → Side DHO → Reverse → Step-Up",
+  "description": "Reconstrucción CourtPlay de Sergio Scariolo | Virtus Bologna 2021 | p.29. Double Drag con 5 roll y 4 open/catch → Side DHO 4→3 → reverse 3→1 → 5 Step-Up PnR. Geometría de screens y DHO reutiliza patrones validados; pendiente de revisión visual del entrenador.",
+  "status": "Research / Testing — source reconstruction; pending visual validation",
+  "system": "Virtus Bologna 2021 — Transition",
+  "family": "Double Drag Flow",
+  "categories": [
+    "transition",
+    "flow",
+    "pnr",
+    "dho",
+    "quick"
+  ],
+  "authoringProfile": "assistant",
+  "source": {
+    "file": "Sergio-Scariolo-_-Virtus-Bologna-2021-_-48-sets.pdf",
+    "page": 29,
+    "title": "Double Drag Side DHO Rev Step Up",
+    "fidelity": "Tactical sequence follows the three source diagrams. Intermediate CourtPlay phases only expose timing dependencies required to animate screens, handoff and passes correctly."
+  },
+  "validatedReferences": [
+    "plays/screen-test-over-v1.json",
+    "plays/41-flow-motion-layer-2-corrected.json",
+    "plays/41-flow-early-drag-core.json",
+    "plays/handoff-v6-correct-cross-test.json"
+  ],
+  "animationStandard": {
+    "screenSequence": "SET → USE OVER → CLEAR SCREEN → TURN CORNER + ROLL / OPEN",
+    "handoffSequence": "APPROACH → CONTACT/TRANSFER → RECEIVER OVER / GIVER UNDER → CONTINUE",
+    "rules": [
+      "5 y 4 están plantados antes de cada uso del Double Drag.",
+      "1 usa primero a 5 y después a 4, hombro con cadera; no atraviesa ni evita las pantallas.",
+      "5 inicia el roll solamente después de que 1 limpia la primera pantalla.",
+      "4 no abre al right slot hasta que 1 ha limpiado la segunda pantalla.",
+      "En el DHO, 3 pasa por encima de 4; 4 cruza por debajo y la transferencia ocurre una sola vez.",
+      "El reverse 3→1 ocurre después de completarse el DHO.",
+      "5 planta el Step-Up antes de que 1 lo utilice; 5 rola después del uso.",
+      "2, 3 y 4 preservan spacing del diagrama fuente."
+    ]
+  },
+  "teachingReads": [
+    "DOUBLE DRAG",
+    "5 ROLL / 4 OPEN",
+    "4 CATCH",
+    "SIDE DHO 4→3",
+    "REVERSE 3→1",
+    "5 STEP-UP",
+    "TURN CORNER + ROLL"
+  ],
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 710,
+          "y": 545
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 320
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 865,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 585,
+          "y": 520
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 690,
+          "y": 570
+        }
+      ],
+      "ball": {
+        "x": 744,
+        "y": 549,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "dd_set",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 690,
+              "y": 570
+            },
+            {
+              "x": 670,
+              "y": 555
+            },
+            {
+              "x": 645,
+              "y": 545
+            }
+          ],
+          "timingWeight": 0.8,
+          "assistantAuthored": true,
+          "screenAngleLocked": true,
+          "screenAngle": 55
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "dd_set",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 585,
+              "y": 520
+            },
+            {
+              "x": 555,
+              "y": 485
+            },
+            {
+              "x": 515,
+              "y": 440
+            }
+          ],
+          "timingWeight": 1,
+          "assistantAuthored": true,
+          "screenAngleLocked": true,
+          "screenAngle": 55
+        }
+      ],
+      "caption": "DOUBLE DRAG — SET. 5 planta primero en la ruta de 1 y 4 queda preparado como segunda pantalla. Ambos están quietos antes del uso.",
+      "seconds": 1.15,
+      "timeline": {
+        "logic": [
+          "5 SET",
+          "4 SET",
+          "1 HOLD",
+          "2/3 HOLD spacing"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 710,
+          "y": 545
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 320
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 865,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 515,
+          "y": 440
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 645,
+          "y": 545
+        }
+      ],
+      "ball": {
+        "x": 744,
+        "y": 549,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 710,
+              "y": 545
+            },
+            {
+              "x": 693,
+              "y": 528
+            },
+            {
+              "x": 675,
+              "y": 508
+            },
+            {
+              "x": 650,
+              "y": 488
+            },
+            {
+              "x": 615,
+              "y": 462
+            },
+            {
+              "x": 580,
+              "y": 440
+            }
+          ],
+          "timingWeight": 1.15,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "assistantAuthored": true
+        }
+      ],
+      "caption": "DOUBLE DRAG — USE #1. 1 toma a 5 por OVER, hombro con cadera. 5 y 4 permanecen plantados durante este uso.",
+      "seconds": 1.2,
+      "timeline": {
+        "logic": [
+          "1 USE OVER o5",
+          "1 CLEAR first screen",
+          "5 HOLD until clear",
+          "4 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 580,
+          "y": 440
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 320
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 865,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 515,
+          "y": 440
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 645,
+          "y": 545
+        }
+      ],
+      "ball": {
+        "x": 614,
+        "y": 444,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "dd_second",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 580,
+              "y": 440
+            },
+            {
+              "x": 563,
+              "y": 423
+            },
+            {
+              "x": 545,
+              "y": 403
+            },
+            {
+              "x": 520,
+              "y": 383
+            },
+            {
+              "x": 485,
+              "y": 357
+            },
+            {
+              "x": 450,
+              "y": 335
+            }
+          ],
+          "timingWeight": 1.15,
+          "usesScreenKeys": [
+            "o4"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "assistantAuthored": true
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "dd_second",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 645,
+              "y": 545
+            },
+            {
+              "x": 625,
+              "y": 455
+            },
+            {
+              "x": 595,
+              "y": 355
+            },
+            {
+              "x": 555,
+              "y": 255
+            },
+            {
+              "x": 515,
+              "y": 185
+            }
+          ],
+          "timingWeight": 1.05
+        }
+      ],
+      "caption": "DOUBLE DRAG — USE #2 + 5 ROLL. Después de limpiar a 5, 1 utiliza a 4 por OVER. 5 ya puede rolar; 4 sigue plantado hasta que 1 limpia la segunda pantalla.",
+      "seconds": 1.45,
+      "timeline": {
+        "logic": [
+          "1 USE OVER o4",
+          "5 RELEASE → ROLL after first clear",
+          "4 HOLD until second clear"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 450,
+          "y": 335
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 320
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 865,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 515,
+          "y": 440
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 515,
+          "y": 185
+        }
+      ],
+      "ball": {
+        "x": 484,
+        "y": 339,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 515,
+              "y": 440
+            },
+            {
+              "x": 555,
+              "y": 420
+            },
+            {
+              "x": 605,
+              "y": 395
+            },
+            {
+              "x": 650,
+              "y": 375
+            }
+          ],
+          "timingWeight": 0.9
+        }
+      ],
+      "caption": "4 OPEN — Ya liberada la segunda pantalla, 4 se abre al right slot para conectar la siguiente acción. 5 ocupa el interior tras su roll.",
+      "seconds": 0.8,
+      "timeline": {
+        "logic": [
+          "4 opens only after 1 clears o4",
+          "1 controls ball",
+          "5 interior"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 450,
+          "y": 335
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 320
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 865,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 650,
+          "y": 375
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 515,
+          "y": 185
+        }
+      ],
+      "ball": {
+        "x": 484,
+        "y": 339,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "dd_connect",
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 450,
+              "y": 335
+            },
+            {
+              "x": 545,
+              "y": 350
+            },
+            {
+              "x": 650,
+              "y": 375
+            }
+          ],
+          "timingWeight": 0.7
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "dd_connect",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 450,
+              "y": 335
+            },
+            {
+              "x": 465,
+              "y": 420
+            },
+            {
+              "x": 485,
+              "y": 500
+            }
+          ],
+          "timingWeight": 0.8
+        }
+      ],
+      "caption": "CONNECT — 1 pasa a 4 en el right slot y re-espacia hacia el top. Este catch de 4 conecta el Double Drag con el Side DHO del segundo diagrama.",
+      "seconds": 0.9,
+      "timeline": {
+        "logic": [
+          "1→4 PASS to reception spot",
+          "1 re-space after pass",
+          "4 catch before DHO"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 485,
+          "y": 500
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 150,
+          "y": 320
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 865,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 650,
+          "y": 375
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 515,
+          "y": 185
+        }
+      ],
+      "ball": {
+        "x": 684,
+        "y": 379,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "side_dho_approach",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 650,
+              "y": 375
+            },
+            {
+              "x": 690,
+              "y": 360
+            },
+            {
+              "x": 730,
+              "y": 350
+            },
+            {
+              "x": 760,
+              "y": 348
+            }
+          ],
+          "timingWeight": 0.95
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "side_dho_approach",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 865,
+              "y": 190
+            },
+            {
+              "x": 858,
+              "y": 245
+            },
+            {
+              "x": 845,
+              "y": 295
+            },
+            {
+              "x": 825,
+              "y": 332
+            }
+          ],
+          "timingWeight": 1
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "side_dho_approach",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 150,
+              "y": 320
+            },
+            {
+              "x": 145,
+              "y": 255
+            },
+            {
+              "x": 140,
+              "y": 190
+            }
+          ],
+          "timingWeight": 0.75
+        }
+      ],
+      "caption": "SIDE DHO — APPROACH. 4 dribla hacia 3; 3 baja desde la esquina para encontrarse en movimiento. 2 limpia a la esquina izquierda. Todavía no se transfiere el balón.",
+      "seconds": 1.15,
+      "timeline": {
+        "logic": [
+          "4 approaches with ball",
+          "3 approaches receiver path",
+          "2 corner spacing",
+          "DHO transfer waits for contact"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 485,
+          "y": 500
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 140,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 825,
+          "y": 332
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 760,
+          "y": 348
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 515,
+          "y": 185
+        }
+      ],
+      "ball": {
+        "x": 794,
+        "y": 352,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "handoff",
+          "sourceKey": "o4",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "timingWeight": 1,
+          "handoffVersion": 6,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 105,
+          "handoffGiverUnderDistance": 82,
+          "handoffExitPoint": {
+            "x": 825,
+            "y": 405
+          },
+          "handoffGeometryAuto": false,
+          "points": [
+            {
+              "x": 760,
+              "y": 348
+            },
+            {
+              "x": 780,
+              "y": 350
+            },
+            {
+              "x": 798,
+              "y": 355
+            }
+          ],
+          "assistantAuthored": true,
+          "handoffReceiverSide": "over"
+        }
+      ],
+      "caption": "SIDE DHO — CONTACT. 3 pasa POR ENCIMA de 4, recibe una sola vez en el cruce y continúa hacia abajo/afuera; 4 cruza POR DEBAJO y se separa.",
+      "seconds": 1.55,
+      "timeline": {
+        "logic": [
+          "3 OVER / 4 UNDER",
+          "single transfer 4→3",
+          "receiver continues without stop"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 485,
+          "y": 500
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 140,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 825,
+          "y": 405
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 755,
+          "y": 300
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 515,
+          "y": 185
+        }
+      ],
+      "ball": {
+        "x": 859,
+        "y": 409,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o3",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 825,
+              "y": 405
+            },
+            {
+              "x": 665,
+              "y": 455
+            },
+            {
+              "x": 485,
+              "y": 500
+            }
+          ],
+          "timingWeight": 0.75
+        }
+      ],
+      "caption": "REVERSE — Después del DHO, 3 revierte a 1. El reverse ocurre DESPUÉS de la transferencia, igual que en el segundo diagrama.",
+      "seconds": 0.9,
+      "timeline": {
+        "logic": [
+          "DHO complete",
+          "3→1 reverse",
+          "1 catch before Step-Up setup"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 485,
+          "y": 500
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 140,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 825,
+          "y": 405
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 755,
+          "y": 300
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 515,
+          "y": 185
+        }
+      ],
+      "ball": {
+        "x": 519,
+        "y": 504,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "step_set",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 515,
+              "y": 185
+            },
+            {
+              "x": 470,
+              "y": 255
+            },
+            {
+              "x": 435,
+              "y": 345
+            },
+            {
+              "x": 410,
+              "y": 455
+            }
+          ],
+          "timingWeight": 1.1,
+          "assistantAuthored": true,
+          "screenAngleLocked": true,
+          "screenAngle": 125
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "step_set",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 755,
+              "y": 300
+            },
+            {
+              "x": 805,
+              "y": 245
+            },
+            {
+              "x": 855,
+              "y": 190
+            }
+          ],
+          "timingWeight": 0.9
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "step_set",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 825,
+              "y": 405
+            },
+            {
+              "x": 830,
+              "y": 355
+            },
+            {
+              "x": 825,
+              "y": 325
+            }
+          ],
+          "timingWeight": 0.7
+        }
+      ],
+      "caption": "STEP-UP — SET. 5 sale desde el interior y PLANTA a la izquierda/basket-side de 1. 4 ocupa la esquina derecha; 3 sostiene el wing y 2 la esquina izquierda.",
+      "seconds": 1.4,
+      "timeline": {
+        "logic": [
+          "5 SET before use",
+          "4 corner",
+          "3 wing",
+          "2 corner",
+          "1 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 485,
+          "y": 500
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 140,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 825,
+          "y": 325
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 855,
+          "y": 190
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 410,
+          "y": 455
+        }
+      ],
+      "ball": {
+        "x": 519,
+        "y": 504,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 485,
+              "y": 500
+            },
+            {
+              "x": 462,
+              "y": 490
+            },
+            {
+              "x": 438,
+              "y": 478
+            },
+            {
+              "x": 417,
+              "y": 462
+            },
+            {
+              "x": 395,
+              "y": 445
+            },
+            {
+              "x": 378,
+              "y": 425
+            }
+          ],
+          "timingWeight": 1.15,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "assistantAuthored": true
+        }
+      ],
+      "caption": "STEP-UP — USE OVER. 1 pasa pegado al hombro de 5 y limpia completamente la pantalla. 5 NO rola todavía.",
+      "seconds": 1.2,
+      "timeline": {
+        "logic": [
+          "1 USE OVER o5",
+          "1 CLEAR SCREEN",
+          "5 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 378,
+          "y": 425
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 140,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 825,
+          "y": 325
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 855,
+          "y": 190
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 410,
+          "y": 455
+        }
+      ],
+      "ball": {
+        "x": 412,
+        "y": 429,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "step_release",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 378,
+              "y": 425
+            },
+            {
+              "x": 365,
+              "y": 385
+            },
+            {
+              "x": 370,
+              "y": 340
+            },
+            {
+              "x": 390,
+              "y": 295
+            },
+            {
+              "x": 420,
+              "y": 250
+            }
+          ],
+          "timingWeight": 1.05
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "step_release",
+          "color": "#ef4444",
+          "points": [
+            {
+              "x": 410,
+              "y": 455
+            },
+            {
+              "x": 430,
+              "y": 380
+            },
+            {
+              "x": 455,
+              "y": 300
+            },
+            {
+              "x": 480,
+              "y": 225
+            },
+            {
+              "x": 500,
+              "y": 175
+            }
+          ],
+          "timingWeight": 1.05
+        }
+      ],
+      "caption": "TURN CORNER + 5 ROLL — Ya liberada la pantalla, 1 gira la esquina y 5 rola por carril separado. La reconstrucción termina aquí porque el tercer diagrama termina en el Step-Up PnR, sin imponer una finalización que la fuente no muestra.",
+      "seconds": 1.55,
+      "timeline": {
+        "logic": [
+          "1 TURN CORNER",
+          "5 RELEASE → ROLL",
+          "separate lanes",
+          "source ends live"
+        ]
+      }
+    }
+  ],
+  "totalSeconds": 13.25,
+  "animationTotalSeconds": 13.25,
+  "reviewNotes": [
+    "Secuencia táctica basada exclusivamente en los tres diagramas de la pág. 29.",
+    "Las fases intermedias separan SET/USE/RELEASE y DHO para que CourtPlay respete timing real.",
+    "El movimiento de 4 a right slot entre los diagramas 1 y 2 es la interpolación mínima necesaria para que 4 sea el ballhandler del Side DHO mostrado en el diagrama 2.",
+    "No se añadió tiro ni pocket pass al Step-Up final porque la fuente no muestra una finalización.",
+    "Guardada para revisión visual; NO declarada validada hasta reproducirse en CourtPlay y recibir aprobación del entrenador."
+  ]
+}
