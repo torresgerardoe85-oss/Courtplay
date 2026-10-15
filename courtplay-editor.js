@@ -183,7 +183,24 @@ canvas.addEventListener('pointerdown',e=>{e.preventDefault();canvas.setPointerCa
         setStatus('Arrastra el punto violeta para definir por dónde sale el receptor del handoff.');
         return;
       }
-      const hi=hitHandle(p,active);if(hi>=0){drag={type:'handle',line:selectedLine,point:hi};return;}
+      const hi=hitHandle(p,active);
+      if(hi>=0){
+        const pts=pathPoints(active),isEnd=hi===pts.length-1;
+        if(active.type==='dribble'&&isEnd){
+          const end=pts[pts.length-1];
+          drag={
+            type:'dribbleRouteEnd',
+            line:selectedLine,
+            originalPoints:pts.map(pt=>({x:pt.x,y:pt.y})),
+            grabDx:p.x-end.x,
+            grabDy:p.y-end.y
+          };
+          setStatus('Verde: mueve el destino y arrastra toda la forma del drible. Naranja: ajusta cada curva individual.');
+        }else{
+          drag={type:'handle',line:selectedLine,point:hi};
+        }
+        return;
+      }
     }
 
     const continuation=hitHandoffContinuationEndpoint(p);
@@ -213,6 +230,25 @@ canvas.addEventListener('pointermove',e=>{if(!drag&&!draft)return;e.preventDefau
       l.handoffGeometryAuto=false;l.handoffVersion=6;
     }
   }
+  else if(drag?.type==='dribbleRouteEnd'){
+    const l=frame().lines[drag.line];
+    if(l&&l.type==='dribble'&&Array.isArray(drag.originalPoints)&&drag.originalPoints.length===l.points.length){
+      const original=drag.originalPoints,end0=original[original.length-1];
+      const desiredX=p.x-(drag.grabDx||0),desiredY=p.y-(drag.grabDy||0);
+      let dx=desiredX-end0.x,dy=desiredY-end0.y;
+
+      // Move every orange control + green end together; blue start remains anchored to the ball handler.
+      const movable=original.slice(1);
+      const minX=Math.min(...movable.map(pt=>pt.x)),maxX=Math.max(...movable.map(pt=>pt.x));
+      const minY=Math.min(...movable.map(pt=>pt.y)),maxY=Math.max(...movable.map(pt=>pt.y));
+      dx=clamp(dx,20-minX,(W-20)-maxX);
+      dy=clamp(dy,20-minY,(H-20)-maxY);
+
+      l.points=original.map((pt,i)=>i===0?{x:pt.x,y:pt.y}:{x:pt.x+dx,y:pt.y+dy});
+      l.manualCurve=true;
+      CourtPlayEngine.invalidateLocalGeometry(l);
+    }
+  }
   else if(drag?.type==='handle'){
     const l=frame().lines[drag.line],pt=l.points[drag.point];
     let x=clamp(p.x,20,W-20),y=clamp(p.y,20,H-20);
@@ -240,6 +276,10 @@ function finishPointer(e){
   if(drag?.type==='handoffExit'){
     const l=frame().lines[drag.line];
     if(l)setStatus('Salida del receptor guardada. El handoff continuará desde ese punto.');
+  }
+  if(drag?.type==='dribbleRouteEnd'){
+    const l=frame().lines[drag.line];
+    if(l)setStatus('Drible ajustado. Verde mueve la forma completa; cada naranja sigue siendo un control individual.');
   }
   if(drag?.type==='handle'){
     const l=frame().lines[drag.line];
