@@ -32,24 +32,39 @@ function drawHandoffContinuationGuide(c,l,f=frame(),active=false){
   if(!geom)return;
   c.save();
 
-  // Receiver continuation stays visible in violet even after another action is selected.
+  // Receiver route stays visible in violet. The editable violet handles are
+  // approach, exchange/contact and exit; the receiver's number is the route start.
   if(geom.receiverStart&&geom.receiverContact&&geom.receiverEnd){
     const receiverActive=active&&selectedHandoffBranch==='receiver';
+    const route=(Array.isArray(geom.receiverPath)&&geom.receiverPath.length>=3)
+      ?geom.receiverPath
+      :[geom.receiverStart,geom.receiverContact,geom.receiverEnd];
     c.strokeStyle=receiverActive?'#6d28d9':'rgba(124,58,237,.72)';
     c.lineWidth=receiverActive?4:3;
     c.setLineDash([8,7]);
-    c.beginPath();c.moveTo(geom.receiverStart.x,geom.receiverStart.y);
-    c.lineTo(geom.receiverContact.x,geom.receiverContact.y);
-    c.lineTo(geom.receiverEnd.x,geom.receiverEnd.y);c.stroke();c.setLineDash([]);
-    c.beginPath();c.fillStyle='#fff';c.strokeStyle='#7c3aed';c.lineWidth=3;
-    c.arc(geom.receiverContact.x,geom.receiverContact.y,8,0,Math.PI*2);c.fill();c.stroke();
-    c.beginPath();c.fillStyle=receiverActive?'#6d28d9':'#7c3aed';c.strokeStyle='#fff';c.lineWidth=4;
-    c.arc(geom.receiverEnd.x,geom.receiverEnd.y,16,0,Math.PI*2);c.fill();c.stroke();
+    strokeSmooth(c,route);
+    c.setLineDash([]);
+
+    const handles=[
+      {key:'approach',point:geom.receiverApproach||route[Math.max(1,route.length-3)],r:10},
+      {key:'contact',point:geom.receiverContact,r:12},
+      {key:'end',point:geom.receiverEnd,r:16}
+    ].filter(h=>h.point);
+
+    handles.forEach(h=>{
+      c.beginPath();
+      c.fillStyle=h.key==='end'?(receiverActive?'#6d28d9':'#7c3aed'):'#fff';
+      c.strokeStyle='#7c3aed';
+      c.lineWidth=4;
+      c.arc(h.point.x,h.point.y,h.r,0,Math.PI*2);
+      c.fill();c.stroke();
+    });
+
     c.fillStyle='#6d28d9';c.font='800 13px system-ui';c.textAlign='center';c.textBaseline='bottom';
     c.fillText('RECIBE',geom.receiverEnd.x,geom.receiverEnd.y-20);
   }
 
-  // The giver also remains a valid continuation after the exchange.
+  // The giver remains a valid continuation after the exchange.
   if(geom.giverPresentation&&geom.giverEnd){
     const giverActive=active&&selectedHandoffBranch==='giver';
     c.strokeStyle=giverActive?'#c2410c':'rgba(234,88,12,.62)';
@@ -186,7 +201,7 @@ function drawActionProgress(c,l,t){
     c.restore();return;
   }
   if(l.type==='dribble'||l.type==='handoff'){
-    const steps=Math.max(10,Math.ceil(45*tt)),amp=8,waves=Math.max(7,pts.length*4);
+    const steps=Math.max(10,Math.ceil(45*tt)),amp=8,waves=typeof dribbleWaveCount==='function'?dribbleWaveCount(pts):Math.max(7,Math.min(14,pts.length*3));
     c.beginPath();
     for(let i=0;i<=steps;i++){
       const u=(i/steps)*tt,p=catmullPoint(pts,u),tan=tangent(pts,u),len=Math.hypot(tan.x,tan.y)||1,nx=-tan.y/len,ny=tan.x/len,off=Math.sin(u*Math.PI*2*waves)*amp;
