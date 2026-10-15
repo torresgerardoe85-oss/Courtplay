@@ -15,7 +15,7 @@ function hitReceiver(p,sourceKey=null){
   return best;
 }
 function distSeg(px,py,a,b){const vx=b.x-a.x,vy=b.y-a.y,wx=px-a.x,wy=py-a.y,d=vx*vx+vy*vy||1,t=clamp((wx*vx+wy*vy)/d,0,1),x=a.x+t*vx,y=a.y+t*vy;return Math.hypot(px-x,py-y)}
-function hitLine(p){for(let i=frame().lines.length-1;i>=0;i--){const pts=pathPoints(frame().lines[i]);let prev=catmullPoint(pts,0);for(let s=1;s<=50;s++){const cur=catmullPoint(pts,s/50);if(distSeg(p.x,p.y,prev,cur)<18)return i;prev=cur}}return-1}
+function hitLine(p){for(let i=frame().lines.length-1;i>=0;i--){const action=frame().lines[i],pts=pathPoints(action);let prev=(typeof actionPathPoint==='function')?actionPathPoint(action,pts,0):catmullPoint(pts,0);for(let s=1;s<=50;s++){const cur=(typeof actionPathPoint==='function')?actionPathPoint(action,pts,s/50):catmullPoint(pts,s/50);if(distSeg(p.x,p.y,prev,cur)<18)return i;prev=cur}}return-1}
 function hitHandle(p,l){const pts=pathPoints(l);for(let i=0;i<pts.length;i++){if(Math.hypot(p.x-pts[i].x,p.y-pts[i].y)<=26)return i;}return-1}
 function handoffContinuationGeometry(l){
   if(!l||l.type!=='handoff'||!l.targetKey)return null;
