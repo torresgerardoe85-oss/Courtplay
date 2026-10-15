@@ -128,7 +128,7 @@ function updateInspector(){
     if(selectionSummary){
       const controls=l.type==='dribble'?Math.max(0,pathPoints(l).length-2):0;
       selectionSummary.textContent=
-        `${actionName(l.type)}${src?' · '+(src.team==='defense'?'x':'')+src.label:''}${tgt?' → '+(tgt.team==='defense'?'x':'')+tgt.label:''}${l.type==='dribble'?' · '+controls+' controles naranjas':''}${validHandoff?' · violeta = recibe · naranja = entrega':''}`;
+        `${actionName(l.type)}${src?' · '+(src.team==='defense'?'x':'')+src.label:''}${tgt?' → '+(tgt.team==='defense'?'x':'')+tgt.label:''}${l.type==='dribble'?' · '+controls+' controles · verde mueve ruta · naranja ajusta punto':''}${validHandoff?' · violeta = recibe · naranja = entrega':''}`;
     }
   }else{
     if(handoffBox)handoffBox.classList.add('hidden');
