@@ -126,8 +126,9 @@ function updateInspector(){
     if(giverBtn)giverBtn.classList.toggle('active',validHandoff&&selectedHandoffBranch==='giver');
     if(receiverBtn)receiverBtn.classList.toggle('active',validHandoff&&selectedHandoffBranch==='receiver');
     if(selectionSummary){
+      const controls=l.type==='dribble'?Math.max(0,pathPoints(l).length-2):0;
       selectionSummary.textContent=
-        `${actionName(l.type)}${src?' · '+(src.team==='defense'?'x':'')+src.label:''}${tgt?' → '+(tgt.team==='defense'?'x':'')+tgt.label:''}${validHandoff?' · violeta = recibe · naranja = entrega':''}`;
+        `${actionName(l.type)}${src?' · '+(src.team==='defense'?'x':'')+src.label:''}${tgt?' → '+(tgt.team==='defense'?'x':'')+tgt.label:''}${l.type==='dribble'?' · '+controls+' controles naranjas':''}${validHandoff?' · violeta = recibe · naranja = entrega':''}`;
     }
   }else{
     if(handoffBox)handoffBox.classList.add('hidden');
