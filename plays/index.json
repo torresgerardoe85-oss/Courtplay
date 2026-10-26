@@ -1,10 +1,10 @@
 {
-  "version": 46,
+  "version": 47,
   "plays": [
     {
       "slug": "bampi-41-uconn-flow-core",
-      "name": "BAMPI 41 — UConn Flow CORE · High Hit → Gut Zoom → Second Zoom → PnR",
-      "description": "Research/Testing: UConn Vol.2 p.83–89 adaptado a BAMPI 4-Out 1-In — Arrival → High Hit → Gut Zoom → Swing → Second Zoom → DHO → PnR. Screens y DHO reutilizan reglas validadas; pendiente de revisión visual.",
+      "name": "BAMPI 41 — UConn Flow CORE v2 · TODAY INSTALL",
+      "description": "TODAY INSTALL v2: Arrival → High Hit/Gut Zoom → Swing → Second Zoom → Reverse → Angle PnR. Gut y spacing corregidos; tercer DHO eliminado; PnR final reconstruido con geometría OVER validada.",
       "categories": [
         "transition",
         "flow",
