@@ -1,6 +1,21 @@
 {
-  "version": 45,
+  "version": 46,
   "plays": [
+    {
+      "slug": "bampi-41-uconn-flow-core",
+      "name": "BAMPI 41 — UConn Flow CORE · High Hit → Gut Zoom → Second Zoom → PnR",
+      "description": "Research/Testing: UConn Vol.2 p.83–89 adaptado a BAMPI 4-Out 1-In — Arrival → High Hit → Gut Zoom → Swing → Second Zoom → DHO → PnR. Screens y DHO reutilizan reglas validadas; pendiente de revisión visual.",
+      "categories": [
+        "transition",
+        "flow",
+        "motion",
+        "zoom",
+        "dho",
+        "pnr",
+        "4-out-1-in",
+        "uconn"
+      ]
+    },
     {
       "slug": "virtus-double-drag-side-dho-rev-step-up",
       "name": "VIRTUS — Double Drag → Side DHO → Reverse → Step-Up",
