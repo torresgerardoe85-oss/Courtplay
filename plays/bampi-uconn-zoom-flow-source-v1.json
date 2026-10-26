@@ -131,15 +131,15 @@
             },
             {
               "x": 825,
-              "y": 390
+              "y": 430
             },
             {
-              "x": 842,
-              "y": 285
+              "x": 840,
+              "y": 360
             },
             {
               "x": 850,
-              "y": 190
+              "y": 300
             }
           ],
           "timingWeight": 0.82
@@ -176,7 +176,7 @@
           "screenAngle": 38
         }
       ],
-      "caption": "SOURCE p.89 — HIGH HIT + GUT SET. 1→4 y limpia a corner derecho. 5 llega y se PLANTA antes de que 2 use el Gut.",
+      "caption": "SOURCE p.89 — HIGH HIT + GUT SET. 1→4 y se abre al wing derecho. 5 llega y se PLANTA antes de que 2 use el Gut.",
       "seconds": 1.35,
       "timeline": {
         "logic": [
@@ -196,7 +196,7 @@
           "label": "1",
           "team": "offense",
           "x": 850,
-          "y": 190
+          "y": 300
         },
         {
           "key": "o2",
@@ -295,7 +295,7 @@
           "label": "1",
           "team": "offense",
           "x": 850,
-          "y": 190
+          "y": 300
         },
         {
           "key": "o2",
@@ -397,7 +397,7 @@
           "label": "1",
           "team": "offense",
           "x": 850,
-          "y": 190
+          "y": 300
         },
         {
           "key": "o2",
@@ -520,9 +520,34 @@
             }
           ],
           "timingWeight": 0.82
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "pop_catch",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 850,
+              "y": 300
+            },
+            {
+              "x": 850,
+              "y": 245
+            },
+            {
+              "x": 850,
+              "y": 190
+            }
+          ],
+          "timingWeight": 0.55
         }
       ],
-      "caption": "5 POP / SWING — 5 sale a recibir y 2 le entrega. 4 cruza temprano al lado izquierdo para preparar el downscreen. 1/3 mantienen corners.",
+      "caption": "5 POP / SWING — 5 sale a recibir y 2 le entrega. 1 baja al corner derecho; 4 cruza al lado izquierdo para preparar el downscreen. 3 mantiene corner izquierdo.",
       "seconds": 1.35,
       "timeline": {
         "logic": [
@@ -1202,9 +1227,38 @@
           "timingWeight": 0.9,
           "screenAngleLocked": true,
           "screenAngle": 55
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "pnr_set_clear",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 714,
+              "y": 278
+            },
+            {
+              "x": 770,
+              "y": 245
+            },
+            {
+              "x": 825,
+              "y": 210
+            },
+            {
+              "x": 850,
+              "y": 190
+            }
+          ],
+          "timingWeight": 0.65
         }
       ],
-      "caption": "FINAL PnR — SET. 5 llega al Angle Screen y se planta en (745,430). 1 espera; 2 corner izquierdo, 4 ala izquierda, 3 limpia weak side.",
+      "caption": "FINAL PnR — SET. 5 llega y se planta; 3 limpia al corner derecho antes del uso. 1 espera en slot; 2 corner izquierdo y 4 ala izquierda.",
       "seconds": 1.05,
       "timeline": {
         "logic": [
@@ -1236,8 +1290,8 @@
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 714,
-          "y": 278
+          "x": 850,
+          "y": 190
         },
         {
           "key": "o4",
@@ -1338,8 +1392,8 @@
           "key": "o3",
           "label": "3",
           "team": "offense",
-          "x": 714,
-          "y": 278
+          "x": 850,
+          "y": 190
         },
         {
           "key": "o4",
@@ -1452,6 +1506,7 @@
     "Gut and downscreen use SET then USE phases.",
     "DHO v6 uses explicit receiver approach/contact/exit points to prevent teleport/backtrack.",
     "Final PnR user route is a direct translated copy of validated OVER geometry.",
-    "Do not mark visually approved until reproduced in CourtPlay and coach approves."
+    "Do not mark visually approved until reproduced in CourtPlay and coach approves.",
+    "Spacing correction: 1 holds wing during Gut; 3 clears to right corner before final PnR."
   ]
 }
