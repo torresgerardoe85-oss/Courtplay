@@ -1,10 +1,37 @@
 {
-  "version": 47,
+  "version": 48,
   "plays": [
     {
+      "slug": "bampi-uconn-zoom-flow-source-v1",
+      "name": "BAMPI — UConn Zoom Flow · SOURCE CORE p.89",
+      "description": "SOURCE CORE p.89 — High Hit → Gut Zoom → 5 pop/Swing → cut-through → downscreen → second Zoom → DHO 3→1 → 5 PnR. Geometría rehecha con referencias validadas.",
+      "categories": [
+        "flow",
+        "motion",
+        "zoom",
+        "dho",
+        "pnr",
+        "4-out-1-in",
+        "uconn"
+      ]
+    },
+    {
+      "slug": "bampi-uconn-gut-zoom-seal-option-v1",
+      "name": "BAMPI — UConn Gut Zoom · OPTION A: 5 SEAL (p.83)",
+      "description": "SOURCE OPTION p.83 — primera rama de anotación: Gut Zoom → downhill o 5 seal.",
+      "categories": [
+        "flow",
+        "zoom",
+        "dho",
+        "post",
+        "uconn",
+        "quick"
+      ]
+    },
+    {
       "slug": "bampi-41-uconn-flow-core",
-      "name": "BAMPI 41 — UConn Flow CORE v2 · TODAY INSTALL",
-      "description": "TODAY INSTALL v2: Arrival → High Hit/Gut Zoom → Swing → Second Zoom → Reverse → Angle PnR. Gut y spacing corregidos; tercer DHO eliminado; PnR final reconstruido con geometría OVER validada.",
+      "name": "SUPERSEDED — BAMPI 41 UConn Flow v2",
+      "description": "NO USAR PARA INSTALACIÓN. Sustituida por bampi-uconn-zoom-flow-source-v1, reconstruida directamente desde UConn Vol.2 p.89.",
       "categories": [
         "transition",
         "flow",
