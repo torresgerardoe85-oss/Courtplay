@@ -336,16 +336,16 @@
           "handoffExitDistance": 118,
           "handoffGiverUnderDistance": 82,
           "handoffReceiverApproachPoint": {
-            "x": 675,
-            "y": 430
+            "x": 665,
+            "y": 420
           },
           "handoffReceiverContactPoint": {
-            "x": 630,
-            "y": 486
+            "x": 625,
+            "y": 480
           },
           "handoffExitPoint": {
-            "x": 720,
-            "y": 390
+            "x": 570,
+            "y": 560
           },
           "handoffGeometryAuto": false,
           "assistantAuthored": true,
@@ -378,8 +378,8 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 720,
-          "y": 390
+          "x": 570,
+          "y": 560
         },
         {
           "key": "o3",
@@ -392,7 +392,7 @@
           "key": "o4",
           "label": "4",
           "team": "offense",
-          "x": 605,
+          "x": 632,
           "y": 348
         },
         {
@@ -404,8 +404,8 @@
         }
       ],
       "ball": {
-        "x": 754,
-        "y": 394,
+        "x": 604,
+        "y": 564,
         "owner": "o2"
       },
       "lines": [
@@ -449,12 +449,12 @@
           "color": "#2563eb",
           "points": [
             {
-              "x": 720,
-              "y": 390
+              "x": 570,
+              "y": 560
             },
             {
-              "x": 640,
-              "y": 285
+              "x": 565,
+              "y": 365
             },
             {
               "x": 555,
@@ -464,7 +464,7 @@
           "timingWeight": 0.62
         }
       ],
-      "caption": "OPTION A — SEAL. Si 2 obliga ayuda tras el Zoom, 5 sella profundo. Lectura: 2 termina o entrega a 5; no seguimos el patrón por obligación.",
+      "caption": "OPTION A — SEAL. Después del DHO, 2 CONTINÚA al top. Si la ayuda se compromete, 5 sella profundo; 2 termina o entrega a 5.",
       "seconds": 1.45
     }
   ],
