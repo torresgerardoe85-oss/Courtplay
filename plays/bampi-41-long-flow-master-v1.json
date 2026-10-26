@@ -1,0 +1,2650 @@
+{
+  "version": 1,
+  "name": "BAMPI 41 LONG FLOW — Zoom → PnR → Chin → Recycle",
+  "description": "Ofensiva larga por capas para instalar esta semana. Neutral path: UConn p.89 High Hit/Gut Zoom → Second Zoom → DHO → PnR; si no hay ventaja, BAMPI continuity entra a Chin; si backdoor está negado, Chin Over/Zoom; después recicla al High Hit/Gut. No se ejecuta la secuencia completa si ya existe ventaja.",
+  "status": "Research / Installation — Week 1",
+  "system": "BAMPI 41 FLOW",
+  "categories": [
+    "flow",
+    "motion",
+    "zoom",
+    "dho",
+    "pnr",
+    "chin",
+    "4-out-1-in",
+    "continuity",
+    "uconn",
+    "week-1"
+  ],
+  "authoringProfile": "assistant",
+  "source": {
+    "sourceCore": "UCONN Huskies Playbook Volume 2 p.89 — High Hit: Gut Zoom: Swing: Zoom: Zoom",
+    "chinSource": "UCONN Huskies Playbook Volume 2 p.23–26 — DHO: Reverse: Chin / Chin Over",
+    "bampiAdaptation": "PnR neutral → re-space → role-shifted Chin → Over/Zoom → recycle. This continuation is BAMPI design, not claimed as one published UConn set."
+  },
+  "philosophy": "CREAR VENTAJA → LEER → DECIDIR → EJECUTAR",
+  "playerLanguage": "ZOOM → ZOOM → PNR → CHIN → FLOW",
+  "teachingRules": [
+    "VENTAJA > PATRÓN: cualquier rim touch, backdoor, seal, roll, closeout o 2-on-1 termina la coreografía y se juega.",
+    "Todas las cortinas: SET → USE OVER → CLEAR. Bloqueador no libera antes del uso.",
+    "Todos los DHO: APPROACH → CONTACT → ONE TRANSFER → RECEIVER OVER → GIVER UNDER → CONTINUE. Nunca recibir y virar hacia el punto de entrega.",
+    "5 es rim big/screener/roller/connector; no creador primario con drible.",
+    "4 es connector/screener; mantiene la continuidad sin exigir manejo avanzado.",
+    "PnR neutral activa CHIN; CHIN backdoor negado activa OVER/ZOOM; Zoom neutral recicla el FLOW."
+  ],
+  "installationWeek": {
+    "day1": "Alignment + High Hit/Gut Zoom + Second Zoom. 5v0 → 3v3 guided → 5v5.",
+    "day2": "DHO → PnR + spacing de los tres sin balón. Añadir reads vs Drop/Switch.",
+    "day3": "PnR neutral → Chin backdoor → Chin Over/Zoom → Recycle.",
+    "call": "FLOW",
+    "teachingCue": "ZOOM → ZOOM → PNR → CHIN → FLOW"
+  },
+  "scoringWindows": [
+    "High Hit: deny = backdoor",
+    "Gut Zoom #1: downhill / reject / 5 seal",
+    "2→5: cut-through",
+    "Second Zoom: curl / downhill / keeper / slip",
+    "PnR: reject / turn corner / pocket / lob / short roll / 45 / drift / shake",
+    "Chin: backdoor off 4 backscreen",
+    "Chin Over: pin-down shot / curl / Zoom downhill",
+    "Recycle: attack closeout or restart opposite-side Flow"
+  ],
+  "frames": [
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 800,
+          "y": 500
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 820,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 590,
+          "y": 410
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 760,
+          "y": 340
+        }
+      ],
+      "ball": {
+        "x": 834,
+        "y": 504,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o1",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "highhit",
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 800,
+              "y": 500
+            },
+            {
+              "x": 700,
+              "y": 455
+            },
+            {
+              "x": 590,
+              "y": 410
+            }
+          ],
+          "timingWeight": 0.55
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "highhit",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 800,
+              "y": 500
+            },
+            {
+              "x": 825,
+              "y": 430
+            },
+            {
+              "x": 840,
+              "y": 360
+            },
+            {
+              "x": 850,
+              "y": 300
+            }
+          ],
+          "timingWeight": 0.82
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "gut_set",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 760,
+              "y": 340
+            },
+            {
+              "x": 770,
+              "y": 300
+            },
+            {
+              "x": 780,
+              "y": 265
+            },
+            {
+              "x": 785,
+              "y": 245
+            }
+          ],
+          "timingWeight": 0.78,
+          "screenAngleLocked": true,
+          "screenAngle": 38
+        }
+      ],
+      "caption": "SOURCE p.89 — HIGH HIT + GUT SET. 1→4 y se abre al wing derecho. 5 llega y se PLANTA antes de que 2 use el Gut.",
+      "seconds": 1.35,
+      "timeline": {
+        "logic": [
+          "1→4 HIGH HIT",
+          "1 CLEAR",
+          "5 SET GUT",
+          "2 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 300
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 820,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 590,
+          "y": 410
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 785,
+          "y": 245
+        }
+      ],
+      "ball": {
+        "x": 624,
+        "y": 414,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 820,
+              "y": 190
+            },
+            {
+              "x": 800,
+              "y": 225
+            },
+            {
+              "x": 770,
+              "y": 270
+            },
+            {
+              "x": 735,
+              "y": 315
+            },
+            {
+              "x": 705,
+              "y": 365
+            }
+          ],
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "screenTurnCorner": false,
+          "assistantAuthored": true
+        }
+      ],
+      "caption": "GUT USE — 2 usa la pantalla de 5 pegado, hombro con cadera. 5 NO libera hasta que 2 limpia el screen.",
+      "seconds": 1.45,
+      "timeline": {
+        "logic": [
+          "2 USE OVER",
+          "2 CLEAR SCREEN",
+          "5 HOLD",
+          "4 PRESENT"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 300
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 705,
+          "y": 365
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 590,
+          "y": 410
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 785,
+          "y": 245
+        }
+      ],
+      "ball": {
+        "x": 624,
+        "y": 414,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "handoff",
+          "sourceKey": "o4",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "zoom1",
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 590,
+              "y": 410
+            },
+            {
+              "x": 605,
+              "y": 420
+            },
+            {
+              "x": 620,
+              "y": 430
+            }
+          ],
+          "timingWeight": 1,
+          "handoffVersion": 6,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 118,
+          "handoffGiverUnderDistance": 82,
+          "handoffReceiverApproachPoint": {
+            "x": 665,
+            "y": 420
+          },
+          "handoffReceiverContactPoint": {
+            "x": 625,
+            "y": 480
+          },
+          "handoffExitPoint": {
+            "x": 570,
+            "y": 560
+          },
+          "handoffGeometryAuto": false,
+          "assistantAuthored": true,
+          "handoffReceiverSide": "over"
+        }
+      ],
+      "caption": "ZOOM #1 — DHO 4→2. 2 aproxima, cruza POR ENCIMA, recibe en contacto y continúa. 4 cruza POR DEBAJO. Si 2 gana downhill, se juega.",
+      "seconds": 1.65,
+      "timeline": {
+        "logic": [
+          "APPROACH",
+          "CONTACT/TRANSFER 4→2",
+          "2 OVER",
+          "4 UNDER + SEPARATE"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 300
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 570,
+          "y": 560
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 632,
+          "y": 348
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 785,
+          "y": 245
+        }
+      ],
+      "ball": {
+        "x": 604,
+        "y": 564,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o2",
+          "targetKey": "o5",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "pop_catch",
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 570,
+              "y": 560
+            },
+            {
+              "x": 590,
+              "y": 510
+            },
+            {
+              "x": 610,
+              "y": 455
+            }
+          ],
+          "timingWeight": 0.55
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "pop_catch",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 785,
+              "y": 245
+            },
+            {
+              "x": 735,
+              "y": 300
+            },
+            {
+              "x": 680,
+              "y": 360
+            },
+            {
+              "x": 610,
+              "y": 455
+            }
+          ],
+          "timingWeight": 0.85
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 632,
+              "y": 348
+            },
+            {
+              "x": 545,
+              "y": 350
+            },
+            {
+              "x": 455,
+              "y": 355
+            },
+            {
+              "x": 370,
+              "y": 350
+            },
+            {
+              "x": 300,
+              "y": 340
+            }
+          ],
+          "timingWeight": 0.82
+        },
+        {
+          "type": "move",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "pop_catch",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 850,
+              "y": 300
+            },
+            {
+              "x": 850,
+              "y": 245
+            },
+            {
+              "x": 850,
+              "y": 190
+            }
+          ],
+          "timingWeight": 0.55
+        }
+      ],
+      "caption": "5 POP / SWING — 5 sale a recibir y 2 le entrega. 1 baja al corner derecho; 4 cruza al lado izquierdo para preparar el downscreen. 3 mantiene corner izquierdo.",
+      "seconds": 1.35,
+      "timeline": {
+        "logic": [
+          "5 POP + 2→5",
+          "4 RELOCATE LEFT",
+          "1/3 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 570,
+          "y": 560
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 300,
+          "y": 340
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 610,
+          "y": 455
+        }
+      ],
+      "ball": {
+        "x": 644,
+        "y": 459,
+        "owner": "o5"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "cut_set",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 570,
+              "y": 560
+            },
+            {
+              "x": 555,
+              "y": 470
+            },
+            {
+              "x": 535,
+              "y": 370
+            },
+            {
+              "x": 515,
+              "y": 270
+            },
+            {
+              "x": 500,
+              "y": 190
+            },
+            {
+              "x": 445,
+              "y": 175
+            }
+          ],
+          "timingWeight": 0.9
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "cut_set",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 300,
+              "y": 340
+            },
+            {
+              "x": 285,
+              "y": 320
+            },
+            {
+              "x": 270,
+              "y": 295
+            },
+            {
+              "x": 260,
+              "y": 270
+            }
+          ],
+          "timingWeight": 0.75,
+          "screenAngleLocked": true,
+          "screenAngle": 128
+        }
+      ],
+      "caption": "CUT THROUGH + SET — 2 corta por el centro y limpia. Al mismo tiempo 4 llega al downscreen del lado izquierdo; 3 espera hasta que 4 esté SET.",
+      "seconds": 1.3,
+      "timeline": {
+        "logic": [
+          "2 CUT THROUGH",
+          "4 SET DOWN-SCREEN",
+          "3 HOLD",
+          "5 HOLD BALL"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 445,
+          "y": 175
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 150,
+          "y": 190
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 260,
+          "y": 270
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 610,
+          "y": 455
+        }
+      ],
+      "ball": {
+        "x": 644,
+        "y": 459,
+        "owner": "o5"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 150,
+              "y": 190
+            },
+            {
+              "x": 170,
+              "y": 225
+            },
+            {
+              "x": 200,
+              "y": 270
+            },
+            {
+              "x": 235,
+              "y": 315
+            },
+            {
+              "x": 265,
+              "y": 365
+            }
+          ],
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o4"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "screenTurnCorner": false,
+          "assistantAuthored": true
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 260,
+              "y": 270
+            },
+            {
+              "x": 235,
+              "y": 245
+            },
+            {
+              "x": 205,
+              "y": 220
+            },
+            {
+              "x": 180,
+              "y": 205
+            }
+          ],
+          "timingWeight": 0.5
+        }
+      ],
+      "caption": "DOWN-SCREEN USE — 3 usa a 4 OVER. 4 libera DESPUÉS del uso y despeja hacia el ala/corner izquierdo.",
+      "seconds": 1.35,
+      "timeline": {
+        "logic": [
+          "3 USE OVER",
+          "3 CLEAR SCREEN",
+          "4 RELEASE + CLEAR"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 445,
+          "y": 175
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 265,
+          "y": 365
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 180,
+          "y": 205
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 610,
+          "y": 455
+        }
+      ],
+      "ball": {
+        "x": 644,
+        "y": 459,
+        "owner": "o5"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 265,
+              "y": 365
+            },
+            {
+              "x": 340,
+              "y": 400
+            },
+            {
+              "x": 420,
+              "y": 430
+            },
+            {
+              "x": 500,
+              "y": 455
+            }
+          ],
+          "timingWeight": 0.75
+        }
+      ],
+      "caption": "SPRINT TO DHO — después de salir del downscreen, 3 NO se detiene: continúa directo hacia 5 para el segundo Zoom.",
+      "seconds": 0.85,
+      "timeline": {
+        "logic": [
+          "3 CONTINUES",
+          "5 PRESENTS",
+          "No stop / no backtrack"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 445,
+          "y": 175
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 500,
+          "y": 455
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 180,
+          "y": 205
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 610,
+          "y": 455
+        }
+      ],
+      "ball": {
+        "x": 644,
+        "y": 459,
+        "owner": "o5"
+      },
+      "lines": [
+        {
+          "type": "handoff",
+          "sourceKey": "o5",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "zoom2",
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 610,
+              "y": 455
+            },
+            {
+              "x": 595,
+              "y": 455
+            },
+            {
+              "x": 580,
+              "y": 455
+            }
+          ],
+          "timingWeight": 1,
+          "handoffVersion": 6,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 118,
+          "handoffGiverUnderDistance": 82,
+          "handoffReceiverApproachPoint": {
+            "x": 545,
+            "y": 485
+          },
+          "handoffReceiverContactPoint": {
+            "x": 590,
+            "y": 510
+          },
+          "handoffExitPoint": {
+            "x": 710,
+            "y": 535
+          },
+          "handoffGeometryAuto": false,
+          "assistantAuthored": true,
+          "handoffReceiverSide": "over"
+        }
+      ],
+      "caption": "ZOOM #2 — DHO 5→3. 3 cruza POR ENCIMA, transferencia única, continúa hacia el lado derecho; 5 cruza POR DEBAJO.",
+      "seconds": 1.6,
+      "timeline": {
+        "logic": [
+          "APPROACH",
+          "CONTACT/TRANSFER 5→3",
+          "3 OVER",
+          "5 UNDER + SEPARATE"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 850,
+          "y": 190
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 445,
+          "y": 175
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 710,
+          "y": 535
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 180,
+          "y": 205
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 559,
+          "y": 373
+        }
+      ],
+      "ball": {
+        "x": 744,
+        "y": 539,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "dho3_space",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 445,
+              "y": 175
+            },
+            {
+              "x": 355,
+              "y": 180
+            },
+            {
+              "x": 255,
+              "y": 185
+            },
+            {
+              "x": 155,
+              "y": 190
+            }
+          ],
+          "timingWeight": 0.75
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "dho3_space",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 180,
+              "y": 205
+            },
+            {
+              "x": 205,
+              "y": 245
+            },
+            {
+              "x": 235,
+              "y": 285
+            }
+          ],
+          "timingWeight": 0.55
+        },
+        {
+          "type": "handoff",
+          "sourceKey": "o3",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "dho3",
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 710,
+              "y": 535
+            },
+            {
+              "x": 715,
+              "y": 520
+            },
+            {
+              "x": 720,
+              "y": 500
+            }
+          ],
+          "timingWeight": 1,
+          "handoffVersion": 6,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 118,
+          "handoffGiverUnderDistance": 82,
+          "handoffReceiverApproachPoint": {
+            "x": 795,
+            "y": 365
+          },
+          "handoffReceiverContactPoint": {
+            "x": 735,
+            "y": 555
+          },
+          "handoffExitPoint": {
+            "x": 700,
+            "y": 620
+          },
+          "handoffGeometryAuto": false,
+          "assistantAuthored": true,
+          "handoffReceiverSide": "over"
+        }
+      ],
+      "caption": "DHO #3 — 3→1. 1 sube desde corner, cruza POR ENCIMA de 3 y continúa al right slot. 3 cruza por debajo. 2 repone corner izquierdo; 4 da width.",
+      "seconds": 1.65,
+      "timeline": {
+        "logic": [
+          "DHO 3→1",
+          "1 OVER",
+          "3 UNDER",
+          "2 FILL LEFT CORNER",
+          "5 waits"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 700,
+          "y": 620
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 155,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 733,
+          "y": 418
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 235,
+          "y": 285
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 559,
+          "y": 373
+        }
+      ],
+      "ball": {
+        "x": 734,
+        "y": 624,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 559,
+              "y": 373
+            },
+            {
+              "x": 585,
+              "y": 430
+            },
+            {
+              "x": 610,
+              "y": 485
+            },
+            {
+              "x": 640,
+              "y": 545
+            }
+          ],
+          "timingWeight": 0.9,
+          "screenAngleLocked": true,
+          "screenAngle": 55
+        }
+      ],
+      "caption": "FINAL PnR — SET. Tras el DHO, 1 sigue hacia el right slot/top; 3 ya limpió por debajo. 5 llega y se planta antes del uso.",
+      "seconds": 1.05,
+      "timeline": {
+        "logic": [
+          "5 SET",
+          "1 HOLD",
+          "2/3/4 SPACE"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 700,
+          "y": 620
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 155,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 733,
+          "y": 418
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 235,
+          "y": 285
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 640,
+          "y": 545
+        }
+      ],
+      "ball": {
+        "x": 734,
+        "y": 624,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 700,
+              "y": 620
+            },
+            {
+              "x": 683,
+              "y": 603
+            },
+            {
+              "x": 665,
+              "y": 583
+            },
+            {
+              "x": 640,
+              "y": 563
+            },
+            {
+              "x": 605,
+              "y": 537
+            },
+            {
+              "x": 570,
+              "y": 515
+            }
+          ],
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "screenTurnCorner": true,
+          "assistantAuthored": true
+        }
+      ],
+      "caption": "USE OVER — geometría trasladada del screen validado. 1 pasa hombro con cadera, limpia a 5; 5 NO rola todavía.",
+      "seconds": 1.25,
+      "timeline": {
+        "logic": [
+          "1 USE OVER",
+          "1 CLEAR SCREEN",
+          "5 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 570,
+          "y": 515
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 155,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 733,
+          "y": 418
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 235,
+          "y": 285
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 640,
+          "y": 545
+        }
+      ],
+      "ball": {
+        "x": 604,
+        "y": 519,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "pnr_finish",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 570,
+              "y": 515
+            },
+            {
+              "x": 535,
+              "y": 485
+            },
+            {
+              "x": 505,
+              "y": 445
+            },
+            {
+              "x": 485,
+              "y": 395
+            },
+            {
+              "x": 475,
+              "y": 335
+            }
+          ],
+          "timingWeight": 1.02
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "pnr_finish",
+          "color": "#16a34a",
+          "points": [
+            {
+              "x": 640,
+              "y": 545
+            },
+            {
+              "x": 625,
+              "y": 480
+            },
+            {
+              "x": 605,
+              "y": 410
+            },
+            {
+              "x": 580,
+              "y": 335
+            },
+            {
+              "x": 545,
+              "y": 250
+            },
+            {
+              "x": 515,
+              "y": 170
+            }
+          ],
+          "timingWeight": 1
+        }
+      ],
+      "caption": "PNR READ — 1 turn corner + 5 roll. Si hay finish/pocket/kick, PLAY IT. Solo si la defensa vuelve a quedar neutral, salimos al CHIN.",
+      "seconds": 1.35,
+      "timeline": {
+        "logic": [
+          "1 TURN CORNER",
+          "5 RELEASE → ROLL",
+          "SEPARATE LANES",
+          "READ"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 475,
+          "y": 335
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 155,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 733,
+          "y": 418
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 235,
+          "y": 285
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 515,
+          "y": 170
+        }
+      ],
+      "ball": {
+        "x": 509,
+        "y": 339,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "dribble",
+          "sourceKey": "o1",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "chin_reset",
+          "color": "#172033",
+          "points": [
+            {
+              "x": 475,
+              "y": 335
+            },
+            {
+              "x": 520,
+              "y": 385
+            },
+            {
+              "x": 575,
+              "y": 440
+            },
+            {
+              "x": 650,
+              "y": 500
+            }
+          ],
+          "timingWeight": 0.85
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "chin_reset",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 733,
+              "y": 418
+            },
+            {
+              "x": 770,
+              "y": 390
+            },
+            {
+              "x": 805,
+              "y": 360
+            },
+            {
+              "x": 830,
+              "y": 330
+            }
+          ],
+          "timingWeight": 0.65
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "chin_reset",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 235,
+              "y": 285
+            },
+            {
+              "x": 315,
+              "y": 335
+            },
+            {
+              "x": 405,
+              "y": 395
+            },
+            {
+              "x": 500,
+              "y": 450
+            }
+          ],
+          "timingWeight": 0.8
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "chin_reset",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 515,
+              "y": 170
+            },
+            {
+              "x": 445,
+              "y": 205
+            },
+            {
+              "x": 370,
+              "y": 240
+            },
+            {
+              "x": 290,
+              "y": 280
+            }
+          ],
+          "timingWeight": 0.78
+        }
+      ],
+      "caption": "NO ADVANTAGE → CHIN SHELL. 1 sale con drible al right slot; 3 mantiene wing, 4 ocupa top, 5 cruza al lado débil y 2 conserva corner. No paramos la posesión.",
+      "seconds": 1.15,
+      "timeline": {
+        "logic": [
+          "PNR neutral",
+          "RE-SPACE",
+          "ENTER CHIN"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 650,
+          "y": 500
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 155,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 830,
+          "y": 330
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 500,
+          "y": 450
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 290,
+          "y": 280
+        }
+      ],
+      "ball": {
+        "x": 684,
+        "y": 504,
+        "owner": "o1"
+      },
+      "lines": [
+        {
+          "type": "handoff",
+          "sourceKey": "o1",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "chin_dho",
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 650,
+              "y": 500
+            },
+            {
+              "x": 662,
+              "y": 488
+            },
+            {
+              "x": 675,
+              "y": 475
+            }
+          ],
+          "timingWeight": 1,
+          "handoffVersion": 6,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 118,
+          "handoffGiverUnderDistance": 82,
+          "handoffReceiverApproachPoint": {
+            "x": 760,
+            "y": 405
+          },
+          "handoffReceiverContactPoint": {
+            "x": 690,
+            "y": 530
+          },
+          "handoffExitPoint": {
+            "x": 600,
+            "y": 590
+          },
+          "handoffGeometryAuto": false,
+          "assistantAuthored": true,
+          "handoffReceiverSide": "over"
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "chin_dho",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 290,
+              "y": 280
+            },
+            {
+              "x": 275,
+              "y": 270
+            },
+            {
+              "x": 260,
+              "y": 260
+            },
+            {
+              "x": 250,
+              "y": 252
+            }
+          ],
+          "timingWeight": 0.75,
+          "screenAngleLocked": true,
+          "screenAngle": 118
+        }
+      ],
+      "caption": "CHIN ENTRY — 1 DHO 3 mientras 5 se PLANTA para 2. 3 cruza por encima y CONTINÚA al top; 1 cruza por debajo. 2 todavía espera el SET.",
+      "seconds": 1.25,
+      "timeline": {
+        "logic": [
+          "DHO 1→3",
+          "3 CONTINUES",
+          "5 SET FOR 2",
+          "2 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 687,
+          "y": 393
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 155,
+          "y": 190
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 600,
+          "y": 590
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 500,
+          "y": 450
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 250,
+          "y": 252
+        }
+      ],
+      "ball": {
+        "x": 634,
+        "y": 594,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 155,
+              "y": 190
+            },
+            {
+              "x": 180,
+              "y": 220
+            },
+            {
+              "x": 215,
+              "y": 255
+            },
+            {
+              "x": 255,
+              "y": 295
+            },
+            {
+              "x": 300,
+              "y": 345
+            }
+          ],
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "screenTurnCorner": false,
+          "assistantAuthored": true
+        }
+      ],
+      "caption": "CHIN — 2 USE. 2 toma la pantalla de 5 hombro con cadera y sale al left wing. 5 permanece plantado hasta que 2 limpia.",
+      "seconds": 1.05,
+      "timeline": {
+        "logic": [
+          "2 USE OVER",
+          "2 CLEAR SCREEN",
+          "3 HOLDS BALL"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 687,
+          "y": 393
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 300,
+          "y": 345
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 600,
+          "y": 590
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 500,
+          "y": 450
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 250,
+          "y": 252
+        }
+      ],
+      "ball": {
+        "x": 634,
+        "y": 594,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o3",
+          "targetKey": "o2",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "chin_reverse",
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 600,
+              "y": 590
+            },
+            {
+              "x": 455,
+              "y": 465
+            },
+            {
+              "x": 300,
+              "y": 345
+            }
+          ],
+          "timingWeight": 0.55
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "chin_reverse",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 500,
+              "y": 450
+            },
+            {
+              "x": 525,
+              "y": 425
+            },
+            {
+              "x": 545,
+              "y": 405
+            },
+            {
+              "x": 560,
+              "y": 390
+            }
+          ],
+          "timingWeight": 0.8,
+          "screenAngleLocked": true,
+          "screenAngle": 55
+        }
+      ],
+      "caption": "CHIN REVERSE + BACKSCREEN SET — 3→2. Al mismo tiempo 4 planta el backscreen para 3. Primera lectura CHIN: 3 backdoor al aro.",
+      "seconds": 1,
+      "timeline": {
+        "logic": [
+          "3→2",
+          "4 SET BACKSCREEN",
+          "READ BACKDOOR"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 687,
+          "y": 393
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 300,
+          "y": 345
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 600,
+          "y": 590
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 560,
+          "y": 390
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 250,
+          "y": 252
+        }
+      ],
+      "ball": {
+        "x": 334,
+        "y": 349,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 600,
+              "y": 590
+            },
+            {
+              "x": 585,
+              "y": 545
+            },
+            {
+              "x": 565,
+              "y": 490
+            },
+            {
+              "x": 545,
+              "y": 435
+            },
+            {
+              "x": 520,
+              "y": 365
+            },
+            {
+              "x": 500,
+              "y": 285
+            }
+          ],
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o4"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "screenTurnCorner": false,
+          "assistantAuthored": true
+        }
+      ],
+      "caption": "CHIN BACKDOOR — 3 usa el backscreen de 4 y corta al aro. SI 2 puede entregarle, termina aquí. Si X3 quita el corte, entramos al OVER/ZOOM.",
+      "seconds": 1.15,
+      "timeline": {
+        "logic": [
+          "3 BACKDOOR",
+          "OPEN = PASS/FINISH",
+          "DENIED = OVER"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 687,
+          "y": 393
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 300,
+          "y": 345
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 500,
+          "y": 285
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 560,
+          "y": 390
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 250,
+          "y": 252
+        }
+      ],
+      "ball": {
+        "x": 334,
+        "y": 349,
+        "owner": "o2"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o2",
+          "targetKey": "o4",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "chin_over",
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 300,
+              "y": 345
+            },
+            {
+              "x": 430,
+              "y": 365
+            },
+            {
+              "x": 560,
+              "y": 390
+            }
+          ],
+          "timingWeight": 0.55
+        },
+        {
+          "type": "move",
+          "sourceKey": "o2",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "chin_over",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 300,
+              "y": 345
+            },
+            {
+              "x": 250,
+              "y": 300
+            },
+            {
+              "x": 205,
+              "y": 245
+            },
+            {
+              "x": 170,
+              "y": 195
+            }
+          ],
+          "timingWeight": 0.72
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "chin_over",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 250,
+              "y": 252
+            },
+            {
+              "x": 300,
+              "y": 275
+            },
+            {
+              "x": 350,
+              "y": 300
+            },
+            {
+              "x": 400,
+              "y": 325
+            }
+          ],
+          "timingWeight": 0.78,
+          "screenAngleLocked": true,
+          "screenAngle": 35
+        }
+      ],
+      "caption": "CHIN OVER — backdoor cerrado: 2→4 y limpia al corner. 5 llega y PLANTA el pin-down para 3. 3 espera el SET.",
+      "seconds": 1.15,
+      "timeline": {
+        "logic": [
+          "2→4",
+          "2 CLEAR",
+          "5 SET PIN-DOWN",
+          "3 HOLD"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 687,
+          "y": 393
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 195
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 500,
+          "y": 285
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 560,
+          "y": 390
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 400,
+          "y": 325
+        }
+      ],
+      "ball": {
+        "x": 594,
+        "y": 394,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#172033",
+          "points": [
+            {
+              "x": 500,
+              "y": 285
+            },
+            {
+              "x": 475,
+              "y": 315
+            },
+            {
+              "x": 445,
+              "y": 345
+            },
+            {
+              "x": 415,
+              "y": 375
+            },
+            {
+              "x": 390,
+              "y": 410
+            }
+          ],
+          "timingWeight": 1,
+          "usesScreenKeys": [
+            "o5"
+          ],
+          "screenUseSide": "over",
+          "screenUseClearance": 58,
+          "screenUseVersion": 1,
+          "screenTurnCorner": false,
+          "assistantAuthored": true
+        },
+        {
+          "type": "move",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 400,
+              "y": 325
+            },
+            {
+              "x": 365,
+              "y": 285
+            },
+            {
+              "x": 330,
+              "y": 245
+            },
+            {
+              "x": 300,
+              "y": 215
+            }
+          ],
+          "timingWeight": 0.55
+        }
+      ],
+      "caption": "OVER USE — 3 sale del pin-down de 5 y continúa hacia 4. 5 libera después del uso y recupera interior/weakside.",
+      "seconds": 1.1,
+      "timeline": {
+        "logic": [
+          "3 USE OVER",
+          "3 CLEAR SCREEN",
+          "5 RELEASE"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 687,
+          "y": 393
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 195
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 390,
+          "y": 410
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 560,
+          "y": 390
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 300,
+          "y": 215
+        }
+      ],
+      "ball": {
+        "x": 594,
+        "y": 394,
+        "owner": "o4"
+      },
+      "lines": [
+        {
+          "type": "handoff",
+          "sourceKey": "o4",
+          "targetKey": "o3",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": null,
+          "color": "#38bdf8",
+          "points": [
+            {
+              "x": 560,
+              "y": 390
+            },
+            {
+              "x": 545,
+              "y": 400
+            },
+            {
+              "x": 530,
+              "y": 410
+            }
+          ],
+          "timingWeight": 1,
+          "handoffVersion": 6,
+          "handoffTransferAt": 0.62,
+          "handoffExitDistance": 118,
+          "handoffGiverUnderDistance": 82,
+          "handoffReceiverApproachPoint": {
+            "x": 440,
+            "y": 430
+          },
+          "handoffReceiverContactPoint": {
+            "x": 520,
+            "y": 466
+          },
+          "handoffExitPoint": {
+            "x": 420,
+            "y": 555
+          },
+          "handoffGeometryAuto": false,
+          "assistantAuthored": true,
+          "handoffReceiverSide": "over"
+        }
+      ],
+      "caption": "CHIN → ZOOM — 4 DHO 3. 3 cruza POR ENCIMA, recibe una vez y SIGUE al top/left; 4 cruza por debajo. Nueva ventana downhill.",
+      "seconds": 1.25,
+      "timeline": {
+        "logic": [
+          "DHO 4→3",
+          "3 CONTINUES",
+          "4 UNDER",
+          "ATTACK IF ADVANTAGE"
+        ]
+      }
+    },
+    {
+      "phaseStartVersion": 26,
+      "phaseOwnershipVersion": 26,
+      "players": [
+        {
+          "key": "o1",
+          "label": "1",
+          "team": "offense",
+          "x": 687,
+          "y": 393
+        },
+        {
+          "key": "o2",
+          "label": "2",
+          "team": "offense",
+          "x": 170,
+          "y": 195
+        },
+        {
+          "key": "o3",
+          "label": "3",
+          "team": "offense",
+          "x": 420,
+          "y": 555
+        },
+        {
+          "key": "o4",
+          "label": "4",
+          "team": "offense",
+          "x": 543,
+          "y": 308
+        },
+        {
+          "key": "o5",
+          "label": "5",
+          "team": "offense",
+          "x": 300,
+          "y": 215
+        }
+      ],
+      "ball": {
+        "x": 454,
+        "y": 559,
+        "owner": "o3"
+      },
+      "lines": [
+        {
+          "type": "pass",
+          "sourceKey": "o3",
+          "targetKey": "o1",
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "recycle",
+          "color": "#2563eb",
+          "points": [
+            {
+              "x": 420,
+              "y": 555
+            },
+            {
+              "x": 555,
+              "y": 475
+            },
+            {
+              "x": 687,
+              "y": 393
+            }
+          ],
+          "timingWeight": 0.55
+        },
+        {
+          "type": "move",
+          "sourceKey": "o3",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "recycle",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 420,
+              "y": 555
+            },
+            {
+              "x": 365,
+              "y": 485
+            },
+            {
+              "x": 300,
+              "y": 410
+            }
+          ],
+          "timingWeight": 0.65
+        },
+        {
+          "type": "move",
+          "sourceKey": "o4",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "recycle",
+          "color": "#6b7280",
+          "points": [
+            {
+              "x": 543,
+              "y": 308
+            },
+            {
+              "x": 585,
+              "y": 350
+            },
+            {
+              "x": 625,
+              "y": 390
+            },
+            {
+              "x": 650,
+              "y": 430
+            }
+          ],
+          "timingWeight": 0.65
+        },
+        {
+          "type": "screen",
+          "sourceKey": "o5",
+          "targetKey": null,
+          "sourceDetached": false,
+          "manualCurve": true,
+          "isOption": false,
+          "simultaneousGroup": "recycle",
+          "color": "#f97316",
+          "points": [
+            {
+              "x": 300,
+              "y": 215
+            },
+            {
+              "x": 275,
+              "y": 230
+            },
+            {
+              "x": 250,
+              "y": 245
+            },
+            {
+              "x": 235,
+              "y": 260
+            }
+          ],
+          "timingWeight": 0.75,
+          "screenAngleLocked": true,
+          "screenAngle": 120
+        }
+      ],
+      "caption": "RECYCLE — 3→1 HIGH HIT y limpia. 4 rellena slot; 5 vuelve a SET Gut para 2. Estamos otra vez en la misma familia: ZOOM → ZOOM → PnR → CHIN.",
+      "seconds": 1.15,
+      "timeline": {
+        "logic": [
+          "RECYCLE",
+          "3→1",
+          "5 SET GUT FOR 2",
+          "REPEAT FLOW"
+        ]
+      }
+    }
+  ],
+  "totalSeconds": 26.45,
+  "reviewNotes": [
+    "MASTER neutral path only. Scoring reads are branches, not simultaneous mandatory movement.",
+    "First 12 frames reuse current corrected p.89 SOURCE CORE.",
+    "Chin entry is role-shifted to connect naturally after PnR; source logic preserved, exact numbering adapted.",
+    "DHO continuation points are authored so receiver approach→contact→exit stays forward.",
+    "Pending coach visual validation before Approved Playbook status."
+  ]
+}
