@@ -1,6 +1,52 @@
 {
-  "version": 49,
+  "version": 50,
   "plays": [
+    {
+      "slug": "bampi-41-long-flow-master-v1",
+      "name": "BAMPI 41 LONG FLOW — Zoom → PnR → Chin → Recycle",
+      "description": "WEEK 1 MASTER — p.89 Zoom Flow → PnR → BAMPI Chin continuity → Over/Zoom → Recycle. Neutral path; advantage always overrides pattern.",
+      "categories": [
+        "flow",
+        "motion",
+        "zoom",
+        "dho",
+        "pnr",
+        "chin",
+        "4-out-1-in",
+        "continuity",
+        "uconn",
+        "week-1"
+      ]
+    },
+    {
+      "slug": "bampi-41-long-flow-game-tempo-v1",
+      "name": "BAMPI 41 LONG FLOW — GAME TEMPO",
+      "description": "Same geometry at game tempo · 18.69s.",
+      "categories": [
+        "flow",
+        "motion",
+        "zoom",
+        "dho",
+        "pnr",
+        "chin",
+        "4-out-1-in",
+        "continuity",
+        "uconn",
+        "week-1"
+      ]
+    },
+    {
+      "slug": "bampi-41-long-flow-chin-backdoor-v1",
+      "name": "BAMPI 41 LONG FLOW — OPTION CHIN BACKDOOR",
+      "description": "Week 1 branch — PnR neutral → Chin → backdoor finish.",
+      "categories": [
+        "chin",
+        "backdoor",
+        "continuity",
+        "week-1",
+        "quick"
+      ]
+    },
     {
       "slug": "bampi-uconn-zoom-flow-source-v1",
       "name": "BAMPI — UConn Zoom Flow · SOURCE CORE p.89",
