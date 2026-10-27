@@ -374,15 +374,15 @@
             "y": 470
           },
           "handoffExitPoint": {
-            "x": 630,
-            "y": 535
+            "x": 500,
+            "y": 540
           },
           "handoffGeometryAuto": false,
           "assistantAuthored": true,
           "handoffReceiverSide": "over"
         }
       ],
-      "caption": "ZOOM #1 — DHO 4→2. 2 APPROACH → CONTACT → recibe una vez → CONTINÚA hacia adelante. 4 cruza por debajo y se separa.",
+      "caption": "ZOOM #1 — DHO 4→2. 2 APPROACH → CONTACT → recibe una vez → CONTINÚA hacia el centro/top de ataque, sin virar hacia el handoff. 4 cruza por debajo.",
       "seconds": 1.55,
       "timeline": {
         "logic": [
@@ -409,8 +409,8 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 630,
-          "y": 535
+          "x": 500,
+          "y": 540
         },
         {
           "key": "o3",
@@ -435,8 +435,8 @@
         }
       ],
       "ball": {
-        "x": 664,
-        "y": 539,
+        "x": 534,
+        "y": 544,
         "owner": "o2"
       },
       "lines": [
@@ -480,11 +480,11 @@
           "color": "#2563eb",
           "points": [
             {
-              "x": 630,
-              "y": 535
+              "x": 500,
+              "y": 540
             },
             {
-              "x": 700,
+              "x": 635,
               "y": 455
             },
             {
@@ -550,8 +550,8 @@
           "key": "o2",
           "label": "2",
           "team": "offense",
-          "x": 630,
-          "y": 535
+          "x": 500,
+          "y": 540
         },
         {
           "key": "o3",
@@ -592,24 +592,24 @@
           "color": "#6b7280",
           "points": [
             {
-              "x": 630,
-              "y": 535
+              "x": 500,
+              "y": 540
             },
             {
-              "x": 595,
-              "y": 455
+              "x": 505,
+              "y": 465
             },
             {
-              "x": 555,
-              "y": 365
+              "x": 505,
+              "y": 385
             },
             {
-              "x": 520,
-              "y": 285
+              "x": 500,
+              "y": 310
             },
             {
               "x": 485,
-              "y": 220
+              "y": 240
             },
             {
               "x": 455,
@@ -1270,15 +1270,15 @@
             },
             {
               "x": 790,
-              "y": 538
+              "y": 535
             },
             {
-              "x": 755,
-              "y": 512
+              "x": 750,
+              "y": 505
             },
             {
-              "x": 720,
-              "y": 490
+              "x": 710,
+              "y": 475
             }
           ],
           "timingWeight": 1.12,
@@ -1310,8 +1310,8 @@
           "key": "o1",
           "label": "1",
           "team": "offense",
-          "x": 720,
-          "y": 490
+          "x": 710,
+          "y": 475
         },
         {
           "key": "o2",
@@ -1343,8 +1343,8 @@
         }
       ],
       "ball": {
-        "x": 754,
-        "y": 494,
+        "x": 744,
+        "y": 479,
         "owner": "o1"
       },
       "lines": [
@@ -1359,24 +1359,24 @@
           "color": "#172033",
           "points": [
             {
-              "x": 720,
-              "y": 490
+              "x": 710,
+              "y": 475
             },
             {
-              "x": 685,
-              "y": 460
+              "x": 675,
+              "y": 445
             },
             {
-              "x": 650,
-              "y": 420
+              "x": 645,
+              "y": 405
             },
             {
-              "x": 620,
-              "y": 370
+              "x": 615,
+              "y": 360
             },
             {
-              "x": 600,
-              "y": 315
+              "x": 595,
+              "y": 310
             }
           ],
           "timingWeight": 1
@@ -1456,6 +1456,7 @@
     "Second Zoom crosses from left side directly into 5 DHO, matching panel 3.",
     "All DHO exits continue in the receiver's running direction.",
     "Final PnR separated into SET → USE OVER → CLEAR → TURN CORNER + ROLL.",
-    "Pending coach visual validation."
+    "Pending coach visual validation.",
+    "QA fix: DHO 4→2 exit now continues through same vector; final PnR user clears screener before roll."
   ]
 }
