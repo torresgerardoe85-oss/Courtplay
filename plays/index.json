@@ -1,5 +1,5 @@
 {
-  "version": 51,
+  "version": 52,
   "plays": [
     {
       "slug": "bampi-41-long-flow-master-v1",
@@ -49,8 +49,8 @@
     },
     {
       "slug": "bampi-uconn-zoom-flow-source-v1",
-      "name": "BAMPI — UConn p.89 · DIAGRAMA EXACTO",
-      "description": "DIRECT DIAGRAM REBUILD — UConn Vol.2 p.89. Four source panels preserved; technical phases split only for CourtPlay timing.",
+      "name": "BAMPI — UConn p.89 · GUT CORREGIDO",
+      "description": "UConn Vol.2 p.89 — Gut corrected to SET → APPROACH → USE OVER → CLEAR → DHO. 2 now truly takes 5's screen.",
       "categories": [
         "flow",
         "motion",
