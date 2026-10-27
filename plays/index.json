@@ -1,5 +1,5 @@
 {
-  "version": 50,
+  "version": 51,
   "plays": [
     {
       "slug": "bampi-41-long-flow-master-v1",
@@ -49,8 +49,8 @@
     },
     {
       "slug": "bampi-uconn-zoom-flow-source-v1",
-      "name": "BAMPI — UConn Zoom Flow · SOURCE CORE p.89",
-      "description": "SOURCE CORE p.89 — DHO continuation corrected: receivers continue through exchange, no turn-back. High Hit → Gut Zoom → Swing → second Zoom → DHO 3→1 → 5 PnR.",
+      "name": "BAMPI — UConn p.89 · DIAGRAMA EXACTO",
+      "description": "DIRECT DIAGRAM REBUILD — UConn Vol.2 p.89. Four source panels preserved; technical phases split only for CourtPlay timing.",
       "categories": [
         "flow",
         "motion",
@@ -58,7 +58,8 @@
         "dho",
         "pnr",
         "4-out-1-in",
-        "uconn"
+        "uconn",
+        "teaching"
       ]
     },
     {
