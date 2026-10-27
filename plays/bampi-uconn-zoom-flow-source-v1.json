@@ -1,6 +1,6 @@
 {
-  "version": 3,
-  "name": "BAMPI — UConn p.89 · GUT CORREGIDO",
+  "version": 4,
+  "name": "BAMPI — UConn p.89 · GUT SET→USE",
   "description": "Reconstrucción CourtPlay basada directamente en el diagrama UConn Vol.2 p.89 enviado por el coach. Se preservan los cuatro cuadros originales; CourtPlay separa SET/USE/DHO/ROLL únicamente para que el timing visual sea correcto.",
   "status": "Research / Testing — DIAGRAM SOURCE",
   "system": "BAMPI 41 FLOW",
@@ -148,7 +148,7 @@
           "screenAngle": 35
         }
       ],
-      "caption": "P.89 CUADRO 1 — HIGH HIT + GUT SET. 1→4. 5 llega y se PLANTA en el Gut spot. 2 espera; primero debe VENIR a la pantalla antes de usarla.",
+      "caption": "P.89 CUADRO 1 — HIGH HIT + GUT SET. 1→4. 5 llega y se PLANTA. 2 se queda en su spot hasta que la cortina esté lista.",
       "seconds": 1.25,
       "timeline": {
         "logic": [
@@ -213,146 +213,35 @@
           "manualCurve": true,
           "isOption": false,
           "simultaneousGroup": null,
-          "color": "#6b7280",
+          "color": "#172033",
           "points": [
             {
               "x": 850,
               "y": 190
             },
             {
-              "x": 820,
+              "x": 815,
               "y": 215
             },
             {
-              "x": 790,
+              "x": 775,
               "y": 245
             },
             {
-              "x": 760,
-              "y": 275
-            },
-            {
-              "x": 725,
-              "y": 300
-            }
-          ],
-          "timingWeight": 0.82
-        },
-        {
-          "type": "move",
-          "sourceKey": "o1",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": false,
-          "simultaneousGroup": null,
-          "color": "#6b7280",
-          "points": [
-            {
-              "x": 800,
-              "y": 420
-            },
-            {
-              "x": 820,
-              "y": 360
-            },
-            {
-              "x": 835,
-              "y": 300
-            },
-            {
-              "x": 845,
-              "y": 245
-            }
-          ],
-          "timingWeight": 0.72
-        }
-      ],
-      "caption": "GUT APPROACH — 2 VIENE hacia la cortina de 5. Termina 75 px a la derecha del bloqueador. 5 está completamente plantado; todavía NO hay uso.",
-      "seconds": 1,
-      "timeline": {
-        "logic": [
-          "2 APPROACH GUT",
-          "5 HOLD SET",
-          "1 STARTS FILL"
-        ]
-      }
-    },
-    {
-      "phaseStartVersion": 26,
-      "phaseOwnershipVersion": 26,
-      "players": [
-        {
-          "key": "o1",
-          "label": "1",
-          "team": "offense",
-          "x": 845,
-          "y": 245
-        },
-        {
-          "key": "o2",
-          "label": "2",
-          "team": "offense",
-          "x": 725,
-          "y": 300
-        },
-        {
-          "key": "o3",
-          "label": "3",
-          "team": "offense",
-          "x": 150,
-          "y": 190
-        },
-        {
-          "key": "o4",
-          "label": "4",
-          "team": "offense",
-          "x": 500,
-          "y": 400
-        },
-        {
-          "key": "o5",
-          "label": "5",
-          "team": "offense",
-          "x": 650,
-          "y": 300
-        }
-      ],
-      "ball": {
-        "x": 534,
-        "y": 404,
-        "owner": "o4"
-      },
-      "lines": [
-        {
-          "type": "move",
-          "sourceKey": "o2",
-          "targetKey": null,
-          "sourceDetached": false,
-          "manualCurve": true,
-          "isOption": false,
-          "simultaneousGroup": null,
-          "color": "#172033",
-          "points": [
-            {
-              "x": 725,
-              "y": 300
+              "x": 740,
+              "y": 280
             },
             {
               "x": 710,
               "y": 320
             },
             {
-              "x": 690,
-              "y": 340
-            },
-            {
               "x": 665,
               "y": 363
             },
             {
-              "x": 635,
-              "y": 390
+              "x": 625,
+              "y": 400
             },
             {
               "x": 595,
@@ -380,28 +269,37 @@
           "color": "#6b7280",
           "points": [
             {
-              "x": 845,
-              "y": 245
+              "x": 800,
+              "y": 420
             },
             {
-              "x": 850,
-              "y": 215
+              "x": 820,
+              "y": 360
+            },
+            {
+              "x": 835,
+              "y": 290
+            },
+            {
+              "x": 845,
+              "y": 235
             },
             {
               "x": 850,
               "y": 190
             }
           ],
-          "timingWeight": 0.45
+          "timingWeight": 0.72
         }
       ],
-      "caption": "GUT USE — geometría OVER validada, reflejada al lado derecho: 2 ENTRA AL CUERPO de 5, pasa hombro con cadera y limpia hacia 4. 5 NO SE MUEVE.",
-      "seconds": 1.15,
+      "caption": "GUT USE — sin fase previa de approach. Desde su spot, 2 va directamente a USAR la pantalla de 5: OVER, hombro con cadera, limpia y sigue hacia 4. 5 permanece plantado.",
+      "seconds": 1.35,
       "timeline": {
         "logic": [
-          "2 USE OVER",
+          "2 USE OVER FROM ORIGINAL SPOT",
           "SHOULDER-TO-HIP",
-          "2 CLEAR SCREEN",
+          "2 CLEAR",
+          "1 FILLS AFTER VACATED",
           "5 HOLD"
         ]
       }
@@ -497,7 +395,7 @@
           "handoffReceiverSide": "over"
         }
       ],
-      "caption": "ZOOM #1 — solo DESPUÉS de limpiar el Gut, 2 entra al DHO 4→2. Recibe una vez y continúa hacia adelante; 4 cruza por debajo.",
+      "caption": "ZOOM #1 — solamente después de que 2 haya LIMPIADO el Gut screen, entra al DHO 4→2. No hay contacto con 5 en una fase anterior.",
       "seconds": 1.4,
       "timeline": {
         "logic": [
@@ -1544,7 +1442,7 @@
       }
     }
   ],
-  "totalSeconds": 16.45,
+  "totalSeconds": 15.65,
   "scoringWindows": [
     "Zoom #1: 2 downhill",
     "Zoom #1: 5 seal (p.83 branch)",
@@ -1563,7 +1461,7 @@
     "Spacing correction: 1 holds wing during Gut; 3 clears to right corner before final PnR.",
     "DHO exits corrected: every receiver continues through the exchange in the same running direction; no receiver reverses back toward the handoff."
   ],
-  "animationTotalSeconds": 16.45,
+  "animationTotalSeconds": 15.65,
   "revisionNotes": [
     "v2 rebuilt directly from coach-provided p.89 diagram.",
     "1 fills the corner only after 2 vacates it on Gut use.",
@@ -1574,6 +1472,9 @@
     "QA fix: DHO 4→2 exit now continues through same vector; final PnR user clears screener before roll.",
     "v3: Gut screen rebuilt as SET → APPROACH → USE OVER → CLEAR → DHO.",
     "Gut USE mirrors the validated screen-test-over-v1 shoulder-to-hip geometry.",
-    "2 now physically comes to 5 before taking the Gut screen; no wide bypass."
+    "2 now physically comes to 5 before taking the Gut screen; no wide bypass.",
+    "v4: removed separate Gut approach phase.",
+    "2 now holds until 5 is set, then uses the Gut screen in one continuous USE phase from original spot.",
+    "No pre-use close pass by 5."
   ]
 }
