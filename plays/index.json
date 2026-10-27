@@ -1,5 +1,5 @@
 {
-  "version": 52,
+  "version": 53,
   "plays": [
     {
       "slug": "bampi-41-long-flow-master-v1",
@@ -49,8 +49,8 @@
     },
     {
       "slug": "bampi-uconn-zoom-flow-source-v1",
-      "name": "BAMPI — UConn p.89 · GUT CORREGIDO",
-      "description": "UConn Vol.2 p.89 — Gut corrected to SET → APPROACH → USE OVER → CLEAR → DHO. 2 now truly takes 5's screen.",
+      "name": "BAMPI — UConn p.89 · GUT SET→USE",
+      "description": "UConn p.89 — Gut corrected: 5 SET, 2 HOLDS, then 2 USES OVER directly from original spot. No separate close approach phase.",
       "categories": [
         "flow",
         "motion",
