@@ -450,3 +450,29 @@ canvas#court{width:100%;height:auto;max-width:100%}
   color:#92400e;
   border-color:#d97706;
 }
+
+
+/* v96 Systems folders */
+.systemsTopActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 14px}
+.systemsTopActions button,.systemFolderTools button,.systemFolderNav button{min-height:44px;border:1px solid #b9d1f4;border-radius:11px;background:#eef5ff;color:#0b56bd;font-weight:900}
+.systemFolderGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.systemFolderCard{min-height:112px;border:1px solid #dbe4ee;border-radius:15px;background:#fff;text-align:left;padding:14px;color:#172033;display:grid;grid-template-columns:auto 1fr;grid-template-areas:"icon title" "icon meta";column-gap:11px;align-items:center}
+.systemFolderCard .systemFolderIcon{grid-area:icon;font-size:32px}
+.systemFolderCard strong{grid-area:title;font-size:16px;align-self:end}
+.systemFolderCard small{grid-area:meta;color:#64748b;align-self:start;margin-top:3px}
+.systemFolderNav{display:flex;align-items:center;gap:11px;padding:4px 0 12px;border-bottom:1px solid #e2e8f0}
+.systemFolderNav>div{min-width:0}.systemFolderNav strong,.systemFolderNav small{display:block}.systemFolderNav strong{font-size:19px}.systemFolderNav small{margin-top:3px;color:#64748b}
+.systemFolderTools{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin:12px 0}
+.systemFolderTools .danger{background:#fff5f5;color:#b42318;border-color:#fecaca}
+.systemFolderCreate{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:4px}
+.systemFolderCreate input{min-height:46px;border:1px solid #cbd5e1;border-radius:11px;padding:10px 12px;color:#172033;background:#fff}
+.systemFolderCreate button{min-height:46px;border:1px solid #0b56bd;border-radius:11px;background:#0b56bd;color:#fff;font-weight:900;padding:0 14px}
+.systemPlayRow{border-left:4px solid #7c3aed}
+.systemVisibilityBtn{background:#f5f3ff!important;color:#6d28d9!important;border:1px solid #ddd6fe!important}
+@media(max-width:560px){
+  .systemFolderGrid{grid-template-columns:1fr}
+  .systemsTopActions{grid-template-columns:1fr}
+  .systemFolderTools{grid-template-columns:1fr 1fr}
+  .systemFolderTools button:first-child{grid-column:1/-1}
+  .systemFolderCreate{grid-template-columns:1fr}
+}
