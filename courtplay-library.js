@@ -307,6 +307,10 @@
         try{await window.CourtPlayCloud.flushOutbox({reason:'system-folder-delete'});}catch(e){}
       }
     }
+    if(data&&data.systemFolderId===id){
+      delete data.systemFolderId;
+      data.showInLibrary=true;
+    }
     if(activeSystemFolderId===id)activeSystemFolderId=null;
     notify(count?'Folder eliminado. Sus jugadas volvieron a Mi Biblioteca.':'Folder eliminado.');
     renderLibraryContents();
@@ -317,8 +321,7 @@
     if(!folder){notify('No encontré ese folder de Sistemas.','error');return null;}
     try{
       commit();CourtPlayEngine.reflow(data.frames,0);
-      const alreadyHere=data.libraryId&&data.systemFolderId===folderId;
-      if(asNew||!data.libraryId||!alreadyHere)data.libraryId=makeId();
+      if(asNew||!data.libraryId)data.libraryId=makeId();
       if(!Array.isArray(data.categories)||!data.categories.length)data.categories=inferCategoriesFromText(data.name||playNameEl.value||'');
       data.systemFolderId=folderId;
       data.showInLibrary=false;
