@@ -98,7 +98,7 @@
     }catch(e){return[]}
   }
   function writeLocal(items){
-    try{localStorage.setItem(LOCAL_KEY,JSON.stringify((items||[]).slice(0,100)));}catch(e){}
+    try{localStorage.setItem(LOCAL_KEY,JSON.stringify((items||[]).slice(0,500)));}catch(e){}
   }
   function readOutbox(){
     try{
