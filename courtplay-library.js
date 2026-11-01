@@ -3,6 +3,8 @@
   const button=document.getElementById('libraryBtn');
   const base='./plays/';
   const LOCAL_KEY='courtplay_my_library_v1';
+  const SYSTEM_FOLDER_TYPE='systemFolder';
+  let activeSystemFolderId=null;
 
   const clone=v=>JSON.parse(JSON.stringify(v));
   function withTimeout(promise,ms,fallback){
@@ -109,6 +111,9 @@
     return !!(item&&((item.play&&item.play.practiceFolder===true)||item.practiceFolder===true));
   }
   function matchesCategory(item){
+    if(isSystemFolderRecord(item))return false;
+    if(activeCategory==='systems')return false;
+    if(!showInLibrary(item))return false;
     if(activeCategory==='practice')return isPracticeItem(item);
     return activeCategory==='all'||categoriesFor(item).includes(activeCategory);
   }
@@ -135,7 +140,35 @@
     }catch(e){return[]}
   }
   function writeLocal(items){
-    localStorage.setItem(LOCAL_KEY,JSON.stringify(items.slice(0,100)));
+    localStorage.setItem(LOCAL_KEY,JSON.stringify(items.slice(0,500)));
+  }
+  function isSystemFolderRecord(item){
+    return !!(item&&item.play&&item.play.courtplayRecordType===SYSTEM_FOLDER_TYPE);
+  }
+  function systemFolderIdFor(item){
+    return (item&&item.systemFolderId)||(item&&item.play&&item.play.systemFolderId)||null;
+  }
+  function showInLibrary(item){
+    const nested=item&&item.play&&item.play.showInLibrary;
+    const direct=item&&item.showInLibrary;
+    if(direct===true||nested===true)return true;
+    return !systemFolderIdFor(item);
+  }
+  function systemFolders(){
+    return readLocal()
+      .filter(isSystemFolderRecord)
+      .sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''),'es',{sensitivity:'base'}));
+  }
+  function systemFolderById(id){
+    return systemFolders().find(x=>x.id===id)||null;
+  }
+  function systemPlays(folderId){
+    return readLocal()
+      .filter(item=>!isSystemFolderRecord(item)&&systemFolderIdFor(item)===folderId)
+      .sort((a,b)=>(Date.parse(b.updatedAt||b.play?.savedAt||0)||0)-(Date.parse(a.updatedAt||a.play?.savedAt||0)||0));
+  }
+  function makeFolderId(){
+    return 'sysfolder_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
   }
   function makeId(){
     return 'lib_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
@@ -154,12 +187,15 @@
       if(asNew||!data.libraryId)data.libraryId=makeId();
       if(categories)data.categories=normalizeCategories(categories);
       else if(!Array.isArray(data.categories)||!data.categories.length)data.categories=inferCategoriesFromText(data.name||playNameEl.value||'');
+      data.showInLibrary=true;
       data.savedAt=new Date().toISOString();
       const item={
         id:data.libraryId,
         name:data.name||playNameEl.value||'Jugada sin nombre',
         categories:normalizeCategories(data.categories),
         practiceFolder:data.practiceFolder===true,
+        systemFolderId:data.systemFolderId||null,
+        showInLibrary:true,
         updatedAt:data.savedAt,
         play:clone(data)
       };
@@ -195,6 +231,176 @@
     }
   }
 
+  function syncRecord(id,reason='system'){
+    if(!window.CourtPlayCloud)return;
+    window.CourtPlayCloud.queueUpsert(id);
+    Promise.resolve(window.CourtPlayCloud.ensureReady?.()).then(()=>{
+      if(window.CourtPlayCloud.isSignedIn?.()&&navigator.onLine!==false){
+        return window.CourtPlayCloud.flushOutbox({reason});
+      }
+    }).catch(()=>{});
+  }
+
+  function createSystemFolder(name,{silent=false}={}){
+    const clean=String(name||'').trim().replace(/\s+/g,' ');
+    if(!clean){if(!silent)notify('Escribe un nombre para el folder.','error');return null;}
+    const existing=systemFolders().find(x=>String(x.name||'').trim().toLowerCase()===clean.toLowerCase());
+    if(existing){if(!silent)notify('Ya existe un folder con ese nombre.','error');return existing.id;}
+    const id=makeFolderId(),stamp=new Date().toISOString();
+    const record={
+      id,
+      name:clean,
+      updatedAt:stamp,
+      play:{
+        courtplayRecordType:SYSTEM_FOLDER_TYPE,
+        systemFolderId:id,
+        libraryId:id,
+        name:clean,
+        savedAt:stamp
+      }
+    };
+    const items=readLocal();items.unshift(record);writeLocal(items);
+    syncRecord(id,'system-folder-create');
+    if(!silent)notify('Folder "'+clean+'" creado en Sistemas.');
+    return id;
+  }
+
+  function renameSystemFolder(id,newName){
+    const clean=String(newName||'').trim().replace(/\s+/g,' ');
+    if(!clean){notify('El folder necesita un nombre.','error');return false;}
+    const items=readLocal(),at=items.findIndex(x=>x.id===id&&isSystemFolderRecord(x));
+    if(at<0)return false;
+    const duplicate=items.find(x=>x.id!==id&&isSystemFolderRecord(x)&&String(x.name||'').toLowerCase()===clean.toLowerCase());
+    if(duplicate){notify('Ya existe otro folder con ese nombre.','error');return false;}
+    const stamp=new Date().toISOString();
+    items[at].name=clean;items[at].updatedAt=stamp;
+    items[at].play.name=clean;items[at].play.savedAt=stamp;
+    writeLocal(items);syncRecord(id,'system-folder-rename');
+    notify('Folder renombrado.');
+    renderLibraryContents();return true;
+  }
+
+  async function deleteSystemFolder(id){
+    const folder=systemFolderById(id);if(!folder)return;
+    const count=systemPlays(id).length;
+    const message=count
+      ?'¿Eliminar el folder "'+folder.name+'"?\n\nSus '+count+' jugada'+(count===1?'':'s')+' NO se borrarán: volverán a Mi Biblioteca general.'
+      :'¿Eliminar el folder "'+folder.name+'"?';
+    if(!confirm(message))return;
+    const stamp=new Date().toISOString();
+    const items=readLocal().filter(x=>x.id!==id);
+    const changed=[];
+    items.forEach(item=>{
+      if(!isSystemFolderRecord(item)&&systemFolderIdFor(item)===id){
+        delete item.systemFolderId;item.showInLibrary=true;item.updatedAt=stamp;
+        if(item.play){
+          delete item.play.systemFolderId;item.play.showInLibrary=true;item.play.savedAt=stamp;
+        }
+        changed.push(item.id);
+      }
+    });
+    writeLocal(items);
+    if(window.CourtPlayCloud){
+      changed.forEach(x=>window.CourtPlayCloud.queueUpsert(x));
+      window.CourtPlayCloud.queueDelete(id);
+      if(window.CourtPlayCloud.isSignedIn?.()&&navigator.onLine!==false){
+        try{await window.CourtPlayCloud.flushOutbox({reason:'system-folder-delete'});}catch(e){}
+      }
+    }
+    if(activeSystemFolderId===id)activeSystemFolderId=null;
+    notify(count?'Folder eliminado. Sus jugadas volvieron a Mi Biblioteca.':'Folder eliminado.');
+    renderLibraryContents();
+  }
+
+  function saveCurrentToSystemFolder(folderId,{asNew=false}={}){
+    const folder=systemFolderById(folderId);
+    if(!folder){notify('No encontré ese folder de Sistemas.','error');return null;}
+    try{
+      commit();CourtPlayEngine.reflow(data.frames,0);
+      const alreadyHere=data.libraryId&&data.systemFolderId===folderId;
+      if(asNew||!data.libraryId||!alreadyHere)data.libraryId=makeId();
+      if(!Array.isArray(data.categories)||!data.categories.length)data.categories=inferCategoriesFromText(data.name||playNameEl.value||'');
+      data.systemFolderId=folderId;
+      data.showInLibrary=false;
+      data.savedAt=new Date().toISOString();
+      const item={
+        id:data.libraryId,
+        name:data.name||playNameEl.value||'Jugada sin nombre',
+        categories:normalizeCategories(data.categories),
+        practiceFolder:data.practiceFolder===true,
+        systemFolderId:folderId,
+        showInLibrary:false,
+        updatedAt:data.savedAt,
+        play:clone(data)
+      };
+      const items=readLocal(),at=items.findIndex(x=>x.id===item.id);
+      if(at>=0)items.splice(at,1);
+      items.unshift(item);writeLocal(items);
+      syncRecord(item.id,'system-play-save');
+      notify('Jugada guardada en Sistemas → '+folder.name+'.');
+      return item.id;
+    }catch(e){
+      notify('No se pudo guardar la jugada en ese sistema.','error');return null;
+    }
+  }
+
+  function setSystemPlayLibraryVisibility(id,visible){
+    const items=readLocal(),at=items.findIndex(x=>x.id===id&&!isSystemFolderRecord(x));
+    if(at<0)return;
+    const stamp=new Date().toISOString(),item=items[at];
+    item.showInLibrary=!!visible;item.updatedAt=stamp;
+    if(item.play){item.play.showInLibrary=!!visible;item.play.savedAt=stamp;}
+    writeLocal(items);
+    if(data&&data.libraryId===id)data.showInLibrary=!!visible;
+    syncRecord(id,'system-play-visibility');
+    notify(visible?'Esta jugada también aparecerá en Mi Biblioteca.':'Esta jugada queda solo dentro de Sistemas.');
+    renderLibraryContents();
+  }
+
+  function openSystemFolderPicker({onSelect=null,title='Guardar en Sistemas'}={}){
+    closeAny('courtplaySystemFolderPicker');
+    const wrap=document.createElement('div');wrap.id='courtplaySystemFolderPicker';wrap.className='saveOverlay';
+    const panel=document.createElement('div');panel.className='savePanel';
+    const head=document.createElement('strong');head.textContent=title;
+    const note=document.createElement('p');note.textContent='Escoge un folder. Las jugadas guardadas aquí no llenan Mi Biblioteca general.';
+    panel.append(head,note);
+
+    const renderFolders=()=>{
+      panel.querySelectorAll('.systemPickerFolder,.systemPickerEmpty').forEach(x=>x.remove());
+      const folders=systemFolders();
+      if(!folders.length){
+        const empty=document.createElement('p');empty.className='systemPickerEmpty libraryMessage';empty.textContent='Todavía no tienes folders en Sistemas.';panel.append(empty);
+      }else{
+        folders.forEach(folder=>{
+          const b=document.createElement('button');b.type='button';b.className='saveChoice systemPickerFolder';
+          const count=systemPlays(folder.id).length;
+          b.innerHTML='<strong>📁 '+escapeHtml(folder.name)+'</strong><small>'+count+' jugada'+(count===1?'':'s')+'</small>';
+          b.addEventListener('click',()=>{wrap.remove();if(onSelect)onSelect(folder.id);});
+          panel.append(b);
+        });
+      }
+      panel.append(createBox,cancel);
+    };
+
+    const createBox=document.createElement('div');createBox.className='systemFolderCreate';
+    const input=document.createElement('input');input.type='text';input.maxLength=60;input.placeholder='Ej. Princeton, Flex, Euro Ball Screen';
+    const create=document.createElement('button');create.type='button';create.textContent='＋ Crear folder';
+    create.addEventListener('click',()=>{
+      const id=createSystemFolder(input.value);
+      if(id){input.value='';renderFolders();}
+    });
+    input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();create.click();}});
+    createBox.append(input,create);
+    const cancel=document.createElement('button');cancel.type='button';cancel.className='saveCancel';cancel.textContent='Cancelar';cancel.addEventListener('click',()=>wrap.remove());
+    wrap.addEventListener('click',e=>{if(e.target===wrap)wrap.remove();});
+    renderFolders();
+    wrap.append(panel);document.body.append(wrap);
+  }
+
+  function escapeHtml(value){
+    return String(value||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+
   function loadLocalPlay(id){
     const item=readLocal().find(x=>x.id===id);
     if(!item)return false;
@@ -202,6 +408,8 @@
       const raw=clone(item.play);
       const loaded=typeof migrate==='function'?(migrate(raw)||raw):raw;
       data=loaded;data.version=2;data.libraryId=id;
+      if(systemFolderIdFor(item))data.systemFolderId=systemFolderIdFor(item);
+      data.showInLibrary=showInLibrary(item);
       CourtPlayEngine.reflow(data.frames,0);
       current=0;selectedLine=-1;selectedPlayer=null;
       playNameEl.value=data.name||item.name||'Jugada';
@@ -216,7 +424,7 @@
   async function deleteLocalPlay(id){
     const items=readLocal(),item=items.find(x=>x.id===id);
     if(!item)return;
-    if(!confirm('¿Eliminar "'+(item.name||'esta jugada')+'" de Mi Biblioteca?'))return;
+    if(!confirm('¿Eliminar "'+(item.name||'esta jugada')+'" de CourtPlay?'))return;
     writeLocal(items.filter(x=>x.id!==id));
     if(window.CourtPlayCloud){
       window.CourtPlayCloud.queueDelete(id);
@@ -359,6 +567,8 @@
     library.innerHTML=data.libraryId
       ?'<strong>Mi Biblioteca · sincroniza</strong><small>Actualiza esta jugada, conserva copia offline y la sincroniza entre tus dispositivos.</small>'
       :'<strong>Mi Biblioteca · sincroniza</strong><small>Guarda copia offline y la sincroniza entre iPad, teléfono y computadora.</small>';
+    const systems=document.createElement('button');systems.type='button';systems.className='saveChoice';
+    systems.innerHTML='<strong>📚 Sistemas</strong><small>Guarda esta jugada dentro de uno de tus folders sin llenar Mi Biblioteca general.</small>';
     const device=document.createElement('button');device.type='button';device.className='saveChoice';
     device.innerHTML='<strong>Solo este dispositivo</strong><small>No se sincroniza con tus otros dispositivos.</small>';
     const exportPlay=document.createElement('button');exportPlay.type='button';exportPlay.className='saveChoice';
@@ -366,6 +576,10 @@
     const cancel=document.createElement('button');cancel.type='button';cancel.className='saveCancel';cancel.textContent='Cancelar';
 
     device.addEventListener('click',()=>{wrap.remove();window.CourtPlaySaveToDevice?.();});
+    systems.addEventListener('click',()=>{
+      wrap.remove();
+      openSystemFolderPicker({onSelect:folderId=>saveCurrentToSystemFolder(folderId,{asNew:false})});
+    });
     library.addEventListener('click',()=>{
       wrap.remove();
       openLibrarySaveChoices();
@@ -393,7 +607,7 @@
     });
     cancel.addEventListener('click',()=>wrap.remove());
     wrap.addEventListener('click',e=>{if(e.target===wrap)wrap.remove();});
-    panel.append(title,desc,library,device,exportPlay,cancel);wrap.append(panel);document.body.append(wrap);
+    panel.append(title,desc,library,systems,device,exportPlay,cancel);wrap.append(panel);document.body.append(wrap);
   }
 
   function ensurePanel(){
@@ -404,7 +618,7 @@
 
     const head=document.createElement('div');head.className='libraryHead';
     const title=document.createElement('div');
-    title.innerHTML='<strong>Biblioteca</strong><small>Mi Biblioteca + carpeta Para practicar + jugadas nuevas publicadas para ti.</small>';
+    title.innerHTML='<strong>Biblioteca</strong><small>Mi Biblioteca + 📚 Sistemas + Para practicar + jugadas publicadas para ti.</small>';
     const close=document.createElement('button');close.type='button';close.textContent='×';close.className='libraryClose';
     close.addEventListener('click',()=>wrap.remove());
     head.append(title,close);
@@ -474,13 +688,14 @@
   function renderCategoryTabs(host){
     if(!host)return;
     host.innerHTML='';
-    const defs=[{id:'all',label:'Todas'},{id:'practice',label:'📁 Para practicar'},...CATEGORY_DEFS];
+    const defs=[{id:'all',label:'Todas'},{id:'systems',label:'📚 Sistemas'},{id:'practice',label:'📁 Para practicar'},...CATEGORY_DEFS];
     defs.forEach(cat=>{
       const b=document.createElement('button');b.type='button';b.className='libraryCategoryTab';b.dataset.category=cat.id;b.textContent=cat.label;
       b.setAttribute('role','tab');b.setAttribute('aria-selected',String(activeCategory===cat.id));
       b.classList.toggle('active',activeCategory===cat.id);
       b.addEventListener('click',()=>{
         activeCategory=cat.id;
+        if(cat.id!=='systems')activeSystemFolderId=null;
         renderLibraryContents();
       });
       host.append(b);
@@ -503,6 +718,74 @@
     badge.className='libraryPracticeBadge';
     badge.textContent='📁 Para practicar';
     info.append(badge);
+  }
+
+  function renderSystems(container){
+    const folder=activeSystemFolderId&&systemFolderById(activeSystemFolderId);
+    if(folder){
+      const nav=document.createElement('div');nav.className='systemFolderNav';
+      const back=document.createElement('button');back.type='button';back.textContent='← Sistemas';
+      back.addEventListener('click',()=>{activeSystemFolderId=null;renderLibraryContents();});
+      const heading=document.createElement('div');
+      heading.innerHTML='<strong>📁 '+escapeHtml(folder.name)+'</strong><small>'+systemPlays(folder.id).length+' jugada'+(systemPlays(folder.id).length===1?'':'s')+' en este sistema</small>';
+      nav.append(back,heading);container.append(nav);
+
+      const tools=document.createElement('div');tools.className='systemFolderTools';
+      const save=document.createElement('button');save.type='button';save.textContent='＋ Guardar jugada actual aquí';
+      save.addEventListener('click',()=>{const id=saveCurrentToSystemFolder(folder.id,{asNew:false});if(id)renderLibraryContents();});
+      const rename=document.createElement('button');rename.type='button';rename.textContent='Renombrar';
+      rename.addEventListener('click',()=>{
+        const name=prompt('Nuevo nombre del folder:',folder.name);
+        if(name!==null)renameSystemFolder(folder.id,name);
+      });
+      const delFolder=document.createElement('button');delFolder.type='button';delFolder.className='danger';delFolder.textContent='Eliminar folder';
+      delFolder.addEventListener('click',()=>deleteSystemFolder(folder.id));
+      tools.append(save,rename,delFolder);container.append(tools);
+
+      const plays=systemPlays(folder.id);
+      if(!plays.length){
+        const p=document.createElement('p');p.className='libraryMessage';p.textContent='Este folder está vacío. Abre o crea una jugada y toca “Guardar jugada actual aquí”.';container.append(p);return;
+      }
+      const list=document.createElement('div');list.className='libraryList';
+      plays.forEach(item=>{
+        const row=document.createElement('div');row.className='libraryRow systemPlayRow';
+        const info=document.createElement('div');
+        const strong=document.createElement('strong');strong.textContent=item.name||'Jugada';
+        const small=document.createElement('small');
+        small.textContent=(showInLibrary(item)?'📚 Sistema + Mi Biblioteca':'📚 Solo en este sistema')+(item.updatedAt?' · '+new Date(item.updatedAt).toLocaleString():'');
+        info.append(strong,small);appendCategoryBadges(info,item);appendPracticeBadge(info,item);
+        const actions=document.createElement('div');actions.className='libraryRowActions';
+        const open=document.createElement('button');open.type='button';open.textContent='Abrir';open.addEventListener('click',()=>loadLocalPlay(item.id));
+        const visibility=document.createElement('button');visibility.type='button';visibility.className='systemVisibilityBtn';
+        visibility.textContent=showInLibrary(item)?'✓ Biblioteca':'＋ Biblioteca';
+        visibility.addEventListener('click',()=>setSystemPlayLibraryVisibility(item.id,!showInLibrary(item)));
+        const del=document.createElement('button');del.type='button';del.className='danger';del.textContent='Eliminar';del.addEventListener('click',()=>deleteLocalPlay(item.id));
+        actions.append(open,visibility,del);row.append(info,actions);list.append(row);
+      });
+      container.append(list);return;
+    }
+
+    container.append(sectionTitle('📚 Sistemas','Crea folders como Princeton, Flex o Euro Ball Screen y guarda dentro todas sus capas.'));
+    const top=document.createElement('div');top.className='systemsTopActions';
+    const create=document.createElement('button');create.type='button';create.textContent='＋ Nuevo folder';
+    create.addEventListener('click',()=>openSystemFolderPicker({title:'Crear / escoger folder',onSelect:id=>{activeSystemFolderId=id;renderLibraryContents();}}));
+    const saveCurrent=document.createElement('button');saveCurrent.type='button';saveCurrent.textContent='Guardar jugada actual en…';
+    saveCurrent.addEventListener('click',()=>openSystemFolderPicker({onSelect:id=>{saveCurrentToSystemFolder(id,{asNew:false});activeSystemFolderId=id;renderLibraryContents();}}));
+    top.append(create,saveCurrent);container.append(top);
+
+    const folders=systemFolders();
+    if(!folders.length){
+      const p=document.createElement('p');p.className='libraryMessage';p.textContent='Todavía no tienes sistemas. Crea tu primer folder y luego ve guardando ahí las capas que le corresponden.';container.append(p);return;
+    }
+    const grid=document.createElement('div');grid.className='systemFolderGrid';
+    folders.forEach(folder=>{
+      const count=systemPlays(folder.id).length;
+      const card=document.createElement('button');card.type='button';card.className='systemFolderCard';
+      card.innerHTML='<span class="systemFolderIcon">📁</span><strong>'+escapeHtml(folder.name)+'</strong><small>'+count+' jugada'+(count===1?'':'s')+'</small>';
+      card.addEventListener('click',()=>{activeSystemFolderId=folder.id;renderLibraryContents();});
+      grid.append(card);
+    });
+    container.append(grid);
   }
 
   function localRows(container){
@@ -559,6 +842,8 @@
         name:data.name||item.name||'Jugada',
         categories:normalizeCategories(data.categories||categoriesFor(item)),
         practiceFolder:data.practiceFolder===true,
+        systemFolderId:data.systemFolderId||null,
+        showInLibrary:data.showInLibrary===true||!data.systemFolderId,
         updatedAt:item.updated_at||data.savedAt||new Date().toISOString(),
         play:clone(data)
       };
@@ -652,6 +937,7 @@
   function savedPublishedIdentity(){
     const slugs=new Set(),names=new Set();
     readLocal().forEach(item=>{
+      if(isSystemFolderRecord(item))return;
       const play=item&&item.play;
       const slug=play&&play.sourcePublishedSlug;
       if(slug)slugs.add(String(slug));
@@ -662,7 +948,7 @@
   }
 
   async function remoteRows(container){
-    if(activeCategory==='practice')return;
+    if(activeCategory==='practice'||activeCategory==='systems')return;
     container.append(sectionTitle('Publicadas para mí','Jugadas nuevas que yo publique para ti desde nuestro chat. Si las guardas en Mi Biblioteca, dejan de repetirse aquí.'));
     const loading=document.createElement('p');loading.className='libraryMessage';loading.textContent='Buscando jugadas publicadas…';container.append(loading);
     try{
@@ -730,8 +1016,11 @@
     const remoteHost=document.createElement('div');
     content.append(localHost,remoteHost);
 
-    localRows(localHost);
-    remoteRows(remoteHost);
+    if(activeCategory==='systems')renderSystems(localHost);
+    else{
+      localRows(localHost);
+      remoteRows(remoteHost);
+    }
 
     if(window.CourtPlayCloud){
       withTimeout(window.CourtPlayCloud.renderAuth(auth,()=>renderLibraryContents()),5000,null).catch(()=>{});
@@ -791,5 +1080,5 @@
   button?.addEventListener('click',openLibrary);
   const slug=new URLSearchParams(location.search).get('play');
   if(slug)loadPlay(slug,{closePanel:false});
-  window.CourtPlayLibrary={loadPlay,openLibrary,openSaveMenu,openLibrarySaveChoices,saveCurrentToMyLibrary,loadLocalPlay,setPracticeFolder,categories:CATEGORY_DEFS,categoryLabel,suggestCategoriesFromCurrentPlay};
+  window.CourtPlayLibrary={loadPlay,openLibrary,openSaveMenu,openLibrarySaveChoices,saveCurrentToMyLibrary,saveCurrentToSystemFolder,createSystemFolder,loadLocalPlay,setPracticeFolder,categories:CATEGORY_DEFS,categoryLabel,suggestCategoriesFromCurrentPlay};
 })();
