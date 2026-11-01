@@ -387,7 +387,11 @@
     const create=document.createElement('button');create.type='button';create.textContent='＋ Crear folder';
     create.addEventListener('click',()=>{
       const id=createSystemFolder(input.value);
-      if(id){input.value='';renderFolders();}
+      if(id){
+        input.value='';
+        if(onSelect){wrap.remove();onSelect(id);}
+        else renderFolders();
+      }
     });
     input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();create.click();}});
     createBox.append(input,create);
@@ -884,7 +888,7 @@
     const loading=document.createElement('p');loading.className='libraryMessage';loading.textContent='Sincronizando jugadas…';container.append(loading);
     try{
       const allItems=await window.CourtPlayCloud.listPlays();
-      const items=allItems.filter(matchesCategory);
+      const items=allItems.filter(item=>!isSystemFolderRecord(item)).filter(matchesCategory);
       loading.remove();
       if(!items.length){
         const p=document.createElement('p');p.className='libraryMessage';p.textContent=activeCategory==='all'?'Tu biblioteca cloud está vacía. Guarda una jugada y aparecerá aquí en todos tus dispositivos.':'No hay jugadas de '+categoryLabel(activeCategory)+' en Mi Biblioteca Cloud.';container.append(p);return;
